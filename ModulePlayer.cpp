@@ -161,15 +161,9 @@ update_status ModulePlayer::Update()
 
 }
 
-/*bool ModulePlayer::CleanUp()
+bool ModulePlayer::CleanUp()
 {
-	jumpDown.cleanUp();
-	jumpUpwards.cleanUp();
-	kick.cleanUp();
-	punch.cleanUp();
-	backward.cleanUp();
-	forward.cleanUp();
-	idle.cleanUp();
+	App->textures->Unload(player);
 
 	return true;
-}*/
+}

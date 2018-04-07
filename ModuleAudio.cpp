@@ -44,11 +44,11 @@ bool ModuleAudio::Init()
 	}
 
 
-	if (Mix_FadeInMusic(music, -1, 1000) == -1) //play music with fadeIn
+	/*if (Mix_FadeInMusic(music, -1, 1000) == -1) //play music with fadeIn
 	{
 		LOG("Fade in Music failed: %s", Mix_GetError());
 		ret = false;
-	}
+	}*/
 
 	/*if (Mix_PlayMusic(music, -1) == -1) //play music without fade in
 	{

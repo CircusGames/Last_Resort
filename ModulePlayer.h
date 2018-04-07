@@ -16,7 +16,7 @@ public:
 
 	bool Start();
 	update_status Update();
-	//bool CleanUp(); //returns animation rects memory to system
+	bool CleanUp(); 
 
 public:
 
@@ -26,11 +26,6 @@ public:
 	iPoint position;
 
 	Animation playerAnim;
-
-	/*bool isUp = false;
-	bool isDown = false;
-	bool topDown = false; //if player reaches top down screen
-	int lastFrame = 0;*/
 
 	float frameIncrement;
 	float ignitionSpeed;

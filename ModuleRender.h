@@ -24,7 +24,7 @@ public:
 public:
 	SDL_Renderer* renderer = nullptr;
 	SDL_Rect camera;
-	float fCameraSpeed;
+	//float fCameraSpeed;
 	float currentCameraPosX;
 	//bool scroll = false;
 	//int cameraPosX;

@@ -3,6 +3,9 @@
 #include "ModuleTextures.h"
 #include "ModuleRender.h"
 #include "ModuleBackground.h"
+#include "ModulePlayer.h"
+#include "ModuleInput.h"
+#include "ModuleFadeToBlack.h"
 
 #define STREET_LIGHTS_A 15
 #define STREET_LIGHTS_B 13
@@ -438,6 +441,9 @@ bool ModuleBackground::Start()
 	midgroundLightsTexture = App->textures->Load("assets/midgroundLights.png");
 	buildingLasersTexture = App->textures->Load("assets/lvl1_buildingLasers.png");
 
+	//enable player
+	App->player->Enable();
+
 	return ret;
 
 }
@@ -753,6 +759,29 @@ update_status ModuleBackground::Update()
 	
 	//App->render->Blit(App->textures->textures[6], 0, bgMovY.fg_y, &fgRect, 1.0f); //testing purposes
 
+	//SCENE SWITCHING
+
+	//if (App->input->keyboard[SDL_SCANCODE_SPACE] == 1)
+		//App->fade->FadeToBlack(App->);
 
 	return UPDATE_CONTINUE;
+}
+
+bool ModuleBackground::CleanUp()
+{
+	LOG("Unloading lvl1");
+
+	App->player->Disable();
+
+	App->textures->Unload(bg);
+	App->textures->Unload(mg);
+	App->textures->Unload(fg);
+	App->textures->Unload(boss);
+	App->textures->Unload(roadLights);
+	App->textures->Unload(tunelLights);
+	App->textures->Unload(bgLights);
+	App->textures->Unload(midgroundLightsTexture);
+	App->textures->Unload(buildingLasersTexture);
+
+	return true;
 }
