@@ -57,6 +57,7 @@ public:
 	//float now;
 
 	SDL_Rect jerry_smith;
+	SDL_Rect titleScreenRect;
 
 
 	float timeBetweenLetters;

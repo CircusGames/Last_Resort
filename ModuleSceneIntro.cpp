@@ -20,6 +20,12 @@ ModuleSceneIntro::ModuleSceneIntro()
 	jerry_smith.h = 452;
 	//screen = { 0, 0, SCREEN_WIDTH * SCREEN_SIZE, SCREEN_HEIGHT * SCREEN_SIZE };
 
+	titleScreenRect.x = 0;
+	titleScreenRect.y = 0;
+	titleScreenRect.w = 276;
+	titleScreenRect.h = 199;
+
+
 	//letter L rects
 	animationL.PushBack({ 468,297,13,25 });
 	animationL.PushBack({ 454,297,14,37 });
@@ -85,7 +91,6 @@ ModuleSceneIntro::ModuleSceneIntro()
 	animationL.PushBack({ 46,0,46,57 });
 	animationL.PushBack({ 0,0,46,57 });*/
 	animationL.speed = 0.33f;
-	animationL.speed = 0.03f;
 	animationL.repeat = false;
 
 	//letter A rects
@@ -738,7 +743,7 @@ update_status ModuleSceneIntro::Update()
 			current_animation = &animationL;
 			r = current_animation->GetCurrentFrame();
 
-			App->render->Blit(LTexture, 20, 30, &r);
+			App->render->Blit(LTexture, 55, 16, &r);
 
 			current_animation = &animationA;
 			r = current_animation->GetCurrentFrame();
@@ -746,29 +751,29 @@ update_status ModuleSceneIntro::Update()
 			//letter A logic.. ----
 
 			if (current_animation->finish)
-				App->render->Blit(ATexture, 70, 30, &r);
+				App->render->Blit(ATexture, 104, 15, &r);
 			else
-				App->render->Blit(ATexture, 70 - pivotArrayA[(int)current_animation->current_frame], 30, &r);
+				App->render->Blit(ATexture, 104 - pivotArrayA[(int)current_animation->current_frame], 15, &r);
 			//---------------------
 
-			App->render->Blit(S1Texture, 120, 30, &animationS1.GetCurrentFrame());
+			App->render->Blit(S1Texture, 163, 15, &animationS1.GetCurrentFrame());
 
-			App->render->Blit(T1Texture, 170, 30, &animationT1.GetCurrentFrame());
+			App->render->Blit(T1Texture, 208, 14, &animationT1.GetCurrentFrame());
 
-			App->render->Blit(R1Texture, 10, 100, &animationR1.GetCurrentFrame());
+			App->render->Blit(R1Texture, 20, 86, &animationR1.GetCurrentFrame());
 
-			App->render->Blit(ETexture, 60, 100, &animationE.GetCurrentFrame());
+			App->render->Blit(ETexture, 70, 87, &animationE.GetCurrentFrame());
 
-			App->render->Blit(S2Texture, 110, 100, &animationS2.GetCurrentFrame());
+			App->render->Blit(S2Texture, 113, 87, &animationS2.GetCurrentFrame());
 
-			App->render->Blit(OTexture, 160, 100, &animationO.GetCurrentFrame());
+			App->render->Blit(OTexture, 147, 85, &animationO.GetCurrentFrame());
 
-			App->render->Blit(R2Texture, 210, 100, &animationR2.GetCurrentFrame());
+			App->render->Blit(R2Texture, 194, 86, &animationR2.GetCurrentFrame());
 
 			current_animation = &animationT2;
 			r = current_animation->GetCurrentFrame();
 
-			App->render->Blit(T2Texture, 260, 100, &r);
+			App->render->Blit(T2Texture, 238, 85, &r);
 
 			//SDL_SetRenderDrawColor(App->render->renderer, 0, 0, 0 , 0);
 			//SDL_RenderFillRect(App->render->renderer, NULL);
@@ -776,14 +781,14 @@ update_status ModuleSceneIntro::Update()
 			if (App->input->keyboard[SDL_SCANCODE_RETURN] == 1) //skip letters animation scene
 				App->fade->FadeToBlack(App->introScreen, App->background);
 
-			/*if ((int)current_animation->current_frame == (int)current_animation->last_frame)
+			if ((int)current_animation->current_frame == (int)current_animation->last_frame)
 			{
 
 				current_step = intro_step::fade_to_white;
 				start_time = SDL_GetTicks();
 				total_time = 500.0f;
 				lastFadeFromWhiteTime = 3000.0f;
-			}*/
+			}
 
 		}
 	
@@ -807,7 +812,7 @@ update_status ModuleSceneIntro::Update()
 				if (logoDone)
 				{
 					App->render->Blit(blackScreenTexture, 0, 0, NULL);
-					App->render->Blit(titleScreen, 0, 0, NULL);
+					App->render->Blit(titleScreen, 12, 9, NULL);
 					
 				}
 				else
@@ -839,7 +844,7 @@ update_status ModuleSceneIntro::Update()
 		{
 			
 			App->render->Blit(blackScreenTexture, 0, 0, NULL);
-			App->render->Blit(titleScreen, 0, 0, NULL);
+			App->render->Blit(titleScreen, 12, 9, &titleScreenRect);
 			normalized = 1.0f - normalized;
 			//current_step = intro_step::press_start_screen;
 			
@@ -854,7 +859,7 @@ update_status ModuleSceneIntro::Update()
 	if(current_step == intro_step::press_start_screen)
 	{
 		App->render->Blit(blackScreenTexture, 0, 0, NULL);
-		App->render->Blit(titleScreen, 0, 0, NULL);
+		App->render->Blit(titleScreen, 12, 9, &titleScreenRect);
 
 		if (App->input->keyboard[SDL_SCANCODE_RETURN] == 1)
 			App->fade->FadeToBlack(App->introScreen, App->background);
