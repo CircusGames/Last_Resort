@@ -16,7 +16,7 @@ public:
 	bool Init();
 	bool Start();
 	update_status Update();
-	//bool CleanUp();
+	bool CleanUp();
 
 public:
 	SDL_Texture* LTexture = nullptr;
@@ -46,6 +46,7 @@ public:
 
 	int pivotArrayL[32] = {};
 	int pivotArrayA[32] = {-19,-19,-19,-19,-19,-19,-19,-19,-19,-18,-18,-17,-15,-15,-14,-13,0,-8,-5,-5,1,1,1,1,1,1,1,1,1,1,1,1};
+
 
 	Uint32 now;
 	bool logoDone = false;
