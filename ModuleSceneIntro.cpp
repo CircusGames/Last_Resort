@@ -736,7 +736,7 @@ update_status ModuleSceneIntro::Update()
 			current_animation = &animationA;
 			r = current_animation->GetCurrentFrame();
 
-			App->render->Blit(ATexture, 70, 30, &r);
+			App->render->Blit(ATexture, 70 - pivotArrayA[(int)current_animation->current_frame],30, &r);
 
 			App->render->Blit(S1Texture, 120, 30, &animationS1.GetCurrentFrame());
 
@@ -763,14 +763,14 @@ update_status ModuleSceneIntro::Update()
 			if (App->input->keyboard[SDL_SCANCODE_RETURN] == 1) //skip letters animation scene
 				App->fade->FadeToBlack(App->introScreen, App->background);
 
-			if ((int)current_animation->current_frame == (int)current_animation->last_frame)
+			/*if ((int)current_animation->current_frame == (int)current_animation->last_frame)
 			{
 
 				current_step = intro_step::fade_to_white;
 				start_time = SDL_GetTicks();
 				total_time = 500.0f;
 				lastFadeFromWhiteTime = 3000.0f;
-			}
+			}*/
 
 		}
 	

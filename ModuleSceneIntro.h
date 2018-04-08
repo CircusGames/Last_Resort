@@ -43,6 +43,8 @@ public:
 	Animation animationR2;
 	Animation animationT2;
 
+	int pivotArrayA[31] = {-19,-19,-19,-19,-19,-19,-19,-19,-19,-18,-18,-17,-15,-15,-14,-13,0,-8,-5,-5,1,1,1,1,1,1,1,1,1,1,1};
+
 	Uint32 now;
 	bool logoDone = false;
 
