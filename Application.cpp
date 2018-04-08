@@ -7,17 +7,20 @@
 #include "ModulePlayer.h"
 #include "ModuleAudio.h"
 #include "ModuleFadeToBlack.h"
+#include "ModuleSceneIntro.h"
 
 Application::Application()
 {
+	
 	modules[0] = window = new ModuleWindow();
 	modules[1] = render = new ModuleRender();
 	modules[2] = input = new ModuleInput();
 	modules[3] = textures = new ModuleTextures();
 	modules[4] = background = new ModuleBackground();
-	modules[5] = player = new ModulePlayer();
-	modules[6] = audio = new ModuleAudio();
-	modules[7] = fade = new ModuleFadeToBlack();
+	modules[5] = introScreen = new ModuleSceneIntro();
+	modules[6] = player = new ModulePlayer();
+	modules[7] = audio = new ModuleAudio();
+	modules[8] = fade = new ModuleFadeToBlack();
 }	
 
 Application::~Application()
@@ -29,10 +32,11 @@ Application::~Application()
 bool Application::Init()
 {
 	bool ret = true;
-
+	
 	//disable modulePlayer at init
 	player->Disable();
 	//disable the scenes wich i dont need at start/init
+	background->Disable();
 
 	//all modules have their init
 	for(int i = 0; i < NUM_MODULES && ret == true; ++i)
