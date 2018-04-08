@@ -8,6 +8,7 @@
 #include "ModuleAudio.h"
 #include "ModuleFadeToBlack.h"
 #include "ModuleSceneIntro.h"
+#include "ModuleGameOver.h"
 
 Application::Application()
 {
@@ -21,6 +22,7 @@ Application::Application()
 	modules[6] = player = new ModulePlayer();
 	modules[7] = audio = new ModuleAudio();
 	modules[8] = fade = new ModuleFadeToBlack();
+	modules[9] = gameOverScreen = new ModuleGameOver();
 }	
 
 Application::~Application()
@@ -37,6 +39,7 @@ bool Application::Init()
 	player->Disable();
 	//disable the scenes wich i dont need at start/init
 	background->Disable();
+	gameOverScreen->Disable();
 
 	//all modules have their init
 	for(int i = 0; i < NUM_MODULES && ret == true; ++i)

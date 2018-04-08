@@ -150,7 +150,7 @@ ModuleSceneIntro::ModuleSceneIntro()
 	animationA.PushBack({ 100,0 , 50,57 });
 	animationA.PushBack({ 50,0 ,50,57 });
 	animationA.PushBack({ 0,0 , 50,57 });*/
-	animationA.speed = 0.33f;
+	animationA.speed = 0.03f;
 	animationA.repeat = false;
 
 	//Letter s1
@@ -667,6 +667,12 @@ ModuleSceneIntro::ModuleSceneIntro()
 ModuleSceneIntro:: ~ModuleSceneIntro()
 {	}
 
+bool ModuleSceneIntro::Init()
+{
+
+	return true;
+}
+
 
 bool ModuleSceneIntro::Start()
 {
@@ -736,7 +742,7 @@ update_status ModuleSceneIntro::Update()
 			current_animation = &animationA;
 			r = current_animation->GetCurrentFrame();
 
-			App->render->Blit(ATexture, 70, 30, &r);
+			App->render->Blit(ATexture, 100 - pivotArrayA[(int)current_animation->current_frame], 30, &r);
 
 			App->render->Blit(S1Texture, 120, 30, &animationS1.GetCurrentFrame());
 
@@ -857,4 +863,42 @@ update_status ModuleSceneIntro::Update()
 	}*/
 
 	return UPDATE_CONTINUE;
+}
+
+bool ModuleSceneIntro::CleanUp()
+{
+	//unload textures
+	
+	App->textures->Unload(logoTexture); 
+	App->textures->Unload(blackScreenTexture);
+	App->textures->Unload(titleScreen);
+	App->textures->Unload(T2Texture);
+	App->textures->Unload(R2Texture);
+	App->textures->Unload(OTexture);
+	App->textures->Unload(S2Texture);
+	App->textures->Unload(ETexture);
+	App->textures->Unload(R1Texture);
+	App->textures->Unload(T1Texture);
+	App->textures->Unload(S1Texture);
+	App->textures->Unload(ATexture);
+	App->textures->Unload(LTexture);
+
+	//reposition enum state to correct next game loop
+	current_step = intro_step::firstSecuence;
+
+	//unlock last frame animations for non repeated method cycles
+	animationL.current_frame = 0;
+	animationA.current_frame = 0;
+	animationS1.current_frame = 0;
+	animationT1.current_frame = 0;
+	animationR1.current_frame = 0;
+	animationE.current_frame = 0;
+	animationS2.current_frame = 0;
+	animationO.current_frame = 0; 
+	animationR2.current_frame = 0;
+	animationT2.current_frame = 0;
+
+
+	return true;
+
 }

@@ -6,6 +6,7 @@
 #include "ModulePlayer.h"
 #include "ModuleInput.h"
 #include "ModuleFadeToBlack.h"
+#include "ModuleGameOver.h"
 
 #define STREET_LIGHTS_A 15
 #define STREET_LIGHTS_B 13
@@ -43,7 +44,7 @@ ModuleBackground::ModuleBackground()
 	{
 		streetLightA[i].PushBack({ 0,0,48,65 });
 		streetLightA[i].PushBack({ 49,0,48,65 });
-		streetLightA[i].PushBack({ 98,0, 48,65 });
+		streetLightA[i].PushBack({ 98,0,48,65 });
 		streetLightA[i].PushBack({ 147,0,48,65 });
 		streetLightA[i].PushBack({ 196,0,48,65 });
 		streetLightA[i].PushBack({ 147,0,48,65 });
@@ -444,6 +445,25 @@ bool ModuleBackground::Start()
 	//enable player
 	App->player->Enable();
 
+	//assign or reassign currentCameraPosX to camera.x, restart lvl at init position
+	App->render->currentCameraPosX = App->render->camera.x;
+
+	//assign scene ground move positions to start position ------
+	bgMovY.currentLoops = 1;
+	bgMovY.mg_y = 32; //midground y coordinate value = maxPixelOnTexture(mg) + spawnPointFirstBuildingOnGame
+	bgMovY.fgTemp = 0; //defines correct temp values foreground y (stores the floating increment to further cast int)
+	bgMovY.mgTemp = bgMovY.mg_y;//defines correct temp values midground y
+	bgMovY.lastMovPosX = App->render->currentCameraPosX; //returns lastMovPosX to correct value
+	//correct bools to start level conditions (no checkpoints contempled on this workaround)
+	bool up = true; //on first level the first move is down
+	bool down = false;
+	//events
+	bool moveUp = false;
+	bool moveDown = false;
+	//checker condition
+	updatePos = true;
+
+	//------------------------------------------------------------
 	return ret;
 
 }
@@ -761,8 +781,8 @@ update_status ModuleBackground::Update()
 
 	//SCENE SWITCHING
 
-	//if (App->input->keyboard[SDL_SCANCODE_SPACE] == 1)
-		//App->fade->FadeToBlack(App->);
+	if (App->input->keyboard[SDL_SCANCODE_SPACE] == 1)
+		App->fade->FadeToBlack(App->background, App->gameOverScreen);
 
 	return UPDATE_CONTINUE;
 }
@@ -782,6 +802,12 @@ bool ModuleBackground::CleanUp()
 	App->textures->Unload(bgLights);
 	App->textures->Unload(midgroundLightsTexture);
 	App->textures->Unload(buildingLasersTexture);
+
+	//returns correct value for next cameraPosition on camera.x position for next scene
+	//if we have checkpoints on level, nail more this event (save the checkpoint position etc
+	//on game loop before cleanUp)
+	App->render->camera.x = 0;
+	App->render->camera.y = 0;
 
 	return true;
 }

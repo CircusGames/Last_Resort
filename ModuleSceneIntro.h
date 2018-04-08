@@ -13,9 +13,10 @@ public:
 	ModuleSceneIntro();
     ~ModuleSceneIntro();
 
+	bool Init();
 	bool Start();
 	update_status Update();
-	//bool CleanUp();
+	bool CleanUp();
 
 public:
 	SDL_Texture* LTexture = nullptr;
@@ -42,6 +43,10 @@ public:
 	Animation animationO;
 	Animation animationR2;
 	Animation animationT2;
+
+	int pivotArrayA[31] = { 1,1,1,1,1,1,1,1,1,1,
+							1,1,1,1,1,1,1,1,1,1,
+							1,1,1,1,1,1,1,1,1,1,1 };
 
 	Uint32 now;
 	bool logoDone = false;

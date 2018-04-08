@@ -28,6 +28,10 @@ bool ModulePlayer::Start()
 	
 	LOG("Loading player textures");
 	bool ret = true;
+
+	//restart player positions for next time playerModule call
+	position.x = 40;
+	position.y = 80;
 	
 	player = App->textures->Load("assets/player1_incomplete.png");
 

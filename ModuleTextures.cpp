@@ -91,11 +91,18 @@ bool ModuleTextures::Unload(SDL_Texture* texture)
 
 	if (texture != nullptr)
 	{
-		texture = nullptr;
+		for (int i = 0; i < MAX_TEXTURES; ++i)
+		{
+			if (textures[i] == texture)
+			{
+				textures[i] = nullptr;
+				ret = true;
+				break;
+			}
+		}
 		SDL_DestroyTexture(texture);
-		ret = true;
 	}
-	
+
 	return ret;
 
 }
