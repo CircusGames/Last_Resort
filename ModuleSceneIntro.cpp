@@ -699,7 +699,6 @@ bool ModuleSceneIntro::Start()
 
 	start_time = SDL_GetTicks(); //initializes for logo timer
 	total_time = 2000.0f; //logo timer
-	//now = SDL_GetTicks() - start_time;
 
 
 
@@ -742,7 +741,6 @@ update_status ModuleSceneIntro::Update()
 			current_animation = &animationA;
 			r = current_animation->GetCurrentFrame();
 
-			App->render->Blit(ATexture, 100 - pivotArrayA[(int)current_animation->current_frame], 30, &r);
 
 			App->render->Blit(S1Texture, 120, 30, &animationS1.GetCurrentFrame());
 
