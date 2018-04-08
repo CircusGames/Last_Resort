@@ -213,7 +213,7 @@ ModuleSceneIntro::ModuleSceneIntro()
 	animationS1.PushBack({ 64,0 , 32,58 });
 	animationS1.PushBack({ 32,0, 32,58 });
 	animationS1.PushBack({ 0,0 , 32,58 });*/
-	animationS1.speed = 0.33f;
+	animationS1.speed = 0.03f;
 	animationS1.repeat = false;
 
 	//animation letter T1
