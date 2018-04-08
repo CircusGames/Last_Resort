@@ -446,24 +446,30 @@ bool ModuleBackground::Start()
 	App->player->Enable();
 
 	//assign or reassign currentCameraPosX to camera.x, restart lvl at init position
-	App->render->currentCameraPosX = App->render->camera.x;
+	App->render->currentCameraPosX = 0; //App->render->camera.x;
 
 	//assign scene ground move positions to start position ------
 	bgMovY.currentLoops = 1;
 	bgMovY.mg_y = 32; //midground y coordinate value = maxPixelOnTexture(mg) + spawnPointFirstBuildingOnGame
+	bgMovY.fg_y = 0;
 	bgMovY.fgTemp = 0; //defines correct temp values foreground y (stores the floating increment to further cast int)
 	bgMovY.mgTemp = bgMovY.mg_y;//defines correct temp values midground y
-	bgMovY.lastMovPosX = App->render->currentCameraPosX; //returns lastMovPosX to correct value
-	//correct bools to start level conditions (no checkpoints contempled on this workaround)
-	bool up = true; //on first level the first move is down
-	bool down = false;
+	bgMovY.lastMovPosX = 0; //App->render->currentCameraPosX; //returns lastMovPosX to correct value
+	
+	//correct bools to start level conditions (no checkpoints contempled on this workaround)--------------------
+	bgMovY.up = true; //on first level the first move is down
+	bgMovY.down = false;
+	bgMovY.fgRendezvous = false;
+	bgMovY.mgRendezvous = false;
 	//events
-	bool moveUp = false;
-	bool moveDown = false;
+	bgMovY.move = false;
+	bgMovY.moveUp = false;
+	bgMovY.moveDown = false;
+	bgMovY.lastLoop = false;
 	//checker condition
 	updatePos = true;
 
-	//------------------------------------------------------------
+	//-----------------------------------------------------------------------------------------------------------
 	return ret;
 
 }
