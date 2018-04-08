@@ -85,6 +85,7 @@ ModuleSceneIntro::ModuleSceneIntro()
 	animationL.PushBack({ 46,0,46,57 });
 	animationL.PushBack({ 0,0,46,57 });*/
 	animationL.speed = 0.33f;
+	animationL.speed = 0.03f;
 	animationL.repeat = false;
 
 	//letter A rects
