@@ -150,7 +150,7 @@ ModuleSceneIntro::ModuleSceneIntro()
 	animationA.PushBack({ 100,0 , 50,57 });
 	animationA.PushBack({ 50,0 ,50,57 });
 	animationA.PushBack({ 0,0 , 50,57 });*/
-	animationA.speed = 0.33f;
+	animationA.speed = 0.03f;
 	animationA.repeat = false;
 
 	//Letter s1
@@ -667,6 +667,12 @@ ModuleSceneIntro::ModuleSceneIntro()
 ModuleSceneIntro:: ~ModuleSceneIntro()
 {	}
 
+bool ModuleSceneIntro::Init()
+{
+
+	return true;
+}
+
 
 bool ModuleSceneIntro::Start()
 {
@@ -693,7 +699,7 @@ bool ModuleSceneIntro::Start()
 
 	start_time = SDL_GetTicks(); //initializes for logo timer
 	total_time = 2000.0f; //logo timer
-	//now = SDL_GetTicks() - start_time;
+	now = SDL_GetTicks() - start_time;
 
 
 
@@ -763,14 +769,14 @@ update_status ModuleSceneIntro::Update()
 			if (App->input->keyboard[SDL_SCANCODE_RETURN] == 1) //skip letters animation scene
 				App->fade->FadeToBlack(App->introScreen, App->background);
 
-			/*if ((int)current_animation->current_frame == (int)current_animation->last_frame)
+			if ((int)current_animation->current_frame == (int)current_animation->last_frame)
 			{
 
 				current_step = intro_step::fade_to_white;
 				start_time = SDL_GetTicks();
 				total_time = 500.0f;
 				lastFadeFromWhiteTime = 3000.0f;
-			}*/
+			}
 
 		}
 	
@@ -857,4 +863,42 @@ update_status ModuleSceneIntro::Update()
 	}*/
 
 	return UPDATE_CONTINUE;
+}
+
+bool ModuleSceneIntro::CleanUp()
+{
+	//unload textures
+	
+	App->textures->Unload(logoTexture); 
+	App->textures->Unload(blackScreenTexture);
+	App->textures->Unload(titleScreen);
+	App->textures->Unload(T2Texture);
+	App->textures->Unload(R2Texture);
+	App->textures->Unload(OTexture);
+	App->textures->Unload(S2Texture);
+	App->textures->Unload(ETexture);
+	App->textures->Unload(R1Texture);
+	App->textures->Unload(T1Texture);
+	App->textures->Unload(S1Texture);
+	App->textures->Unload(ATexture);
+	App->textures->Unload(LTexture);
+
+	//reposition enum state to correct next game loop
+	current_step = intro_step::firstSecuence;
+
+	//unlock last frame animations for non repeated method cycles
+	animationL.current_frame = 0;
+	animationA.current_frame = 0;
+	animationS1.current_frame = 0;
+	animationT1.current_frame = 0;
+	animationR1.current_frame = 0;
+	animationE.current_frame = 0;
+	animationS2.current_frame = 0;
+	animationO.current_frame = 0; 
+	animationR2.current_frame = 0;
+	animationT2.current_frame = 0;
+
+
+	return true;
+
 }
