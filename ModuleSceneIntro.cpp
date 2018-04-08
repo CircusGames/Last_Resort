@@ -751,12 +751,12 @@ update_status ModuleSceneIntro::Update()
 			//letter A logic.. ----
 
 			if (current_animation->finish)
-				App->render->Blit(ATexture, 104, 15, &r);
+				App->render->Blit(ATexture, 104 - pivotArrayL[(int)current_animation->current_frame], 15, &r);
 			else
 				App->render->Blit(ATexture, 104 - pivotArrayA[(int)current_animation->current_frame], 15, &r);
 			//---------------------
 
-			App->render->Blit(S1Texture, 163, 15, &animationS1.GetCurrentFrame());
+			App->render->Blit(S1Texture, 163 - pivotArrayS1[(int)current_animation->current_frame], 15, &animationS1.GetCurrentFrame());
 
 			App->render->Blit(T1Texture, 208, 14, &animationT1.GetCurrentFrame());
 
