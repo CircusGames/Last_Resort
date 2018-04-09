@@ -324,7 +324,7 @@ ModuleSceneIntro::ModuleSceneIntro()
 	animationS1.PushBack({ 64,0 , 32,58 });
 	animationS1.PushBack({ 32,0, 32,58 });
 	animationS1.PushBack({ 0,0 , 32,58 });*/
-	animationS1.speed = 0.03f;
+	animationS1.speed = 0.33f;
 	animationS1.repeat = false;
 
 	//animation letter T1
@@ -871,19 +871,26 @@ update_status ModuleSceneIntro::Update()
 
 			App->render->Blit(LTexture, 55, 16, &r);
 
+			
+
+			//letter A logic.. -----
 			current_animation = &animationA;
 			r = current_animation->GetCurrentFrame();
 
-			//letter A logic.. ----
-
 			if (current_animation->finish)
-				App->render->Blit(ATexture, 104 - pivotArrayL[(int)current_animation->current_frame], 15, &r);
+				App->render->Blit(ATexture, 104, 15, &r);
 			else
 				App->render->Blit(ATexture, 104 - pivotArrayA[(int)current_animation->current_frame], 15, &r);
 			//---------------------
 
-			App->render->Blit(S1Texture, 163 - pivotArrayS1[(int)current_animation->current_frame], 15, &animationS1.GetCurrentFrame());
-
+			//letter S1 logic ... ----
+			current_animation = &animationS1;
+			r = current_animation->GetCurrentFrame();
+			if(current_animation->finish)
+				App->render->Blit(S1Texture, 163, 15, &r);
+			else
+				App->render->Blit(S1Texture, 163 - pivotArrayS1[(int)current_animation->current_frame] +1, 15, &r);
+			// ------------------------
 			App->render->Blit(T1Texture, 208, 14, &animationT1.GetCurrentFrame());
 
 			App->render->Blit(R1Texture, 20, 86, &animationR1.GetCurrentFrame());
@@ -1039,6 +1046,7 @@ bool ModuleSceneIntro::CleanUp()
 	animationA.current_frame = 0;
 	animationA.finish = false;
 	animationS1.current_frame = 0;
+	animationS1.finish = false;
 	animationT1.current_frame = 0;
 	animationR1.current_frame = 0;
 	animationE.current_frame = 0;
