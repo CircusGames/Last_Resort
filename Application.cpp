@@ -40,7 +40,7 @@ bool Application::Init()
 	
 	//disable modulePlayer at init
 	player->Disable();
-
+	playerUnit->Disable();
 	//disable the scenes wich i dont need at start/init
 	background->Disable();
 	gameOverScreen->Disable();
