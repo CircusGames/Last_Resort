@@ -29,7 +29,7 @@ public:
 
 public:
 	//some needed vars or specific functions
-
+	Animation playerUnitAnim;
 
 };
 #endif // !__MODULEPLAYERUNIT_H__
