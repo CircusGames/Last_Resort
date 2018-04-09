@@ -6,6 +6,7 @@
 #include "ModuleBackground.h"
 #include "ModuleInput.h"
 #include "ModuleFadeToBlack.h"
+#include "ModuleAudio.h"
 
 #include "SDL/include/SDL_timer.h"
 
@@ -818,6 +819,10 @@ bool ModuleSceneIntro::Start()
 	snkCorpTexture = App->textures->Load("assets/intro/snkCorp.png");
 	provisionalTexture = App->textures->Load("assets/intro/provisional.png");
 
+	//loading apropiate music
+	App->audio->LoadMUS("assets/titleScreenSong.ogg", "titleSong");
+	App->audio->ControlMUS("titleSong", FADEIN, 1000.0f);
+
 	start_time = SDL_GetTicks(); //initializes for logo timer
 	total_time = 2000.0f; //logo timer
 	now = SDL_GetTicks() - start_time;
@@ -1056,6 +1061,10 @@ bool ModuleSceneIntro::CleanUp()
 	animationT2.current_frame = 0;
 
 	pushStart.current_frame = 0;
+
+	//unloading music
+	//Mix_FadeOutMusic(500);
+	App->audio->UnloadMus("titleSong");
 
 
 	return true;

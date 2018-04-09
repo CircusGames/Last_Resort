@@ -5,20 +5,53 @@
 #include "Module.h"
 #include "SDL_mixer\include\SDL_mixer.h"
 
+#define MAX_SONGS 10
+#define MAX_FX 64
+
+enum audio_state
+{
+	PLAY,
+	STOP,
+	FADEIN,
+	FADEOFF,
+};
+
+struct sfx
+{
+	Mix_Chunk* chunk;
+	char* name;
+};
+
+struct songsStruct
+{
+	Mix_Music* songs;
+	char* name;
+};
+
+
 class ModuleAudio : public Module
 {
+private:
+	songsStruct songsArray[MAX_SONGS] = { nullptr };
+	sfx sfxArray[MAX_FX] = { nullptr };
+
+	int last_chunk = 0;
+	int last_song = 0;
+
 public:
+
+	ModuleAudio();
+	~ModuleAudio();
 
 	bool Init();
-	//here method to load array of songs
-
+	//Mix_Chunk* const LoadSfx(const char* path, char *name);
+	Mix_Music* const LoadMUS(const char* path, char *name);
+	void UnloadMus(char* name);
 	//update_status update(); //not for now
+	void ControlMUS(char* name, audio_state state, float fadeInTimeMs = 1000.0f, float fadeOffTimeMs = 500.0f);
 	bool CleanUp();
 
-public:
 
-	Mix_Music* music = nullptr;
-	Mix_Chunk* fx = nullptr;
 
 };
 

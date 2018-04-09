@@ -7,6 +7,7 @@
 #include "ModuleGameOver.h"
 #include "ModuleInput.h"
 #include "ModuleFadeToBlack.h"
+#include "ModuleAudio.h"
 
 //#include "SDL/include/SDL_timer.h"
 
@@ -27,6 +28,10 @@ bool ModuleGameOver::Start()
 
 	gameOverTexture = App->textures->Load("assets/GameOver.png");
 
+	//loading music
+	App->audio->LoadMUS("assets/Continue.ogg", "continueSong");
+	App->audio->ControlMUS("continueSong", PLAY);
+
 	return true;
 }
 
@@ -45,6 +50,10 @@ bool ModuleGameOver::CleanUp()
 {
 	//unload textures
 	App->textures->Unload(gameOverTexture);
+
+	//unload music
+	//Mix_FadeOutMusic(250);
+	App->audio->UnloadMus("continueSong");
 
 	return true;
 }

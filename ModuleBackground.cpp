@@ -7,6 +7,7 @@
 #include "ModuleInput.h"
 #include "ModuleFadeToBlack.h"
 #include "ModuleGameOver.h"
+#include "ModuleAudio.h"
 
 #define STREET_LIGHTS_A 15
 #define STREET_LIGHTS_B 13
@@ -442,6 +443,10 @@ bool ModuleBackground::Start()
 	midgroundLightsTexture = App->textures->Load("assets/midgroundLights.png");
 	buildingLasersTexture = App->textures->Load("assets/lvl1_buildingLasers.png");
 
+	//loading music and fx
+	App->audio->LoadMUS("assets/song1.ogg", "song1");
+	App->audio->ControlMUS("song1", FADEIN, 1500.0f);
+
 	//enable player
 	App->player->Enable();
 
@@ -788,14 +793,14 @@ update_status ModuleBackground::Update()
 	//SCENE SWITCHING
 
 	if (App->input->keyboard[SDL_SCANCODE_RETURN] == 1)
-		App->fade->FadeToBlack(App->background, App->gameOverScreen);
+		App->fade->FadeToBlack(App->background, App->gameOverScreen, 3.0f);
 
 	return UPDATE_CONTINUE;
 }
 
 bool ModuleBackground::CleanUp()
 {
-	LOG("Unloading lvl1");
+	LOG("Unloading lvl1 textures");
 
 	App->player->Disable();
 
@@ -809,11 +814,15 @@ bool ModuleBackground::CleanUp()
 	App->textures->Unload(midgroundLightsTexture);
 	App->textures->Unload(buildingLasersTexture);
 
+	LOG("Return correct camera values");
 	//returns correct value for next cameraPosition on camera.x position for next scene
 	//if we have checkpoints on level, nail more this event (save the checkpoint position etc
 	//on game loop before cleanUp)
 	App->render->camera.x = 0;
 	App->render->camera.y = 0;
 
+	LOG("Unloading level music and fx");
+	Mix_FadeOutMusic(250);
+	App->audio->UnloadMus("song1");
 	return true;
 }

@@ -11,8 +11,14 @@
 
 #pragma comment( lib, "SDL_mixer/libx86/SDL2_mixer.lib" )
 
+ModuleAudio::ModuleAudio() : Module() {}
+
+ModuleAudio::~ModuleAudio() {}
+
 bool ModuleAudio::Init()
 {
+	LOG("Init Module Audio");
+
 	bool ret = true;
 	if (SDL_Init(SDL_INIT_AUDIO) == -1) //initializes SDL audio
 	{
@@ -34,13 +40,100 @@ bool ModuleAudio::Init()
 		ret = false;
 	};
 
-
-	music = Mix_LoadMUS("assets/song1.ogg");
-
-	if (!music)
+	/*if (!music)
 	{
 		LOG("Music cannot be loaded: %s", SDL_GetError());
 		ret = false;
+	}*/
+
+	return ret;
+}
+
+	Mix_Music* const ModuleAudio::LoadMUS(const char* path, char* name) 
+	{
+
+		Mix_Music *music = nullptr;
+		char *_name = name;
+
+		music = Mix_LoadMUS(path);
+
+		if (music == nullptr)
+		{
+			LOG("Unable to load music Mix Error: %s\n", Mix_GetError());
+		}
+		else
+		{
+			songsArray[last_song].songs = music;
+			songsArray[last_song].name = _name;
+			last_song++;
+		}
+		return music;
+	}
+
+	void ModuleAudio::ControlMUS(char* name, audio_state state , float fadeInTimeMs,float fadeOffTimeMs)
+	{
+		Mix_Music *music = nullptr;
+		char *_name = name;
+		
+		for (int i = 0; i <= last_song; ++i) {
+			if (songsArray[i].name == _name) {
+				music = songsArray[i].songs;
+			}
+		}
+
+
+		if (music == nullptr) {
+			LOG("Music not found ControlMUS : %s\n", name);
+		}
+		else {
+			switch (state)
+			{
+			case PLAY:
+				if (!Mix_PlayingMusic())
+					Mix_PlayMusic(music, 3);
+				else
+					LOG("Music is already played : %s\n", name);
+				break;
+			case STOP:
+				if (!Mix_PausedMusic())
+					Mix_PauseMusic();
+				else
+					LOG("Music is already stoped : %s\n", name);
+				break;
+			case FADEIN:
+				if (!Mix_FadingMusic() || !Mix_PlayingMusic)
+					Mix_FadeInMusic(music,-1, (int)fadeInTimeMs);
+				else
+					LOG("Music is already fading or playing : %s\n", name);
+				break;
+			case FADEOFF:
+				if (Mix_PlayingMusic())
+					Mix_FadeOutMusic((int)fadeOffTimeMs);
+				else
+					LOG("Music is already faded out or stoped : %s\n", name);
+				break;
+
+			default:
+				break;
+			}
+		}
+	}
+
+	void ModuleAudio::UnloadMus(char* name)
+	{
+
+		//returns memory
+		char *_name = name;
+
+		for (int i = 0; i < MAX_SONGS -1; ++i) 
+		{
+			if (songsArray[i].name == _name) 
+			{
+				Mix_FreeMusic(songsArray[i].songs);
+				songsArray[i].songs = nullptr;
+				songsArray[i].name = nullptr;
+			}
+		}
 	}
 
 
@@ -59,16 +152,34 @@ bool ModuleAudio::Init()
 	//here should be initialized the FX audio
 	//...... nothing for now : )
 
-	return ret;
+	//return ret;
 
-}
+//}
 
 bool ModuleAudio::CleanUp()
 {
-	while (!Mix_FadeOutMusic(500) && Mix_PlayingMusic()); //fadeOutMusic ???
+	LOG("stop music");
+
+	/*for (int i = 0; i < MAX_SONGS; ++i)
+		if (sfx[i].chunk != nullptr) 
+		{
+			Mix_FreeChunk(sfx[i].chunk);
+			sfxArray[i].fx = nullptr;
+			sfxArray[i].name = nullptr;
+		}*/
+
+	for (int i = 0; i < MAX_FX -1; ++i)
+		if (songsArray[i].songs != nullptr) 
+		{
+			Mix_FreeMusic(songsArray[i].songs);
+			songsArray[i].songs = nullptr;
+			songsArray[i].name = nullptr;
+		}
+
+	/*while (!Mix_FadeOutMusic(500) && Mix_PlayingMusic()); //fadeOutMusic ???
 	Mix_FreeMusic(music);
 	music = nullptr;
-	//Mix_FreeChunk(fx); //not implemented yet
+	//Mix_FreeChunk(fx); //not implemented yet */
 	Mix_CloseAudio();
 	Mix_Quit();
 
