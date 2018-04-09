@@ -14,19 +14,130 @@
 ModuleSceneIntro::ModuleSceneIntro()
 {
 	//jerry_smith = { 0, 0 , 370, 452 };
-	jerry_smith.x = 0;
-	jerry_smith.y = 0;
-	jerry_smith.w = 370;
-	jerry_smith.h = 452;
+	jerry_smith.x = 700;
+	jerry_smith.y = 700;
+	jerry_smith.w = 1436;
+	jerry_smith.h = 1446;
 	//screen = { 0, 0, SCREEN_WIDTH * SCREEN_SIZE, SCREEN_HEIGHT * SCREEN_SIZE };
 
+	//rect for title screen after swap animated letters to fixed background
 	titleScreenRect.x = 0;
 	titleScreenRect.y = 0;
 	titleScreenRect.w = 276;
-	titleScreenRect.h = 199;
+	titleScreenRect.h = 139;
+
+	//snk rect
+	snk.x = 0;
+	snk.y = 0;
+	snk.w = 72;
+	snk.h = 19;
+	
+	//snkCorp rect
+	snkCorp.x = 0;
+	snkCorp.y = 0;
+	snkCorp.w = 168;
+	snkCorp.h = 8;
 
 
-	//letter L rects
+	//animation pushStart Button
+	/*pushStart.PushBack({ 276,110,138,11 });
+	pushStart.PushBack({ 138,110,138,11 });
+	pushStart.PushBack({ 0,110,138,11 });
+	pushStart.PushBack({ 276,99,138,11 });
+	pushStart.PushBack({ 138,99,138,11 });*/
+
+	pushStart.PushBack({ 0,99,138,11 });
+	pushStart.PushBack({ 276,88,138,11 });
+	pushStart.PushBack({ 138,88,138,11 });
+	pushStart.PushBack({ 0,88,138,11 });
+	pushStart.PushBack({ 276,77,138,11 });
+	pushStart.PushBack({ 138,77,138,11 });
+	pushStart.PushBack({ 0,77,138,11 });
+	pushStart.PushBack({ 276,66,138,11 });
+	pushStart.PushBack({ 138,66 ,138,11 });
+	pushStart.PushBack({ 0,66,138,11 });
+	pushStart.PushBack({ 276,55, 138,11 });
+	pushStart.PushBack({ 138,55, 138,11 });
+	pushStart.PushBack({ 0,55, 138,11 });
+	pushStart.PushBack({ 276,44, 138,11 });
+	pushStart.PushBack({ 138,44, 138,11 });
+	pushStart.PushBack({ 0,44, 138,11 });
+	pushStart.PushBack({ 276,33, 138,11 });
+	pushStart.PushBack({ 138, 33, 138,11 });
+	pushStart.PushBack({ 0,33, 138,11 });
+	pushStart.PushBack({ 276,22, 138,11 });
+	pushStart.PushBack({ 138,22, 138,11 });
+	pushStart.PushBack({ 0 ,22, 138,11 });
+	pushStart.PushBack({ 276,11, 138,11 });
+	pushStart.PushBack({ 138,11, 138,11 });
+	pushStart.PushBack({ 0,11, 138,11 });
+	pushStart.PushBack({ 276,0, 138,11 });
+	pushStart.PushBack({ 138,0,138,11 });
+	//full light -------------------------
+	pushStart.PushBack({ 0,0, 138,11 });
+	pushStart.PushBack({ 0,0, 138,11 });
+	pushStart.PushBack({ 0,0, 138,11 });
+	pushStart.PushBack({ 0,0, 138,11 });
+	pushStart.PushBack({ 0,0, 138,11 });
+	pushStart.PushBack({ 0,0, 138,11 });
+	pushStart.PushBack({ 0,0, 138,11 });
+	pushStart.PushBack({ 0,0, 138,11 });
+	pushStart.PushBack({ 0,0, 138,11 });
+	pushStart.PushBack({ 0,0, 138,11 });
+	pushStart.PushBack({ 0,0, 138,11 });
+	// -----------------------------------
+	//pushStart.PushBack({ 0,0, 138,11 });
+	pushStart.PushBack({ 138,0,138,11 });
+	pushStart.PushBack({ 276,0, 138,11 });
+	pushStart.PushBack({ 0,11, 138,11 });
+	pushStart.PushBack({ 138,11, 138,11 });
+	pushStart.PushBack({ 276,11, 138,11 });
+	pushStart.PushBack({ 0 ,22, 138,11 });
+	pushStart.PushBack({ 138,22, 138,11 });
+	pushStart.PushBack({ 276,22, 138,11 });
+	pushStart.PushBack({ 0,33, 138,11 });
+	pushStart.PushBack({ 138, 33, 138,11 });
+	pushStart.PushBack({ 276,33, 138,11 });
+	pushStart.PushBack({ 0,44, 138,11 });
+	pushStart.PushBack({ 138,44, 138,11 });
+	pushStart.PushBack({ 276,44, 138,11 });
+	pushStart.PushBack({ 0,55, 138,11 });
+	pushStart.PushBack({ 138,55, 138,11 });
+	pushStart.PushBack({ 276,55, 138,11 });
+	pushStart.PushBack({ 0,66,138,11 });
+	pushStart.PushBack({ 138,66 ,138,11 });
+	pushStart.PushBack({ 276,66,138,11 });
+	pushStart.PushBack({ 0,77,138,11 });
+	pushStart.PushBack({ 138,77,138,11 });
+	pushStart.PushBack({ 276,77,138,11 });
+	pushStart.PushBack({ 0,88,138,11 });
+	pushStart.PushBack({ 138,88,138,11 });
+	pushStart.PushBack({ 276,88,138,11 });
+	pushStart.PushBack({ 0,99,138,11 });
+	pushStart.PushBack({ 138,99,138,11 });
+	pushStart.PushBack({ 276,99,138,11 });
+	pushStart.PushBack({ 0,110,138,11 });
+	pushStart.PushBack({ 138,110,138,11 });
+	//light off ---------------------------
+	pushStart.PushBack({ 276,110,138,11 });
+	pushStart.PushBack({ 276,110,138,11 });
+	pushStart.PushBack({ 276,110,138,11 });
+	pushStart.PushBack({ 276,110,138,11 });
+	pushStart.PushBack({ 276,110,138,11 });
+	pushStart.PushBack({ 276,110,138,11 });
+	pushStart.PushBack({ 276,110,138,11 });
+	pushStart.PushBack({ 276,110,138,11 });
+	pushStart.PushBack({ 276,110,138,11 });
+
+	pushStart.PushBack({ 276,110,138,11 });
+	pushStart.PushBack({ 138,110,138,11 });
+	pushStart.PushBack({ 0,110,138,11 });
+	pushStart.PushBack({ 276,99,138,11 });
+	pushStart.PushBack({ 138,99,138,11 });
+
+	pushStart.speed = 0.5f;
+
+	//letter L rects ----------------------------------------------------
 	animationL.PushBack({ 468,297,13,25 });
 	animationL.PushBack({ 454,297,14,37 });
 	animationL.PushBack({ 439,297,15,58 });
@@ -701,7 +812,11 @@ bool ModuleSceneIntro::Start()
 	T2Texture = App->textures->Load("assets/intro/T2MOD.png");
 	titleScreen = App->textures->Load("assets/intro/titleScreen.png");
 	blackScreenTexture = App->textures->Load("assets/intro/black.png");
-	logoTexture = App->textures->Load("assets/intro/logo.png");
+	logoTexture = App->textures->Load("assets/intro/teamLogo.png");
+	pushStartTexture = App->textures->Load("assets/intro/pushStart.png");
+	snkTexture = App->textures->Load("assets/intro/snk.png");
+	snkCorpTexture = App->textures->Load("assets/intro/snkCorp.png");
+	provisionalTexture = App->textures->Load("assets/intro/provisional.png");
 
 	start_time = SDL_GetTicks(); //initializes for logo timer
 	total_time = 2000.0f; //logo timer
@@ -721,9 +836,20 @@ update_status ModuleSceneIntro::Update()
 	if (current_step == intro_step::teamLogo || current_step == intro_step::fade_to_white )
 	{
 		now = SDL_GetTicks() - start_time;
-		App->render->Blit(blackScreenTexture, 0, 0, NULL);
-		App->render->Blit(logoTexture, 0, 0, &jerry_smith);
+		//App->render->Blit(blackScreenTexture, 0, 0, NULL);
+		//App->render->Blit(logoTexture, 0, 0, &jerry_smith);
 
+		//fill rects with aproppiate color
+		SDL_SetRenderDrawColor(App->render->renderer, 255, 255, 255,255);
+		SDL_RenderFillRect(App->render->renderer, NULL);
+		
+		//direct rendercopy 
+
+		SDL_Rect logoRect = { 92*SCREEN_SIZE,52*SCREEN_SIZE,120*SCREEN_SIZE,120*SCREEN_SIZE };
+		SDL_Rect provisionalRect = { 67*SCREEN_SIZE,67*SCREEN_SIZE,80*SCREEN_SIZE,10*SCREEN_SIZE };
+		SDL_RenderCopy(App->render->renderer, logoTexture, NULL, &logoRect);
+		SDL_RenderCopy(App->render->renderer, provisionalTexture, NULL, &provisionalRect);
+		
 		if (now >= total_time && current_step == intro_step::teamLogo)
 		//if (App->input->keyboard[SDL_SCANCODE_SPACE] == 1)
 		{
@@ -817,7 +943,7 @@ update_status ModuleSceneIntro::Update()
 				}
 				else
 				{
-					App->render->Blit(blackScreenTexture, 0, 0, NULL);
+					//App->render->Blit(blackScreenTexture, 0, 0, NULL);
 					App->render->Blit(logoTexture, 0, 0, NULL);
 					
 					current_step = intro_step::firstSecuence;
@@ -861,8 +987,15 @@ update_status ModuleSceneIntro::Update()
 		App->render->Blit(blackScreenTexture, 0, 0, NULL);
 		App->render->Blit(titleScreen, 12, 9, &titleScreenRect);
 
+		//pushStart anim
+		App->render->Blit(pushStartTexture, 104, 175, &pushStart.GetCurrentFrame());
+		
+		//snk trademark
+		App->render->Blit(snkTexture, 12, 170, &snk);
+		App->render->Blit(snkCorpTexture, 64, 200, &snkCorp);
+
 		if (App->input->keyboard[SDL_SCANCODE_RETURN] == 1)
-			App->fade->FadeToBlack(App->introScreen, App->background);
+			App->fade->FadeToBlack(App->introScreen, App->background, 1.0f);
 	}
 
 
@@ -880,7 +1013,10 @@ update_status ModuleSceneIntro::Update()
 bool ModuleSceneIntro::CleanUp()
 {
 	//unload textures
-	
+	App->textures->Unload(provisionalTexture);
+	App->textures->Unload(snkCorpTexture);
+	App->textures->Unload(snkTexture);
+	App->textures->Unload(pushStartTexture);
 	App->textures->Unload(logoTexture); 
 	App->textures->Unload(blackScreenTexture);
 	App->textures->Unload(titleScreen);
@@ -901,6 +1037,7 @@ bool ModuleSceneIntro::CleanUp()
 	//unlock last frame animations for non repeated method cycles
 	animationL.current_frame = 0;
 	animationA.current_frame = 0;
+	animationA.finish = false;
 	animationS1.current_frame = 0;
 	animationT1.current_frame = 0;
 	animationR1.current_frame = 0;
@@ -909,6 +1046,8 @@ bool ModuleSceneIntro::CleanUp()
 	animationO.current_frame = 0; 
 	animationR2.current_frame = 0;
 	animationT2.current_frame = 0;
+
+	pushStart.current_frame = 0;
 
 
 	return true;

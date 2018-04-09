@@ -32,6 +32,10 @@ public:
 	SDL_Texture* titleScreen = nullptr;
 	SDL_Texture* blackScreenTexture = nullptr;
 	SDL_Texture* logoTexture = nullptr;
+	SDL_Texture* pushStartTexture = nullptr;
+	SDL_Texture* snkTexture = nullptr;
+	SDL_Texture* snkCorpTexture = nullptr;
+	SDL_Texture* provisionalTexture = nullptr;
 
 	Animation animationL;
 	Animation animationA;
@@ -43,6 +47,7 @@ public:
 	Animation animationO;
 	Animation animationR2;
 	Animation animationT2;
+	Animation pushStart;
 
 	int pivotArrayA[32] = {-19,-19,-19,-19,-19,-19,-19,-19,-19,-18,-18,-17,-15,-15,-14,-13,0,-8,-5,-5,1,1,1,1,1,1,1,1,1,0,0,0};
 
@@ -58,6 +63,8 @@ public:
 
 	SDL_Rect jerry_smith;
 	SDL_Rect titleScreenRect;
+	SDL_Rect snk;
+	SDL_Rect snkCorp;
 
 
 	float timeBetweenLetters;

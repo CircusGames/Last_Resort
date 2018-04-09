@@ -19,10 +19,11 @@ Application::Application()
 	modules[3] = textures = new ModuleTextures();
 	modules[4] = background = new ModuleBackground();
 	modules[5] = introScreen = new ModuleSceneIntro();
-	modules[6] = player = new ModulePlayer();
-	modules[7] = audio = new ModuleAudio();
-	modules[8] = fade = new ModuleFadeToBlack();
-	modules[9] = gameOverScreen = new ModuleGameOver();
+	modules[6] = gameOverScreen = new ModuleGameOver();
+	modules[7] = player = new ModulePlayer();
+	modules[8] = audio = new ModuleAudio();
+	modules[9] = fade = new ModuleFadeToBlack();
+
 }	
 
 Application::~Application()

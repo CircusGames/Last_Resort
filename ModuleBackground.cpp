@@ -787,7 +787,7 @@ update_status ModuleBackground::Update()
 
 	//SCENE SWITCHING
 
-	if (App->input->keyboard[SDL_SCANCODE_SPACE] == 1)
+	if (App->input->keyboard[SDL_SCANCODE_RETURN] == 1)
 		App->fade->FadeToBlack(App->background, App->gameOverScreen);
 
 	return UPDATE_CONTINUE;

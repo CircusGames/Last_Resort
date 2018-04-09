@@ -33,10 +33,10 @@ bool ModuleGameOver::Start()
 update_status ModuleGameOver::Update()
 {
 
-	App->render->Blit(gameOverTexture, 0,0, &gameOverRect);
+	App->render->Blit(gameOverTexture, 35,46, &gameOverRect);
 
 	if (App->input->keyboard[SDL_SCANCODE_RETURN] == 1)
-		App->fade->FadeToBlack(App->gameOverScreen, App->introScreen);
+		App->fade->FadeToBlack(App->gameOverScreen, App->introScreen, 0.8f);
 
 	return UPDATE_CONTINUE;
 }
