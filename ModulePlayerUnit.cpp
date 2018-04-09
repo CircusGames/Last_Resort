@@ -179,23 +179,26 @@ update_status ModulePlayerUnit::Update()
 	
 	//int angle = 0;
 	Uint32 tick_now = SDL_GetTicks();
-	//if (tick_now > last_tick)
-	//{
+	if (tick_now > last_tick)
+	{
 		delta_time = tick_now - last_tick;
 		last_tick = tick_now;
-	//}
+	}
 
 	//y height ball distante to player pos up and down = 18
 	//x width unit right and left = 8
 
 	orbitSpeed = 3.0f;
+
+	if(App->input->keyboard[SDL_SCANCODE_W] == 1)
 	angle += (int)orbitSpeed * (delta_time / 1000);
+
 	Animation* currentPlayerFrameAnim;
 	currentPlayerFrameAnim = &App->player->playerAnim;
 	SDL_Rect* playerPosX = &currentPlayerFrameAnim->GetCurrentFrame();
 
 	float  x = (App->player->position.x + 10) + cos(angle) * 32;//23.5;
-	float y = (App->player->position.y - 7) + sin(angle) * 24;
+	float y = (App->player->position.y - 7) + sin(angle) * 32;//24;
 	//App->render->Blit(playerUnitBlue, 40 - unitRect.w/2 ,40 - unitRect.h/2, &unitRect, 0.0f);
 
 	App->render->Blit(playerUnitBlue,  x - pivotArrayPositionsX[(int)current_animation->current_frame],  y - pivotArrayPositionsY[(int)current_animation->current_frame], &unitRect, 0.0f);
