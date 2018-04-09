@@ -188,7 +188,7 @@ update_status ModulePlayerUnit::Update()
 	//y height ball distante to player pos up and down = 18
 	//x width unit right and left = 8
 
-	orbitSpeed = 3.0f;
+	orbitSpeed = 5.0f;
 
 	if (App->input->keyboard[SDL_SCANCODE_A] == 1)
 	{
@@ -207,7 +207,7 @@ update_status ModulePlayerUnit::Update()
 	currentPlayerFrameAnim = &App->player->playerAnim;
 	SDL_Rect* playerPosX = &currentPlayerFrameAnim->GetCurrentFrame();
 
-	float  x = (App->player->position.x + 10) + cos(angle) * 32;//23.5;
+	float  x = (App->player->position.x + 9) + cos(angle) * 31.5;//orginal distance
 	float y = (App->player->position.y - 7) - sin(angle) * 32;//24;
 	//App->render->Blit(playerUnitBlue, 40 - unitRect.w/2 ,40 - unitRect.h/2, &unitRect, 0.0f);
 
