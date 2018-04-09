@@ -68,7 +68,7 @@ public:
 									  1,1,1,1,1,1,1,1
 	};
 
-	float orbitSpeed = 100.0f;
+	float orbitSpeed = 3.0f;
 	float angle = 0;
 	float last_tick;
 	float delta_time;

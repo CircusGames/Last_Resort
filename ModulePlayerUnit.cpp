@@ -190,15 +190,25 @@ update_status ModulePlayerUnit::Update()
 
 	orbitSpeed = 3.0f;
 
-	if(App->input->keyboard[SDL_SCANCODE_W] == 1)
-	angle += (int)orbitSpeed * (delta_time / 1000);
+	if (App->input->keyboard[SDL_SCANCODE_A] == 1)
+	{
+		if(angle > 3.14)
+		angle += (int)orbitSpeed * (delta_time / 1000);
+	}
+	if (App->input->keyboard[SDL_SCANCODE_D] == 1)
+	{
+		if (angle < 3.14)
+			angle += (int)orbitSpeed * (delta_time / 1000);
+	}
+	if (angle > 6.28) angle = 0;
+
 
 	Animation* currentPlayerFrameAnim;
 	currentPlayerFrameAnim = &App->player->playerAnim;
 	SDL_Rect* playerPosX = &currentPlayerFrameAnim->GetCurrentFrame();
 
 	float  x = (App->player->position.x + 10) + cos(angle) * 32;//23.5;
-	float y = (App->player->position.y - 7) + sin(angle) * 32;//24;
+	float y = (App->player->position.y - 7) - sin(angle) * 32;//24;
 	//App->render->Blit(playerUnitBlue, 40 - unitRect.w/2 ,40 - unitRect.h/2, &unitRect, 0.0f);
 
 	App->render->Blit(playerUnitBlue,  x - pivotArrayPositionsX[(int)current_animation->current_frame],  y - pivotArrayPositionsY[(int)current_animation->current_frame], &unitRect, 0.0f);
