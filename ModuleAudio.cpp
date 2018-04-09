@@ -75,7 +75,8 @@ bool ModuleAudio::Init()
 		Mix_Music *music = nullptr;
 		char *_name = name;
 		
-		for (int i = 0; i <= last_song; ++i) {
+		for (int i = 0; i <= last_song; ++i) //here we have some problem, 3-4 loop game Over not sound...
+		{
 			if (songsArray[i].name == _name) {
 				music = songsArray[i].songs;
 			}

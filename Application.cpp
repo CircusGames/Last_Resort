@@ -5,6 +5,7 @@
 #include "ModuleTextures.h"
 #include "ModuleBackground.h"
 #include "ModulePlayer.h"
+#include "ModulePlayerUnit.h"
 #include "ModuleAudio.h"
 #include "ModuleFadeToBlack.h"
 #include "ModuleSceneIntro.h"
@@ -20,9 +21,10 @@ Application::Application()
 	modules[4] = background = new ModuleBackground();
 	modules[5] = introScreen = new ModuleSceneIntro();
 	modules[6] = gameOverScreen = new ModuleGameOver();
-	modules[7] = player = new ModulePlayer();
-	modules[8] = audio = new ModuleAudio();
-	modules[9] = fade = new ModuleFadeToBlack();
+	modules[7] = playerUnit = new ModulePlayerUnit();
+	modules[8] = player = new ModulePlayer();
+	modules[9] = audio = new ModuleAudio();
+	modules[10] = fade = new ModuleFadeToBlack();
 
 }	
 
@@ -38,6 +40,7 @@ bool Application::Init()
 	
 	//disable modulePlayer at init
 	player->Disable();
+
 	//disable the scenes wich i dont need at start/init
 	background->Disable();
 	gameOverScreen->Disable();

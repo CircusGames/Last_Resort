@@ -30,7 +30,7 @@ bool ModuleGameOver::Start()
 
 	//loading music
 	App->audio->LoadMUS("assets/Continue.ogg", "continueSong");
-	App->audio->ControlMUS("continueSong", PLAY);
+	App->audio->ControlMUS("continueSong", FADEIN, 500.0f);
 
 	return true;
 }
@@ -52,7 +52,7 @@ bool ModuleGameOver::CleanUp()
 	App->textures->Unload(gameOverTexture);
 
 	//unload music
-	//Mix_FadeOutMusic(250);
+	Mix_FadeOutMusic(250);
 	App->audio->UnloadMus("continueSong");
 
 	return true;
