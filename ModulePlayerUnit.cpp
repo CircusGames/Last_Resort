@@ -137,7 +137,7 @@ ModulePlayerUnit::ModulePlayerUnit()
 	playerUnitAnim.PushBack({ 44,0 , 22,16 });
 	playerUnitAnim.PushBack({ 22,0 , 22,16 });
 	playerUnitAnim.PushBack({ 0,0 , 22,16 });
-	playerUnitAnim.speed = 0.5f;
+	playerUnitAnim.speed = 0.143f;
 
 
 
@@ -154,12 +154,51 @@ bool ModulePlayerUnit::Init()
 
 bool ModulePlayerUnit::Start()
 {
+	LOG("Starting playerUnit Module");
+
+	
+	playerUnitBlue = App->textures->Load("assets/player/blueUnit.png");
+
+	//delta calculations
+	orbitSpeed = 1.0f;
+	last_tick = 0;
 
 	return true;
 }
 
 update_status ModulePlayerUnit::Update()
 {
+	Animation* current_animation;
+	SDL_Rect unitRect;
+	current_animation = &playerUnitAnim;
+	unitRect = current_animation->GetCurrentFrame();
+
+	//angle += orbit_speed * delta_time;
+	//x = center_x + radius * cos(angle);
+	//y = center_y + radius * sin(angle);
+	
+	//int angle = 0;
+	Uint32 tick_now = SDL_GetTicks();
+	//if (tick_now > last_tick)
+	//{
+		delta_time = tick_now - last_tick;
+		last_tick = tick_now;
+	//}
+
+	//y height ball distante to player pos up and down = 18
+	//x width unit right and left = 8
+
+	orbitSpeed = 3.0f;
+	angle += (int)orbitSpeed * (delta_time / 1000);
+	Animation* currentPlayerFrameAnim;
+	currentPlayerFrameAnim = &App->player->playerAnim;
+	SDL_Rect* playerPosX = &currentPlayerFrameAnim->GetCurrentFrame();
+
+	float  x = (App->player->position.x + 10) + cos(angle) * 32;//23.5;
+	float y = (App->player->position.y - 7) + sin(angle) * 24;
+	//App->render->Blit(playerUnitBlue, 40 - unitRect.w/2 ,40 - unitRect.h/2, &unitRect, 0.0f);
+
+	App->render->Blit(playerUnitBlue,  x - pivotArrayPositionsX[(int)current_animation->current_frame],  y - pivotArrayPositionsY[(int)current_animation->current_frame], &unitRect, 0.0f);
 
 	return UPDATE_CONTINUE;
 }

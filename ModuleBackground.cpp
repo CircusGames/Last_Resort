@@ -8,6 +8,7 @@
 #include "ModuleFadeToBlack.h"
 #include "ModuleGameOver.h"
 #include "ModuleAudio.h"
+#include "ModulePlayerUnit.h"
 
 #define STREET_LIGHTS_A 15
 #define STREET_LIGHTS_B 13
@@ -444,11 +445,12 @@ bool ModuleBackground::Start()
 	buildingLasersTexture = App->textures->Load("assets/lvl1_buildingLasers.png");
 
 	//loading music and fx
-	App->audio->LoadMUS("assets/song1.ogg", "song1");
-	App->audio->ControlMUS("song1", FADEIN, 1500.0f);
+	//App->audio->LoadMUS("assets/song1.ogg", "song1");
+	//App->audio->ControlMUS("song1", FADEIN, 1500.0f);
 
 	//enable player
 	App->player->Enable();
+	App->playerUnit->Enable();
 
 	//assign or reassign currentCameraPosX to camera.x, restart lvl at init position
 	App->render->currentCameraPosX = 0; //App->render->camera.x;

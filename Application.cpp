@@ -42,7 +42,8 @@ bool Application::Init()
 	player->Disable();
 	playerUnit->Disable();
 	//disable the scenes wich i dont need at start/init
-	background->Disable();
+	introScreen->Disable();
+	//background->Disable();
 	gameOverScreen->Disable();
 
 	//all modules have their init
