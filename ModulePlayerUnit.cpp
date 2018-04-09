@@ -192,14 +192,28 @@ update_status ModulePlayerUnit::Update()
 
 	if (App->input->keyboard[SDL_SCANCODE_A] == 1)
 	{
-		if(angle > 3.14)
-		angle += (int)orbitSpeed * (delta_time / 1000);
+		if (angle > 3.14)
+		{
+			angle += (int)orbitSpeed * (delta_time / 1000);
+		}
+		if (angle < 3.14 && angle > 0)
+		{
+			angle -= (int)orbitSpeed * (delta_time / 1000);
+			//angle = 3.14;
+		}
 	}
 	if (App->input->keyboard[SDL_SCANCODE_D] == 1)
 	{
 		if (angle < 3.14)
+		{
 			angle += (int)orbitSpeed * (delta_time / 1000);
+		}
+		if (angle > 3.18 && angle < 6.28) //3.18 because floating values
+		{
+			angle -= (int)orbitSpeed * (delta_time / 1000);
+		}
 	}
+
 	if (angle > 6.28) angle = 0;
 
 
