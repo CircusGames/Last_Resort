@@ -70,8 +70,11 @@ public:
 
 	float orbitSpeed = 3.0f;
 	float angle = 0;
+	int numFullCircles;
 	float last_tick;
 	float delta_time;
+
+	bool newLap = false;
 
 };
 #endif // !__MODULEPLAYERUNIT_H__

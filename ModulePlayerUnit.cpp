@@ -163,6 +163,8 @@ bool ModulePlayerUnit::Start()
 	orbitSpeed = 1.0f;
 	last_tick = 0;
 
+	numFullCircles = 1;
+
 	return true;
 }
 
@@ -188,33 +190,81 @@ update_status ModulePlayerUnit::Update()
 	//y height ball distante to player pos up and down = 18
 	//x width unit right and left = 8
 
-	orbitSpeed = 5.0f;
+	orbitSpeed = 6.5f;
 
-	if (App->input->keyboard[SDL_SCANCODE_A] == 1)
+	if (App->input->keyboard[SDL_SCANCODE_A]==1)
 	{
-		if (angle > 3.14)
+		if (angle >= 3.14f)// * numFullCircles) //fix this for more orbitSpeed
 		{
 			angle += (int)orbitSpeed * (delta_time / 1000);
 		}
-		if (angle < 3.14 && angle > 0)
+		if (angle < 3.14f && angle >= 0) //returns upwards
 		{
 			angle -= (int)orbitSpeed * (delta_time / 1000);
 			//angle = 3.14;
 		}
 	}
-	if (App->input->keyboard[SDL_SCANCODE_D] == 1)
+	if (App->input->keyboard[SDL_SCANCODE_D] == 1 && App->input->keyboard[SDL_SCANCODE_A] == 0)
 	{
-		if (angle < 3.14)
-		{
-			angle += (int)orbitSpeed * (delta_time / 1000);
-		}
-		if (angle > 3.18 && angle < 6.28) //3.18 because floating values
+		if (angle > 3.14f && angle < 6.28f) //3.18 because floating values
 		{
 			angle -= (int)orbitSpeed * (delta_time / 1000);
 		}
+		if (angle < 3.14f) //* numFullCircles) 
+		{
+			angle += (int)orbitSpeed * (delta_time / 1000);
+		}
+		
 	}
 
-	if (angle > 6.28) angle = 0;
+	if (angle >= 6.28f) angle = 0;
+	if (angle < 0) angle = 6.28f; //if we go under 0, full circle
+
+	if (App->input->keyboard[SDL_SCANCODE_W] == 1)
+	{
+		if (angle < 1.57f && angle >= 0 || angle > 4.71f)
+		{
+			angle -= (int)orbitSpeed * (delta_time / 1000);
+		}
+
+		if (angle >= 1.57f && angle <= 4.71)
+		{
+			angle += (int)orbitSpeed * (delta_time / 1000);
+		}
+	}
+
+	if (App->input->keyboard[SDL_SCANCODE_S] == 1)
+	{
+		if (angle > 1.57f && angle < 4.71f)
+		{
+			angle -= (int)orbitSpeed * (delta_time / 1000);
+		}
+
+		if (angle < 1.57f && angle >= 0 || angle >= 4.71f)
+		{
+			angle += (int)orbitSpeed * (delta_time / 1000);
+		}
+
+		
+	}
+
+
+	/*if (App->input->keyboard[SDL_SCANCODE_D] == 1)
+	{
+		if (angle == 0 || angle < 3.14)
+		{
+			angle += (int)orbitSpeed * (delta_time / 1000);
+		}
+	}*/
+		
+		/*angle += (int)orbitSpeed * (delta_time / 1000);
+	if (App->input->keyboard[SDL_SCANCODE_D] == 1)
+		angle -= (int)orbitSpeed * (delta_time / 1000);
+
+	if (angle > 3.14)
+	{
+		numFullCircles++;
+	}*/
 
 
 	Animation* currentPlayerFrameAnim;
