@@ -200,17 +200,17 @@ bool ModulePlayerUnit::Start()
 	return true;
 }
 
-update_status ModulePlayerUnit::Update()
+update_status ModulePlayerUnit::PreUpdate()
 {
-	Animation* current_animation;
-	SDL_Rect unitRect;
-	current_animation = &playerUnitAnim[0];
-	unitRect = current_animation->GetCurrentFrame();
+
+	//PlayerUnit movement logic and input
+
+	
 
 	//angle += orbit_speed * delta_time;
 	//x = center_x + radius * cos(angle);
 	//y = center_y + radius * sin(angle);
-	
+
 	//int angle = 0;
 	Uint32 tick_now = SDL_GetTicks();
 	if (tick_now > last_tick)
@@ -250,19 +250,19 @@ update_status ModulePlayerUnit::Update()
 	{
 		if (angle > 3.14f && angle < 6.28f) //3.18 because floating values
 		{
-		angle -= (int)orbitSpeed * (delta_time / 1000);
+			angle -= (int)orbitSpeed * (delta_time / 1000);
 		}
 		if (angle < 3.14f)
 		{
 			angle += (int)orbitSpeed * (delta_time / 1000);
 		}
-		
+
 	}
 
 	if (angle >= 6.28f) angle = 0;
 	else if (angle < 0) angle = 6.28f; //if we go under 0, full circle
 
-	if (App->input->keyboard[SDL_SCANCODE_W] == 1 && 
+	if (App->input->keyboard[SDL_SCANCODE_W] == 1 &&
 		App->input->keyboard[SDL_SCANCODE_S] == 0 && //constrains original opposite up and down case
 		App->input->keyboard[SDL_SCANCODE_D] == 0 &&
 		App->input->keyboard[SDL_SCANCODE_A] == 0) //constrains upper left diagonal case
@@ -344,11 +344,11 @@ update_status ModulePlayerUnit::Update()
 		{
 			angle -= (int)orbitSpeed * (delta_time / 1000);
 		}
-		
+
 		if (angle >= 6.28f) angle = 0; //force check to avoid Nicolas
 		else if (angle < 0) angle = 6.28f; //if we go under 0, full circle
 
-		if (angle <= 0 || angle > (1.75f * 3.14f)) // 7/4*pi quadrant
+		if (angle <= 0 || angle >(1.75f * 3.14f)) // 7/4*pi quadrant
 		{
 			angle -= (int)orbitSpeed * (delta_time / 1000);
 		}
@@ -361,7 +361,7 @@ update_status ModulePlayerUnit::Update()
 	//up and right case
 	if (App->input->keyboard[SDL_SCANCODE_W] == 1 && App->input->keyboard[SDL_SCANCODE_D] == 1)
 	{
-		if (angle > (1.75f / 2) && angle < 1.25f * 3.14f)
+		if (angle >(1.75f / 2) && angle < 1.25f * 3.14f)
 		{
 			angle += (int)orbitSpeed * (delta_time / 1000);
 		}
@@ -370,7 +370,7 @@ update_status ModulePlayerUnit::Update()
 			angle -= (int)orbitSpeed * (delta_time / 1000);
 		}
 		if (angle < 0) angle = 6.28f; //if we go under 0, full circle
-		//if (angle >= 6.28f) angle = 0; //force check to avoid Nicolas
+									  //if (angle >= 6.28f) angle = 0; //force check to avoid Nicolas
 		if (angle <= 6.28f && angle >(1.25f * 3.14f))
 		{
 			angle -= (int)orbitSpeed * (delta_time / 1000);
@@ -378,11 +378,15 @@ update_status ModulePlayerUnit::Update()
 
 	}
 
-	//testing check
-	/*if (angle >= 6.28f) 
-		angle = 0;
-	if (angle == 0) 
-		angle = 6.28f; //if we go under 0, full circle*/
+	return UPDATE_CONTINUE;
+}
+
+update_status ModulePlayerUnit::Update()
+{
+	Animation* current_animation;
+	SDL_Rect unitRect;
+	current_animation = &playerUnitAnim[0];
+	unitRect = current_animation->GetCurrentFrame();
 
 
 	Animation* currentPlayerFrameAnim;
@@ -391,7 +395,7 @@ update_status ModulePlayerUnit::Update()
 
 	float  x = (App->player->position.x + 9) + cos(angle) * 31.5;//orginal distance
 	float y = (App->player->position.y - 7) - sin(angle) * 32;//24;
-	//App->render->Blit(playerUnitBlue, 40 - unitRect.w/2 ,40 - unitRect.h/2, &unitRect, 0.0f);
+	
 
 	App->render->Blit(playerUnitBlue,  x - pivotArrayPositionsX[(int)current_animation->current_frame],  y - pivotArrayPositionsY[(int)current_animation->current_frame], &unitRect, 0.0f);
 
