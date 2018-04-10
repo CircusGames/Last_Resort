@@ -9,8 +9,28 @@
 ModulePlayer::ModulePlayer()
 {
 	position.x = 40;
-	position.y = 80;
-	
+	position.y = 74;
+
+	//spawn anim
+	spawnAnim.PushBack({ 0,122,111,1 }); //0,79 
+	spawnAnim.PushBack({ 6,125,105,2 }); //13,80 
+	spawnAnim.PushBack({ 1,127,76,4 }); //12,79 
+	spawnAnim.PushBack({ 0,131,74,8 }); //12,76 
+	spawnAnim.PushBack({ 2,142,62,15 }); //8,72
+	spawnAnim.PushBack({ 2,171,62,15 }); //8,73
+	spawnAnim.PushBack({ 13,193,51,16 }); //16,72
+	spawnAnim.PushBack({ 13,219,51,16 }); //16,72
+	spawnAnim.PushBack({ 64,143,64,16 }); //8,72
+	spawnAnim.PushBack({ 64,164,64,25 }); //8,67
+	spawnAnim.PushBack({ 71,188,57,25 }); //15,67
+	spawnAnim.PushBack({ 72,214,56,25 }); //16,67
+	spawnAnim.PushBack({ 156,143,36,19 }); //36,71
+	spawnAnim.PushBack({ 160,171,32,15 }); //40,73        
+	spawnAnim.speed = 0.143f;
+	spawnAnim.repeat = true;
+
+
+	//movement anim
 	playerAnim.PushBack({ 0,3,32,13 }); //up2 - 0
 	playerAnim.PushBack({ 32,3,32,13 }); //up1 - 1
 	playerAnim.PushBack({ 64,3,32,12 }); //idle - 2
@@ -51,6 +71,8 @@ update_status ModulePlayer::Update()
 	float speed = 1.4f; //player position speed
 	playerSpeed = speed; //resets the temporal incrementer to always Nicolas at the desired incrementer count
 						  //new change direction starts incrementer at speed correct value (always same distances)
+
+	App->render->Blit(player,300, 50, &spawnAnim.GetCurrentFrame());
 
 	Animation* current_animation = &playerAnim;
 	

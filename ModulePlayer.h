@@ -26,6 +26,7 @@ public:
 	iPoint position;
 
 	Animation playerAnim;
+	Animation spawnAnim;
 
 	float frameIncrement;
 	float ignitionSpeed;
