@@ -1,6 +1,8 @@
 #ifndef __MODULEPLAYERUNIT_H__
 #define __MODULEPLAYERUNIT_H__
 
+#define MAX_ANIMS 16
+
 #include "Module.h"
 #include "Animation.h"
 #include "Globals.h"
@@ -30,7 +32,10 @@ public:
 public:
 	//some needed vars or specific functions
 	SDL_Texture* playerUnitBlue;
-	Animation playerUnitAnim;
+	Animation playerUnitAnim[MAX_ANIMS];
+	//Animation playerUnit1Basic;
+	//Animation playerUnit1Extra;
+	//Animation playerUnit2Basic;
 
 	int pivotArrayPositionsX[128] = { 1,1,1,1,1,1,1,1,
 									  1,1,1,1,1,1,1,1,

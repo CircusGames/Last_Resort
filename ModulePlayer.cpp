@@ -9,7 +9,7 @@
 ModulePlayer::ModulePlayer()
 {
 	position.x = 40;
-	position.y = 74;
+	position.y = 80;
 
 	//spawn anim
 	spawnAnim.PushBack({ 0,122,111,1 }); //0,79 
@@ -72,7 +72,7 @@ update_status ModulePlayer::Update()
 	playerSpeed = speed; //resets the temporal incrementer to always Nicolas at the desired incrementer count
 						  //new change direction starts incrementer at speed correct value (always same distances)
 
-	App->render->Blit(player,300, 50, &spawnAnim.GetCurrentFrame());
+	//App->render->Blit(player,300, 50, &spawnAnim.GetCurrentFrame());
 
 	Animation* current_animation = &playerAnim;
 	
