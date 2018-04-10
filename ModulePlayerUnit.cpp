@@ -192,7 +192,14 @@ update_status ModulePlayerUnit::Update()
 
 	orbitSpeed = 6.5f;
 
-	if (App->input->keyboard[SDL_SCANCODE_A]==1)
+	//if (angle >= 6.28f) angle = 0;
+	//if (angle < 0) angle = 6.28f; //if we go under 0, full circle
+
+	//linear moves -------------------------------------------------------------------
+
+	if (App->input->keyboard[SDL_SCANCODE_A] == 1 &&
+		App->input->keyboard[SDL_SCANCODE_S] == 0 &&
+		App->input->keyboard[SDL_SCANCODE_W] == 0) //constrains upper left diagonal case
 	{
 		if (angle >= 3.14f)// * numFullCircles) //fix this for more orbitSpeed
 		{
@@ -204,13 +211,16 @@ update_status ModulePlayerUnit::Update()
 			//angle = 3.14;
 		}
 	}
-	if (App->input->keyboard[SDL_SCANCODE_D] == 1 && App->input->keyboard[SDL_SCANCODE_A] == 0)
+	if (App->input->keyboard[SDL_SCANCODE_D] == 1 &&  //if right
+		App->input->keyboard[SDL_SCANCODE_A] == 0 &&  //and not left (original opposite direction priority)
+		App->input->keyboard[SDL_SCANCODE_W] == 0 && //and not up (diagonal case)
+		App->input->keyboard[SDL_SCANCODE_S] == 0)   //and not down right
 	{
 		if (angle > 3.14f && angle < 6.28f) //3.18 because floating values
 		{
-			angle -= (int)orbitSpeed * (delta_time / 1000);
+		angle -= (int)orbitSpeed * (delta_time / 1000);
 		}
-		if (angle < 3.14f) //* numFullCircles) 
+		if (angle < 3.14f)
 		{
 			angle += (int)orbitSpeed * (delta_time / 1000);
 		}
@@ -218,11 +228,22 @@ update_status ModulePlayerUnit::Update()
 	}
 
 	if (angle >= 6.28f) angle = 0;
-	if (angle < 0) angle = 6.28f; //if we go under 0, full circle
+	else if (angle < 0) angle = 6.28f; //if we go under 0, full circle
 
-	if (App->input->keyboard[SDL_SCANCODE_W] == 1)
+	if (App->input->keyboard[SDL_SCANCODE_W] == 1 && 
+		App->input->keyboard[SDL_SCANCODE_S] == 0 && //constrains original opposite up and down case
+		App->input->keyboard[SDL_SCANCODE_D] == 0 &&
+		App->input->keyboard[SDL_SCANCODE_A] == 0) //constrains upper left diagonal case
 	{
-		if (angle < 1.57f && angle >= 0 || angle > 4.71f)
+		//if (angle < 0) angle = 6.28f; //if we go under 0, full circle
+		if (angle < 1.57f && angle >= 0) //|| angle > 4.71f) //separated to avoid clack
+		{
+			angle -= (int)orbitSpeed * (delta_time / 1000);
+		}
+		//force the check to avoid mini Nicolas
+		if (angle < 0) angle = 6.28f; //if we go under 0, full circle
+
+		if (angle > 4.71f) //separate check to workaround mini Nicolas
 		{
 			angle -= (int)orbitSpeed * (delta_time / 1000);
 		}
@@ -233,7 +254,9 @@ update_status ModulePlayerUnit::Update()
 		}
 	}
 
-	if (App->input->keyboard[SDL_SCANCODE_S] == 1)
+	if (App->input->keyboard[SDL_SCANCODE_S] == 1 &&
+		App->input->keyboard[SDL_SCANCODE_A] == 0 && //constrains diagonal down and left
+		App->input->keyboard[SDL_SCANCODE_D] == 0) //constrains diagonal down and right
 	{
 		if (angle > 1.57f && angle < 4.71f)
 		{
@@ -244,27 +267,90 @@ update_status ModulePlayerUnit::Update()
 		{
 			angle += (int)orbitSpeed * (delta_time / 1000);
 		}
-
-		
 	}
 
+	//diagonal moves ---------------------------------------------------------------------
 
-	/*if (App->input->keyboard[SDL_SCANCODE_D] == 1)
+	//down and left case
+	if (App->input->keyboard[SDL_SCANCODE_S] == 1 && App->input->keyboard[SDL_SCANCODE_A] == 1)
 	{
-		if (angle == 0 || angle < 3.14)
+		if (angle > (1.25f * 3.14f) && angle > 0)//4.71f && angle > 0)
 		{
 			angle += (int)orbitSpeed * (delta_time / 1000);
 		}
-	}*/
-		
-		/*angle += (int)orbitSpeed * (delta_time / 1000);
-	if (App->input->keyboard[SDL_SCANCODE_D] == 1)
-		angle -= (int)orbitSpeed * (delta_time / 1000);
+		if (angle < 1.57f && angle >= 0 && angle < 1.57f / 2)
+		{
+			angle += (int)orbitSpeed * (delta_time / 1000);
+		}
+		if (angle < (1.25f * 3.14f) && angle > 1.57f / 2)
+		{
+			angle -= (int)orbitSpeed * (delta_time / 1000);
+		}
+	}
 
-	if (angle > 3.14)
+	//down and right case
+	if (App->input->keyboard[SDL_SCANCODE_S] == 1 && App->input->keyboard[SDL_SCANCODE_D] == 1)
 	{
-		numFullCircles++;
-	}*/
+		if (angle > (1.75f * 3.14f) && angle > 0)
+		{
+			angle += (int)orbitSpeed * (delta_time / 1000);
+		}
+		if (angle < 0.75f * 3.14f) //(3/4*pi) quadrant
+		{
+			angle += (int)orbitSpeed * (delta_time / 1000);
+		}
+		if (angle < (1.75f * 3.14f) && angle >(0.75f * 3.14f))
+		{
+			angle -= (int)orbitSpeed * (delta_time / 1000);
+		}
+	}
+
+	//up and left case
+	if (App->input->keyboard[SDL_SCANCODE_W] == 1 && App->input->keyboard[SDL_SCANCODE_A] == 1)
+	{
+		if (angle < (0.75f * 3.14f) && angle > 0)
+		{
+			angle -= (int)orbitSpeed * (delta_time / 1000);
+		}
+		
+		if (angle >= 6.28f) angle = 0; //force check to avoid Nicolas
+		else if (angle < 0) angle = 6.28f; //if we go under 0, full circle
+
+		if (angle <= 0 || angle > (1.75f * 3.14f)) // 7/4*pi quadrant
+		{
+			angle -= (int)orbitSpeed * (delta_time / 1000);
+		}
+		if (angle > (0.75f* 3.14f) && angle < (1.75f * 3.14f))
+		{
+			angle += (int)orbitSpeed * (delta_time / 1000);
+		}
+	}
+
+	//up and right case
+	if (App->input->keyboard[SDL_SCANCODE_W] == 1 && App->input->keyboard[SDL_SCANCODE_D] == 1)
+	{
+		if (angle > (1.75f / 2) && angle < 1.25f * 3.14f)
+		{
+			angle += (int)orbitSpeed * (delta_time / 1000);
+		}
+		if (angle <= (1.75f / 2) && angle > 0)
+		{
+			angle -= (int)orbitSpeed * (delta_time / 1000);
+		}
+		if (angle < 0) angle = 6.28f; //if we go under 0, full circle
+		//if (angle >= 6.28f) angle = 0; //force check to avoid Nicolas
+		if (angle <= 6.28f && angle >(1.25f * 3.14f))
+		{
+			angle -= (int)orbitSpeed * (delta_time / 1000);
+		}
+
+	}
+
+	//testing check
+	/*if (angle >= 6.28f) 
+		angle = 0;
+	if (angle == 0) 
+		angle = 6.28f; //if we go under 0, full circle*/
 
 
 	Animation* currentPlayerFrameAnim;
