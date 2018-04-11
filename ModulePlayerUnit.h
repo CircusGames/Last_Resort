@@ -14,11 +14,11 @@
 
 class ModulePlayerUnit : public Module
 {
-private:
+public:
 	struct axisPos
 	{
-		int x, y;
-	};
+		float x, y;
+	} playerPos;
 
 public:
 
@@ -34,53 +34,23 @@ public:
 	//some needed vars or specific functions
 	SDL_Texture* playerUnitBlue;
 	Animation playerUnitAnim[MAX_ANIMS];
-	//Animation playerUnit1Basic;
-	//Animation playerUnit1Extra;
-	//Animation playerUnit2Basic;
+	Animation *currentUnitAnim;
+	int unitIndex; //stores the index of the last
+	float frameIncrement = 0; //stores the index for applicate the speed of the rotation and points to its correct
+						      //and current frame
+	float lastFrame; //stores last frame to start next position
 
-	int pivotArrayPositionsX[128] = { 1,1,1,1,1,1,1,1,
-									  1,1,1,1,1,1,1,1,
-									  1,1,1,1,1,1,1,1,
-									  1,1,1,1,1,1,1,1, //
-									  2,2,2,2,2,2,2,2,
-									  6,6,6,6,6,6,6,6,
-									  7,7,7,7,7,7,7,7,
-									  7,7,7,7,7,7,7,7,
-									  7,7,7,7,7,7,7,7,
-									  6,6,6,6,6,6,6,6,
-									  2,2,2,2,2,2,2,2,
-									  1,1,1,1,1,1,1,1,
-									  1,1,1,1,1,1,1,1,
-									  1,1,1,1,1,1,1,1,
-									  1,1,1,1,1,1,1,1,
-									  1,1,1,1,1,1,1,1
-	};
+	bool unitLocked = false;
 
-	int pivotArrayPositionsY[128] = { 1,1,1,1,1,1,1,1,
-									  1,1,1,1,1,1,1,1,
-									  1,1,1,1,1,1,1,1,
-								      1,1,1,1,1,1,1,1, //
-									  1,1,1,1,1,1,1,1,
-									  1,1,1,1,1,1,1,1,
-									  1,1,1,1,1,1,1,1,
-									  1,1,1,1,1,1,1,1,
-									  2,2,2,2,2,2,2,2,
-									  6,6,6,6,6,6,6,6,
-									  8,8,8,8,8,8,8,8,
-									  7,7,7,7,7,7,7,7,
-									  8,8,8,8,8,8,8,8,
-									  6,6,6,6,6,6,6,6,
-									  2,2,2,2,2,2,2,2,
-									  1,1,1,1,1,1,1,1
-	};
+	int pivotArrayPositionsX[16] = { 1,1,1,1,1,2,6,7,7,7,6,2,1,1,1,1 };
 
+	int pivotArrayPositionsY[16] = { 1,2,6,8,7,8,6,2,1,1,1,1,1,1,1,1 };								
+
+	//values needed to control the circular position movement
 	float orbitSpeed = 3.0f;
 	float angle = 0;
-	int numFullCircles;
 	float last_tick;
 	float delta_time;
-
-	bool newLap = false;
 
 };
 #endif // !__MODULEPLAYERUNIT_H__

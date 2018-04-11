@@ -21,8 +21,8 @@ Application::Application()
 	modules[4] = background = new ModuleBackground();
 	modules[5] = introScreen = new ModuleSceneIntro();
 	modules[6] = gameOverScreen = new ModuleGameOver();
-	modules[7] = playerUnit = new ModulePlayerUnit();
-	modules[8] = player = new ModulePlayer();
+	modules[7] = player = new ModulePlayer();
+	modules[8] = playerUnit = new ModulePlayerUnit();
 	modules[9] = audio = new ModuleAudio();
 	modules[10] = fade = new ModuleFadeToBlack();
 

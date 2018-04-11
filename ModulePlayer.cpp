@@ -4,6 +4,7 @@
 #include "ModuleInput.h"
 #include "ModuleRender.h"
 #include "ModulePlayer.h"
+#include "ModulePlayerUnit.h"
 
 
 ModulePlayer::ModulePlayer()
@@ -78,7 +79,7 @@ update_status ModulePlayer::Update()
 	
 	//animation logic ---------------------------------------------------------------
 
-	if (App->input->keyboard[SDL_SCANCODE_S] == 1) //while press down
+	if (App->input->keyboard[SDL_SCANCODE_S] == KEY_STATE::KEY_REPEAT) //while press down
 	{
 		frameIncrement += ignitionSpeed;
 		if (frameIncrement >= 5)
@@ -92,14 +93,14 @@ update_status ModulePlayer::Update()
 
 	//----ship estabilization check (return to idle when release up or down) ---
 
-	if (App->input->keyboard[SDL_SCANCODE_S] == 0 && (int)frameIncrement != 2)
+	if (App->input->keyboard[SDL_SCANCODE_S] == KEY_STATE::KEY_IDLE && (int)frameIncrement != 2)
 	{
 		if ((int)frameIncrement >= 2)
 			frameIncrement -= releaseSpeed;
 		
 	}
 
-	if (App->input->keyboard[SDL_SCANCODE_W] == 0 && (int)frameIncrement != 2)
+	if (App->input->keyboard[SDL_SCANCODE_W] == KEY_STATE::KEY_IDLE && (int)frameIncrement != 2)
 	{
 		if (frameIncrement < 2)
 			frameIncrement += releaseSpeed;
@@ -107,7 +108,8 @@ update_status ModulePlayer::Update()
 
 	//---------------------------------------------------------------------------
 	//already, double check to imitate original animation behaviour (emulator)
-	if (App->input->keyboard[SDL_SCANCODE_W] == 1 && App->input->keyboard[SDL_SCANCODE_S] == 0) //while press up
+	if (App->input->keyboard[SDL_SCANCODE_W] == KEY_STATE::KEY_REPEAT && 
+		App->input->keyboard[SDL_SCANCODE_S] == KEY_STATE::KEY_IDLE) //while press up
 	{
 		frameIncrement -= ignitionSpeed;
 		if (frameIncrement <= 0)
@@ -122,7 +124,7 @@ update_status ModulePlayer::Update()
 
 	//move player position (this section must be code optimized ----------------------
 	//down move position
-	if (App->input->keyboard[SDL_SCANCODE_S] == 1)
+	if (App->input->keyboard[SDL_SCANCODE_S] == KEY_STATE::KEY_REPEAT)
 	{
 			playerSpeed += speed;
 			position.y += (int)playerSpeed;
@@ -134,7 +136,8 @@ update_status ModulePlayer::Update()
 	}
 
 	//up move position, checks if not down to imitate original game (emulator) behaviour
-	if (App->input->keyboard[SDL_SCANCODE_W] == 1 && App->input->keyboard[SDL_SCANCODE_S] == 0)
+	if (App->input->keyboard[SDL_SCANCODE_W] == KEY_STATE::KEY_REPEAT && 
+		App->input->keyboard[SDL_SCANCODE_S] == KEY_STATE::KEY_IDLE)
 	{
 		
 			playerSpeed += speed;
@@ -150,7 +153,8 @@ update_status ModulePlayer::Update()
 	//---------------------------------------------------------------------------------
 
 	//right move, doble check for imitate original (emulator) behaviour
-	if (App->input->keyboard[SDL_SCANCODE_D] == 1 && App->input->keyboard[SDL_SCANCODE_A] == 0)
+	if (App->input->keyboard[SDL_SCANCODE_D] == KEY_STATE::KEY_REPEAT && 
+		App->input->keyboard[SDL_SCANCODE_A] == KEY_STATE::KEY_IDLE)
 	{
 		playerSpeed += speed;
 		position.x += (int)playerSpeed;
@@ -163,7 +167,7 @@ update_status ModulePlayer::Update()
 	}
 
 	//left move
-	if (App->input->keyboard[SDL_SCANCODE_A] == 1)
+	if (App->input->keyboard[SDL_SCANCODE_A] == KEY_STATE::KEY_REPEAT)
 	{
 		playerSpeed += speed;
 		position.x -= (int)playerSpeed;
@@ -181,6 +185,8 @@ update_status ModulePlayer::Update()
 	//draw player --------------------------------------------------------------------
 
 	App->render->Blit(player, position.x, position.y - (r.h / 2), &r, 0.0f);
+
+	//if (App->playerUnit->IsEnabled()) App->playerUnit->playerPos.x = position.x;
 
 	
 	return UPDATE_CONTINUE;

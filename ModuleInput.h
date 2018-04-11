@@ -6,6 +6,15 @@
 //#include "SDL\include\SDL_scancode.h"
 #include "SDL\include\SDL.h"
 
+#define MAX_KEYS 300
+
+enum KEY_STATE
+{
+	KEY_IDLE = 0,
+	KEY_DOWN,
+	KEY_REPEAT,
+	KEY_UP
+};
 
 
 typedef unsigned char Uint8;
@@ -23,7 +32,8 @@ public:
 	bool CleanUp();
 
 public:
-	const Uint8 *keyboard = nullptr;
+	KEY_STATE keyboard[MAX_KEYS];
+	//const Uint8 *keyboard = nullptr;
 	SDL_Event Event;
 };
 
