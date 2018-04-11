@@ -134,6 +134,10 @@ public:
 	Animation midgroundLights[6];
 
 	//---------------------------------------------
+
+	float foregroundSpeed;
+	float midgroundSpeed;
+	float backgroundSpeed;
 };
 
 #endif

@@ -419,7 +419,7 @@ bool ModuleBackground::Init()
 	bgMovY.mgTargetUp = 25;
 	bgMovY.mgMidPosition = 32;
 
-	bgMovY.distanceWaitToMov = 91 * SCREEN_SIZE; //distance between activate movements
+	bgMovY.distanceWaitToMov = -91;// *SCREEN_SIZE; //distance between activate movements
 
 	scrollX = true; //activates x scroll
 
@@ -477,13 +477,18 @@ bool ModuleBackground::Start()
 	updatePos = true;
 
 	//-----------------------------------------------------------------------------------------------------------
+
+	foregroundSpeed = 0.5f;
+	midgroundSpeed = 0.25f;
+	backgroundSpeed = 0.125f;
+
 	return ret;
 
 }
 
 update_status ModuleBackground::PreUpdate()
 {
-	if (App->render->currentCameraPosX <= -4408 * SCREEN_SIZE)
+	if (App->render->currentCameraPosX <= -4408)
 	{
 		scrollX = false;
 	}
@@ -491,20 +496,24 @@ update_status ModuleBackground::PreUpdate()
 	//check if scroll
 	if (scrollX)
 	{
-		App->render->currentCameraPosX -= cameraSpeed;
-		App->render->camera.x = App->render->currentCameraPosX;
+		//move player position to follow the camera movement
+		App->player->position.x += 1;
+		//camera speed relative to its size
+		App->render->camera.x -= SCREEN_SIZE;
+		//returns original pixel position x values foreground
+		App->render->currentCameraPosX = (App->render->camera.x / SCREEN_SIZE) * foregroundSpeed;
+
 	}
 
 	//-------------------background up and down movement -------------------------------
 	//distance activation checker
-	if ((abs(App->render->camera.x) - abs(bgMovY.lastMovPosX)) >= (bgMovY.distanceWaitToMov) && updatePos &&
+
+	if ((App->render->currentCameraPosX - bgMovY.lastMovPosX <= bgMovY.distanceWaitToMov) && updatePos &&
 		bgMovY.currentLoops <= bgMovY.maxLoops)
 	{
 		bgMovY.lastMovPosX = App->render->currentCameraPosX;
 		updatePos = false;
 		bgMovY.move = true;
-		//bgMovY.fgRendezvous = false; //new call, no rendezvous
-		//bgMovY.mgRendezvous = false;
 
 		++bgMovY.currentLoops;
 		if (bgMovY.currentLoops >= bgMovY.maxLoops)
@@ -554,7 +563,7 @@ update_status ModuleBackground::PreUpdate()
 
 		if (bgMovY.fgRendezvous && bgMovY.mgRendezvous)
 		{
-			bgMovY.lastMovPosX = App->render->camera.x; //updates the last x position
+			bgMovY.lastMovPosX = App->render->currentCameraPosX;//App->render->camera.x; //updates the last x position
 			updatePos = true;
 			bgMovY.down = true; //and the next mov will be down
 			bgMovY.move = false;
@@ -588,7 +597,7 @@ update_status ModuleBackground::PreUpdate()
 
 		if (bgMovY.fgRendezvous && bgMovY.mgRendezvous) //when midground and foreground reaches its target...
 		{
-			bgMovY.lastMovPosX = App->render->camera.x; //updates the last x position
+			bgMovY.lastMovPosX = App->render->currentCameraPosX;//App->render->camera.x; //updates the last x position
 			updatePos = true;
 			bgMovY.up = true; //and the next mov will be down
 			bgMovY.move = false;
@@ -601,13 +610,12 @@ update_status ModuleBackground::PreUpdate()
 	}
 
 	//last loop = before tunnel position
-	if (bgMovY.lastLoop && (abs(App->render->camera.x) - abs(bgMovY.lastMovPosX)) >= (bgMovY.distanceWaitToMov))//!bgMovY.move) //lastLoop in this specific case, always occurrs when we go up
-	{
-		//foreground move
+	if (bgMovY.lastLoop && (App->render->currentCameraPosX - bgMovY.lastMovPosX <= bgMovY.distanceWaitToMov))//!bgMovY.move) //lastLoop in this specific case, always occurrs when we go up
+	{			//foreground move
 		if (!bgMovY.fgRendezvous)
 		{
 			bgMovY.fgTemp -= bgMovY.speedfg;
-			bgMovY.fg_y = (int)bgMovY.fgTemp;
+			bgMovY.fg_y = (int)bgMovY.fgTemp;			
 		}
 		if (bgMovY.fg_y <= 0) // 0= midposition
 		{
@@ -635,10 +643,10 @@ update_status ModuleBackground::PreUpdate()
 // Update: draw background
 update_status ModuleBackground::Update()
 {
-	
+
 	// Draw everything --------------------------------------
 	
-	App->render->Blit(bg, 0, 0, &bgRect, 0.25f,1.0f); //bg1 last resort----------------------
+	App->render->Blit(bg, 0, 0, &bgRect, backgroundSpeed); //bg1 last resort----------------------
 	
 	//background draw -------------------------------------------------------------------------
 
@@ -648,37 +656,39 @@ update_status ModuleBackground::Update()
 
 	//background building 1 - 3 texture lights ------------------------------------------------
 
-	if (App->render->currentCameraPosX <= -146 * SCREEN_SIZE * 4) //while the desired target is not seen
+	if (App->render->currentCameraPosX >= -146 * 4) //while the desired target is not seen
 	{
-		App->render->Blit(bgLights, 504, 0, &(backgroundLights[0].GetCurrentFrame()), 0.25f);
-		App->render->Blit(bgLights, 634, 10, &(backgroundLights[1].GetCurrentFrame()), 0.25f);
-		App->render->Blit(bgLights, 600, 50, &(backgroundLights[2].GetCurrentFrame()), 0.25f);
+		App->render->Blit(bgLights, -8, 0, &(backgroundLights[0].GetCurrentFrame()), backgroundSpeed);
+		App->render->Blit(bgLights, 122, 10, &(backgroundLights[1].GetCurrentFrame()), backgroundSpeed);
+		App->render->Blit(bgLights, 88, 50, &(backgroundLights[2].GetCurrentFrame()), backgroundSpeed);
+		
 	}
 	else
 	{
-		App->render->Blit(bgLights,  -8,  0, &(backgroundLights[0].GetCurrentFrame()), 0.25f);
-		App->render->Blit(bgLights, 122, 10, &(backgroundLights[1].GetCurrentFrame()), 0.25f);
-		App->render->Blit(bgLights,  88, 50, &(backgroundLights[2].GetCurrentFrame()), 0.25f);
+		App->render->Blit(bgLights, 504, 0, &(backgroundLights[0].GetCurrentFrame()), backgroundSpeed);
+		App->render->Blit(bgLights, 634, 10, &(backgroundLights[1].GetCurrentFrame()), backgroundSpeed);
+		App->render->Blit(bgLights, 600, 50, &(backgroundLights[2].GetCurrentFrame()), backgroundSpeed);
 	}
 
 	//background building 2 - 2 textures
 	//texture 1
 
-	if (App->render->currentCameraPosX <= -300 * SCREEN_SIZE * 4)
+	if (App->render->currentCameraPosX >= -300 * 4)
 	{
-		App->render->Blit(bgLights, 682,0, &(backgroundLights[3].GetCurrentFrame()), 0.25f);
+		App->render->Blit(bgLights, 169, 0, &(backgroundLights[3].GetCurrentFrame()), backgroundSpeed);
+		
 	}
 	else
 	{
-		App->render->Blit(bgLights, 169, 0, &(backgroundLights[3].GetCurrentFrame()), 0.25f);
+		App->render->Blit(bgLights, 682, 0, &(backgroundLights[3].GetCurrentFrame()), backgroundSpeed);
 	}
 
 	//texture 2
 
-	App->render->Blit(bgLights, 240, 32, &(backgroundLights[4].GetCurrentFrame()), 0.25f);
+	App->render->Blit(bgLights, 240, 32, &(backgroundLights[4].GetCurrentFrame()), backgroundSpeed);
 
 	//only one (building "3") - 1 texture
-	App->render->Blit(bgLights, 321, 0, &(backgroundLights[5].GetCurrentFrame()), 0.25f);
+	App->render->Blit(bgLights, 321, 0, &(backgroundLights[5].GetCurrentFrame()), backgroundSpeed);
 
 	//------------------------------------------------------------------------------------------
 
@@ -686,11 +696,11 @@ update_status ModuleBackground::Update()
 
 	Animation* current_animation = &orangeLaser;
 	SDL_Rect r = current_animation->GetCurrentFrame();
-	App->render->Blit(buildingLasersTexture, 334 - pivotArrayOrangeLaser[(int)current_animation->current_frame] + 1, 0, &r, 0.25f);
+	App->render->Blit(buildingLasersTexture, 334 - pivotArrayOrangeLaser[(int)current_animation->current_frame] + 1, 0, &r, backgroundSpeed);
 
 	//boss
 
-	if (App->render->currentCameraPosX <= -3824 * SCREEN_SIZE) //desired target pixels
+	if (App->render->currentCameraPosX <= -3824) //desired target pixels
 		App->render->Blit(boss, 0, 0, NULL, 0.0f);
 
 	//midground and foreground layer -----------------------------------------------------------
@@ -699,66 +709,65 @@ update_status ModuleBackground::Update()
 	{
 		Animation* current_animation = &buildingLasers[i];
 		SDL_Rect r = current_animation->GetCurrentFrame();
-		App->render->Blit(buildingLasersTexture, positionArrayBlueLasersX[i] - pivotArrayBlueLasersPosition[(int)current_animation->current_frame] + 1, bgMovY.mg_y + positionArrayBlueLasersY[i] - r.h, &r, 0.5f);
+		App->render->Blit(buildingLasersTexture, positionArrayBlueLasersX[i] - pivotArrayBlueLasersPosition[(int)current_animation->current_frame] + 1, bgMovY.mg_y + positionArrayBlueLasersY[i] - r.h, &r, midgroundSpeed);
 	}
 
-	App->render->Blit(mg, 0, bgMovY.mg_y, &mgRect, 0.5f);//0.45f); //midground lvl1 last resort -----
-
+	App->render->Blit(mg, 0, bgMovY.mg_y, &mgRect, midgroundSpeed); //midground lvl1 last resort -----
+	
 	//midground lights -------------------------------------- from top texture midgroundTexture + initial height
-	if (App->render->currentCameraPosX <= -749 * SCREEN_SIZE * 2)
+	if (App->render->currentCameraPosX >= -246 * 2)
 	{
-		App->render->Blit(midgroundLightsTexture, 1064, bgMovY.mg_y + 28, &(midgroundLights[0].GetCurrentFrame()), 0.5f);
-
+		App->render->Blit(midgroundLightsTexture, 40, bgMovY.mg_y + 28, &(midgroundLights[0].GetCurrentFrame()), midgroundSpeed);
+		App->render->Blit(midgroundLightsTexture, 184, bgMovY.mg_y + 18, &(midgroundLights[1].GetCurrentFrame()), midgroundSpeed);
 	}
-
-	else if (App->render->currentCameraPosX <= -246 * SCREEN_SIZE * 2) //while the desired target is not seen
+	else if (App->render->currentCameraPosX >= -749 * 2) //while the desired target is not seen
 	{
-		App->render->Blit(midgroundLightsTexture, 552, bgMovY.mg_y + 28, &(midgroundLights[0].GetCurrentFrame()), 0.5f);
-		App->render->Blit(midgroundLightsTexture, 696, bgMovY.mg_y + 18, &(midgroundLights[1].GetCurrentFrame()), 0.5f);
+	App->render->Blit(midgroundLightsTexture, 552, bgMovY.mg_y + 28, &(midgroundLights[0].GetCurrentFrame()), midgroundSpeed);
+	App->render->Blit(midgroundLightsTexture, 696, bgMovY.mg_y + 18, &(midgroundLights[1].GetCurrentFrame()), midgroundSpeed);
 	}
 	else
 	{
-		App->render->Blit(midgroundLightsTexture, 40, bgMovY.mg_y + 28, &(midgroundLights[0].GetCurrentFrame()), 0.5f);
-		App->render->Blit(midgroundLightsTexture, 184, bgMovY.mg_y + 18, &(midgroundLights[1].GetCurrentFrame()), 0.5f);
+		App->render->Blit(midgroundLightsTexture, 1064, bgMovY.mg_y + 28, &(midgroundLights[0].GetCurrentFrame()), midgroundSpeed);
 	}
 
 	//-------------
 
-	if (App->render->currentCameraPosX <= -440 * SCREEN_SIZE * 2) //while the desired target is not seen
+	if (App->render->currentCameraPosX >= -440 * 2) //while the desired target is not seen
 	{
-		App->render->Blit(midgroundLightsTexture, 746, bgMovY.mg_y + 97, &(midgroundLights[2].GetCurrentFrame()), 0.5f);
-		App->render->Blit(midgroundLightsTexture, 841, bgMovY.mg_y + 2, &(midgroundLights[3].GetCurrentFrame()), 0.5f);
-		App->render->Blit(midgroundLightsTexture, 904, bgMovY.mg_y + 50, &(midgroundLights[4].GetCurrentFrame()), 0.5f);
+		App->render->Blit(midgroundLightsTexture, 234, bgMovY.mg_y + 97, &(midgroundLights[2].GetCurrentFrame()), midgroundSpeed);
+		App->render->Blit(midgroundLightsTexture, 329, bgMovY.mg_y + 2, &(midgroundLights[3].GetCurrentFrame()), midgroundSpeed);
+		App->render->Blit(midgroundLightsTexture, 392, bgMovY.mg_y + 50, &(midgroundLights[4].GetCurrentFrame()), midgroundSpeed);
+		
 	}
 	else
 	{
-		App->render->Blit(midgroundLightsTexture, 234, bgMovY.mg_y + 97, &(midgroundLights[2].GetCurrentFrame()), 0.5f);
-		App->render->Blit(midgroundLightsTexture, 329, bgMovY.mg_y + 2, &(midgroundLights[3].GetCurrentFrame()), 0.5f);
-		App->render->Blit(midgroundLightsTexture, 392, bgMovY.mg_y + 50, &(midgroundLights[4].GetCurrentFrame()), 0.5f);
+		App->render->Blit(midgroundLightsTexture, 746, bgMovY.mg_y + 97, &(midgroundLights[2].GetCurrentFrame()), midgroundSpeed);
+		App->render->Blit(midgroundLightsTexture, 841, bgMovY.mg_y + 2, &(midgroundLights[3].GetCurrentFrame()), midgroundSpeed);
+		App->render->Blit(midgroundLightsTexture, 904, bgMovY.mg_y + 50, &(midgroundLights[4].GetCurrentFrame()), midgroundSpeed);
 	}
 
 	//-------------
 	
-	if (App->render->currentCameraPosX <= -540 * SCREEN_SIZE * 2) //while the desired target is not seen
+	if (App->render->currentCameraPosX >= -540 * 2) //while the desired target is not seen
 	{
- 		App->render->Blit(midgroundLightsTexture, 983, bgMovY.mg_y + 36, &(midgroundLights[5].GetCurrentFrame()), 0.5f);
+		App->render->Blit(midgroundLightsTexture, 471, bgMovY.mg_y + 36, &(midgroundLights[5].GetCurrentFrame()), midgroundSpeed);
 	}
 	else
 	{
-		App->render->Blit(midgroundLightsTexture, 471, bgMovY.mg_y + 36, &(midgroundLights[5].GetCurrentFrame()), 0.5f);
+		App->render->Blit(midgroundLightsTexture, 983, bgMovY.mg_y + 36, &(midgroundLights[5].GetCurrentFrame()), midgroundSpeed);
+		
 	}
-
 	//-----------------------------------------------------------------------------------------------------------
 	
-	App->render->Blit(fg, 0, bgMovY.fg_y, &fgRect, 1.0f); //foreground lvl1 last resort
+	App->render->Blit(fg, 0, bgMovY.fg_y, &fgRect, foregroundSpeed); //foreground lvl1 last resort
 
 	//tunnel lights draw ----------------------------------------------------------------------------
 	//tunnel lights are speed dependent of foreground, only screen size multiplier (and fg speed parallax multiplier)
-	if (App->render->currentCameraPosX <= -1740 * SCREEN_SIZE)
+	if (App->render->currentCameraPosX <= -1740)
 	{
 		for (int i = 0; i < TUNNEL_LIGHTS; ++i)
 		{
-			App->render->Blit(tunelLights, positionArrayTunnel[i], bgMovY.fg_y, &(tunnelLights[i].GetCurrentFrame()), 1.0f);
+			App->render->Blit(tunelLights, positionArrayTunnel[i], bgMovY.fg_y, &(tunnelLights[i].GetCurrentFrame()), foregroundSpeed);
 		}
 	}
 
@@ -766,11 +775,11 @@ update_status ModuleBackground::Update()
 
 	for (int i = 0; i < STREET_LIGHTS_A; ++i)
 	{
-		App->render->Blit(roadLights, positionsArrayPatternA[i], bgMovY.fg_y + 136, &(streetLightA[i].GetCurrentFrame()),1.0f);
+		App->render->Blit(roadLights, positionsArrayPatternA[i], bgMovY.fg_y + 136, &(streetLightA[i].GetCurrentFrame()), foregroundSpeed);
 	}
 	for (int i = 0; i < STREET_LIGHTS_B; ++i)
 	{
-		App->render->Blit(roadLights, positionsArrayPatternB[i], bgMovY.fg_y + 136, &(streetLightB[i].GetCurrentFrame()),1.0f);
+		App->render->Blit(roadLights, positionsArrayPatternB[i], bgMovY.fg_y + 136, &(streetLightB[i].GetCurrentFrame()), foregroundSpeed);
 	}
 
 	//-----------------------------------------------------------------------------------------------
@@ -780,17 +789,19 @@ update_status ModuleBackground::Update()
 
 	for (int i = 0; i < STREET_LIGHTS_FRONT_A; ++i)
 	{
-		App->render->Blit(roadLights, positionArrayFrontA[i], bgMovY.fg_y + 217, &(streetLightsFrontA[i].GetCurrentFrame()), 1.0f);
+		App->render->Blit(roadLights, positionArrayFrontA[i], bgMovY.fg_y + 217, &(streetLightsFrontA[i].GetCurrentFrame()), foregroundSpeed);
 	}
 	//PATTERN B
 	for (int i = 0; i < STREET_LIGHTS_FRONT_B; ++i)
 	{
-		App->render->Blit(roadLights, positionArrayFrontB[i], bgMovY.fg_y + 217, &(streetLightsFrontB[i].GetCurrentFrame()), 1.0f);
+		App->render->Blit(roadLights, positionArrayFrontB[i], bgMovY.fg_y + 217, &(streetLightsFrontB[i].GetCurrentFrame()), foregroundSpeed);
 	}
 
 	//-----------------------------------------------------------------------------------------------
 	
 	//App->render->Blit(App->textures->textures[6], 0, bgMovY.fg_y, &fgRect, 1.0f); //testing purposes
+
+	
 
 	//SCENE SWITCHING
 

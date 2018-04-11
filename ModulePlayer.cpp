@@ -162,8 +162,8 @@ update_status ModulePlayer::Update()
 			playerSpeed = speed;		//and next cycle
 
 		//playerSpeed at if is for assure the limits independent of speed value
-		if (position.x + (int)playerSpeed >= 256) //0 = min y coordinate, 9=texture height/2 + offset
-			position.x = 256; //target min y player position
+		//if (position.x + (int)playerSpeed >= 256) //0 = min y coordinate, 9=texture height/2 + offset
+			//position.x = 256; //target min y player position
 	}
 
 	//left move
@@ -184,7 +184,7 @@ update_status ModulePlayer::Update()
 
 	//draw player --------------------------------------------------------------------
 
-	App->render->Blit(player, position.x, position.y - (r.h / 2), &r, 0.0f);
+	App->render->Blit(player, position.x, position.y - (r.h / 2), &r, 1.0f);
 
 	//if (App->playerUnit->IsEnabled()) App->playerUnit->playerPos.x = position.x;
 

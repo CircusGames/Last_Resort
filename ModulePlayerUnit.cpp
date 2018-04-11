@@ -467,10 +467,10 @@ update_status ModulePlayerUnit::Update()
 	playerPos.x = (App->player->position.x + 9) + cos(angle) * 31.5f;//orginal distance
 	playerPos.y = (App->player->position.y - 7) - sin(angle) * 32;//24;
 	
-	App->render->Blit(playerUnitBlue, 
-					  playerPos.x - pivotArrayPositionsX[(int)frameIncrement],
-					  playerPos.y - pivotArrayPositionsY[(int)frameIncrement], 
-					  &unitRect, 0.0f);
+	App->render->Blit(playerUnitBlue,
+		playerPos.x - pivotArrayPositionsX[(int)frameIncrement],
+		playerPos.y - pivotArrayPositionsY[(int)frameIncrement],
+		&unitRect);//,0.0f);
 
 	// ------------------------------------------------------------------------------------------------
 	return UPDATE_CONTINUE;
