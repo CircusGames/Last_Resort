@@ -424,7 +424,8 @@ update_status ModulePlayerUnit::Update()
 		if ((int)frameIncrement == 4) frameIncrement = 4; //stuck on the correct MAX frame
 	}
 	//if we press down
-	if (App->input->keyboard[SDL_SCANCODE_W] == KEY_STATE::KEY_REPEAT)
+	if (App->input->keyboard[SDL_SCANCODE_W] == KEY_STATE::KEY_REPEAT &&
+		App->input->keyboard[SDL_SCANCODE_S] == KEY_STATE::KEY_IDLE) //original game behaviour priority
 	{
 		if (frameIncrement > 12 || frameIncrement < 4) 
 		{					   
@@ -438,7 +439,8 @@ update_status ModulePlayerUnit::Update()
 		if ((int)frameIncrement == 12) frameIncrement = 12; //stuck on the correct MAX frame
 	}
 	//if we press right
-	if (App->input->keyboard[SDL_SCANCODE_D] == KEY_STATE::KEY_REPEAT)
+	if (App->input->keyboard[SDL_SCANCODE_D] == KEY_STATE::KEY_REPEAT &&
+		App->input->keyboard[SDL_SCANCODE_A] == KEY_STATE::KEY_IDLE) //double check for original game priority
 	{
 		//index 8 pointing left , index 0 pointing right
 		if (frameIncrement > 8) frameIncrement -= animationRotationSpeed;
