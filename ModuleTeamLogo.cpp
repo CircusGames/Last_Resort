@@ -25,8 +25,33 @@ ModuleTeamLogo::ModuleTeamLogo(){
 
 	carpaDeCircoAnim.speed = 3.5f;
 
-	LogoTextAnim.PushBack({ 0,0 });
-
+	LogoTextAnim.PushBack({ 178,64,5,16 });
+	LogoTextAnim.PushBack({ 168,64,9,16 });
+	LogoTextAnim.PushBack({ 152,64,15,16 });
+	LogoTextAnim.PushBack({ 131,64,20,16 });
+	LogoTextAnim.PushBack({ 108,64,22,16 });
+	LogoTextAnim.PushBack({ 77,64,30,16 });
+	LogoTextAnim.PushBack({ 0,64,40,16 });
+	LogoTextAnim.PushBack({ 467,48,45,16 });
+	LogoTextAnim.PushBack({ 419,48,47,16 });
+	LogoTextAnim.PushBack({ 363,48,55,16 });
+	LogoTextAnim.PushBack({ 302,48,60,16 });
+	LogoTextAnim.PushBack({ 236,48,65,16 });
+	LogoTextAnim.PushBack({ 165,48,70,16 });
+	LogoTextAnim.PushBack({ 91,48,73,16 });
+	LogoTextAnim.PushBack({ 0,48,90,16 });
+	LogoTextAnim.PushBack({ 430,32,95,16 });
+	LogoTextAnim.PushBack({ 330,32,99,16 });
+	LogoTextAnim.PushBack({ 224,32,105,16 });
+	LogoTextAnim.PushBack({ 113,32,110,16 });
+	LogoTextAnim.PushBack({ 0,32,112,16 });
+	LogoTextAnim.PushBack({ 393,16,120,16 });
+	LogoTextAnim.PushBack({ 267,16,125,16 });
+	LogoTextAnim.PushBack({ 136,16,130,16 });
+	LogoTextAnim.PushBack({ 0,16,135,16 });
+	LogoTextAnim.PushBack({ 297,0,138,16 });
+	LogoTextAnim.PushBack({ 151,0,145,16 });
+	LogoTextAnim.PushBack({ 0,0,150,16 });
 
 	LogoTextAnim.speed = 3.5f;
 }
