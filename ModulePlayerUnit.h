@@ -35,6 +35,7 @@ public:
 	SDL_Texture* playerUnitBlue;
 	Animation playerUnitAnim[MAX_ANIMS];
 	Animation *currentUnitAnim;
+
 	int unitIndex; //stores the index of the last
 	float frameIncrement = 0; //stores the index for applicate the speed of the rotation and points to its correct
 						      //and current frame

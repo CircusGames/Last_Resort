@@ -194,8 +194,10 @@ bool ModulePlayerUnit::Start()
 	orbitSpeed = 1.0f;
 	last_tick = 0;
 
-	//links the animation to 0 index
+	//links the animation to 0 index at every module Start
+	angle = 0;
 	currentUnitAnim = &playerUnitAnim[0];
+	frameIncrement = 0; //starts at 0 index pos (spawn direction animation)
 
 	unitLocked = false; //locks or unlocks circular movement
 

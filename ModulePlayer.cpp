@@ -83,11 +83,20 @@ update_status ModulePlayer::Update()
 		current_animation = &spawnAnim;
 		r = current_animation->GetCurrentFrame();
 		if (current_animation->finish)
+		{
 			player_step = player_state::normal;
+			current_animation->finish = false; //and resets condition
+			current_animation->current_frame = 0;
+		}
 	}
 
 	else
 	{
+		//for now activates playerUnit for testing here
+		if (!App->playerUnit->IsEnabled())
+		{
+			App->playerUnit->Enable();
+		}
 
 		float speed = 1.4f; //player position speed
 		playerSpeed = speed; //resets the temporal incrementer to always Nicolas at the desired incrementer count
