@@ -46,8 +46,8 @@ bool Application::Init()
 	player->Disable();
 	playerUnit->Disable();
 	//disable the scenes wich i dont need at start/init
-	teamLogo->Disable();
-	//gameTitle->Disable();
+	//teamLogo->Disable();
+	gameTitle->Disable();
 	background->Disable();
 	gameOverScreen->Disable();
 

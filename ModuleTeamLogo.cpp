@@ -7,6 +7,8 @@
 //#include "ModuleInput.h"
 #include "ModuleFadeToBlack.h"
 #include "ModuleAudio.h"
+//#include "Animation.h"
+
 #include "SDL/include/SDL_timer.h"
 
 #include "SDL\include\SDL_render.h"
@@ -23,7 +25,7 @@ ModuleTeamLogo::ModuleTeamLogo(){
 	carpaDeCircoAnim.PushBack({ 0,300,150,150 });
 	carpaDeCircoAnim.PushBack({ 150,300,150,150 });
 
-	carpaDeCircoAnim.speed = 3.5f;
+	carpaDeCircoAnim.speed = 0.3f;
 
 	LogoTextAnim.PushBack({ 178,64,5,16 });
 	LogoTextAnim.PushBack({ 168,64,9,16 });
@@ -52,8 +54,8 @@ ModuleTeamLogo::ModuleTeamLogo(){
 	LogoTextAnim.PushBack({ 297,0,138,16 });
 	LogoTextAnim.PushBack({ 151,0,145,16 });
 	LogoTextAnim.PushBack({ 0,0,150,16 });
-
-	LogoTextAnim.speed = 3.5f;
+	LogoTextAnim.repeat = false;
+	LogoTextAnim.speed = 0.3f;
 }
 
 ModuleTeamLogo::~ModuleTeamLogo(){}
@@ -88,10 +90,11 @@ update_status ModuleTeamLogo::Update()
 
 	//direct rendercopy 
 	SDL_Rect logoRect = { 92 * SCREEN_SIZE,52 * SCREEN_SIZE,120 * SCREEN_SIZE,120 * SCREEN_SIZE };
-	SDL_Rect provisionalRect = { 67 * SCREEN_SIZE,67 * SCREEN_SIZE,80 * SCREEN_SIZE,10 * SCREEN_SIZE };
+	SDL_Rect provisionalRect = { 57 * SCREEN_SIZE,67 * SCREEN_SIZE,80 * SCREEN_SIZE,10 * SCREEN_SIZE };
 
-	SDL_RenderCopy(App->render->renderer, logoTexture, NULL, &logoRect);
-	SDL_RenderCopy(App->render->renderer, provisionalTexture, NULL, &provisionalRect);
+	SDL_RenderCopy(App->render->renderer, logoTexture, &carpaDeCircoAnim.GetCurrentFrame(), &logoRect );
+	SDL_RenderCopy(App->render->renderer, logoTextTexture, &LogoTextAnim.GetCurrentFrame(), &provisionalRect);
+
 
 	if (now >= total_time)
 	{
