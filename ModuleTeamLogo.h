@@ -27,6 +27,8 @@ private:
 
 };
 
+Animation carpaDeCirco;//kev
 
+SDL_Texture*carpaDeCirco = nullptr;//kev
 
 #endif // !__MODULETEAMLOGO_H__

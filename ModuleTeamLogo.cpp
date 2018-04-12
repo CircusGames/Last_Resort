@@ -12,7 +12,11 @@
 #include "SDL\include\SDL_render.h"
 
 
-ModuleTeamLogo::ModuleTeamLogo(){}
+ModuleTeamLogo::ModuleTeamLogo(){
+
+	carpaDeCirco.PushBack({ 123,213,213,123 });
+	
+}
 
 ModuleTeamLogo::~ModuleTeamLogo(){}
 
@@ -25,6 +29,8 @@ bool ModuleTeamLogo::Start()
 
 	start_time = SDL_GetTicks(); //initializes for logo timer
 	total_time = 2000.0f; //logo timer
+
+	carpaDeCirco = App->textures->Load("assets/intro/teamLogo.png")
 
 	return true;
 }
