@@ -18,10 +18,14 @@ public:
 
 private:
 	
-	Animation carpaDeCircoAnim;//kev
+	Animation carpaDeCircoAnim;
 	SDL_Texture* logoTexture;
 	SDL_Texture* provisionalTexture;
-	SDL_Texture* carpaDeCirco = nullptr;//kev
+	SDL_Texture* carpaDeCirco = nullptr;
+
+	Animation LogoTextAnim;
+	SDL_Texture* logoTextTexture;
+	SDL_Texture* LogoText = nullptr;
 
 	Uint32 now;
 	float start_time;
