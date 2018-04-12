@@ -226,8 +226,8 @@ update_status ModulePlayer::Update()
 		{
 			LOG("Beam!");
 
-			App->particles->AddParticle(App->particles->beamShoot, position.x, position.y);
-			App->particles->AddParticle(App->particles->beam, position.x, position.y, 0, {6,0}, 400);
+			App->particles->AddParticle(App->particles->beamShoot, position.x+32, position.y-6);
+			App->particles->AddParticle(App->particles->beam, position.x+32, position.y-6, 0, {6,0}, 400);
 
 		}
 	}
