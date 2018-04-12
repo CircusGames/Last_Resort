@@ -756,7 +756,7 @@ ModuleGameTitle::ModuleGameTitle()
 
 	for (int i = 0; i < 10; ++i)
 	{
-		letters[i].speed = 0.325f;
+		letters[i].speed = 0.03f;
 		letters[i].repeat = false;
 	}
 
