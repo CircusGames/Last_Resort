@@ -797,7 +797,7 @@ bool ModuleGameTitle::Start()
 	lettersTexture[7] = App->textures->Load("assets/intro/O.png");
 	lettersTexture[8] = App->textures->Load("assets/intro/R2.png");
 	lettersTexture[9] = App->textures->Load("assets/intro/T2MOD.png");
-	//loading apropiate music
+	//loading appropiate music
 	//App->audio->LoadMUS("assets/titleScreenSong.ogg", "titleSong");
 	//App->audio->ControlMUS("titleSong", FADEIN, 1000.0f);
 
@@ -832,8 +832,6 @@ update_status ModuleGameTitle::Update()
 			int substract = 0;
 			current_animation = &letters[i];
 			r = current_animation->GetCurrentFrame();
-			if (current_animation->current_frame == current_animation->last_frame)
-				current_animation->finish = true;
 			if (!current_animation->finish) 
 				substract = pivotMegaDimensional[i][(int)current_animation->current_frame];
 			//moves the y coordinate
@@ -941,6 +939,8 @@ bool ModuleGameTitle::CleanUp()
 	App->textures->Unload(pushStartTexture);
 	App->textures->Unload(blackScreenTexture);
 	App->textures->Unload(titleScreen);
+	for (int i = 0; i < 10; ++i)
+	App->textures->Unload(lettersTexture[i]);
 
 	//reposition enum state to correct next game loop
 	current_step = intro_step::firstSecuence;
