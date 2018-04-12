@@ -23,7 +23,7 @@ bool ModuleParticles::Start()
 	graphics = App->textures->Load("assets/player1_incomplete.png");
 
 	// Explosion particle
-	explosion.anim.PushBack({ 274, 296, 33, 30 });
+	/*explosion.anim.PushBack({ 274, 296, 33, 30 });
 	explosion.anim.PushBack({ 313, 296, 33, 30 });
 	explosion.anim.PushBack({ 346, 296, 33, 30 });
 	explosion.anim.PushBack({ 382, 296, 33, 30 });
@@ -36,17 +36,29 @@ bool ModuleParticles::Start()
 	beamShoot.anim.PushBack({ 128,126,-13,12 }); //10,9
 	beamShoot.anim.PushBack({ 115,124,-13,12 });
 	beamShoot.anim.repeat = false;
-	beamShoot.anim.speed = 0.2f;
+	beamShoot.anim.speed = 0.2f;*/
 
 	// Beam
-	beam.anim.PushBack({ 148,127,15,7 });
+	/*beam.anim->PushBack({ 148,127,15,7 });
 
 	// Beam Particle 
-	beam.anim.PushBack({ 128,126,-10,9 });
-	beam.anim.PushBack({ 115,124,-13,12 });
-	beam.anim.repeat = true;
-	beam.anim.speed = 0.2f;
+	beam.anim->PushBack({ 128,126,-10,9 });
+	beam.anim->PushBack({ 115,124,-13,12 });
+	beam.anim->repeat = true;
+	beam.anim->speed = 0.2f;*/
 
+	//beamShotAnim.PushBack({ 148,127,15,7 });
+
+	// Beam Particle 
+	beamShotAnim.PushBack({ 128,126,-10,9 });
+	beamShotAnim.PushBack({ 115,124,-13,12 });
+	beamShotAnim.repeat = true;
+	beamShotAnim.speed = 0.2f;
+
+	beam.anim = &beamShotAnim;
+	//beam.r = beam.anim->GetCurrentFrame();
+
+	
 
 	return true;
 }
@@ -79,8 +91,6 @@ update_status ModuleParticles::Update()
 		if (p == nullptr)
 			continue;
 
-		//p->Update();
-
 		if (p->Update() == false)
 		{
 			delete p;
@@ -88,7 +98,10 @@ update_status ModuleParticles::Update()
 		}
 		else if (SDL_GetTicks() >= p->born)
 		{
-			App->render->Blit(graphics, p->position.x, p->position.y, &(p->anim.GetCurrentFrame()));
+			p->r = beamShotAnim.GetCurrentFrame();
+			//beam.anim = &beamShotAnim;
+			//beam.r = beam.anim->GetCurrentFrame();
+			App->render->Blit(graphics, p->position.x, p->position.y, &(p->r));
 			if (p->fx_played == false)
 			{
 				p->fx_played = true;
@@ -137,9 +150,9 @@ bool Particle::Update()
 		if ((SDL_GetTicks() - born) > life)
 			ret = false;
 	}
-	else
-		if (anim.finish)
-		ret = false;
+	//else
+		//if (anim->finish)
+		//ret = false;
 
 	position.x += speed.x;
 	position.y += speed.y;

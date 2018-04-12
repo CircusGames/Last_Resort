@@ -12,7 +12,8 @@ struct SDL_Texture;
 
 struct Particle
 {
-	Animation anim;
+	Animation* anim;
+	SDL_Rect r;
 	uint fx = 0;
 	iPoint position;
 	iPoint speed;
@@ -40,6 +41,8 @@ public:
 
 private:
 
+	Animation beamShotAnim;
+	
 	SDL_Texture* graphics = nullptr;
 	Particle* active[MAX_ACTIVE_PARTICLES];
 

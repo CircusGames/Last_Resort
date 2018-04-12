@@ -24,7 +24,6 @@ public:
 				frames[i] = nullptr;
 			}
 		}
-		
 	}
 
 private:
