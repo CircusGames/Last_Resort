@@ -50,9 +50,9 @@ bool ModuleParticles::Start()
 	//beamShotAnim.PushBack({ 148,127,15,7 });
 
 	// Beam Particle 
-	beamShotAnim.PushBack({ 128,126,-10,9 });
-	beamShotAnim.PushBack({ 115,124,-13,12 });
-	beamShotAnim.repeat = true;
+	beamShotAnim.PushBack({ 128,126,10,9 });
+	beamShotAnim.PushBack({ 115,124,13,12 });
+	beamShotAnim.repeat = false;
 	beamShotAnim.speed = 0.2f;
 
 	beam.anim = &beamShotAnim; //links particle anim pointer to animation
