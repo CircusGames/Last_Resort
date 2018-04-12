@@ -5,6 +5,7 @@
 #include "ModuleRender.h"
 #include "ModulePlayer.h"
 #include "ModulePlayerUnit.h"
+#include "ModuleParticles.h"
 
 
 ModulePlayer::ModulePlayer()
@@ -181,6 +182,16 @@ update_status ModulePlayer::Update()
 	
 	//--------------------------------------------------------------------------------
 
+	//if player press keys of particles emitters
+
+	if (App->input->keyboard[SDL_SCANCODE_B] == KEY_STATE::KEY_DOWN)
+	{
+		LOG("Shot");
+		App->particles->AddParticle(App->particles->explosion, position.x, position.y + 25);
+		App->particles->AddParticle(App->particles->explosion, position.x - 25, position.y, 500);
+		App->particles->AddParticle(App->particles->explosion, position.x, position.y - 25, 1000);
+		App->particles->AddParticle(App->particles->explosion, position.x + 25, position.y, 3000);
+	}
 
 	//draw player --------------------------------------------------------------------
 

@@ -4,6 +4,7 @@
 #include "ModuleInput.h"
 #include "ModuleTextures.h"
 #include "ModuleBackground.h"
+#include "ModuleParticles.h"
 #include "ModulePlayer.h"
 #include "ModulePlayerUnit.h"
 #include "ModuleAudio.h"
@@ -27,6 +28,7 @@ Application::Application()
 	modules[9] = playerUnit = new ModulePlayerUnit();
 	modules[10] = audio = new ModuleAudio();
 	modules[11] = fade = new ModuleFadeToBlack();
+	modules[12] = particles = new ModuleParticles();
 
 }	
 
