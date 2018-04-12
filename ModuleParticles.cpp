@@ -92,12 +92,15 @@ update_status ModuleParticles::Update()
 	return UPDATE_CONTINUE;
 }
 
-void ModuleParticles::AddParticle(const Particle& particle, int x, int y, Uint32 delay)
+void ModuleParticles::AddParticle(const Particle& particle, int x, int y, Uint32 delay, iPoint speed, Uint32 life)
 {
 	Particle* p = new Particle(particle);
 	p->born = SDL_GetTicks() + delay;
 	p->position.x = x;
 	p->position.y = y;
+
+	p->speed = speed;
+	p->life = life;
 
 	active[last_particle++] = p;
 }
