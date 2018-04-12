@@ -49,7 +49,27 @@ bool ModuleAudio::Init()
 	return ret;
 }
 
-	Mix_Music* const ModuleAudio::LoadMUS(const char* path, char* name) 
+void ModuleAudio::UnloadMus(char* name)
+{
+
+	//returns memory
+	char *_name = name;
+
+	for (int i = 0; i < MAX_SONGS - 1; ++i)
+	{
+		if (songsArray[i].name == _name)
+		{
+			Mix_FreeMusic(songsArray[i].songs);
+			songsArray[i].songs = nullptr;
+			songsArray[i].name = nullptr;
+		}
+	}
+	//fast workaround to substract loads and unloads of musics
+	if(last_song > 0)
+	last_song--;
+}
+
+	bool ModuleAudio::LoadMUS(const char* path, char* name) 
 	{
 
 		Mix_Music *music = nullptr;
@@ -67,7 +87,7 @@ bool ModuleAudio::Init()
 			songsArray[last_song].name = _name;
 			last_song++;
 		}
-		return music;
+		return true;
 	}
 
 	Mix_Chunk* const ModuleAudio::LoadSfx(const char* path, char* name)
@@ -107,7 +127,7 @@ bool ModuleAudio::Init()
 				}
 			}
 			if (music == nullptr) {
-				LOG("Music not found ControlMUS : %s\n", name);
+				LOG("Music not found ControlAudio : %s\n", name);
 			}
 			else
 			{
@@ -168,22 +188,7 @@ bool ModuleAudio::Init()
 		
 	}
 
-	void ModuleAudio::UnloadMus(char* name)
-	{
-
-		//returns memory
-		char *_name = name;
-
-		for (int i = 0; i < MAX_SONGS -1; ++i) 
-		{
-			if (songsArray[i].name == _name) 
-			{
-				Mix_FreeMusic(songsArray[i].songs);
-				songsArray[i].songs = nullptr;
-				songsArray[i].name = nullptr;
-			}
-		}
-	}
+	
 
 
 	/*if (Mix_FadeInMusic(music, -1, 1000) == -1) //play music with fadeIn
@@ -217,7 +222,7 @@ bool ModuleAudio::CleanUp()
 			sfxArray[i].name = nullptr;
 		}*/
 
-	for (int i = 0; i < MAX_FX -1; ++i)
+	for (int i = 0; i < MAX_SONGS -1; ++i)
 		if (songsArray[i].songs != nullptr) 
 		{
 			Mix_FreeMusic(songsArray[i].songs);

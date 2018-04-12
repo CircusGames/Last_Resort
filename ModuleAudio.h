@@ -51,7 +51,7 @@ public:
 
 	bool Init();
 	Mix_Chunk* const LoadSfx(const char* path, char *name);
-	Mix_Music* const LoadMUS(const char* path, char *name);
+	bool LoadMUS(const char* path, char *name);
 	void UnloadMus(char* name);
 	//update_status update(); //not for now
 	void ControlAudio(char* name, type type,audio_state state, float fadeInTimeMs = 1000.0f, float fadeOffTimeMs = 500.0f);

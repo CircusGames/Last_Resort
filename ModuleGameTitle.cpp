@@ -959,6 +959,7 @@ bool ModuleGameTitle::CleanUp()
 	//unloading music
 	Mix_FadeOutMusic(500);
 	App->audio->UnloadMus("titleSong");
+	
 
 
 	return true;

@@ -52,8 +52,8 @@ bool ModuleGameOver::CleanUp()
 	App->textures->Unload(gameOverTexture);
 
 	//unload music
-	//Mix_FadeOutMusic(250);
-	//App->audio->UnloadMus("continueSong");
+	Mix_FadeOutMusic(250);
+	App->audio->UnloadMus("continueSong");
 
 	return true;
 }
