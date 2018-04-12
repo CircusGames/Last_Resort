@@ -239,7 +239,7 @@ update_status ModulePlayer::Update()
 	}
 	//draw player --------------------------------------------------------------------
 
-	App->render->Blit(player, position.x, position.y - (r.h / 2), &r, 1.0f);
+	App->render->Blit(player, position.x - (r.w/2), position.y - (r.h / 2), &r, 1.0f);
 
 	//if (App->playerUnit->IsEnabled()) App->playerUnit->playerPos.x = position.x;
 
