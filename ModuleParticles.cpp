@@ -61,8 +61,8 @@ bool ModuleParticles::CleanUp()
 	{
 		if (active[i] != nullptr)
 		{
-			//delete active[i];
-			//active[i] = nullptr;
+			delete active[i];
+			active[i] = nullptr;
 		}
 	}
 
