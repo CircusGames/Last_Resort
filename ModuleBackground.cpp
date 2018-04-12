@@ -450,7 +450,7 @@ bool ModuleBackground::Start()
 
 	//enable player
 	App->player->Enable();
-	App->playerUnit->Enable();
+	//App->playerUnit->Enable();
 
 	//assign or reassign currentCameraPosX to camera.x, restart lvl at init position
 	App->render->currentCameraPosX = 0; //App->render->camera.x;

@@ -11,6 +11,16 @@ struct SDL_Texture;
 class ModulePlayer : public Module
 {
 public:
+
+	enum player_state
+	{
+		spawn,
+		normal,
+		died
+
+	} player_step = player_state::spawn;
+
+public:
 	ModulePlayer();
 	~ModulePlayer();
 

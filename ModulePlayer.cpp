@@ -29,7 +29,7 @@ ModulePlayer::ModulePlayer()
 	spawnAnim.PushBack({ 156,143,36,19 }); //36,71
 	spawnAnim.PushBack({ 160,171,32,15 }); //40,73        
 	spawnAnim.speed = 0.143f;
-	spawnAnim.repeat = true;
+	spawnAnim.repeat = false;
 
 
 	//movement anim
@@ -62,6 +62,11 @@ bool ModulePlayer::Start()
 	ignitionSpeed = 0.2f; //speed when accelerate
 	releaseSpeed = 0.1f; //speed when releases direction keys to return to idle
 
+	//for new gameLoops
+	//checks if the player state is normal, if is, spawn condition
+	if (player_step == player_state::normal)
+		player_step = player_state::spawn;
+
 	return ret;
 
 
@@ -70,63 +75,77 @@ bool ModulePlayer::Start()
 // Update: draw background
 update_status ModulePlayer::Update()
 {
-	float speed = 1.4f; //player position speed
-	playerSpeed = speed; //resets the temporal incrementer to always Nicolas at the desired incrementer count
-						  //new change direction starts incrementer at speed correct value (always same distances)
-
-	//App->render->Blit(player,300, 50, &spawnAnim.GetCurrentFrame());
-
 	Animation* current_animation = &playerAnim;
-	
-	//animation logic ---------------------------------------------------------------
+	SDL_Rect r;
 
-	if (App->input->keyboard[SDL_SCANCODE_S] == KEY_STATE::KEY_REPEAT) //while press down
+	if (player_step == player_state::spawn)
 	{
-		frameIncrement += ignitionSpeed;
-		if (frameIncrement >= 5)
-			frameIncrement = 4.99f;
+		current_animation = &spawnAnim;
+		r = current_animation->GetCurrentFrame();
+		if (current_animation->finish)
+			player_step = player_state::normal;
 	}
 
-	//for quickly directions change, release  to turn idle speed incrementer doesn't affect
-	//yet, and go to top up animation (or wherever we are) at ignition speed (normal/fast direction change)
-	//and only if the two keys are released, return at release speed to idle position
-	//we check on separate for fast direction change (no key release = to estabilization spaceship)
-
-	//----ship estabilization check (return to idle when release up or down) ---
-
-	if (App->input->keyboard[SDL_SCANCODE_S] == KEY_STATE::KEY_IDLE && (int)frameIncrement != 2)
+	else
 	{
-		if ((int)frameIncrement >= 2)
-			frameIncrement -= releaseSpeed;
-		
-	}
 
-	if (App->input->keyboard[SDL_SCANCODE_W] == KEY_STATE::KEY_IDLE && (int)frameIncrement != 2)
-	{
-		if (frameIncrement < 2)
-			frameIncrement += releaseSpeed;
-	}
+		float speed = 1.4f; //player position speed
+		playerSpeed = speed; //resets the temporal incrementer to always Nicolas at the desired incrementer count
+							  //new change direction starts incrementer at speed correct value (always same distances)
 
-	//---------------------------------------------------------------------------
-	//already, double check to imitate original animation behaviour (emulator)
-	if (App->input->keyboard[SDL_SCANCODE_W] == KEY_STATE::KEY_REPEAT && 
-		App->input->keyboard[SDL_SCANCODE_S] == KEY_STATE::KEY_IDLE) //while press up
-	{
-		frameIncrement -= ignitionSpeed;
-		if (frameIncrement <= 0)
-			frameIncrement = 0;
-	}
+		//App->render->Blit(player,300, 50, &spawnAnim.GetCurrentFrame());
 
-	//--------------------------------------------------------------------------------
-	
-	SDL_Rect r = *current_animation->frames[(int)frameIncrement]; //idle
+		//Animation* current_animation = &playerAnim;
 
-	//--------------------------------------------------------------------------------
+		//animation logic ---------------------------------------------------------------
 
-	//move player position (this section must be code optimized ----------------------
-	//down move position
-	if (App->input->keyboard[SDL_SCANCODE_S] == KEY_STATE::KEY_REPEAT)
-	{
+		if (App->input->keyboard[SDL_SCANCODE_S] == KEY_STATE::KEY_REPEAT) //while press down
+		{
+			frameIncrement += ignitionSpeed;
+			if (frameIncrement >= 5)
+				frameIncrement = 4.99f;
+		}
+
+		//for quickly directions change, release  to turn idle speed incrementer doesn't affect
+		//yet, and go to top up animation (or wherever we are) at ignition speed (normal/fast direction change)
+		//and only if the two keys are released, return at release speed to idle position
+		//we check on separate for fast direction change (no key release = to estabilization spaceship)
+
+		//----ship estabilization check (return to idle when release up or down) ---
+
+		if (App->input->keyboard[SDL_SCANCODE_S] == KEY_STATE::KEY_IDLE && (int)frameIncrement != 2)
+		{
+			if ((int)frameIncrement >= 2)
+				frameIncrement -= releaseSpeed;
+
+		}
+
+		if (App->input->keyboard[SDL_SCANCODE_W] == KEY_STATE::KEY_IDLE && (int)frameIncrement != 2)
+		{
+			if (frameIncrement < 2)
+				frameIncrement += releaseSpeed;
+		}
+
+		//---------------------------------------------------------------------------
+		//already, double check to imitate original animation behaviour (emulator)
+		if (App->input->keyboard[SDL_SCANCODE_W] == KEY_STATE::KEY_REPEAT &&
+			App->input->keyboard[SDL_SCANCODE_S] == KEY_STATE::KEY_IDLE) //while press up
+		{
+			frameIncrement -= ignitionSpeed;
+			if (frameIncrement <= 0)
+				frameIncrement = 0;
+		}
+
+		//--------------------------------------------------------------------------------
+
+		 r = *current_animation->frames[(int)frameIncrement]; //idle
+
+		//--------------------------------------------------------------------------------
+
+		//move player position (this section must be code optimized ----------------------
+		//down move position
+		if (App->input->keyboard[SDL_SCANCODE_S] == KEY_STATE::KEY_REPEAT)
+		{
 			playerSpeed += speed;
 			position.y += (int)playerSpeed;
 			if (playerSpeed >= speed + 1) //returns correct value to cast incrementer
@@ -134,13 +153,13 @@ update_status ModulePlayer::Update()
 
 			if (position.y + (int)playerSpeed >= SCREEN_HEIGHT - 8) // 8 = player height/2 + required offset
 				position.y = 216; //target max down player position (original game pixel)
-	}
+		}
 
-	//up move position, checks if not down to imitate original game (emulator) behaviour
-	if (App->input->keyboard[SDL_SCANCODE_W] == KEY_STATE::KEY_REPEAT && 
-		App->input->keyboard[SDL_SCANCODE_S] == KEY_STATE::KEY_IDLE)
-	{
-		
+		//up move position, checks if not down to imitate original game (emulator) behaviour
+		if (App->input->keyboard[SDL_SCANCODE_W] == KEY_STATE::KEY_REPEAT &&
+			App->input->keyboard[SDL_SCANCODE_S] == KEY_STATE::KEY_IDLE)
+		{
+
 			playerSpeed += speed;
 			position.y -= (int)playerSpeed;
 			if (playerSpeed >= speed + 1) //checks and assign correct value to int cast float incrementer
@@ -149,50 +168,50 @@ update_status ModulePlayer::Update()
 			if (position.y + (int)playerSpeed <= 0 + 8) //0 = min y coordinate, 8 = texture height/2 + offset
 				position.y = 8; //target min y player position
 
+		}
+
+		//---------------------------------------------------------------------------------
+
+		//right move, doble check for imitate original (emulator) behaviour
+		if (App->input->keyboard[SDL_SCANCODE_D] == KEY_STATE::KEY_REPEAT &&
+			App->input->keyboard[SDL_SCANCODE_A] == KEY_STATE::KEY_IDLE)
+		{
+			playerSpeed += speed;
+			position.x += (int)playerSpeed;
+			if (playerSpeed >= speed + 1) //checks and assign correct value to int cast float incrementer
+				playerSpeed = speed;		//and next cycle
+
+			//playerSpeed at if is for assure the limits independent of speed value
+			//if (position.x + (int)playerSpeed >= 256) //0 = min y coordinate, 9=texture height/2 + offset
+				//position.x = 256; //target min y player position
+		}
+
+		//left move
+		if (App->input->keyboard[SDL_SCANCODE_A] == KEY_STATE::KEY_REPEAT)
+		{
+			playerSpeed += speed;
+			position.x -= (int)playerSpeed;
+			if (playerSpeed >= speed + 1) //checks and assign correct value to int cast float incrementer
+				playerSpeed = speed;		//and next cycle
+
+			if (position.x + (int)playerSpeed <= 0 + 16) //0 = min y coordinate, 9=texture height/2 + offset
+				position.x = 16; //target min y player position
+		}
+
+
+		//--------------------------------------------------------------------------------
+
+		//if player press keys of particles emitters
+
+		if (App->input->keyboard[SDL_SCANCODE_B] == KEY_STATE::KEY_DOWN)
+		{
+			LOG("Shot");
+			App->particles->AddParticle(App->particles->explosion, position.x, position.y + 25);
+			App->particles->AddParticle(App->particles->explosion, position.x - 25, position.y, 500);
+			App->particles->AddParticle(App->particles->explosion, position.x, position.y - 25, 1000);
+			App->particles->AddParticle(App->particles->explosion, position.x + 25, position.y, 3000);
+		}
 	}
-
-	//---------------------------------------------------------------------------------
-
-	//right move, doble check for imitate original (emulator) behaviour
-	if (App->input->keyboard[SDL_SCANCODE_D] == KEY_STATE::KEY_REPEAT && 
-		App->input->keyboard[SDL_SCANCODE_A] == KEY_STATE::KEY_IDLE)
-	{
-		playerSpeed += speed;
-		position.x += (int)playerSpeed;
-		if (playerSpeed >= speed + 1) //checks and assign correct value to int cast float incrementer
-			playerSpeed = speed;		//and next cycle
-
-		//playerSpeed at if is for assure the limits independent of speed value
-		//if (position.x + (int)playerSpeed >= 256) //0 = min y coordinate, 9=texture height/2 + offset
-			//position.x = 256; //target min y player position
-	}
-
-	//left move
-	if (App->input->keyboard[SDL_SCANCODE_A] == KEY_STATE::KEY_REPEAT)
-	{
-		playerSpeed += speed;
-		position.x -= (int)playerSpeed;
-		if (playerSpeed >= speed + 1) //checks and assign correct value to int cast float incrementer
-			playerSpeed = speed;		//and next cycle
-
-		if (position.x + (int)playerSpeed <= 0 + 16) //0 = min y coordinate, 9=texture height/2 + offset
-			position.x = 16; //target min y player position
-	}
-
-	
-	//--------------------------------------------------------------------------------
-
-	//if player press keys of particles emitters
-
-	if (App->input->keyboard[SDL_SCANCODE_B] == KEY_STATE::KEY_DOWN)
-	{
-		LOG("Shot");
-		App->particles->AddParticle(App->particles->explosion, position.x, position.y + 25);
-		App->particles->AddParticle(App->particles->explosion, position.x - 25, position.y, 500);
-		App->particles->AddParticle(App->particles->explosion, position.x, position.y - 25, 1000);
-		App->particles->AddParticle(App->particles->explosion, position.x + 25, position.y, 3000);
-	}
-
 	//draw player --------------------------------------------------------------------
 
 	App->render->Blit(player, position.x, position.y - (r.h / 2), &r, 1.0f);
