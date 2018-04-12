@@ -95,7 +95,7 @@ update_status ModuleTeamLogo::Update()
 	SDL_RenderCopy(App->render->renderer, logoTexture, &carpaDeCircoAnim.GetCurrentFrame(), &logoRect );
 	//SDL_RenderCopy(App->render->renderer, logoTextTexture, &LogoTextAnim.GetCurrentFrame(), &provisionalRect);
 
-	App->render->Blit(logoTextTexture, 80, 140, &LogoTextAnim.GetCurrentFrame());
+	App->render->Blit(logoTextTexture, 77, 140, &LogoTextAnim.GetCurrentFrame());
 
 	if (now >= total_time)
 	{
