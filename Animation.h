@@ -14,11 +14,11 @@ public:
 	SDL_Rect* frames[MAX_PTRFRAMES];// = new SDL_Rect; -----------
 	bool repeat = true; //default animation is circular pattern
 
-	~Animation()
+	/*~Animation()
 	{
 		delete *frames;
 		*frames = nullptr;
-	}
+	}*/
 
 private:
 	//float current_frame;

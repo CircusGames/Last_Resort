@@ -219,12 +219,15 @@ update_status ModulePlayer::Update()
 			App->particles->AddParticle(App->particles->explosion, position.x - 25, position.y, 500);
 			App->particles->AddParticle(App->particles->explosion, position.x, position.y - 25, 1000);
 			App->particles->AddParticle(App->particles->explosion, position.x + 25, position.y, 3000);
+			
 		}
 
-		if (App->input->keyboard[SDL_SCANCODE_V] == KEY_STATE::KEY_DOWN)
+		if (App->input->keyboard[SDL_SCANCODE_V] == KEY_STATE::KEY_DOWN)// Testeando
 		{
 			LOG("Beam!");
-			App->particles->AddParticle(App->particles->beam, position.x+50, position.y+50);
+			App->particles->AddParticle(App->particles->beamShoot, position.x, position.y);
+			App->particles->AddParticle(App->particles->beam, position.x, position.y);
+			
 		}
 	}
 	//draw player --------------------------------------------------------------------

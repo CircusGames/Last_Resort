@@ -6,7 +6,7 @@
 #include "Globals.h"
 #include "p2Point.h"
 
-#define MAX_ACTIVE_PARTICLES 100
+#define MAX_ACTIVE_PARTICLES 500
 
 struct SDL_Texture;
 
@@ -48,6 +48,7 @@ private:
 public:
 
 	Particle explosion;
+	Particle beamShoot;
 	Particle beam;
 };
 

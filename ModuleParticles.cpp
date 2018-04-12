@@ -20,7 +20,7 @@ ModuleParticles::~ModuleParticles()
 bool ModuleParticles::Start()
 {
 	LOG("Loading particles");
-	graphics = App->textures->Load("assets/player1_incomplete");
+	graphics = App->textures->Load("assets/player1_incomplete.png");
 
 	// Explosion particle
 	explosion.anim.PushBack({ 274, 296, 33, 30 });
@@ -32,11 +32,14 @@ bool ModuleParticles::Start()
 	explosion.anim.repeat = false;
 	explosion.anim.speed = 0.3f;
 
-	// Beam Particle 
-	beam.anim.PushBack({ 128,126,10,9 });
-	beam.anim.PushBack({ 115,124,13,12 });
-	beam.anim.repeat = true;
-	beam.anim.speed = 0.2f;
+	// Beam shoot particle
+	beamShoot.anim.PushBack({ 128,126,-13,12 }); //10,9
+	beamShoot.anim.PushBack({ 115,124,-13,12 });
+	beamShoot.anim.repeat = false;
+	beamShoot.anim.speed = 0.2f;
+
+	// Beam
+	beam.anim.PushBack({ 148,127,15,7 });
 
 	return true;
 }
