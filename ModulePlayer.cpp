@@ -225,9 +225,13 @@ update_status ModulePlayer::Update()
 		if (App->input->keyboard[SDL_SCANCODE_V] == KEY_STATE::KEY_DOWN)// Testeando
 		{
 			LOG("Beam!");
+<<<<<<< HEAD
 			App->particles->AddParticle(App->particles->beamShoot, position.x, position.y);
 			App->particles->AddParticle(App->particles->beam, position.x, position.y, 0, {6,0}, 400);
 			
+=======
+			App->particles->AddParticle(App->particles->beam, position.x + 50, position.y + 50, 0, {6,0}, 500);
+>>>>>>> 9aa4e73d08e0ad510400e79738a9b8d416bda92c
 		}
 	}
 	//draw player --------------------------------------------------------------------
