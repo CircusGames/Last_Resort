@@ -55,10 +55,7 @@ bool ModuleParticles::Start()
 	beamShotAnim.repeat = true;
 	beamShotAnim.speed = 0.2f;
 
-	beam.anim = &beamShotAnim;
-	//beam.r = beam.anim->GetCurrentFrame();
-
-	
+	beam.anim = &beamShotAnim; //links particle anim pointer to animation
 
 	return true;
 }
@@ -98,9 +95,9 @@ update_status ModuleParticles::Update()
 		}
 		else if (SDL_GetTicks() >= p->born)
 		{
-			p->r = beamShotAnim.GetCurrentFrame();
+			
+			p->r = p->anim->GetCurrentFrame();
 			//beam.anim = &beamShotAnim;
-			//beam.r = beam.anim->GetCurrentFrame();
 			App->render->Blit(graphics, p->position.x, p->position.y, &(p->r));
 			if (p->fx_played == false)
 			{
@@ -114,9 +111,10 @@ update_status ModuleParticles::Update()
 	return UPDATE_CONTINUE;
 }
 
-void ModuleParticles::AddParticle(const Particle& particle, int x, int y, Uint32 delay, iPoint speed, Uint32 life)
+void ModuleParticles::AddParticle(const Particle& particle, Animation& sourceAnim, int x, int y, Uint32 delay, iPoint speed, Uint32 life)
 {
 	Particle* p = new Particle(particle);
+	p->anim = &sourceAnim;
 	p->born = SDL_GetTicks() + delay;
 	p->position.x = x;
 	p->position.y = y;
