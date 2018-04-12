@@ -2,7 +2,7 @@
 #include "Application.h"
 #include "ModuleTextures.h"
 #include "ModuleRender.h"
-#include "ModuleSceneIntro.h"
+#include "ModuleGameTitle.h"
 //#include "ModuleBackground.h"
 #include "ModuleGameOver.h"
 #include "ModuleInput.h"
@@ -29,8 +29,8 @@ bool ModuleGameOver::Start()
 	gameOverTexture = App->textures->Load("assets/GameOver.png");
 
 	//loading music
-	App->audio->LoadMUS("assets/Continue.ogg", "continueSong");
-	App->audio->ControlMUS("continueSong", FADEIN, 500.0f);
+	//App->audio->LoadMUS("assets/Continue.ogg", "continueSong");
+	//App->audio->ControlMUS("continueSong", FADEIN, 500.0f);
 
 	return true;
 }
@@ -41,7 +41,7 @@ update_status ModuleGameOver::Update()
 	App->render->Blit(gameOverTexture, 35,46, &gameOverRect);
 
 	if (App->input->keyboard[SDL_SCANCODE_RETURN] == 1)
-		App->fade->FadeToBlack(App->gameOverScreen, App->introScreen, 0.8f);
+		App->fade->FadeToBlack(App->gameOverScreen, App->gameTitle, 0.8f);
 
 	return UPDATE_CONTINUE;
 }
@@ -52,8 +52,8 @@ bool ModuleGameOver::CleanUp()
 	App->textures->Unload(gameOverTexture);
 
 	//unload music
-	Mix_FadeOutMusic(250);
-	App->audio->UnloadMus("continueSong");
+	//Mix_FadeOutMusic(250);
+	//App->audio->UnloadMus("continueSong");
 
 	return true;
 }

@@ -396,7 +396,7 @@ ModuleBackground::~ModuleBackground()
 bool ModuleBackground::Init()
 {
 
-	cameraSpeed = 0.5f * SCREEN_SIZE;
+	//cameraSpeed = 0.5f * SCREEN_SIZE;
 
 	bgMovY.maxLoops = 12; //13 is to go to mid pos
 	bgMovY.currentLoops = 1;
@@ -816,6 +816,7 @@ bool ModuleBackground::CleanUp()
 	LOG("Unloading lvl1 textures");
 
 	App->player->Disable();
+	App->playerUnit->Disable();
 
 	App->textures->Unload(bg);
 	App->textures->Unload(mg);

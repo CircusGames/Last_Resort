@@ -470,7 +470,7 @@ update_status ModulePlayerUnit::Update()
 	App->render->Blit(playerUnitBlue,
 		playerPos.x - pivotArrayPositionsX[(int)frameIncrement],
 		playerPos.y - pivotArrayPositionsY[(int)frameIncrement],
-		&unitRect);//,0.0f);
+		&unitRect);
 
 	// ------------------------------------------------------------------------------------------------
 	return UPDATE_CONTINUE;

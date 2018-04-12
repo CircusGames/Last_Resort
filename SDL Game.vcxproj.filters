@@ -56,13 +56,16 @@
     <ClInclude Include="ModuleFadeToBlack.h">
       <Filter>Modules</Filter>
     </ClInclude>
-    <ClInclude Include="ModuleSceneIntro.h">
-      <Filter>Modules</Filter>
-    </ClInclude>
     <ClInclude Include="ModuleGameOver.h">
       <Filter>Modules</Filter>
     </ClInclude>
     <ClInclude Include="ModulePlayerUnit.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleGameTitle.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleTeamLogo.h">
       <Filter>Modules</Filter>
     </ClInclude>
   </ItemGroup>
@@ -100,13 +103,16 @@
     <ClCompile Include="ModuleFadeToBlack.cpp">
       <Filter>Modules</Filter>
     </ClCompile>
-    <ClCompile Include="ModuleSceneIntro.cpp">
-      <Filter>Modules</Filter>
-    </ClCompile>
     <ClCompile Include="ModuleGameOver.cpp">
       <Filter>Modules</Filter>
     </ClCompile>
     <ClCompile Include="ModulePlayerUnit.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleGameTitle.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleTeamLogo.cpp">
       <Filter>Modules</Filter>
     </ClCompile>
   </ItemGroup>

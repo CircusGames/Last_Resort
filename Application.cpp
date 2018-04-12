@@ -8,7 +8,8 @@
 #include "ModulePlayerUnit.h"
 #include "ModuleAudio.h"
 #include "ModuleFadeToBlack.h"
-#include "ModuleSceneIntro.h"
+#include "ModuleTeamLogo.h"
+#include "ModuleGameTitle.h"
 #include "ModuleGameOver.h"
 
 Application::Application()
@@ -18,13 +19,14 @@ Application::Application()
 	modules[1] = render = new ModuleRender();
 	modules[2] = input = new ModuleInput();
 	modules[3] = textures = new ModuleTextures();
-	modules[4] = background = new ModuleBackground();
-	modules[5] = introScreen = new ModuleSceneIntro();
-	modules[6] = gameOverScreen = new ModuleGameOver();
-	modules[7] = player = new ModulePlayer();
-	modules[8] = playerUnit = new ModulePlayerUnit();
-	modules[9] = audio = new ModuleAudio();
-	modules[10] = fade = new ModuleFadeToBlack();
+	modules[4] = teamLogo = new ModuleTeamLogo();
+	modules[5] = background = new ModuleBackground();
+	modules[6] = gameTitle = new ModuleGameTitle();
+	modules[7] = gameOverScreen = new ModuleGameOver();
+	modules[8] = player = new ModulePlayer();
+	modules[9] = playerUnit = new ModulePlayerUnit();
+	modules[10] = audio = new ModuleAudio();
+	modules[11] = fade = new ModuleFadeToBlack();
 
 }	
 
@@ -42,8 +44,9 @@ bool Application::Init()
 	player->Disable();
 	playerUnit->Disable();
 	//disable the scenes wich i dont need at start/init
-	introScreen->Disable();
-	//background->Disable();
+	teamLogo->Disable();
+	//gameTitle->Disable();
+	background->Disable();
 	gameOverScreen->Disable();
 
 	//all modules have their init
