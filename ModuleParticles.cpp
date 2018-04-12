@@ -32,6 +32,7 @@ bool ModuleParticles::Start()
 	explosion.anim.repeat = false;
 	explosion.anim.speed = 0.3f;
 
+<<<<<<< HEAD
 	// Beam shoot particle
 	beamShoot.anim.PushBack({ 128,126,-13,12 }); //10,9
 	beamShoot.anim.PushBack({ 115,124,-13,12 });
@@ -40,6 +41,13 @@ bool ModuleParticles::Start()
 
 	// Beam
 	beam.anim.PushBack({ 148,127,15,7 });
+=======
+	// Beam Particle 
+	beam.anim.PushBack({ 128,126,-10,9 });
+	beam.anim.PushBack({ 115,124,-13,12 });
+	beam.anim.repeat = true;
+	beam.anim.speed = 0.2f;
+>>>>>>> 9aa4e73d08e0ad510400e79738a9b8d416bda92c
 
 	return true;
 }
@@ -54,8 +62,8 @@ bool ModuleParticles::CleanUp()
 	{
 		if (active[i] != nullptr)
 		{
-			delete active[i];
-			active[i] = nullptr;
+			//delete active[i];
+			//active[i] = nullptr;
 		}
 	}
 
@@ -71,6 +79,8 @@ update_status ModuleParticles::Update()
 
 		if (p == nullptr)
 			continue;
+
+		//p->Update();
 
 		if (p->Update() == false)
 		{
@@ -92,12 +102,15 @@ update_status ModuleParticles::Update()
 	return UPDATE_CONTINUE;
 }
 
-void ModuleParticles::AddParticle(const Particle& particle, int x, int y, Uint32 delay)
+void ModuleParticles::AddParticle(const Particle& particle, int x, int y, Uint32 delay, iPoint speed, Uint32 life)
 {
 	Particle* p = new Particle(particle);
 	p->born = SDL_GetTicks() + delay;
 	p->position.x = x;
 	p->position.y = y;
+
+	p->speed = speed;
+	p->life = life;
 
 	active[last_particle++] = p;
 }
