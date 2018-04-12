@@ -37,11 +37,11 @@ public:
 	update_status Update();
 	bool CleanUp();
 
-	void AddParticle(const Particle& particle, int x, int y, Uint32 delay = 0, iPoint speed = { 0,0 }, Uint32 life = 0);
+	void AddParticle(const Particle& particle, Animation& sourceAnim, int x, int y, Uint32 delay = 0, iPoint speed = { 0,0 }, Uint32 life = 0);
 
 private:
 
-	Animation beamShotAnim;
+	
 	
 	SDL_Texture* graphics = nullptr;
 	Particle* active[MAX_ACTIVE_PARTICLES];
@@ -51,7 +51,10 @@ private:
 public:
 
 	Particle explosion;
+
+	Animation beamShotAnim;
 	Particle beamShoot;
+
 	Particle beam;
 };
 

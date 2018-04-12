@@ -215,10 +215,10 @@ update_status ModulePlayer::Update()
 		if (App->input->keyboard[SDL_SCANCODE_B] == KEY_STATE::KEY_DOWN)
 		{
 			LOG("Shot");
-			App->particles->AddParticle(App->particles->explosion, position.x, position.y + 25);
+			/*App->particles->AddParticle(App->particles->explosion, position.x, position.y + 25);
 			App->particles->AddParticle(App->particles->explosion, position.x - 25, position.y, 500);
 			App->particles->AddParticle(App->particles->explosion, position.x, position.y - 25, 1000);
-			App->particles->AddParticle(App->particles->explosion, position.x + 25, position.y, 3000);
+			App->particles->AddParticle(App->particles->explosion, position.x + 25, position.y, 3000);*/
 			
 		}
 
@@ -226,8 +226,8 @@ update_status ModulePlayer::Update()
 		{
 			LOG("Beam!");
 
-			App->particles->AddParticle(App->particles->beamShoot, position.x+32, position.y-6);
-			App->particles->AddParticle(App->particles->beam, position.x+32, position.y-6, 0, {6,0}, 400);
+			//App->particles->AddParticle(App->particles->beamShoot, position.x, position.y);
+			App->particles->AddParticle(App->particles->beam,App->particles->beamShotAnim ,position.x, position.y, 0, {6,0}, 400);
 
 		}
 	}
