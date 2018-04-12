@@ -1,10 +1,14 @@
+<<<<<<< HEAD
 #include <math.h>
+=======
+>>>>>>> ba1d69368494de56008eb5593df8b895a2bebd54
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleTextures.h"
 #include "ModuleRender.h"
 #include "ModuleParticles.h"
 
+<<<<<<< HEAD
 #include "SDL/include/SDL_timer.h"
 
 ModuleParticles::ModuleParticles()
@@ -127,3 +131,13 @@ bool Particle::Update()
 
 	return ret;
 }
+=======
+ModuleParticles::ModuleParticles()
+{
+	for (uint i = 0; i < MAX_ACTIVE_PARTICLES; i++)
+		active[i] = nullptr;
+}
+
+ModuleParticles::~ModuleParticles(){}
+
+>>>>>>> ba1d69368494de56008eb5593df8b895a2bebd54
