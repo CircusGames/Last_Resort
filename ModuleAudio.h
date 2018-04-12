@@ -8,6 +8,12 @@
 #define MAX_SONGS 10
 #define MAX_FX 64
 
+enum type
+{
+	MUSIC,
+	SFX
+};
+
 enum audio_state
 {
 	PLAY,
@@ -44,11 +50,11 @@ public:
 	~ModuleAudio();
 
 	bool Init();
-	//Mix_Chunk* const LoadSfx(const char* path, char *name);
+	Mix_Chunk* const LoadSfx(const char* path, char *name);
 	Mix_Music* const LoadMUS(const char* path, char *name);
 	void UnloadMus(char* name);
 	//update_status update(); //not for now
-	void ControlMUS(char* name, audio_state state, float fadeInTimeMs = 1000.0f, float fadeOffTimeMs = 500.0f);
+	void ControlAudio(char* name, type type,audio_state state, float fadeInTimeMs = 1000.0f, float fadeOffTimeMs = 500.0f);
 	bool CleanUp();
 
 

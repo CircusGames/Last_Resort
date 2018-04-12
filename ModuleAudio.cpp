@@ -70,54 +70,102 @@ bool ModuleAudio::Init()
 		return music;
 	}
 
-	void ModuleAudio::ControlMUS(char* name, audio_state state , float fadeInTimeMs,float fadeOffTimeMs)
+	Mix_Chunk* const ModuleAudio::LoadSfx(const char* path, char* name)
 	{
+
+		Mix_Chunk* sfx = nullptr;
+		char *_name = name;
+
+		sfx = Mix_LoadWAV(path);
+
+		if (sfx == nullptr)
+		{
+			LOG("Unable to load SFX Mix Error: %s\n", Mix_GetError());
+		}
+		else
+		{
+			sfxArray[last_chunk].chunk = sfx;
+			sfxArray[last_chunk].name = _name;
+			last_chunk++;
+		}
+		return sfx;
+	}
+
+	void ModuleAudio::ControlAudio(char* name, type type, audio_state state , float fadeInTimeMs,float fadeOffTimeMs)
+	{
+		
+		Mix_Chunk* wav = nullptr;
 		Mix_Music *music = nullptr;
 		char *_name = name;
 		
-		for (int i = 0; i <= last_song; ++i) //here we have some problem, 3-4 loop game Over not sound...
+		if (type == type::MUSIC)
 		{
-			if (songsArray[i].name == _name) {
-				music = songsArray[i].songs;
+			for (int i = 0; i < MAX_SONGS; ++i) // here is the problem? 
+			{
+				if (songsArray[i].name == _name) {
+					music = songsArray[i].songs;
+				}
 			}
-		}
+			if (music == nullptr) {
+				LOG("Music not found ControlMUS : %s\n", name);
+			}
+			else
+			{
+				switch (state)
+				{
+				case PLAY:
+					if (!Mix_PlayingMusic())
+						Mix_PlayMusic(music, 3);
+					else
+						LOG("Music is already played : %s\n", name);
+					break;
+				case STOP:
+					if (!Mix_PausedMusic())
+						Mix_PauseMusic();
+					else
+						LOG("Music is already stoped : %s\n", name);
+					break;
+				case FADEIN:
+					if (!Mix_FadingMusic() || !Mix_PlayingMusic)
+						Mix_FadeInMusic(music, -1, (int)fadeInTimeMs);
+					else
+						LOG("Music is already fading or playing : %s\n", name);
+					break;
+				case FADEOFF:
+					if (Mix_PlayingMusic())
+						Mix_FadeOutMusic((int)fadeOffTimeMs);
+					else
+						LOG("Music is already faded out or stoped : %s\n", name);
+					break;
 
+				default:
+					break;
+				}
+			}
 
-		if (music == nullptr) {
-			LOG("Music not found ControlMUS : %s\n", name);
 		}
-		else {
+		else if(type == type::SFX)
+		{
+			for (int i = 0; i < MAX_FX; ++i) 
+			{
+				if (sfxArray[i].name == _name) {
+					wav = sfxArray[i].chunk;
+				}
+			}
 			switch (state)
 			{
 			case PLAY:
-				if (!Mix_PlayingMusic())
-					Mix_PlayMusic(music, 3);
-				else
-					LOG("Music is already played : %s\n", name);
+				Mix_PlayChannel(-1, wav, 0);
 				break;
-			case STOP:
-				if (!Mix_PausedMusic())
-					Mix_PauseMusic();
-				else
-					LOG("Music is already stoped : %s\n", name);
-				break;
-			case FADEIN:
-				if (!Mix_FadingMusic() || !Mix_PlayingMusic)
-					Mix_FadeInMusic(music,-1, (int)fadeInTimeMs);
-				else
-					LOG("Music is already fading or playing : %s\n", name);
-				break;
-			case FADEOFF:
-				if (Mix_PlayingMusic())
-					Mix_FadeOutMusic((int)fadeOffTimeMs);
-				else
-					LOG("Music is already faded out or stoped : %s\n", name);
-				break;
-
+	
 			default:
 				break;
 			}
+
 		}
+
+
+		
 	}
 
 	void ModuleAudio::UnloadMus(char* name)

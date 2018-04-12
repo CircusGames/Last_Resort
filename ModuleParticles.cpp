@@ -4,6 +4,7 @@
 #include "ModuleTextures.h"
 #include "ModuleRender.h"
 #include "ModuleParticles.h"
+#include "ModuleAudio.h"
 
 #include "SDL/include/SDL_timer.h"
 
@@ -52,7 +53,6 @@ bool ModuleParticles::Start()
 	// Beam Particle 
 	beamShotAnim.PushBack({ 128,126,10,9 });
 	beamShotAnim.PushBack({ 115,124,13,12 });
-	beamShotAnim.repeat = false;
 	beamShotAnim.speed = 0.2f;
 
 	beam.anim = &beamShotAnim; //links particle anim pointer to animation
@@ -97,12 +97,13 @@ update_status ModuleParticles::Update()
 		{
 			
 			p->r = p->anim->GetCurrentFrame();
-			//beam.anim = &beamShotAnim;
 			App->render->Blit(graphics, p->position.x, p->position.y, &(p->r));
 			if (p->fx_played == false)
 			{
 				p->fx_played = true;
 				// Play particle fx here
+				App->audio->ControlAudio(p->fx,SFX,PLAY);
+
 
 			}
 		}
@@ -111,10 +112,15 @@ update_status ModuleParticles::Update()
 	return UPDATE_CONTINUE;
 }
 
-void ModuleParticles::AddParticle(const Particle& particle, Animation& sourceAnim, int x, int y, Uint32 delay, iPoint speed, Uint32 life)
+void ModuleParticles::AddParticle(const Particle& particle, Animation& sourceAnim, int x, int y, Uint32 delay, iPoint speed, Uint32 life, char* name)
 {
 	Particle* p = new Particle(particle);
 	p->anim = &sourceAnim;
+	p->fx = name;
+
+	//checks if the new particle has the index on non 0 value and change for correct cycle
+	if (p->anim->current_frame == 0) p->anim->current_frame = 0;
+	// -----
 	p->born = SDL_GetTicks() + delay;
 	p->position.x = x;
 	p->position.y = y;
@@ -148,9 +154,9 @@ bool Particle::Update()
 		if ((SDL_GetTicks() - born) > life)
 			ret = false;
 	}
-	//else
-		//if (anim->finish)
-		//ret = false;
+	else
+		if (anim->finish)
+		ret = false;
 
 	position.x += speed.x;
 	position.y += speed.y;

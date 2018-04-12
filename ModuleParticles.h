@@ -14,7 +14,8 @@ struct Particle
 {
 	Animation* anim;
 	SDL_Rect r;
-	uint fx = 0;
+	//uint fx = 0;
+	char* fx;
 	iPoint position;
 	iPoint speed;
 	Uint32 born = 0;
@@ -37,7 +38,7 @@ public:
 	update_status Update();
 	bool CleanUp();
 
-	void AddParticle(const Particle& particle, Animation& sourceAnim, int x, int y, Uint32 delay = 0, iPoint speed = { 0,0 }, Uint32 life = 0);
+	void AddParticle(const Particle& particle, Animation& sourceAnim, int x, int y, Uint32 delay = 0, iPoint speed = { 0,0 }, Uint32 life = 0, char* fx = nullptr);
 
 private:
 

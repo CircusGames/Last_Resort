@@ -6,6 +6,7 @@
 #include "ModulePlayer.h"
 #include "ModulePlayerUnit.h"
 #include "ModuleParticles.h"
+#include "ModuleAudio.h"
 
 
 ModulePlayer::ModulePlayer()
@@ -61,6 +62,10 @@ bool ModulePlayer::Start()
 
 	ignitionSpeed = 0.2f; //speed when accelerate
 	releaseSpeed = 0.1f; //speed when releases direction keys to return to idle
+
+	//load necessary fx wavs
+	App->audio->LoadSfx("assets/shot04.wav", "shot");
+	//App->audio->ControlAudio("shot", SFX, PLAY);
 
 	//for new gameLoops
 	//checks if the player state is normal, if is, spawn condition
@@ -222,12 +227,12 @@ update_status ModulePlayer::Update()
 			
 		}
 
-		if (App->input->keyboard[SDL_SCANCODE_V] == KEY_STATE::KEY_DOWN)// Testeando
+		if (App->input->keyboard[SDL_SCANCODE_SPACE] == KEY_STATE::KEY_DOWN)
 		{
 			LOG("Beam!");
 
 			//App->particles->AddParticle(App->particles->beamShoot, position.x, position.y);
-			App->particles->AddParticle(App->particles->beam,App->particles->beamShotAnim ,position.x, position.y, 0, {6,0}, 400);
+			App->particles->AddParticle(App->particles->beam,App->particles->beamShotAnim ,position.x + 28, position.y -6, 0, {6,0}, 1000, "shot");
 
 		}
 	}

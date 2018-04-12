@@ -445,8 +445,8 @@ bool ModuleBackground::Start()
 	buildingLasersTexture = App->textures->Load("assets/lvl1_buildingLasers.png");
 
 	//loading music and fx
-	//App->audio->LoadMUS("assets/song1.ogg", "song1");
-	//App->audio->ControlMUS("song1", FADEIN, 1500.0f);
+	App->audio->LoadMUS("assets/song1.ogg", "song1");
+	App->audio->ControlAudio("song1", MUSIC, FADEIN, 1500.0f);
 
 	//enable player
 	App->player->Enable();
@@ -488,6 +488,7 @@ bool ModuleBackground::Start()
 
 update_status ModuleBackground::PreUpdate()
 {
+
 	if (App->render->currentCameraPosX <= -4408)
 	{
 		scrollX = false;
@@ -806,7 +807,7 @@ update_status ModuleBackground::Update()
 	//SCENE SWITCHING
 
 	if (App->input->keyboard[SDL_SCANCODE_RETURN] == 1)
-		App->fade->FadeToBlack(App->background, App->background);//App->gameOverScreen, 3.0f);
+		App->fade->FadeToBlack(App->background, App->gameOverScreen);
 
 	return UPDATE_CONTINUE;
 }
