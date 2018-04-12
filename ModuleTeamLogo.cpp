@@ -89,12 +89,13 @@ update_status ModuleTeamLogo::Update()
 	SDL_RenderFillRect(App->render->renderer, NULL);
 
 	//direct rendercopy 
-	SDL_Rect logoRect = { 92 * SCREEN_SIZE,52 * SCREEN_SIZE,120 * SCREEN_SIZE,120 * SCREEN_SIZE };
+	SDL_Rect logoRect = { 117 * SCREEN_SIZE,52 * SCREEN_SIZE,70 * SCREEN_SIZE,70 * SCREEN_SIZE };
 	SDL_Rect provisionalRect = { 57 * SCREEN_SIZE,67 * SCREEN_SIZE,80 * SCREEN_SIZE,10 * SCREEN_SIZE };
 
 	SDL_RenderCopy(App->render->renderer, logoTexture, &carpaDeCircoAnim.GetCurrentFrame(), &logoRect );
-	SDL_RenderCopy(App->render->renderer, logoTextTexture, &LogoTextAnim.GetCurrentFrame(), &provisionalRect);
+	//SDL_RenderCopy(App->render->renderer, logoTextTexture, &LogoTextAnim.GetCurrentFrame(), &provisionalRect);
 
+	App->render->Blit(logoTextTexture, 80, 140, &LogoTextAnim.GetCurrentFrame());
 
 	if (now >= total_time)
 	{
