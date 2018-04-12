@@ -17,9 +17,11 @@ public:
 	bool CleanUp();
 
 private:
-
+	
+	Animation carpaDeCircoAnim;//kev
 	SDL_Texture* logoTexture;
 	SDL_Texture* provisionalTexture;
+	SDL_Texture* carpaDeCirco = nullptr;//kev
 
 	Uint32 now;
 	float start_time;
@@ -27,8 +29,7 @@ private:
 
 };
 
-Animation carpaDeCirco;//kev
 
-SDL_Texture*carpaDeCirco = nullptr;//kev
+
 
 #endif // !__MODULETEAMLOGO_H__

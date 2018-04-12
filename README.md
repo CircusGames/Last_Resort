@@ -2,6 +2,10 @@
 
 ### new Project GitHub: https://github.com/CircusGames/Last_Resort
 
+### v0.3 GitHub https://github.com/CircusGames/Last_Resort
+
+   * Build:  https://github.com/CircusGames/Last_Resort/releases
+
 ### v0.2.1 GitHub: https://github.com/CircusGames/Last_Resort
   
    * Build: https://github.com/CircusGames/Last_Resort/releases
@@ -24,8 +28,28 @@
    
 Instructions:
 
-   * Use keyboard keys w,a,s,d to move player ship up,left,down and right.
-   * Use keyboard key return to switch game scenes.
+   * Use keyboard keys:
+      * W,a,s,d to move player ship up,left,down and right.
+	  * Left Shift to lock/unlock Unity.
+	  * Space to shot simple beam.
+	  * Return to switch game scenes.
+
+***
+
+### changelog v0.3
+
+   * Added moduleParticles:
+      * modified to accept, speed, life, and sourceAnimation.
+	  * SourceAnimation is used to link pointer of structure particles to animation.
+	  * SourceAnimation is created to coexist with animations dynamic memory destructor.
+   * Splitted ModuleScene into two separated modules, gameTitle and teamLogo:
+      * gameTitle now have full animations and logic.
+   * Added Player Unity Module:
+      * Contains the logic and animations of the basic weapon of the game, the unity.
+	  * Full linear and diagonals moves respect the player position.
+	  * Links correctly the flow of the Unity animation itself.
+	  * NOT CONTEMPLED YET: diagonals of the unity animation itself (where it's pointing with diagonal press).
+   * Adapted ModuleAudio to accept the load, severals options to play, and unload FX.
 
 ***
 
