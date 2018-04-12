@@ -20,7 +20,7 @@ ModuleParticles::~ModuleParticles()
 bool ModuleParticles::Start()
 {
 	LOG("Loading particles");
-	graphics = App->textures->Load("assets/particles.png");
+	graphics = App->textures->Load("assets/player1_incomplete");
 
 	// Explosion particle
 	explosion.anim.PushBack({ 274, 296, 33, 30 });
@@ -32,7 +32,11 @@ bool ModuleParticles::Start()
 	explosion.anim.repeat = false;
 	explosion.anim.speed = 0.3f;
 
-	// TODO 2: Create the template for a new particle "laser"
+	// Beam Particle 
+	beam.anim.PushBack({ 128,126,10,9 });
+	beam.anim.PushBack({ 115,124,13,12 });
+	beam.anim.repeat = true;
+	beam.anim.speed = 0.2f;
 
 	return true;
 }
