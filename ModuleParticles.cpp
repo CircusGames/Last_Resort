@@ -50,12 +50,15 @@ bool ModuleParticles::Start()
 
 	//beamShotAnim.PushBack({ 148,127,15,7 });
 
-	// Beam Particle 
-	beamShotAnim.PushBack({ 128,126,10,9 });
-	beamShotAnim.PushBack({ 115,124,13,12 });
-	beamShotAnim.speed = 0.2f;
+	//smoke Beam Particle 
+	beamSmokeAnim.PushBack({ 128,126,10,9 });
+	beamSmokeAnim.PushBack({ 115,124,13,12 });
+	beamSmokeAnim.speed = 0.2f;
+	beamSmoke.anim = &beamSmokeAnim; //links particle anim pointer to animation
 
-	beam.anim = &beamShotAnim; //links particle anim pointer to animation
+	//beam particle
+	beamShotAnim.PushBack({148,127,15,7});
+	beam.anim = &beamShotAnim;
 
 	return true;
 }

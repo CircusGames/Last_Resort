@@ -54,7 +54,9 @@ public:
 	Particle explosion;
 
 	Animation beamShotAnim;
-	Particle beamShoot;
+	
+	Particle beamSmoke;
+	Animation beamSmokeAnim;
 
 	Particle beam;
 };
