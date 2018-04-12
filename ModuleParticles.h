@@ -28,16 +28,10 @@ struct Particle
 class ModuleParticles : public Module
 {
 public:
-<<<<<<< HEAD
-	ModuleParticles();
-	~ModuleParticles();
-
-=======
 
 	ModuleParticles();
 	~ModuleParticles();
-	
->>>>>>> ba1d69368494de56008eb5593df8b895a2bebd54
+
 	bool Start();
 	update_status Update();
 	bool CleanUp();
@@ -48,21 +42,13 @@ private:
 
 	SDL_Texture* graphics = nullptr;
 	Particle* active[MAX_ACTIVE_PARTICLES];
-<<<<<<< HEAD
+
 	uint last_particle = 0;
 
 public:
 
 	Particle explosion;
+	Particle beam;
 };
 
 #endif // __MODULEPARTICLES_H__
-=======
-	uint lastParticle = 0;
-		
-public:
-
-	Particle beam;
-};
-#endif
->>>>>>> ba1d69368494de56008eb5593df8b895a2bebd54
