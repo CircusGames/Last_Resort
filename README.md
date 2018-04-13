@@ -30,7 +30,7 @@ Instructions:
 
    * Use keyboard keys:
       * W,a,s,d to move player ship up,left,down and right.
-	  * Left Shift to lock/unlock Unity.
+	  * Left Shift to lock/unlock Unit.
 	  * Space to shot simple beam.
 	  * Return to switch game scenes.
 
@@ -44,11 +44,11 @@ Instructions:
 	  * SourceAnimation is created to coexist with animations dynamic memory destructor.
    * Splitted ModuleScene into two separated modules, gameTitle and teamLogo:
       * gameTitle now have full animations and logic.
-   * Added Player Unity Module:
-      * Contains the logic and animations of the basic weapon of the game, the unity.
+   * Added Player Unit Module:
+      * Contains the logic and animations of the basic weapon of the game, the Unit.
 	  * Full linear and diagonals moves respect the player position.
-	  * Links correctly the flow of the Unity animation itself.
-	  * NOT CONTEMPLED YET: diagonals of the unity animation itself (where it's pointing with diagonal press).
+	  * Links correctly the flow of the Unit animation itself.
+	  * NOT CONTEMPLED YET: diagonals of the Unit animation itself (where it's pointing with diagonal press).
    * Adapted ModuleAudio to accept the load, severals options to play, and unload FX.
 
 ***
