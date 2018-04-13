@@ -233,8 +233,8 @@ update_status ModulePlayer::Update()
 
 			//App->particles->AddParticle(App->particles->beamShoot, position.x, position.y);
 			//App->particles->AddParticle(App->particles->beam,App->particles->beamShotAnim ,position.x + 28, position.y -6, 0, {6,0}, 1000, "shot");
-			App->particles->AddParticle(App->particles->beamSmoke, App->particles->beamSmokeAnim, position.x + 32, position.y - 6, 0, { 0,0 }, 100, "shot");
-			App->particles->AddParticle(App->particles->beam, App->particles->beamShotAnim, position.x + 28, position.y - 4, 0, { 8,0 }, 1000); //, "shot");
+			App->particles->AddParticle(App->particles->beamSmoke, App->particles->beamSmokeAnim, position.x + 16, position.y - 6, 0, { 0,0 }, 100, "shot");
+			App->particles->AddParticle(App->particles->beam, App->particles->beamShotAnim, position.x + 14, position.y - 4, 0, { 8,0 }, 1000); //, "shot");
 		}
 	}
 	//draw player --------------------------------------------------------------------

@@ -24,11 +24,12 @@ Application::Application()
 	modules[5] = background = new ModuleBackground();
 	modules[6] = gameTitle = new ModuleGameTitle();
 	modules[7] = gameOverScreen = new ModuleGameOver();
-	modules[8] = player = new ModulePlayer();
-	modules[9] = playerUnit = new ModulePlayerUnit();
-	modules[10] = audio = new ModuleAudio();
-	modules[11] = fade = new ModuleFadeToBlack();
-	modules[12] = particles = new ModuleParticles();
+	modules[8] = particles = new ModuleParticles();
+	modules[9] = player = new ModulePlayer();
+	modules[10] = playerUnit = new ModulePlayerUnit();
+	modules[11] = audio = new ModuleAudio();
+	modules[12] = fade = new ModuleFadeToBlack();
+	
 
 }	
 
@@ -46,9 +47,9 @@ bool Application::Init()
 	player->Disable();
 	playerUnit->Disable();
 	//disable the scenes wich i dont need at start/init
-	teamLogo->Disable();
+	//teamLogo->Disable();
 	gameTitle->Disable();
-	//background->Disable();
+	background->Disable();
 	gameOverScreen->Disable();
 
 	//all modules have their init
