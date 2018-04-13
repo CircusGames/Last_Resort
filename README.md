@@ -48,7 +48,7 @@ Instructions:
       * Contains the logic and animations of the basic weapon of the game, the Unit.
 	  * Full linear and diagonals moves respect the player position.
 	  * Links correctly the flow of the Unit animation itself.
-	  * NOT CONTEMPLED YET: diagonals of the unity animation itself (where it's pointing with diagonal press).
+	  * NOT CONTEMPLED YET: diagonals of the Unit animation itself (where it's pointing with diagonal press).
    * Adapted ModuleAudio to accept the load, severals options to play, and unload FX.
 
 ***
