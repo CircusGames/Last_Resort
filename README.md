@@ -49,7 +49,7 @@ Instructions:
 	  * Full linear and diagonals moves respect the player position.
 	  * Links correctly the flow of the Unit animation itself.
 	  * NOT CONTEMPLED YET: diagonals of the Unit animation itself (where it's pointing with diagonal press).
-   * Adapted ModuleAudio to accept the load, severals options to play, and unload FX.
+   * Adapted ModuleAudio to accept the load, severals options to play music,FX, and unload FX.
 
 ***
 
