@@ -177,11 +177,11 @@ ModulePlayerUnit::ModulePlayerUnit()
 
 ModulePlayerUnit::~ModulePlayerUnit() {}
 
-bool ModulePlayerUnit::Init()
+/*bool ModulePlayerUnit::Init()
 {
 
 	return true;
-}
+}*/
 
 bool ModulePlayerUnit::Start()
 {

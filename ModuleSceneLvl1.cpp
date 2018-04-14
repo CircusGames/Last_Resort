@@ -9,6 +9,8 @@
 #include "ModuleGameOver.h"
 #include "ModuleAudio.h"
 #include "ModulePlayerUnit.h"
+#include "ModuleParticles.h"
+#include "ModuleCollision.h"
 
 #define STREET_LIGHTS_A 15
 #define STREET_LIGHTS_B 13
@@ -448,9 +450,13 @@ bool ModuleSceneLvl1::Start()
 	App->audio->LoadMUS("assets/song1.ogg", "song1");
 	App->audio->ControlAudio("song1", MUSIC, FADEIN, 1500.0f);
 
-	//enable player
-	App->player->Enable();
+	//enable modules --------------
+	App->player->Enable(); //player start two times, WHY???????
 	//App->playerUnit->Enable();
+	App->particles->Enable();
+	App->collision->Enable();
+
+	// ----------------------------
 
 	//assign or reassign currentCameraPosX to camera.x, restart lvl at init position
 	App->render->currentCameraPosX = 0; //App->render->camera.x;
@@ -817,6 +823,9 @@ update_status ModuleSceneLvl1::Update()
 bool ModuleSceneLvl1::CleanUp()
 {
 	LOG("Unloading lvl1 textures");
+
+	App->collision->Disable();
+	App->particles->Disable();
 
 	App->player->Disable();
 	App->playerUnit->Disable();

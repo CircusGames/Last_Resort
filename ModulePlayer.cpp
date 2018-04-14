@@ -4,6 +4,7 @@
 #include "ModuleInput.h"
 #include "ModuleRender.h"
 #include "ModulePlayer.h"
+#include "ModuleCollision.h"
 #include "ModulePlayerUnit.h"
 #include "ModuleParticles.h"
 #include "ModuleAudio.h"
@@ -52,11 +53,15 @@ bool ModulePlayer::Start()
 	LOG("Loading player textures");
 	bool ret = true;
 
+	player = App->textures->Load("assets/player1_incomplete.png");
+
 	//restart player positions for next time playerModule call
+	
 	position.x = 40;
 	position.y = 80;
 	
-	player = App->textures->Load("assets/player1_incomplete.png");
+	//player collision rect
+	playerCollider = App->collision->AddCollider({ position.x, position.y, 32, 12 }, COLLIDER_PLAYER,this);
 
 	frameIncrement = 2; //initializes speed positions frame rect array incrementer at "center" -> idle
 
@@ -65,6 +70,7 @@ bool ModulePlayer::Start()
 
 	//load necessary fx wavs
 	App->audio->LoadSfx("assets/shot04.wav", "shot");
+	
 	//App->audio->ControlAudio("shot", SFX, PLAY);
 
 	//for new gameLoops
@@ -230,13 +236,17 @@ update_status ModulePlayer::Update()
 		if (App->input->keyboard[SDL_SCANCODE_SPACE] == KEY_STATE::KEY_DOWN)
 		{
 			LOG("Beam!");
-			//App->render->Blit(player, position.x, position.y, &App->particles->beamSmoke.anim.GetCurrentFrame());
-			App->particles->AddParticle(App->particles->beamSmoke, position.x + 16, position.y - 6);
+			App->particles->AddParticle(App->particles->beamSmoke, position.x + 16, position.y - 6, COLLIDER_NONE);
 	
-			App->particles->AddParticle(App->particles->beam, position.x + 14, position.y - 4, "shot"); //, "shot");
+			App->particles->AddParticle(App->particles->beam, position.x + 14, position.y - 4, COLLIDER_PLAYER_SHOT); //, "shot");
 		
 		}
 	}
+
+	//update player collider to its position -----------------------------------------
+
+	playerCollider->SetPos(position.x - 16, position.y - 6);
+
 	//draw player --------------------------------------------------------------------
 
 	App->render->Blit(player, position.x - (r.w/2), position.y - (r.h / 2), &r, 1.0f);
@@ -250,7 +260,9 @@ update_status ModulePlayer::Update()
 
 bool ModulePlayer::CleanUp()
 {
+	//App->player->Disable();
 	App->textures->Unload(player);
+	//App->collision->Disable();
 
 	return true;
 }

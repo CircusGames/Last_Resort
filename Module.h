@@ -33,8 +33,11 @@ public:
 
 	void Disable()
 	{
-		enabled = false;
-		CleanUp();
+		if (enabled == true)
+		{
+			enabled = false;
+			CleanUp();
+		}
 	}
 
 	// Callbacks ---

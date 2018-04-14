@@ -16,21 +16,21 @@
 
 Application::Application()
 {
-	
-	modules[0] = window = new ModuleWindow();
-	modules[1] = render = new ModuleRender();
-	modules[2] = input = new ModuleInput();
-	modules[3] = textures = new ModuleTextures();
-	modules[4] = teamLogo = new ModuleTeamLogo();
-	modules[5] = scene_lvl1 = new ModuleSceneLvl1();
-	modules[6] = gameTitle = new ModuleGameTitle();
-	modules[7] = gameOverScreen = new ModuleGameOver();
-	modules[8] = particles = new ModuleParticles();
-	modules[9] = player = new ModulePlayer();
-	modules[10] = playerUnit = new ModulePlayerUnit();
-	modules[11] = audio = new ModuleAudio();
-	modules[12] = collision = new ModuleCollision();
-	modules[13] = fade = new ModuleFadeToBlack();
+	int i = 0;
+	modules[i++] = window = new ModuleWindow();
+	modules[i++] = render = new ModuleRender();
+	modules[i++] = input = new ModuleInput();
+	modules[i++] = textures = new ModuleTextures();
+	modules[i++] = teamLogo = new ModuleTeamLogo();
+	modules[i++] = scene_lvl1 = new ModuleSceneLvl1();
+	modules[i++] = gameTitle = new ModuleGameTitle();
+	modules[i++] = gameOverScreen = new ModuleGameOver();
+	modules[i++] = particles = new ModuleParticles();
+	modules[i++] = player = new ModulePlayer();
+	modules[i++] = playerUnit = new ModulePlayerUnit();
+	modules[i++] = audio = new ModuleAudio();
+	modules[i++] = collision = new ModuleCollision();
+	modules[i++] = fade = new ModuleFadeToBlack();
 	
 
 }	
@@ -45,15 +45,19 @@ bool Application::Init()
 {
 	bool ret = true;
 	
+	//desactivate Modules ----------------
 	//disable modulePlayer at init
+	//scene_lvl1->Disable();
 	player->Disable();
 	playerUnit->Disable();
+	collision->Disable();
+	//particles->Disable();
 	//disable the scenes wich i dont need at start/init
 	teamLogo->Disable();
 	gameTitle->Disable();
-	//background->Disable();
+	
 	gameOverScreen->Disable();
-
+	// -----------------------------------
 	//all modules have their init
 	for(int i = 0; i < NUM_MODULES && ret == true; ++i)
 		ret = modules[i]->Init();

@@ -1,12 +1,13 @@
-#ifndef __ModulePlayer_H__
-#define __ModulePlayer_H__
+#ifndef __MODULEPLAYER_H__
+#define __MODULEPLAYER_H__
 
 #include "Module.h"
 #include "Animation.h"
-#include "Globals.h"
+//#include "Globals.h"
 #include "p2Point.h"
 
 struct SDL_Texture;
+struct Collider;
 
 class ModulePlayer : public Module
 {
@@ -43,6 +44,10 @@ public:
 	float releaseSpeed;
 	
 	float playerSpeed;
+
+	Collider* playerCollider;
+
+	int i;
 
 	//float playerSpeedUp; //individual values for avoid float cast delay when changes direction
 	//float playerSpeedDown;
