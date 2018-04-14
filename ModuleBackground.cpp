@@ -475,6 +475,8 @@ bool ModuleBackground::Start()
 	bgMovY.lastLoop = false;
 	//checker condition
 	updatePos = true;
+	//scroll true, if the game played before arrives at boss lvl1, next start -> scroll
+	scrollX = true;
 
 	//-----------------------------------------------------------------------------------------------------------
 

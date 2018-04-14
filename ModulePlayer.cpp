@@ -152,7 +152,7 @@ update_status ModulePlayer::Update()
 
 		//--------------------------------------------------------------------------------
 
-		 r = *current_animation->frames[(int)frameIncrement]; //idle
+		 r = current_animation->frames[(int)frameIncrement]; //idle
 
 		//--------------------------------------------------------------------------------
 
@@ -231,10 +231,9 @@ update_status ModulePlayer::Update()
 		{
 			LOG("Beam!");
 
-			//App->particles->AddParticle(App->particles->beamShoot, position.x, position.y);
-			//App->particles->AddParticle(App->particles->beam,App->particles->beamShotAnim ,position.x + 28, position.y -6, 0, {6,0}, 1000, "shot");
-			App->particles->AddParticle(App->particles->beamSmoke, App->particles->beamSmokeAnim, position.x + 16, position.y - 6, 0, { 0,0 }, 100, "shot");
-			App->particles->AddParticle(App->particles->beam, App->particles->beamShotAnim, position.x + 14, position.y - 4, 0, { 8,0 }, 1000); //, "shot");
+			//App->particles->AddParticle(App->particles->beamSmoke, App->particles->beamSmokeAnim, position.x + 16, position.y - 6, 0, { 0,0 }, 100, "shot");
+			//App->particles->AddParticle(App->particles->beam, App->particles->beamShotAnim, position.x + 14, position.y - 4, 0, { 8,0 }, 1000); //, "shot");
+			App->particles->AddParticle(App->particles->beam, position.x + 14, position.y - 4, "shot"); //, "shot");
 		}
 	}
 	//draw player --------------------------------------------------------------------

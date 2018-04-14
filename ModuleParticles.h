@@ -12,8 +12,9 @@ struct SDL_Texture;
 
 struct Particle
 {
-	Animation* anim;
-	SDL_Rect r;
+	//Animation* anim; //----
+	Animation anim;
+	//SDL_Rect r; //----
 	//uint fx = 0;
 	char* fx;
 	iPoint position;
@@ -38,7 +39,8 @@ public:
 	update_status Update();
 	bool CleanUp();
 
-	void AddParticle(const Particle& particle, Animation& sourceAnim, int x, int y, Uint32 delay = 0, iPoint speed = { 0,0 }, Uint32 life = 0, char* fx = nullptr);
+	//void AddParticle(const Particle& particle, Animation& sourceAnim, int x, int y, Uint32 delay = 0, iPoint speed = { 0,0 }, Uint32 life = 0, char* fx = nullptr);
+	void AddParticle(const Particle& particle, int x, int y, char* fx = nullptr, Uint32 delay = 0);
 
 private:
 
