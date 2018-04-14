@@ -48,8 +48,7 @@ public:
 
 	Collider* playerCollider;
 
-	int i;
-
+	int cameraPosition;
 	//float playerSpeedUp; //individual values for avoid float cast delay when changes direction
 	//float playerSpeedDown;
 

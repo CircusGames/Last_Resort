@@ -205,6 +205,11 @@ update_status ModulePlayer::Update()
 			//playerSpeed at if is for assure the limits independent of speed value
 			//if (position.x + (int)playerSpeed >= 256) //0 = min y coordinate, 9=texture height/2 + offset
 				//position.x = 256; //target min y player position
+
+			if (position.x > (abs(App->render->camera.x) / SCREEN_SIZE) + SCREEN_WIDTH - 30)
+			{
+				position.x = (abs(App->render->camera.x) / SCREEN_SIZE) + SCREEN_WIDTH - 30;// 16 = 1/2 player width + 16 offset original game
+			}
 		}
 
 		//left move
@@ -215,24 +220,18 @@ update_status ModulePlayer::Update()
 			if (playerSpeed >= speed + 1) //checks and assign correct value to int cast float incrementer
 				playerSpeed = speed;		//and next cycle
 
-			if (position.x + (int)playerSpeed <= 0 + 16) //0 = min y coordinate, 9=texture height/2 + offset
-				position.x = 16; //target min y player position
+			/*if (position.x + (int)playerSpeed <= 0 + 16) //0 = min y coordinate, 9=texture height/2 + offset
+				position.x = 16; //target min y player position*/
+			if (position.x < abs(App->render->camera.x) / SCREEN_SIZE + 30)
+			{
+				position.x = abs(App->render->camera.x) / SCREEN_SIZE + 30;// 16 = 1/2 player width + 16 offset original game
+			}
 		}
 
-
+		cameraPosition = abs(App->render->camera.x / 3);
 		//--------------------------------------------------------------------------------
 
 		//if player press keys of particles emitters
-
-		if (App->input->keyboard[SDL_SCANCODE_B] == KEY_STATE::KEY_DOWN)
-		{
-			LOG("Shot");
-			/*App->particles->AddParticle(App->particles->explosion, position.x, position.y + 25);
-			App->particles->AddParticle(App->particles->explosion, position.x - 25, position.y, 500);
-			App->particles->AddParticle(App->particles->explosion, position.x, position.y - 25, 1000);
-			App->particles->AddParticle(App->particles->explosion, position.x + 25, position.y, 3000);*/
-			
-		}
 
 		if (App->input->keyboard[SDL_SCANCODE_SPACE] == KEY_STATE::KEY_DOWN)
 		{
@@ -277,9 +276,7 @@ void ModulePlayer::OnCollision(Collider* collider1, Collider* collider2)
 
 bool ModulePlayer::CleanUp()
 {
-	//App->player->Disable();
 	App->textures->Unload(player);
-	//App->collision->Disable();
 
 	return true;
 }
