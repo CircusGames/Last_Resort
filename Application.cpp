@@ -7,6 +7,7 @@
 #include "ModuleParticles.h"
 #include "ModulePlayer.h"
 #include "ModulePlayerUnit.h"
+#include "ModuleCollision.h"
 #include "ModuleAudio.h"
 #include "ModuleFadeToBlack.h"
 #include "ModuleTeamLogo.h"
@@ -28,7 +29,8 @@ Application::Application()
 	modules[9] = player = new ModulePlayer();
 	modules[10] = playerUnit = new ModulePlayerUnit();
 	modules[11] = audio = new ModuleAudio();
-	modules[12] = fade = new ModuleFadeToBlack();
+	modules[12] = collision = new ModuleCollision();
+	modules[13] = fade = new ModuleFadeToBlack();
 	
 
 }	
