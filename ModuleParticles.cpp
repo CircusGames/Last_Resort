@@ -46,7 +46,7 @@ bool ModuleParticles::Start()
 	//beam flash smoke
 	beamSmoke.anim.PushBack({ 128,126,10,9 });
 	beamSmoke.anim.PushBack({ 115,124,13,12 });
-	beamSmoke.anim.speed = 0.2f;
+	beamSmoke.anim.speed = 0.5f;
 	//beamSmoke.position = App->player->position;
 	beamSmoke.followPlayerPos = true;
 	beamSmoke.lockX = 16; //offsets to lock to

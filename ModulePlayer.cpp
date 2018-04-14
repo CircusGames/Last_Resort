@@ -271,7 +271,7 @@ void ModulePlayer::OnCollision(Collider* collider1, Collider* collider2)
 
 		//Collided = true;
 	//}
-	App->fade->FadeToBlack((Module*)App->scene_lvl1,(Module*)App->gameTitle);
+	App->fade->FadeToBlack((Module*)App->scene_lvl1,(Module*)App->gameOverScreen);
 }
 
 bool ModulePlayer::CleanUp()
