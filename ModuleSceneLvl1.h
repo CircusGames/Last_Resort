@@ -12,6 +12,7 @@
 //#define MAX 14
 
 struct SDL_Texture;
+struct Collider;
 
 class ModuleSceneLvl1 : public Module
 {
@@ -41,6 +42,11 @@ public:
 	SDL_Texture* boss = nullptr;
 	SDL_Texture* buildingLasersTexture = nullptr;
 	SDL_Texture* midgroundLightsTexture = nullptr;
+
+	SDL_Texture* provisionalEnemy = nullptr;
+	SDL_Rect provionsalEnemyRect;
+	Collider* provisionalEnemeyCollider;
+	iPoint provisionalEnemyPosition;
 	
 	SDL_Rect bgRect;
 	SDL_Rect fgRect;

@@ -22,6 +22,12 @@
 
 ModuleSceneLvl1::ModuleSceneLvl1()
 {
+	//rect for provisional enemy
+	provionsalEnemyRect.x = 0;
+	provionsalEnemyRect.y = 0;
+	provionsalEnemyRect.w = 32;
+	provionsalEnemyRect.h = 16;
+	provisionalEnemyPosition = {350,50};
 
 	//background lvl1 last resort
 	bgRect.x = 0;
@@ -446,6 +452,11 @@ bool ModuleSceneLvl1::Start()
 	midgroundLightsTexture = App->textures->Load("assets/midgroundLights.png");
 	buildingLasersTexture = App->textures->Load("assets/lvl1_buildingLasers.png");
 
+	//provisonal enemy texture and collider -------------------------------------------
+	provisionalEnemy = App->textures->Load("assets/enemy1.png");
+	provisionalEnemeyCollider = App->collision->AddCollider({200,50,32,16}, COLLIDER_ENEMY, this);
+	// --------------------------------------------------------------------------------
+
 	//loading music and fx
 	App->audio->LoadMUS("assets/song1.ogg", "song1");
 	App->audio->ControlAudio("song1", MUSIC, FADEIN, 1500.0f);
@@ -810,7 +821,11 @@ update_status ModuleSceneLvl1::Update()
 	
 	//App->render->Blit(App->textures->textures[6], 0, bgMovY.fg_y, &fgRect, 1.0f); //testing purposes
 
-	
+
+	//provisional static enemy to check collisions
+
+	App->render->Blit(provisionalEnemy, provisionalEnemyPosition.x, provisionalEnemyPosition.y, &provionsalEnemyRect, 1.0f);
+	provisionalEnemeyCollider->SetPos(provisionalEnemyPosition.x, provisionalEnemyPosition.y);
 
 	//SCENE SWITCHING
 

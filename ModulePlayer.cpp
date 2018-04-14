@@ -8,6 +8,7 @@
 #include "ModulePlayerUnit.h"
 #include "ModuleParticles.h"
 #include "ModuleAudio.h"
+#include "ModuleFadeToBlack.h"
 
 
 ModulePlayer::ModulePlayer()
@@ -256,6 +257,22 @@ update_status ModulePlayer::Update()
 	
 	return UPDATE_CONTINUE;
 
+}
+
+void ModulePlayer::OnCollision(Collider* collider1, Collider* collider2)
+{
+	//if (!Collided)
+	//{
+		this->Disable();
+
+		if (playerCollider != nullptr)
+			this->playerCollider->to_delete = true;
+
+		//Destroyed();
+
+		//Collided = true;
+	//}
+	App->fade->FadeToBlack((Module*)App->scene_lvl1,(Module*)App->gameTitle);
 }
 
 bool ModulePlayer::CleanUp()
