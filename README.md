@@ -2,6 +2,10 @@
 
 ### new Project GitHub: https://github.com/CircusGames/Last_Resort
 
+### v0.4 GitHub https://github.com/CircusGames/Last_Resort
+   
+   * Build: https://github.com/CircusGames/Last_Resort/releases 
+
 ### v0.3 GitHub https://github.com/CircusGames/Last_Resort
 
    * Build:  https://github.com/CircusGames/Last_Resort/releases
@@ -33,6 +37,16 @@ Instructions:
 	  * Left Shift to lock/unlock Unit.
 	  * Space to shot simple beam.
 	  * Return to switch game scenes.
+
+***
+
+### changelog v0.4
+	
+   * Added moduleCollisions.
+   * Fixed player Camera limits.
+   * Updated moduleParticles to consider collisions.
+   * Particles now can be locked to follow player position.
+   * Removed animations dynamic memory workaround till we get more reliable method.
 
 ***
 
