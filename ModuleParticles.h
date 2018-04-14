@@ -16,6 +16,11 @@ struct Particle
 	Animation anim;
 	//SDL_Rect r; //----
 	//uint fx = 0;
+	//to lock position respect player --
+	bool followPlayerPos = false;
+	int lockX; //offsets ---------------
+	int lockY;
+	// ---------------------------------
 	char* fx;
 	iPoint position;
 	iPoint speed;
@@ -55,12 +60,11 @@ public:
 
 	Particle explosion;
 
-	Animation beamShotAnim;
-	
-	Particle beamSmoke;
-	Animation beamSmokeAnim;
-
 	Particle beam;
+	Particle beamSmoke;
+	
+
+	
 };
 
 #endif // __MODULEPARTICLES_H__

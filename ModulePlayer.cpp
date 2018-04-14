@@ -230,10 +230,11 @@ update_status ModulePlayer::Update()
 		if (App->input->keyboard[SDL_SCANCODE_SPACE] == KEY_STATE::KEY_DOWN)
 		{
 			LOG("Beam!");
-
-			//App->particles->AddParticle(App->particles->beamSmoke, App->particles->beamSmokeAnim, position.x + 16, position.y - 6, 0, { 0,0 }, 100, "shot");
-			//App->particles->AddParticle(App->particles->beam, App->particles->beamShotAnim, position.x + 14, position.y - 4, 0, { 8,0 }, 1000); //, "shot");
+			//App->render->Blit(player, position.x, position.y, &App->particles->beamSmoke.anim.GetCurrentFrame());
+			App->particles->AddParticle(App->particles->beamSmoke, position.x + 16, position.y - 6);
+	
 			App->particles->AddParticle(App->particles->beam, position.x + 14, position.y - 4, "shot"); //, "shot");
+		
 		}
 	}
 	//draw player --------------------------------------------------------------------
