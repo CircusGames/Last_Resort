@@ -2,7 +2,7 @@
 #include "Application.h"
 #include "ModuleTextures.h"
 #include "ModuleRender.h"
-#include "ModuleBackground.h"
+#include "ModuleSceneLvl1.h"
 #include "ModulePlayer.h"
 #include "ModuleInput.h"
 #include "ModuleFadeToBlack.h"
@@ -18,7 +18,7 @@
 #define BLUE_LASERS 5
 
 
-ModuleBackground::ModuleBackground()
+ModuleSceneLvl1::ModuleSceneLvl1()
 {
 
 	//background lvl1 last resort
@@ -390,10 +390,10 @@ ModuleBackground::ModuleBackground()
 
 }
 
-ModuleBackground::~ModuleBackground()
+ModuleSceneLvl1::~ModuleSceneLvl1()
 {}
 
-bool ModuleBackground::Init()
+bool ModuleSceneLvl1::Init()
 {
 
 	//cameraSpeed = 0.5f * SCREEN_SIZE;
@@ -427,7 +427,7 @@ bool ModuleBackground::Init()
 }
 
 // Load assets
-bool ModuleBackground::Start()
+bool ModuleSceneLvl1::Start()
 {
 
 	LOG("Loading background assets");
@@ -488,7 +488,7 @@ bool ModuleBackground::Start()
 
 }
 
-update_status ModuleBackground::PreUpdate()
+update_status ModuleSceneLvl1::PreUpdate()
 {
 
 	if (App->render->currentCameraPosX <= -4408)
@@ -644,7 +644,7 @@ update_status ModuleBackground::PreUpdate()
 }
 
 // Update: draw background
-update_status ModuleBackground::Update()
+update_status ModuleSceneLvl1::Update()
 {
 
 	// Draw everything --------------------------------------
@@ -809,12 +809,12 @@ update_status ModuleBackground::Update()
 	//SCENE SWITCHING
 
 	if (App->input->keyboard[SDL_SCANCODE_RETURN] == 1)
-		App->fade->FadeToBlack(App->background, App->gameOverScreen);
+		App->fade->FadeToBlack(App->scene_lvl1, App->gameOverScreen);
 
 	return UPDATE_CONTINUE;
 }
 
-bool ModuleBackground::CleanUp()
+bool ModuleSceneLvl1::CleanUp()
 {
 	LOG("Unloading lvl1 textures");
 

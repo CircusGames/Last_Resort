@@ -3,7 +3,7 @@
 #include "ModuleRender.h"
 #include "ModuleInput.h"
 #include "ModuleTextures.h"
-#include "ModuleBackground.h"
+#include "ModuleSceneLvl1.h"
 #include "ModuleParticles.h"
 #include "ModulePlayer.h"
 #include "ModulePlayerUnit.h"
@@ -22,7 +22,7 @@ Application::Application()
 	modules[2] = input = new ModuleInput();
 	modules[3] = textures = new ModuleTextures();
 	modules[4] = teamLogo = new ModuleTeamLogo();
-	modules[5] = background = new ModuleBackground();
+	modules[5] = scene_lvl1 = new ModuleSceneLvl1();
 	modules[6] = gameTitle = new ModuleGameTitle();
 	modules[7] = gameOverScreen = new ModuleGameOver();
 	modules[8] = particles = new ModuleParticles();

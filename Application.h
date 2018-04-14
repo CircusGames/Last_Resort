@@ -12,7 +12,7 @@ class ModuleRender;
 class ModuleParticles;
 class ModuleTeamLogo;
 class ModuleGameTitle;
-class ModuleBackground;
+class ModuleSceneLvl1;
 class ModuleGameOver;
 class ModulePlayer;
 class ModulePlayerUnit;
@@ -34,7 +34,7 @@ public:
 	ModuleParticles* particles = nullptr;
 	ModuleTeamLogo* teamLogo = nullptr;
 	ModuleGameTitle* gameTitle = nullptr;
-	ModuleBackground* background = nullptr;
+	ModuleSceneLvl1* scene_lvl1 = nullptr;
 	ModuleGameOver* gameOverScreen = nullptr;
 	ModulePlayer* player = nullptr;
 	ModulePlayerUnit* playerUnit = nullptr;

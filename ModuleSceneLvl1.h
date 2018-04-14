@@ -1,5 +1,5 @@
-#ifndef __ModuleBackground_H__
-#define __ModuleBackground_H__
+#ifndef __MODULESCENELVL1_H__
+#define __MODULESCENELVL1_H__
 
 #include "Module.h"
 #include "Animation.h"
@@ -13,13 +13,13 @@
 
 struct SDL_Texture;
 
-class ModuleBackground : public Module
+class ModuleSceneLvl1 : public Module
 {
 
 public:
 
-	ModuleBackground();
-	~ModuleBackground();
+	ModuleSceneLvl1();
+	~ModuleSceneLvl1();
 
 	bool Init(); //to define needed values
 	bool Start();
@@ -140,4 +140,4 @@ public:
 	float backgroundSpeed;
 };
 
-#endif
+#endif //! _MODULESCENELVL1_H__
