@@ -37,7 +37,7 @@ Instructions:
 	  * Left Shift to lock/unlock Unit.
 	  * Space to shot simple beam.
 	  * Return to switch game scenes.
-          * F1 to activate/deactivate visible colliders
+      * F1 to activate/deactivate visible colliders
 
 ***
 
