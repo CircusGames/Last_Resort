@@ -42,7 +42,30 @@ ModulePlayer::ModulePlayer()
 	playerAnim.PushBack({ 96,3,32,12 }); //down1 - 3
 	playerAnim.PushBack({ 128,4,32,11 }); //down2 - 4
 
+
+	//Player Dying animation
+	playerDyingAnim.PushBack({ 18,20,37,16 });
+	playerDyingAnim.PushBack({ 14,37,41,16 });
+	playerDyingAnim.PushBack({ 9,53,46,17 });
+	playerDyingAnim.PushBack({ 3,70,52,17 });
+	playerDyingAnim.PushBack({ 2,87,53,15 });
+	playerDyingAnim.PushBack({ 0,104,55,16 });
+	playerDyingAnim.PushBack({ 57,21,53,15 });
+	playerDyingAnim.PushBack({ 58,36,52,16 });
+	playerDyingAnim.PushBack({ 55,53,55,17 });
+	playerDyingAnim.PushBack({ 56,70,54,17 });
+	playerDyingAnim.PushBack({ 55,88,55,16 });
+	playerDyingAnim.PushBack({ 57,104,53,17 });
+	playerDyingAnim.PushBack({ 112,21,53,16 });
+	playerDyingAnim.PushBack({ 114,38,51,16 });
+	playerDyingAnim.PushBack({ 118,54,47,15 });
+	playerDyingAnim.PushBack({ 118,70,47,16 });
+	playerDyingAnim.PushBack({ 124,90,41,12 });
+	playerDyingAnim.PushBack({ 128,108,37,10 });
 }
+
+
+
 
 ModulePlayer::~ModulePlayer()
 {}
