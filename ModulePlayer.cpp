@@ -285,6 +285,7 @@ void ModulePlayer::OnCollision(Collider* collider1, Collider* collider2)
 	//if (!Collided)
 	//{
 		this->Disable();
+		App->playerUnit->Disable();
 
 		if (playerCollider != nullptr)
 			this->playerCollider->to_delete = true;
@@ -293,7 +294,7 @@ void ModulePlayer::OnCollision(Collider* collider1, Collider* collider2)
 
 		//Collided = true;
 	//}
-	//App->fade->FadeToBlack((Module*)App->scene_lvl1,(Module*)App->gameOverScreen);
+	App->fade->FadeToBlack((Module*)App->scene_lvl1,(Module*)App->gameOverScreen);
 }
 
 bool ModulePlayer::CleanUp()
