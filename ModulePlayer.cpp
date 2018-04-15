@@ -54,7 +54,7 @@ bool ModulePlayer::Start()
 	LOG("Loading player textures");
 	bool ret = true;
 
-	player = App->textures->Load("assets/player1_incomplete.png");
+	player = App->textures->Load("assets/Graphics/Player/player1_incomplete.png");
 
 	//restart player positions for next time playerModule call
 	
@@ -70,7 +70,7 @@ bool ModulePlayer::Start()
 	releaseSpeed = 0.1f; //speed when releases direction keys to return to idle
 
 	//load necessary fx wavs
-	App->audio->LoadSfx("assets/shot04.wav", "shot");
+	App->audio->LoadSfx("assets/Audio/SFX/Player/shot04.wav", "shot");
 	
 	//App->audio->ControlAudio("shot", SFX, PLAY);
 

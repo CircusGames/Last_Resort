@@ -25,7 +25,7 @@ ModuleParticles::~ModuleParticles()
 bool ModuleParticles::Start()
 {
 	LOG("Loading particles");
-	graphics = App->textures->Load("assets/player1_incomplete.png");
+	graphics = App->textures->Load("assets/Graphics/Player/player1_incomplete.png");
 
 	//smoke Beam Particle 
 	//beamSmokeAnim.PushBack({ 128,126,10,9 });

@@ -64,15 +64,14 @@ bool ModuleTeamLogo::Start()
 {
 	LOG("Starting ModuleTeamLogo --------");
 
-	logoTexture = App->textures->Load("assets/intro/circus games/Logo/cut/spritesheet/logo.png");
-	provisionalTexture = App->textures->Load("assets/intro/provisional.png");
+	logoTexture = App->textures->Load("assets/Graphics/Screens/intro/circus games/Logo/cut/spritesheet/logo.png");
 
-	logoTextTexture = App->textures->Load("assets/intro/circus games/Text/Cut/Spritesheet/text.png");
+	logoTextTexture = App->textures->Load("assets/Graphics/Screens/intro/circus games/Text/Cut/Spritesheet/text.png");
 
 	start_time = SDL_GetTicks(); //initializes for logo timer
 	total_time = 2000.0f; //logo timer
 
-	carpaDeCirco = App->textures->Load("assets/intro/circus games/Logo/cut/spritesheet/logo.png");
+	carpaDeCirco = App->textures->Load("assets/Graphics/Screens/intro/circus games/Logo/cut/spritesheet/logo.png");
 
 	return true;
 }
