@@ -70,7 +70,8 @@ bool ModulePlayer::Start()
 	releaseSpeed = 0.1f; //speed when releases direction keys to return to idle
 
 	//load necessary fx wavs
-	App->audio->LoadSfx("assets/Audio/SFX/Player/shot04.wav", "shot");
+	//basicShot = App->audio->LoadSfx("assets/Audio/SFX/Player/shot04.wav", "shot");
+	//App->audio->LoadAudio("assets/Audio/SFX/Player/shot04.wav", "shot", SFX);
 	
 	//App->audio->ControlAudio("shot", SFX, PLAY);
 
@@ -277,6 +278,7 @@ void ModulePlayer::OnCollision(Collider* collider1, Collider* collider2)
 bool ModulePlayer::CleanUp()
 {
 	App->textures->Unload(player);
+	//App->audio->unload;
 
 	return true;
 }

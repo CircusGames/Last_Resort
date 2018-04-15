@@ -8,6 +8,7 @@
 
 struct SDL_Texture;
 struct Collider;
+struct Mix_Chunk;
 
 class ModulePlayer : public Module
 {
@@ -49,9 +50,6 @@ public:
 	Collider* playerCollider;
 
 	int cameraPosition;
-	//float playerSpeedUp; //individual values for avoid float cast delay when changes direction
-	//float playerSpeedDown;
-
 };
 
 #endif

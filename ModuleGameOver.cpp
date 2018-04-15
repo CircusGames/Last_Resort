@@ -29,8 +29,8 @@ bool ModuleGameOver::Start()
 	gameOverTexture = App->textures->Load("assets/Graphics/Screens/Game_Over/GameOver.png");
 
 	//loading music
-	App->audio->LoadMUS("assets/Audio/Music/Game_Over.wav", "continueSong");
-	App->audio->ControlAudio("continueSong", MUSIC, FADEIN, 500.0f);
+	App->audio->LoadAudio("assets/Audio/Music/Game_Over.wav", "continueSong", SFX);
+	App->audio->ControlAudio("continueSong", SFX, PLAY);
 
 	return true;
 }
@@ -52,8 +52,8 @@ bool ModuleGameOver::CleanUp()
 	App->textures->Unload(gameOverTexture);
 
 	//unload music
-	Mix_FadeOutMusic(250);
-	App->audio->UnloadMus("continueSong");
+	//Mix_FadeOutMusic(250);
+	App->audio->UnloadAudio("continueSong",SFX);
 
 	return true;
 }

@@ -46,17 +46,18 @@ bool Application::Init()
 	bool ret = true;
 	
 	//desactivate Modules ----------------
-	//disable modulePlayer at init
+	//disable modulePlayer at init -------
+	//scenes ------------
+	//teamLogo->Disable();
+	gameTitle->Disable();
 	scene_lvl1->Disable();
+	gameOverScreen->Disable();
+	//other modules -----
 	player->Disable();
 	playerUnit->Disable();
 	collision->Disable();
-	//particles->Disable();
-	//disable the scenes wich i dont need at start/init
-	//teamLogo->Disable();
-	gameTitle->Disable();
+	particles->Disable();
 	
-	gameOverScreen->Disable();
 	// -----------------------------------
 	//all modules have their init
 	for(int i = 0; i < NUM_MODULES && ret == true; ++i)
