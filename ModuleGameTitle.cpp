@@ -797,9 +797,11 @@ bool ModuleGameTitle::Start()
 	lettersTexture[7] = App->textures->Load("assets/Graphics/Screens/intro/O.png");
 	lettersTexture[8] = App->textures->Load("assets/Graphics/Screens/intro/R2.png");
 	lettersTexture[9] = App->textures->Load("assets/Graphics/Screens/intro/T2MOD.png");
+
 	//loading appropiate music
 	App->audio->LoadAudio("assets/Audio/Music/titleScreenSong.ogg", "titleSong", MUSIC);
 	App->audio->ControlAudio("titleSong", MUSIC, FADEIN, 0, 1000.0f); //type, mode, loops, fadeIn, fadeout
+	// -----------------------
 
 	start_time = SDL_GetTicks(); //next letter counter
 	showMeNext = 1; //start with the first letter

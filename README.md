@@ -47,6 +47,7 @@ Instructions:
    * Updated moduleParticles to consider collisions.
    * Particles now can be locked to follow player position.
    * Removed animations dynamic memory workaround till we get more reliable method.
+   * Recoded ModuleAudio to just have 3 functions, load unload and control independent of its format.
 
 ***
 
