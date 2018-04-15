@@ -29,7 +29,7 @@ bool ModuleGameOver::Start()
 	gameOverTexture = App->textures->Load("assets/GameOver.png");
 
 	//loading music
-	App->audio->LoadMUS("assets/Continue.ogg", "continueSong");
+	App->audio->LoadMUS("assets/Audio/Game_Over.wav", "continueSong");
 	App->audio->ControlAudio("continueSong", MUSIC, FADEIN, 500.0f);
 
 	return true;
