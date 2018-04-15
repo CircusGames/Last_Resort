@@ -39,6 +39,7 @@ public:
 
 	Animation playerAnim;
 	Animation spawnAnim;
+	Animation playerDyingAnim;
 
 	float frameIncrement;
 	float ignitionSpeed;
