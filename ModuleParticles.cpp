@@ -16,27 +16,7 @@ ModuleParticles::ModuleParticles()
 	for (uint i = 0; i < MAX_ACTIVE_PARTICLES; ++i)
 		active[i] = nullptr;
 
-}
-
-ModuleParticles::~ModuleParticles()
-{}
-
-// Load assets
-bool ModuleParticles::Start()
-{
-	LOG("Loading particles");
-	graphics = App->textures->Load("assets/player1_incomplete.png");
-
-	//smoke Beam Particle 
-	//beamSmokeAnim.PushBack({ 128,126,10,9 });
-	//beamSmokeAnim.PushBack({ 115,124,13,12 });
-	//beamSmokeAnim.speed = 0.2f;
-	//beamSmoke.anim = &beamSmokeAnim; //links particle anim pointer to animation
-
-	//beam particle
-	//beamShotAnim.PushBack({148,127,15,7}); // ---
-	//beam.anim = &beamShotAnim;
-
+	//animations for particles, avoiding repeat animations pushback rects
 	//beam bullet particle and animation
 	beam.anim.PushBack({ 148,127,15,7 });
 	beam.speed.x = 6;
@@ -46,14 +26,30 @@ bool ModuleParticles::Start()
 	//beam flash smoke
 	beamSmoke.anim.PushBack({ 128,126,10,9 });
 	beamSmoke.anim.PushBack({ 115,124,13,12 });
+	beamSmoke.anim.PushBack({ 0,0,0,0 });
+	beamSmoke.anim.PushBack({ 0,0,0,0 });
+	beamSmoke.anim.PushBack({ 0,0,0,0 });
+	beamSmoke.anim.PushBack({ 128,126,10,9 });
+	beamSmoke.anim.PushBack({ 115,124,13,12 });
+	beamSmoke.anim.PushBack({ 115,124,13,12 });
 	beamSmoke.anim.speed = 0.5f;
-	//beamSmoke.position = App->player->position;
+								 //beamSmoke.position = App->player->position;
 	beamSmoke.followPlayerPos = true;
 	beamSmoke.lockX = 16; //offsets to lock to
 	beamSmoke.lockY = -7;
-	
+
 	beamSmoke.anim.repeat = false;
-	//beamSmoke.life = 200;
+
+}
+
+ModuleParticles::~ModuleParticles()
+{}
+
+// Load assets
+bool ModuleParticles::Start()
+{
+	LOG("Loading particles textures");
+	graphics = App->textures->Load("assets/player1_incomplete.png");
 
 	return true;
 }
@@ -178,7 +174,8 @@ bool Particle::Update()
 	}
 	else
 		if (anim.finish)
-		ret = false;
+			ret = false;
+	
 
 	if (followPlayerPos)
 	{
