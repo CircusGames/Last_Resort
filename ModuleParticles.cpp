@@ -33,13 +33,10 @@ ModuleParticles::ModuleParticles()
 	beamSmoke.anim.PushBack({ 115,124,13,12 });
 	beamSmoke.anim.PushBack({ 115,124,13,12 });
 	beamSmoke.anim.speed = 0.5f;
-								 //beamSmoke.position = App->player->position;
 	beamSmoke.followPlayerPos = true;
 	beamSmoke.lockX = 16; //offsets to lock to
 	beamSmoke.lockY = -7;
-
 	beamSmoke.anim.repeat = false;
-
 }
 
 ModuleParticles::~ModuleParticles()
@@ -48,9 +45,9 @@ ModuleParticles::~ModuleParticles()
 // Load assets
 bool ModuleParticles::Start()
 {
-	LOG("Loading particles textures");
-	graphics = App->textures->Load("assets/player1_incomplete.png");
-
+	LOG("Loading particles");
+	graphics = App->textures->Load("assets/Graphics/Player/player1_incomplete.png");
+	
 	return true;
 }
 

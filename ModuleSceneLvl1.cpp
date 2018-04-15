@@ -442,24 +442,24 @@ bool ModuleSceneLvl1::Start()
 	bool ret = true;
 
 	////lvl1 background textures
-	bg = App->textures->Load("assets/lvl1_bg.png");
-	mg = App->textures->Load("assets/lvl1_mg.png");
-	fg = App->textures->Load("assets/lvl1_fg.png");
-	boss = App->textures->Load("assets/lvl1_boss.png");
-	roadLights = App->textures->Load("assets/lvl1_streetLightsAndSpots.png");
-	tunelLights = App->textures->Load("assets/tunnelLights.png");
-	bgLights = App->textures->Load("assets/bg_lights.png");
-	midgroundLightsTexture = App->textures->Load("assets/midgroundLights.png");
-	buildingLasersTexture = App->textures->Load("assets/lvl1_buildingLasers.png");
+	bg = App->textures->Load("assets/Graphics/Backgrounds/Lvl_1/lvl1_bg.png");
+	mg = App->textures->Load("assets/Graphics/Backgrounds/Lvl_1/lvl1_mg.png");
+	fg = App->textures->Load("assets/Graphics/Backgrounds/Lvl_1/lvl1_fg.png");
+	boss = App->textures->Load("assets/Graphics/Backgrounds/Lvl_1/lvl1_boss.png");
+	roadLights = App->textures->Load("assets/Graphics/Backgrounds/Lvl_1/lvl1_streetLightsAndSpots.png");
+	tunelLights = App->textures->Load("assets/Graphics/Backgrounds/Lvl_1/tunnelLights.png");
+	bgLights = App->textures->Load("assets/Graphics/Backgrounds/Lvl_1/bg_lights.png");
+	midgroundLightsTexture = App->textures->Load("assets/Graphics/Backgrounds/Lvl_1/midgroundLights.png");
+	buildingLasersTexture = App->textures->Load("assets/Graphics/Backgrounds/Lvl_1/lvl1_buildingLasers.png");
 
 	//provisonal enemy texture and collider -------------------------------------------
-	provisionalEnemy = App->textures->Load("assets/enemy1.png");
+	provisionalEnemy = App->textures->Load("assets/Graphics/Enemies/Level_1/enemy1.png");
 	provisionalEnemeyCollider = App->collision->AddCollider({200,50,32,16}, COLLIDER_ENEMY, this);
 	// --------------------------------------------------------------------------------
 
 	//loading music and fx
-	App->audio->LoadMUS("assets/song1.ogg", "song1");
-	App->audio->ControlAudio("song1", MUSIC, FADEIN, 1500.0f);
+	App->audio->LoadMUS("assets/Audio/Music/song_level_1.ogg", "Audio/Music/song_level_1");
+	App->audio->ControlAudio("Audio/Music/song_level_1", MUSIC, FADEIN, 1500.0f);
 
 	//enable modules --------------
 	App->player->Enable(); //player start two times, WHY???????
@@ -864,6 +864,6 @@ bool ModuleSceneLvl1::CleanUp()
 
 	LOG("Unloading level music and fx");
 	Mix_FadeOutMusic(250);
-	App->audio->UnloadMus("song1");
+	App->audio->UnloadMus("Audio/Music/song_level_1");
 	return true;
 }
