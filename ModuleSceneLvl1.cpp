@@ -458,8 +458,8 @@ bool ModuleSceneLvl1::Start()
 	// --------------------------------------------------------------------------------
 
 	//loading music and fx
-	App->audio->LoadMUS("assets/Audio/Music/song_level_1.ogg", "Audio/Music/song_level_1");
-	App->audio->ControlAudio("Audio/Music/song_level_1", MUSIC, FADEIN, 1500.0f);
+	App->audio->LoadAudio("assets/Audio/Music/song_level_1.ogg", "song_lvl1", MUSIC);
+	App->audio->ControlAudio("song_lvl1", MUSIC, FADEIN, -1, 1500.0f); //type, playMode, loops, fadeIn, fadeOut
 
 	//enable modules --------------
 	App->player->Enable(); //player start two times, WHY???????
@@ -864,6 +864,6 @@ bool ModuleSceneLvl1::CleanUp()
 
 	LOG("Unloading level music and fx");
 	Mix_FadeOutMusic(250);
-	App->audio->UnloadMus("Audio/Music/song_level_1");
+	App->audio->UnloadAudio("song_lvl1", MUSIC);
 	return true;
 }

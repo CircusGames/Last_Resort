@@ -47,6 +47,9 @@ bool ModuleParticles::Start()
 {
 	LOG("Loading particles");
 	graphics = App->textures->Load("assets/Graphics/Player/player1_incomplete.png");
+
+	//load specific Wavs effects for particles
+	App->audio->LoadAudio("assets/Audio/SFX/Player/shot04.wav", "shot", SFX);
 	
 	return true;
 }
@@ -57,6 +60,7 @@ bool ModuleParticles::CleanUp()
 	LOG("Unloading particles");
 	App->textures->Unload(graphics);
 
+	//removing active particles
 	for (uint i = 0; i < MAX_ACTIVE_PARTICLES; ++i)
 	{
 		if (active[i] != nullptr)
@@ -65,6 +69,8 @@ bool ModuleParticles::CleanUp()
 			active[i] = nullptr;
 		}
 	}
+	//removing particles FX audio
+	App->audio->UnloadAudio("shot", SFX);
 
 	return true;
 }
@@ -132,6 +138,7 @@ void ModuleParticles::OnCollision(Collider* c1, Collider* c2)
 		if (active[i] != nullptr && active[i]->collider == c1)
 		{
 			//AddParticle(explosion, active[i]->position.x, active[i]->position.y);
+
 			delete active[i];
 			active[i] = nullptr;
 			break;

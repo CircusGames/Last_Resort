@@ -93,9 +93,8 @@ bool ModulePlayer::Start()
 	releaseSpeed = 0.1f; //speed when releases direction keys to return to idle
 
 	//load necessary fx wavs
-	App->audio->LoadSfx("assets/Audio/SFX/Player/shot04.wav", "shot");
 	
-	//App->audio->ControlAudio("shot", SFX, PLAY);
+	// ---------------------
 
 	//for new gameLoops
 	//checks if the player state is normal, if is, spawn condition
@@ -294,12 +293,12 @@ void ModulePlayer::OnCollision(Collider* collider1, Collider* collider2)
 
 		//Collided = true;
 	//}
-	App->fade->FadeToBlack((Module*)App->scene_lvl1,(Module*)App->gameOverScreen);
+	//App->fade->FadeToBlack((Module*)App->scene_lvl1,(Module*)App->gameOverScreen);
 }
 
 bool ModulePlayer::CleanUp()
 {
 	App->textures->Unload(player);
-
+	
 	return true;
 }

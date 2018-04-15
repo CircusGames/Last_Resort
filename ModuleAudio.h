@@ -50,11 +50,13 @@ public:
 	~ModuleAudio();
 
 	bool Init();
-	Mix_Chunk* const LoadSfx(const char* path, char *name);
-	bool LoadMUS(const char* path, char *name);
-	void UnloadMus(char* name);
+	//Mix_Chunk* const LoadSfx(const char* path, char *name);
+	//bool LoadMUS(const char* path, char *name);
+	bool LoadAudio(const char* path, char *name, type type);
+	void UnloadAudio(const char* name, type type);
+	//void UnloadMus(char* name);
 	//update_status update(); //not for now
-	void ControlAudio(char* name, type type,audio_state state, float fadeInTimeMs = 1000.0f, float fadeOffTimeMs = 500.0f);
+	void ControlAudio(char* name, type type, audio_state state, int loops = 0, float fadeInTimeMs = 1000.0f, float fadeOffTimeMs = 500.0f);
 	bool CleanUp();
 
 
