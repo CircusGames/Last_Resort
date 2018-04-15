@@ -3,6 +3,7 @@
 
 #include "Globals.h"
 
+struct Collider;
 
 class Module
 {
