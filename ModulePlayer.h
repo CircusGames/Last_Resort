@@ -49,6 +49,7 @@ public:
 	float playerSpeed;
 
 	Collider* playerCollider;
+	bool godMode = false;
 
 	int cameraPosition;
 };

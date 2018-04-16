@@ -29,9 +29,9 @@ Application::Application()
 	modules[i++] = gameOverScreen = new ModuleGameOver();
 	modules[i++] = particles = new ModuleParticles();
 	modules[i++] = player = new ModulePlayer();
-	modules[i++] = player2 = new ModulePlayer2();
+	//modules[i++] = player2 = new ModulePlayer2();
 	modules[i++] = playerUnit = new ModulePlayerUnit();
-	modules[i++] = player2Unit = new ModulePlayer2Unit();
+	//modules[i++] = player2Unit = new ModulePlayer2Unit();
 	modules[i++] = audio = new ModuleAudio();
 	modules[i++] = collision = new ModuleCollision();
 	modules[i++] = fade = new ModuleFadeToBlack();
@@ -52,8 +52,8 @@ bool Application::Init()
 	//desactivate Modules ----------------
 	//disable modulePlayer at init -------
 	//scenes ------------
-	//teamLogo->Disable();
-	gameTitle->Disable();
+	teamLogo->Disable();
+	//gameTitle->Disable();
 	scene_lvl1->Disable();
 	gameOverScreen->Disable();
 	//other modules -----
