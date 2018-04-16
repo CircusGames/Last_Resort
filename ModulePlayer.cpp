@@ -62,6 +62,18 @@ ModulePlayer::ModulePlayer()
 	playerDyingAnim.PushBack({ 118,70,47,16 });
 	playerDyingAnim.PushBack({ 124,90,41,12 });
 	playerDyingAnim.PushBack({ 128,108,37,10 });
+
+	//beam flash smoke
+	beamSmoke.PushBack({ 128,126,10,9 });
+	beamSmoke.PushBack({ 115,124,13,12 });
+	beamSmoke.PushBack({ 0,0,0,0 });
+	beamSmoke.PushBack({ 0,0,0,0 });
+	beamSmoke.PushBack({ 0,0,0,0 });
+	beamSmoke.PushBack({ 128,126,10,9 });
+	beamSmoke.PushBack({ 115,124,13,12 });
+	beamSmoke.PushBack({ 115,124,13,12 });
+	beamSmoke.speed = 0.5f;
+	beamSmoke.repeat = false;
 }
 
 
@@ -258,7 +270,8 @@ update_status ModulePlayer::Update()
 		if (App->input->keyboard[SDL_SCANCODE_SPACE] == KEY_STATE::KEY_DOWN)
 		{
 			LOG("Beam!");
-			App->particles->AddParticle(App->particles->beamSmoke, position.x + 16, position.y - 6, COLLIDER_NONE);
+			//App->particles->AddParticle(App->particles->beamSmoke, position.x + 16, position.y - 6, COLLIDER_NONE);
+
 	
 			App->particles->AddParticle(App->particles->beam, position.x + 14, position.y - 4, COLLIDER_PLAYER_SHOT); //, "shot");
 		

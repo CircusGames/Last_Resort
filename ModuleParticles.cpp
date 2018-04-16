@@ -23,20 +23,6 @@ ModuleParticles::ModuleParticles()
 	beam.life = 1000;
 	beam.fx = "shot";
 
-	//beam flash smoke
-	beamSmoke.anim.PushBack({ 128,126,10,9 });
-	beamSmoke.anim.PushBack({ 115,124,13,12 });
-	beamSmoke.anim.PushBack({ 0,0,0,0 });
-	beamSmoke.anim.PushBack({ 0,0,0,0 });
-	beamSmoke.anim.PushBack({ 0,0,0,0 });
-	beamSmoke.anim.PushBack({ 128,126,10,9 });
-	beamSmoke.anim.PushBack({ 115,124,13,12 });
-	beamSmoke.anim.PushBack({ 115,124,13,12 });
-	beamSmoke.anim.speed = 0.5f;
-	beamSmoke.followPlayerPos = true;
-	beamSmoke.lockX = 16; //offsets to lock to
-	beamSmoke.lockY = -7;
-	beamSmoke.anim.repeat = false;
 }
 
 ModuleParticles::~ModuleParticles()
@@ -155,10 +141,7 @@ Particle::Particle()
 }
 
 Particle::Particle(const Particle& p) :
-	anim(p.anim), position(p.position), speed(p.speed),
-	fx(p.fx), born(p.born), life(p.life),
-	//lock particles to player pos + offsets
-	followPlayerPos(p.followPlayerPos), lockX(p.lockX), lockY(p.lockY)
+	anim(p.anim), position(p.position), speed(p.speed), fx(p.fx), born(p.born), life(p.life)
 {}
 
 Particle::~Particle()
@@ -180,21 +163,8 @@ bool Particle::Update()
 		if (anim.finish)
 			ret = false;
 	
-
-	if (followPlayerPos)
-	{
-		position.x = App->player->position.x + lockX;
-		//check pivots when Y animation changes
-		//if (App->player->frameIncrement > 2) lockY = -3;
-		//else if (App->player->frameIncrement < 2) lockY = -5;
-		//else if (App->player->frameIncrement == 2) lockY = -20;
-		position.y = App->player->position.y + lockY;
-	}
-	else
-	{
-		position.x += speed.x;
-		position.y += speed.y;
-	}
+	position.x += speed.x;
+	position.y += speed.y;
 
 	if (collider != nullptr)
 		collider->SetPos(position.x, position.y);

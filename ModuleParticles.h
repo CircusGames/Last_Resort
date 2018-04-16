@@ -17,11 +17,6 @@ struct Particle
 {
 	Collider* collider = nullptr;
 	Animation anim;
-	
-	bool followPlayerPos = false;
-	int lockX; //offsets ---------------
-	int lockY;
-	// ---------------------------------
 	char* fx;
 	iPoint position;
 	iPoint speed;

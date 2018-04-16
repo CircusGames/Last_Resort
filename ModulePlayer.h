@@ -41,6 +41,7 @@ public:
 	Animation playerAnim;
 	Animation spawnAnim;
 	Animation playerDyingAnim;
+	Animation beamSmoke;
 
 	float frameIncrement;
 	float ignitionSpeed;
