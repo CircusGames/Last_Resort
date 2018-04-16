@@ -97,7 +97,7 @@ bool ModulePlayer::Start()
 	position.y = 80;
 	
 	//player collision rect
-	playerCollider = App->collision->AddCollider({ position.x, position.y, 32, 12 }, COLLIDER_PLAYER,this);
+	//playerCollider = App->collision->AddCollider({ position.x, position.y, 32, 12 }, COLLIDER_PLAYER,this);
 
 	frameIncrement = 2; //initializes speed positions frame rect array incrementer at "center" -> idle
 
@@ -133,6 +133,8 @@ update_status ModulePlayer::Update()
 			player_step = player_state::normal;
 			current_animation->finish = false; //and resets condition
 			current_animation->current_frame = 0;
+			//activate collider
+			playerCollider = App->collision->AddCollider({ position.x, position.y, 32, 12 }, COLLIDER_PLAYER, this);
 		}
 	}
 
@@ -284,7 +286,7 @@ update_status ModulePlayer::Update()
 				beamSmoke.finish = false;
 				shooting = false;
 			}
-			App->render->Blit(player, position.x + 16, position.y - 6, &beamSmoke.GetCurrentFrame());
+			App->render->Blit(player, position.x + 32, position.y - 6, &beamSmoke.GetCurrentFrame());
 		}
 
 		
@@ -344,6 +346,11 @@ void ModulePlayer::OnCollision(Collider* collider1, Collider* collider2)
 bool ModulePlayer::CleanUp()
 {
 	App->textures->Unload(player);
+
+	if (playerCollider != nullptr)
+	{
+		playerCollider->to_delete = true;
+	}
 	
 	return true;
 }

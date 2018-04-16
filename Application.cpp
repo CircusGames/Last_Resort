@@ -27,15 +27,14 @@ Application::Application()
 	modules[i++] = scene_lvl1 = new ModuleSceneLvl1();
 	modules[i++] = gameTitle = new ModuleGameTitle();
 	modules[i++] = gameOverScreen = new ModuleGameOver();
-	modules[i++] = particles = new ModuleParticles();
 	modules[i++] = player = new ModulePlayer();
 	//modules[i++] = player2 = new ModulePlayer2();
 	modules[i++] = playerUnit = new ModulePlayerUnit();
 	//modules[i++] = player2Unit = new ModulePlayer2Unit();
-	modules[i++] = audio = new ModuleAudio();
+	modules[i++] = particles = new ModuleParticles();
 	modules[i++] = collision = new ModuleCollision();
+	modules[i++] = audio = new ModuleAudio();
 	modules[i++] = fade = new ModuleFadeToBlack();
-	
 
 }	
 
@@ -70,9 +69,10 @@ bool Application::Init()
 		ret = modules[i]->Init();
 
 	//but only the needed have start
-	for(int i = 0; i < NUM_MODULES && ret == true; ++i)
+	//for(int i = 0; i < NUM_MODULES && ret == true; ++i)
+	for (int i = NUM_MODULES; i >= 0 && ret == true; --i)
 		ret = modules[i]->IsEnabled() ? modules[i]->Start() : true;
-
+	
 	return ret;
 }
 

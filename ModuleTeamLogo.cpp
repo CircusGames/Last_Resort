@@ -74,8 +74,8 @@ bool ModuleTeamLogo::Start()
 	circusCarp = App->textures->Load("assets/Graphics/Screens/intro/circus games/Logo/cut/spritesheet/logo.png");
 
 	//upload Logo Audio
-	App->audio->LoadAudio("assets/Audio/Music/LogoMusic.ogg", "titleSong", MUSIC);
-	App->audio->ControlAudio("titleSong", MUSIC, FADEIN, 0, 1000.0f);
+	//App->audio->LoadAudio("assets/Audio/Music/LogoMusic.ogg", "titleSong", MUSIC);
+	//App->audio->ControlAudio("titleSong", MUSIC, FADEIN, 0, 1000.0f);
 	return true;
 }
 
@@ -112,8 +112,8 @@ bool ModuleTeamLogo::CleanUp()
 	App->textures->Unload(provisionalTexture);
 	App->textures->Unload(logoTexture);
 
-	Mix_FadeOutMusic(500);
-	App->audio->UnloadAudio("titleSong", MUSIC);
+	//Mix_FadeOutMusic(500);
+	//App->audio->UnloadAudio("titleSong", MUSIC);
 
 	return true;
 }
