@@ -270,12 +270,23 @@ update_status ModulePlayer::Update()
 		if (App->input->keyboard[SDL_SCANCODE_SPACE] == KEY_STATE::KEY_DOWN)
 		{
 			LOG("Beam!");
-			//App->particles->AddParticle(App->particles->beamSmoke, position.x + 16, position.y - 6, COLLIDER_NONE);
-
+			shooting = true;
 	
 			App->particles->AddParticle(App->particles->beam, position.x + 14, position.y - 4, COLLIDER_PLAYER_SHOT); //, "shot");
 		
 		}
+		//checks animation cycle
+		if (shooting)
+		{
+			if (beamSmoke.current_frame == beamSmoke.last_frame) //resets animation cycle
+			{
+				beamSmoke.current_frame = 0;
+				beamSmoke.finish = false;
+				shooting = false;
+			}
+			App->render->Blit(player, position.x + 16, position.y - 6, &beamSmoke.GetCurrentFrame());
+		}
+
 	}
 
 	//update player collider to its position -----------------------------------------

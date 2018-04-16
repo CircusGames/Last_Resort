@@ -58,9 +58,9 @@ bool Application::Init()
 	gameOverScreen->Disable();
 	//other modules -----
 	player->Disable();
-	player2->Disable();
+	//player2->Disable();
 	playerUnit->Disable();
-	player2Unit->Disable();
+	//player2Unit->Disable();
 	collision->Disable();
 	particles->Disable();
 	

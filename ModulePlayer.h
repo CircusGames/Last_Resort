@@ -42,6 +42,7 @@ public:
 	Animation spawnAnim;
 	Animation playerDyingAnim;
 	Animation beamSmoke;
+	bool shooting = false;
 
 	float frameIncrement;
 	float ignitionSpeed;
