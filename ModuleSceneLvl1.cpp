@@ -4,6 +4,7 @@
 #include "ModuleRender.h"
 #include "ModuleSceneLvl1.h"
 #include "ModulePlayer.h"
+#include "ModulePlayer2.h"
 #include "ModuleInput.h"
 #include "ModuleFadeToBlack.h"
 #include "ModuleGameOver.h"
@@ -518,6 +519,7 @@ update_status ModuleSceneLvl1::PreUpdate()
 	{
 		//move player position to follow the camera movement
 		App->player->position.x += 1;
+		App->player2->position.x += 1;
 		//camera speed relative to its size
 		App->render->camera.x -= SCREEN_SIZE;
 		//returns original pixel position x values foreground
