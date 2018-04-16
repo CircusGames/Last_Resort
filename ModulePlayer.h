@@ -40,6 +40,7 @@ public:
 
 	Animation playerAnim;
 	Animation spawnAnim;
+	int pivotsSpawnX[14] = {40,30,30,28,28,28,24,24,30,30,25,24,4,0};
 	Animation playerDyingAnim;
 	Animation beamSmoke;
 	bool shooting = false;

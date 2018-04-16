@@ -466,7 +466,7 @@ update_status ModulePlayerUnit::Update()
 	unitRect = currentUnitAnim->GetCurrentFrame();
 	lastFrame = currentUnitAnim->current_frame; //and stores the new "last frame"
 
-	playerPos.x = (App->player->position.x - 7) + cos(angle) * 31.5f;//orginal distance // 9
+	playerPos.x = (App->player->position.x + 9) + cos(angle) * 31.5f;//orginal distance // 9
 	playerPos.y = (App->player->position.y - 7) - sin(angle) * 32;//24; // 7
 	
 	App->render->Blit(playerUnitBlue,

@@ -31,7 +31,7 @@ ModulePlayer::ModulePlayer()
 	spawnAnim.PushBack({ 72,214,56,25 }); //16,67
 	spawnAnim.PushBack({ 156,143,36,19 }); //36,71
 	spawnAnim.PushBack({ 160,171,32,15 }); //40,73        
-	spawnAnim.speed = 0.143f;
+	spawnAnim.speed = 0.25f;
 	spawnAnim.repeat = false;
 
 
@@ -272,7 +272,7 @@ update_status ModulePlayer::Update()
 			LOG("Beam!");
 			shooting = true;
 	
-			App->particles->AddParticle(App->particles->beam, position.x + 14, position.y - 4, COLLIDER_PLAYER_SHOT); //, "shot");
+			App->particles->AddParticle(App->particles->beam, position.x + 32, position.y - 4, COLLIDER_PLAYER_SHOT); //, "shot");
 		
 		}
 		//checks animation cycle
@@ -287,33 +287,37 @@ update_status ModulePlayer::Update()
 			App->render->Blit(player, position.x + 16, position.y - 6, &beamSmoke.GetCurrentFrame());
 		}
 
+		
+
+		//update player collider to its position -----------------------------------------
+		if (!godMode)
+			playerCollider->SetPos(position.x, position.y - 6);
+
+		//DEBUG: GODMODE F2
+		if (App->input->keyboard[SDL_SCANCODE_F2] == KEY_DOWN)
+		{
+			if (playerCollider != nullptr)
+			{
+				this->playerCollider->to_delete = true;
+				playerCollider = nullptr;
+				godMode = true;
+			}
+			else
+			{
+				playerCollider = App->collision->AddCollider({ position.x, position.y - 6, 32, 12 }, COLLIDER_PLAYER, this);
+				godMode = false;
+			}
+		}
 	}
 
-	//update player collider to its position -----------------------------------------
-	if (!godMode)
-	playerCollider->SetPos(position.x - 16, position.y - 6);
-
-	//DEBUG: GODMODE F2
-	if (App->input->keyboard[SDL_SCANCODE_F2] == KEY_DOWN)
-	{
-		if (playerCollider != nullptr)
-		{
-			this->playerCollider->to_delete = true;
-			playerCollider = nullptr;
-			godMode = true;
-		}
-		else
-		{
-			playerCollider = App->collision->AddCollider({ position.x - 16, position.y - 6, 32, 12 }, COLLIDER_PLAYER, this);
-			godMode = false;
-		}
-	}
-
-	//draw player --------------------------------------------------------------------
-
-	App->render->Blit(player, position.x - (r.w/2), position.y - (r.h / 2), &r, 1.0f);
-
-	//if (App->playerUnit->IsEnabled()) App->playerUnit->playerPos.x = position.x;
+	//DRAW PLAYER ---------------------------------------------------------------------------
+	//draw SPAWN ANIMATION --------
+	if (player_step == player_state::spawn)
+	App->render->Blit(player, position.x - pivotsSpawnX[(int)current_animation->current_frame], position.y - (r.h / 2), &r, 1.0f);
+	else if (player_step == player_state::normal)
+	//draw player NORMAL STATE --------------------------------------------------------------
+	App->render->Blit(player, position.x, position.y - (r.h / 2), &r, 1.0f);
+	// --------------------------------------------------------------------------------------
 
 	
 	return UPDATE_CONTINUE;

@@ -53,8 +53,8 @@ bool Application::Init()
 	//disable modulePlayer at init -------
 	//scenes ------------
 	teamLogo->Disable();
-	//gameTitle->Disable();
-	scene_lvl1->Disable();
+	gameTitle->Disable();
+	//scene_lvl1->Disable();
 	gameOverScreen->Disable();
 	//other modules -----
 	player->Disable();
