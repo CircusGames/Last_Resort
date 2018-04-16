@@ -18,10 +18,10 @@ public:
 
 private:
 	
-	Animation carpaDeCircoAnim;
+	Animation circusCarpAnim;
 	SDL_Texture* logoTexture;
 	SDL_Texture* provisionalTexture;
-	SDL_Texture* carpaDeCirco = nullptr;
+	SDL_Texture* circusCarp = nullptr;
 
 	Animation LogoTextAnim;
 	SDL_Texture* logoTextTexture;

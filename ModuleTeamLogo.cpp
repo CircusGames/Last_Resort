@@ -16,16 +16,16 @@
 
 ModuleTeamLogo::ModuleTeamLogo(){
 
-	carpaDeCircoAnim.PushBack({ 0,0,150,150 });
-	carpaDeCircoAnim.PushBack({ 150,0,150,150 });
-	carpaDeCircoAnim.PushBack({ 300,0,150,150 });
-	carpaDeCircoAnim.PushBack({ 0,150,150,150 });
-	carpaDeCircoAnim.PushBack({ 150,150,150,150 });
-	carpaDeCircoAnim.PushBack({ 300,150,150,150 });
-	carpaDeCircoAnim.PushBack({ 0,300,150,150 });
-	carpaDeCircoAnim.PushBack({ 150,300,150,150 });
+	circusCarpAnim.PushBack({ 0,0,150,150 });
+	circusCarpAnim.PushBack({ 150,0,150,150 });
+	circusCarpAnim.PushBack({ 300,0,150,150 });
+	circusCarpAnim.PushBack({ 0,150,150,150 });
+	circusCarpAnim.PushBack({ 150,150,150,150 });
+	circusCarpAnim.PushBack({ 300,150,150,150 });
+	circusCarpAnim.PushBack({ 0,300,150,150 });
+	circusCarpAnim.PushBack({ 150,300,150,150 });
 
-	carpaDeCircoAnim.speed = 0.3f;
+	circusCarpAnim.speed = 0.3f;
 
 	LogoTextAnim.PushBack({ 178,64,5,16 });
 	LogoTextAnim.PushBack({ 168,64,9,16 });
@@ -71,7 +71,7 @@ bool ModuleTeamLogo::Start()
 	start_time = SDL_GetTicks(); //initializes for logo timer
 	total_time = 2000.0f; //logo timer
 
-	carpaDeCirco = App->textures->Load("assets/Graphics/Screens/intro/circus games/Logo/cut/spritesheet/logo.png");
+	circusCarp = App->textures->Load("assets/Graphics/Screens/intro/circus games/Logo/cut/spritesheet/logo.png");
 
 	//upload Logo Audio
 	App->audio->LoadAudio("assets/Audio/Music/LogoMusic.ogg", "titleSong", MUSIC);
@@ -94,7 +94,7 @@ update_status ModuleTeamLogo::Update()
 	SDL_Rect logoRect = { 117 * SCREEN_SIZE,52 * SCREEN_SIZE,70 * SCREEN_SIZE,70 * SCREEN_SIZE };
 	SDL_Rect provisionalRect = { 57 * SCREEN_SIZE,67 * SCREEN_SIZE,80 * SCREEN_SIZE,10 * SCREEN_SIZE };
 
-	SDL_RenderCopy(App->render->renderer, logoTexture, &carpaDeCircoAnim.GetCurrentFrame(), &logoRect );
+	SDL_RenderCopy(App->render->renderer, logoTexture, &circusCarpAnim.GetCurrentFrame(), &logoRect );
 	//SDL_RenderCopy(App->render->renderer, logoTextTexture, &LogoTextAnim.GetCurrentFrame(), &provisionalRect);
 
 	App->render->Blit(logoTextTexture, 77, 140, &LogoTextAnim.GetCurrentFrame());

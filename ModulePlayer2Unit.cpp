@@ -188,7 +188,7 @@ bool ModulePlayer2Unit::Start()
 	LOG("Starting playerUnit Module");
 
 
-	playerUnitBlue = App->textures->Load("assets/Graphics/Player/blueUnit.png");
+	playerUnitBlue = App->textures->Load("assets/Graphics/Player/orangeUnit.png");
 
 	//delta calculations
 	orbitSpeed = 1.0f;
