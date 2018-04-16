@@ -266,8 +266,24 @@ update_status ModulePlayer::Update()
 	}
 
 	//update player collider to its position -----------------------------------------
-
+	if (!godMode)
 	playerCollider->SetPos(position.x - 16, position.y - 6);
+
+	//DEBUG: GODMODE F2
+	if (App->input->keyboard[SDL_SCANCODE_F2] == KEY_DOWN)
+	{
+		if (playerCollider != nullptr)
+		{
+			this->playerCollider->to_delete = true;
+			playerCollider = nullptr;
+			godMode = true;
+		}
+		else
+		{
+			playerCollider = App->collision->AddCollider({ position.x - 16, position.y - 6, 32, 12 }, COLLIDER_PLAYER, this);
+			godMode = false;
+		}
+	}
 
 	//draw player --------------------------------------------------------------------
 
