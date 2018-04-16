@@ -16,31 +16,31 @@ ModulePlayer2::ModulePlayer2()
 	position.x = 40;
 	position.y = 120;
 
-	//spawn anim
-	spawnAnim.PushBack({ 0,122,111,1 }); //0,79 
+	//spawn anim WIP
+	spawnAnim.PushBack({ 144,70,111,1 }); //0,79 
 	spawnAnim.PushBack({ 6,125,105,2 }); //13,80 
 	spawnAnim.PushBack({ 1,127,76,4 }); //12,79 
 	spawnAnim.PushBack({ 0,131,74,8 }); //12,76 
 	spawnAnim.PushBack({ 2,142,62,15 }); //8,72
 	spawnAnim.PushBack({ 2,171,62,15 }); //8,73
-	spawnAnim.PushBack({ 13,193,51,16 }); //16,72
-	spawnAnim.PushBack({ 13,219,51,16 }); //16,72
-	spawnAnim.PushBack({ 64,143,64,16 }); //8,72
-	spawnAnim.PushBack({ 64,164,64,25 }); //8,67
-	spawnAnim.PushBack({ 71,188,57,25 }); //15,67
-	spawnAnim.PushBack({ 72,214,56,25 }); //16,67
-	spawnAnim.PushBack({ 156,143,36,19 }); //36,71
-	spawnAnim.PushBack({ 160,171,32,15 }); //40,73        
+	spawnAnim.PushBack({ 0,102 ,62,15 }); //16,72
+	spawnAnim.PushBack({ 62,102,51,16 }); //16,72
+	spawnAnim.PushBack({ 113,102,64,16 }); //8,72
+	spawnAnim.PushBack({ 177,102,64,25 }); //8,67
+	spawnAnim.PushBack({ 241,102,57,25 }); //15,67       
+	spawnAnim.PushBack({ 298,102,56,25 }); //16,67
+	spawnAnim.PushBack({ 354,102,36,19 }); //36,71
+	spawnAnim.PushBack({ 390,102,32,15 }); //40,73        
 	spawnAnim.speed = 0.143f;
 	spawnAnim.repeat = false;
 
 
 	//movement anim
-	playerAnim.PushBack({ 0,3,32,13 }); //up2 - 0
-	playerAnim.PushBack({ 32,3,32,13 }); //up1 - 1
-	playerAnim.PushBack({ 64,3,32,12 }); //idle - 2
-	playerAnim.PushBack({ 96,3,32,12 }); //down1 - 3
-	playerAnim.PushBack({ 128,4,32,11 }); //down2 - 4
+	playerAnim.PushBack({ 160,0,32,11 }); //up2 - 0
+	playerAnim.PushBack({ 128,0,32,11 }); //up1 - 1
+	playerAnim.PushBack({ 32,0,32,11 }); //idle - 2
+	playerAnim.PushBack({ 64,0,32,12 }); //down1 - 3
+	playerAnim.PushBack({ 96,0,32,12 }); //down2 - 4
 
 
 										  //Player Dying animation
@@ -77,8 +77,7 @@ bool ModulePlayer2::Start()
 	LOG("Loading player textures");
 	bool ret = true;
 
-	player2 = App->textures->Load("assets/Graphics/Player/player1_incomplete.png");
-
+	player2 = App->textures->Load("assets/Graphics/Player/player2_spriteSheet.png");
 	//restart player positions for next time playerModule call
 
 	position.x = 40;

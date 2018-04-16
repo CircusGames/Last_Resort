@@ -464,6 +464,7 @@ bool ModuleSceneLvl1::Start()
 
 	//enable modules --------------
 	App->player->Enable(); //player start two times, WHY???????
+	App->player2->Enable();
 	//App->playerUnit->Enable();
 	App->particles->Enable();
 	App->collision->Enable();
