@@ -848,6 +848,7 @@ bool ModuleSceneLvl1::CleanUp()
 
 	App->collision->Disable();
 	App->particles->Disable();
+	App->enemies->Disable();
 
 	App->player->Disable();
 	App->playerUnit->Disable();
