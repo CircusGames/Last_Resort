@@ -34,6 +34,7 @@ ModuleParticles::ModuleParticles()
 	unitBasicShot.anim.PushBack({ 1,46,13,13 });
 	unitBasicShot.anim.PushBack({ 16,46,13,13 });
 	unitBasicShot.anim.speed = 0.3f;
+	unitBasicShot.life = 2000;
 	// ------------------------------------------
 
 	//Explosion TEST--------------------
@@ -136,7 +137,7 @@ update_status ModuleParticles::Update()
 }
 
 //void ModuleParticles::AddParticle(const Particle& particle, Animation& sourceAnim, int x, int y, Uint32 delay, iPoint speed, Uint32 life, char* name)
-void ModuleParticles::AddParticle(const Particle& particle, int x, int y, COLLIDER_TYPE collider_type,Uint32 delay )
+void ModuleParticles::AddParticle(const Particle& particle, int x, int y, COLLIDER_TYPE collider_type,iPoint speed,Uint32 delay )
 {
 	for (uint i = 0; i < MAX_ACTIVE_PARTICLES; ++i)
 	{
@@ -146,6 +147,10 @@ void ModuleParticles::AddParticle(const Particle& particle, int x, int y, COLLID
 			p->born = SDL_GetTicks() + delay;
 			p->position.x = x;
 			p->position.y = y;
+			if (speed.x != 0 || speed.y != 0) //if we send specific speed, defines it
+			{
+				p->speed = speed;
+			}
 			if (collider_type != COLLIDER_NONE)
 				p->collider = App->collision->AddCollider(p->anim.GetCurrentFrame(), collider_type, this);
 			active[i] = p;

@@ -44,7 +44,7 @@ public:
 	void OnCollision(Collider* c1, Collider* c2);
 
 	//void AddParticle(const Particle& particle, Animation& sourceAnim, int x, int y, Uint32 delay = 0, iPoint speed = { 0,0 }, Uint32 life = 0, char* fx = nullptr);
-	void AddParticle(const Particle& particle, int x, int y, COLLIDER_TYPE collider_type ,Uint32 delay = 0);
+	void AddParticle(const Particle& particle, int x, int y, COLLIDER_TYPE collider_type, iPoint speed = {0,0}, Uint32 delay = 0);
 
 private:
 
