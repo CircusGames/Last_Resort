@@ -79,6 +79,7 @@
     <ClInclude Include="Module.h" />
     <ClInclude Include="ModuleAudio.h" />
     <ClInclude Include="ModuleEnemies.h" />
+    <ClInclude Include="Path.h" />
     <ClInclude Include="PickUps.h" />
     <ClInclude Include="ModulePlayer2.h" />
     <ClInclude Include="ModulePlayer2Unit.h" />

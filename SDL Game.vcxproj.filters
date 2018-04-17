@@ -104,6 +104,9 @@
     <ClInclude Include="ModuleEnemies.h">
       <Filter>Modules</Filter>
     </ClInclude>
+    <ClInclude Include="Path.h">
+      <Filter>Containers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
