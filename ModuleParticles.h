@@ -17,6 +17,7 @@ struct Particle
 {
 	Collider* collider = nullptr;
 	Animation anim;
+	SDL_Texture* texture = nullptr;
 	char* fx;
 	iPoint position;
 	iPoint speed;
@@ -54,10 +55,14 @@ private:
 
 public:
 
-	Particle explosion;
+	//Particle explosion;
 
+	//Player particles --------------------
+	//basic shot -------------
 	Particle beam;
-	Particle beamSmoke;
+	//Particle beamSmoke;
+	//Unit basic shot ---------
+	Particle unitBasicShot;
 	
 
 	

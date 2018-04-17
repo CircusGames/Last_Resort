@@ -241,7 +241,7 @@ update_status ModulePlayerUnit::PreUpdate()
 			App->input->keyboard[SDL_SCANCODE_S] == KEY_STATE::KEY_IDLE &&
 			App->input->keyboard[SDL_SCANCODE_W] == KEY_STATE::KEY_IDLE) //constrains upper left diagonal case
 		{
-			if (angle >= 3.14f)// * numFullCircles) //fix this for more orbitSpeed
+			if (angle >= 3.14f)
 			{
 				angle += (int)orbitSpeed * (delta_time / 1000);
 			}
@@ -256,7 +256,7 @@ update_status ModulePlayerUnit::PreUpdate()
 			App->input->keyboard[SDL_SCANCODE_W] == KEY_STATE::KEY_IDLE &&   //and not up (diagonal case)
 			App->input->keyboard[SDL_SCANCODE_S] == KEY_STATE::KEY_IDLE)     //and not down right
 		{
-			if (angle > 3.14f && angle < 6.28f) //3.18 because floating values
+			if (angle > 3.14f && angle < 6.28f)
 			{
 				angle -= (int)orbitSpeed * (delta_time / 1000);
 			}
@@ -457,6 +457,18 @@ update_status ModulePlayerUnit::Update()
 		if ((int)frameIncrement >= MAX_ANIMS - 1) frameIncrement = 0;
 	}
 	// ------------------------------------------------------------------------------------------------
+	
+	// Basic shooting ---------------------------------------------------------------------------------
+
+	if (App->input->keyboard[SDL_SCANCODE_SPACE] == KEY_DOWN)
+	{
+		if ((int)frameIncrement == 0)
+		{
+			//shotVectorSpeed = { 2,0 }; //speed on X and Y coordinates
+									   //App->particles->AddParticle{};
+		}
+
+	}
 
 	//draw the unit -----------------------------------------------------------------------------------
 
