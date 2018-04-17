@@ -257,7 +257,7 @@ update_status ModulePlayer2::Update()
 		if (App->input->keyboard[SDL_SCANCODE_SPACE] == KEY_STATE::KEY_DOWN)
 		{
 			LOG("Beam!");
-			App->particles->AddParticle(App->particles->beamSmoke, position.x + 16, position.y - 6, COLLIDER_NONE);
+			//App->particles->AddParticle(App->particles->beamSmoke, position.x + 16, position.y - 6, COLLIDER_NONE);
 
 			App->particles->AddParticle(App->particles->beam, position.x + 14, position.y - 4, COLLIDER_PLAYER_SHOT); //, "shot");
 
