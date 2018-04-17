@@ -51,9 +51,8 @@ private:
 
 	EnemyInfo queue[MAX_ENEMIES];
 	Enemy* enemies[MAX_ENEMIES];
-	SDL_Texture* sprites;
-	
-	
+	SDL_Texture* sprites; //general spriteSheet texture, used when we call AddEnemy from the scene without 
+					      //specificate exclusive texture
 };
 
 #endif // _MODULEENEMIES_H__

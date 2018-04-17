@@ -20,8 +20,6 @@ BasicEnemy::BasicEnemy(int x, int y, SDL_Texture* sprite) : Enemy(x, y)
 	fly.PushBack({ 0,47,32,15 });
 	fly.speed = 0.2f;
 
-	//texture = (Module*)App->enemies->
-
 	animation = &fly; //links animation
 
 	//on te actual workaround this line is NEEDED to link the sprites to te enemy
@@ -31,7 +29,6 @@ BasicEnemy::BasicEnemy(int x, int y, SDL_Texture* sprite) : Enemy(x, y)
 	texture = sprite; //THIS LINE IS NEEDED. //links texture ----------------------------------------
 	// ----------------------------------------------------------------------------------------------
 	
-
 	collider = App->collision->AddCollider({ 0, 0, 24, 24 }, COLLIDER_TYPE::COLLIDER_ENEMY, (Module*)App->enemies);
 
 	original_y = y;
