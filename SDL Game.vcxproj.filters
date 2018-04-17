@@ -98,14 +98,14 @@
     <ClInclude Include="ModulePlayer2Unit.h">
       <Filter>Modules\PowerUps</Filter>
     </ClInclude>
-    <ClInclude Include="PickUps.h">
-      <Filter>Modules\PickUps</Filter>
-    </ClInclude>
     <ClInclude Include="ModuleEnemies.h">
       <Filter>Modules</Filter>
     </ClInclude>
     <ClInclude Include="Path.h">
       <Filter>Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="PickUp.h">
+      <Filter>Modules\PickUps</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -172,11 +172,11 @@
     <ClCompile Include="ModulePlayer2Unit.cpp">
       <Filter>Modules\PowerUps</Filter>
     </ClCompile>
-    <ClCompile Include="PickUps.cpp">
-      <Filter>Modules\PickUps</Filter>
-    </ClCompile>
     <ClCompile Include="ModuleEnemies.cpp">
       <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="PickUp.cpp">
+      <Filter>Modules\PickUps</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

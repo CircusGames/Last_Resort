@@ -2,14 +2,23 @@
 #define _MODULEENEMIES_H__
 
 #include "Module.h"
-#include "BasicEnemy.h"
+#include "Path.h"
 
 #define MAX_ENEMIES 100
 
 enum ENEMY_TYPES
 {
 	NO_TYPE,
-	BASIC_ENEMY
+	BASIC_ENEMY,
+
+
+
+};
+
+enum ENEMY_MOVEMENT
+{
+	NO_MOVEMENT,
+	STAY
 };
 
 class Enemy;
@@ -17,13 +26,13 @@ class Enemy;
 struct EnemyInfo
 {
 	ENEMY_TYPES type = ENEMY_TYPES::NO_TYPE;
+	ENEMY_MOVEMENT movement = ENEMY_MOVEMENT::NO_MOVEMENT;
 	int x, y;
 };
 
 class ModuleEnemies : public Module
 {
 public:
-
 	ModuleEnemies();
 	~ModuleEnemies();
 
@@ -34,7 +43,7 @@ public:
 	bool CleanUp();
 	void OnCollision(Collider* c1, Collider* c2);
 
-	bool AddEnemy(ENEMY_TYPES type, int x, int y);
+	bool AddEnemy(ENEMY_TYPES type, int x, int y, ENEMY_MOVEMENT movement);
 
 private:
 

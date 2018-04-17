@@ -80,7 +80,7 @@
     <ClInclude Include="ModuleAudio.h" />
     <ClInclude Include="ModuleEnemies.h" />
     <ClInclude Include="Path.h" />
-    <ClInclude Include="PickUps.h" />
+    <ClInclude Include="PickUp.h" />
     <ClInclude Include="ModulePlayer2.h" />
     <ClInclude Include="ModulePlayer2Unit.h" />
     <ClInclude Include="ModuleSceneLvl1.h" />
@@ -121,7 +121,7 @@
     <ClCompile Include="ModuleTeamLogo.cpp" />
     <ClCompile Include="ModuleTextures.cpp" />
     <ClCompile Include="ModuleWindow.cpp" />
-    <ClCompile Include="PickUps.cpp" />
+    <ClCompile Include="PickUp.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
