@@ -98,7 +98,7 @@
     <ClInclude Include="ModulePlayer2Unit.h">
       <Filter>Modules\PowerUps</Filter>
     </ClInclude>
-    <ClInclude Include="ModulePickUps.h">
+    <ClInclude Include="PickUps.h">
       <Filter>Modules\PickUps</Filter>
     </ClInclude>
   </ItemGroup>
@@ -165,6 +165,9 @@
     </ClCompile>
     <ClCompile Include="ModulePlayer2Unit.cpp">
       <Filter>Modules\PowerUps</Filter>
+    </ClCompile>
+    <ClCompile Include="PickUps.cpp">
+      <Filter>Modules\PickUps</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
