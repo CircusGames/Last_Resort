@@ -10,7 +10,7 @@ BasicEnemy::BasicEnemy(int x, int y) : Enemy(x, y)
 
 	animation = &fly;
 
-	collider = App->collision->AddCollider({ 0, 0, 24, 24 }, COLLIDER_TYPE::COLLIDER_ENEMY, (Module*)App->enemies);
+	//collider = App->collision->AddCollider({ 0, 0, 24, 24 }, COLLIDER_TYPE::COLLIDER_ENEMY, (Module*)App->enemies);
 
 	original_y = y;
 	original_pos = position;

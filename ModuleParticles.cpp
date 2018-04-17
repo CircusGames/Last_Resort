@@ -16,12 +16,29 @@ ModuleParticles::ModuleParticles()
 	for (uint i = 0; i < MAX_ACTIVE_PARTICLES; ++i)
 		active[i] = nullptr;
 
-	//animations for particles, avoiding repeat animations pushback rects
-	//beam bullet particle and animation
+	//animations for particles, avoiding repeat animations pushback rects -------------
+	
+	//beam bullet particle and animation --------
 	beam.anim.PushBack({ 148,127,15,7 });
 	beam.speed.x = 6;
 	beam.life = 1000;
 	beam.fx = "shot";
+	beam.texture = graphics;
+	// ------------------------------------------
+
+	//Unit basic shot particle-------------------
+	unitBasicShot.anim.PushBack({ 1,1,13,13 });
+	unitBasicShot.anim.PushBack({ 16,1,13,13 });
+	unitBasicShot.anim.PushBack({ 1,16,13,13 });
+	unitBasicShot.anim.PushBack({ 16,16,13,13 });
+	unitBasicShot.anim.PushBack({ 1,31,13,13 });
+	unitBasicShot.anim.PushBack({ 16,31,13,13 });
+	unitBasicShot.anim.PushBack({ 1,46,13,13 });
+	unitBasicShot.anim.PushBack({ 16,46,13,13 });
+	unitBasicShot.anim.speed = 0.3f;
+	// ------------------------------------------
+
+
 
 }
 
