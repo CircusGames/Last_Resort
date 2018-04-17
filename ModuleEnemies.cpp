@@ -7,10 +7,14 @@
 #include "Enemy.h"
 #include "BasicEnemy.h"
 <<<<<<< HEAD
+<<<<<<< HEAD
 #include "Enemy_Oscilatory.h"
 =======
 
 >>>>>>> parent of 9f3a170... Merge branch 'master' of https://github.com/CircusGames/Last_Resort
+=======
+#include "Oscilatory.h"
+>>>>>>> parent of d905c43... Change name from Oscilatory to Enemy_Oscilatory
 #define SPAWN_MARGIN 50
 
 ModuleEnemies::ModuleEnemies()
@@ -137,9 +141,12 @@ void ModuleEnemies::SpawnEnemy(const EnemyInfo& info)
 		case ENEMY_TYPES::OSCILATORY:
 			enemies[i] = new Oscilatory(info.x, info.y);
 			break;
+<<<<<<< HEAD
 =======
 >>>>>>> parent of 9f3a170... Merge branch 'master' of https://github.com/CircusGames/Last_Resort
 		}
+=======
+>>>>>>> parent of d905c43... Change name from Oscilatory to Enemy_Oscilatory
 	}
 }
 
