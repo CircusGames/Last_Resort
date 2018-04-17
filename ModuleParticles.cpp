@@ -34,6 +34,7 @@ ModuleParticles::ModuleParticles()
 	unitBasicShot.anim.PushBack({ 1,46,13,13 });
 	unitBasicShot.anim.PushBack({ 16,46,13,13 });
 	unitBasicShot.anim.speed = 0.3f;
+	unitBasicShot.life = 2000;
 	// ------------------------------------------
 }
 
