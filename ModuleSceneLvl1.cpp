@@ -25,12 +25,7 @@
 
 ModuleSceneLvl1::ModuleSceneLvl1()
 {
-	App->enemies->Enable();
-	//rect for provisional enemy
-	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 200, 80);
-	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 625, 80);
-	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 640, 80);
-	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 665, 80);
+	
 
 	//background lvl1 last resort
 	bgRect.x = 0;
@@ -443,6 +438,13 @@ bool ModuleSceneLvl1::Start()
 
 	LOG("Loading background assets");
 	bool ret = true;
+
+	App->enemies->Enable();
+	//rect for provisional enemy
+	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 200, 80);
+	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 625, 80);
+	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 640, 80);
+	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 665, 80);
 
 	////lvl1 background textures
 	bg = App->textures->Load("assets/Graphics/Backgrounds/Lvl_1/lvl1_bg.png");
