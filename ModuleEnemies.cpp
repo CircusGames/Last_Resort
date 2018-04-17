@@ -105,11 +105,7 @@ bool ModuleEnemies::CleanUp()
 	return true;
 }
 
-<<<<<<< HEAD
 bool ModuleEnemies::AddEnemy(ENEMY_TYPES type, int x, int y)
-=======
-bool ModuleEnemies::AddEnemy(ENEMY_TYPES type, int x, int y, SDL_Texture* texture)
->>>>>>> parent of a3e53bd... Merge branch 'master' of https://github.com/CircusGames/Last_Resort
 {
 	bool ret = false;
 

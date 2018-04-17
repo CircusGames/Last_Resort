@@ -107,7 +107,6 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
-<<<<<<< HEAD
     <ClInclude Include="Enemy_Oscilatory.h">
 =======
 <<<<<<< HEAD
@@ -130,10 +129,6 @@
 >>>>>>> 8ac76136c29a69e4439dd6295233b145c274fd96
 =======
 >>>>>>> parent of 9f3a170... Merge branch 'master' of https://github.com/CircusGames/Last_Resort
-=======
-    <ClInclude Include="Enemy_Oscilatory.h">
-      <Filter>Modules\Enemies</Filter>
->>>>>>> parent of a3e53bd... Merge branch 'master' of https://github.com/CircusGames/Last_Resort
     </ClInclude>
 =======
 >>>>>>> parent of e9a8678... Module enemies fixed and path WIP
@@ -212,7 +207,6 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
-<<<<<<< HEAD
     <ClCompile Include="Enemy_Oscilatory.cpp">
 =======
 <<<<<<< HEAD
@@ -230,10 +224,6 @@
     <ClCompile Include="PickUp.cpp">
       <Filter>Modules\PickUps</Filter>
 >>>>>>> parent of 9f3a170... Merge branch 'master' of https://github.com/CircusGames/Last_Resort
-=======
-    <ClCompile Include="Enemy_Oscilatory.cpp">
-      <Filter>Modules\Enemies</Filter>
->>>>>>> parent of a3e53bd... Merge branch 'master' of https://github.com/CircusGames/Last_Resort
     </ClCompile>
 =======
 >>>>>>> parent of e9a8678... Module enemies fixed and path WIP
