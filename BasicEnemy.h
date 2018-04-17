@@ -1,7 +1,9 @@
-#ifndef __ENEMY_BROWN_COOKIE_H__
-#define __ENEMY_BROWN_COOKIE_H__
+#ifndef __BASICENEMY_H__
+#define __BASICENEMY_H__
 
 #include "Enemy.h"
+#include "Path.h"
+
 
 class BasicEnemy : public Enemy
 {
@@ -9,8 +11,9 @@ private:
 	float wave = -1.0f;
 	bool going_up = true;
 	int original_y = 0;
-	Animation fly;
 	iPoint original_pos;
+	Animation fly;
+	Path BasicPath;
 
 public:
 
@@ -19,4 +22,4 @@ public:
 	void Move();
 };
 
-#endif // __ENEMY_REDBIRD_H__
+#endif // __BASICENEMY_H__
