@@ -6,11 +6,7 @@
 #include "ModuleTextures.h"
 #include "Enemy.h"
 #include "BasicEnemy.h"
-<<<<<<< HEAD
 #include "Enemy_Oscilatory.h"
-=======
-
->>>>>>> parent of 9f3a170... Merge branch 'master' of https://github.com/CircusGames/Last_Resort
 #define SPAWN_MARGIN 50
 
 ModuleEnemies::ModuleEnemies()
@@ -29,6 +25,8 @@ bool ModuleEnemies::Start()
 	// Create a prototype for each enemy available so we can copy them around
 	sprites = App->textures->Load("assets/Graphics/Enemies/Level_1/enemies.png");
 
+	enemy1Texture = App->textures->Load("assets/Graphics/Enemies/Level_1/enemy1.png");
+
 	return true;
 }
 
@@ -46,7 +44,7 @@ update_status ModuleEnemies::PreUpdate()
 				LOG("Spawning enemy at %d", queue[i].x * SCREEN_SIZE);
 			}
 		}
-	}
+	} 
 
 	return UPDATE_CONTINUE;
 }
@@ -58,6 +56,7 @@ update_status ModuleEnemies::Update()
 		if (enemies[i] != nullptr) enemies[i]->Move();
 
 	for (uint i = 0; i < MAX_ENEMIES; ++i)
+		//enemies[i].
 		if (enemies[i] != nullptr) enemies[i]->Draw(sprites);
 
 	return UPDATE_CONTINUE;
@@ -101,7 +100,11 @@ bool ModuleEnemies::CleanUp()
 	return true;
 }
 
+<<<<<<< HEAD
 bool ModuleEnemies::AddEnemy(ENEMY_TYPES type, int x, int y, ENEMY_MOVEMENT movement)
+=======
+bool ModuleEnemies::AddEnemy(ENEMY_TYPES type, int x, int y, SDL_Texture* texture)
+>>>>>>> 8ac76136c29a69e4439dd6295233b145c274fd96
 {
 	bool ret = false;
 
@@ -109,6 +112,9 @@ bool ModuleEnemies::AddEnemy(ENEMY_TYPES type, int x, int y, ENEMY_MOVEMENT move
 	{
 		if (queue[i].type == ENEMY_TYPES::NO_TYPE)
 		{
+			if(texture != nullptr)
+				queue[i].texture = texture;
+
 			queue[i].type = type;
 			queue[i].x = x;
 			queue[i].y = y;
@@ -135,12 +141,9 @@ void ModuleEnemies::SpawnEnemy(const EnemyInfo& info)
 			enemies[i] = new BasicEnemy(info.x, info.y);
 			//enemies[i]->ENEMU
 			break;
-<<<<<<< HEAD
 		case ENEMY_TYPES::OSCILATORY:
 			enemies[i] = new Oscilatory(info.x, info.y);
 			break;
-=======
->>>>>>> parent of 9f3a170... Merge branch 'master' of https://github.com/CircusGames/Last_Resort
 		}
 	}
 }
