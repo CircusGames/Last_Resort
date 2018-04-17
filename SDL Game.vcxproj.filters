@@ -94,6 +94,12 @@
     </ClInclude>
     <ClInclude Include="ModulePlayerUnit.h">
       <Filter>Modules\PowerUps</Filter>
+
+    <ClInclude Include="Path.h">
+      <Filter>Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleEnemies.h">
+      <Filter>Modules</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -154,11 +160,15 @@
     <ClCompile Include="BasicEnemy.cpp">
       <Filter>Modules\Enemies</Filter>
     </ClCompile>
+
     <ClCompile Include="ModulePlayer2Unit.cpp">
       <Filter>Modules\PowerUps</Filter>
     </ClCompile>
     <ClCompile Include="ModulePlayerUnit.cpp">
       <Filter>Modules\PowerUps</Filter>
+
+    <ClCompile Include="ModuleEnemies.cpp">
+      <Filter>Modules</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
