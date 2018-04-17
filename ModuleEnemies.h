@@ -3,13 +3,15 @@
 
 #include "Module.h"
 #include "BasicEnemy.h"
+#include "Oscilatory.h"
 
 #define MAX_ENEMIES 100
 
 enum ENEMY_TYPES
 {
 	NO_TYPE,
-	BASIC_ENEMY
+	BASIC_ENEMY,
+	OSCILATORY
 };
 
 class Enemy;

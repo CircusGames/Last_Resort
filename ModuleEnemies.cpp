@@ -6,7 +6,7 @@
 #include "ModuleTextures.h"
 #include "Enemy.h"
 #include "BasicEnemy.h"
-
+#include "Oscilatory.h"
 #define SPAWN_MARGIN 50
 
 ModuleEnemies::ModuleEnemies()
@@ -129,7 +129,9 @@ void ModuleEnemies::SpawnEnemy(const EnemyInfo& info)
 		case ENEMY_TYPES::BASIC_ENEMY:
 			enemies[i] = new BasicEnemy(info.x, info.y);
 			break;
-		}
+		case ENEMY_TYPES::OSCILATORY:
+			enemies[i] = new Oscilatory(info.x, info.y);
+			break;
 	}
 }
 
