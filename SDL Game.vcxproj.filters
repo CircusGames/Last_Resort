@@ -101,11 +101,16 @@
     <ClInclude Include="ModuleEnemies.h">
       <Filter>Modules</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="Path.h">
       <Filter>Containers</Filter>
     </ClInclude>
     <ClInclude Include="PickUp.h">
       <Filter>Modules\PickUps</Filter>
+=======
+    <ClInclude Include="Oscilatory.h">
+      <Filter>Modules\Enemies</Filter>
+>>>>>>> 8ac76136c29a69e4439dd6295233b145c274fd96
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -175,8 +180,13 @@
     <ClCompile Include="ModuleEnemies.cpp">
       <Filter>Modules</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="PickUp.cpp">
       <Filter>Modules\PickUps</Filter>
+=======
+    <ClCompile Include="Oscilatory.cpp">
+      <Filter>Modules\Enemies</Filter>
+>>>>>>> 8ac76136c29a69e4439dd6295233b145c274fd96
     </ClCompile>
   </ItemGroup>
 </Project>

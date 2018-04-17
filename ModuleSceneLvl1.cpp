@@ -445,7 +445,18 @@ bool ModuleSceneLvl1::Start()
 
 	//POVISIONAL ENEMY
 	App->enemies->Enable();
+<<<<<<< HEAD
 	
+=======
+	//rect for provisional enemy
+	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 200, 80);//, //App->enemies.);
+	//App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 625, 80);
+	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 640, 80);
+	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 665, 80);
+>>>>>>> 8ac76136c29a69e4439dd6295233b145c274fd96
+
+	//Enemy Oscilatory
+	App->enemies->AddEnemy(ENEMY_TYPES::OSCILATORY, 250, 80);
 
 	////lvl1 background textures
 	bg = App->textures->Load("assets/Graphics/Backgrounds/Lvl_1/lvl1_bg.png");
@@ -841,6 +852,10 @@ update_status ModuleSceneLvl1::Update()
 
 	App->render->Blit(provisionalEnemy, provisionalEnemyPosition.x, provisionalEnemyPosition.y, &provionsalEnemyRect, 1.0f);
 	provisionalEnemeyCollider->SetPos(provisionalEnemyPosition.x, provisionalEnemyPosition.y);
+
+	//Oscilatory
+	App->render->Blit(oscilatory, oscilatoryPosition.x, oscilatoryPosition.y, &oscilatoryRect, 1.0f);
+	//oscilatoryCollider->SetPos(oscilatoryPosition.x, oscilatoryPosition.y); <<<<< With this line a error appears
 
 	//SCENE SWITCHING
 
