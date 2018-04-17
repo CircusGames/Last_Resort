@@ -435,16 +435,25 @@ bool ModuleSceneLvl1::Init()
 // Load assets
 bool ModuleSceneLvl1::Start()
 {
+	////SPAWN ENEMIES---------------------
+
+	//Privisional enemy
+	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 200, 20, NO_MOVEMENT);
 
 	LOG("Loading background assets");
 	bool ret = true;
 
+	//POVISIONAL ENEMY
 	App->enemies->Enable();
+<<<<<<< HEAD
+	
+=======
 	//rect for provisional enemy
 	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 200, 80);//, //App->enemies.);
 	//App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 625, 80);
 	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 640, 80);
 	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 665, 80);
+>>>>>>> 8ac76136c29a69e4439dd6295233b145c274fd96
 
 	//Enemy Oscilatory
 	App->enemies->AddEnemy(ENEMY_TYPES::OSCILATORY, 300, 80);
@@ -673,7 +682,7 @@ update_status ModuleSceneLvl1::PreUpdate()
 		}*/
 
 	}
-
+	
 	return UPDATE_CONTINUE;
 
 	//----------------------------------------------------------------------------------------------------
@@ -682,7 +691,9 @@ update_status ModuleSceneLvl1::PreUpdate()
 // Update: draw background
 update_status ModuleSceneLvl1::Update()
 {
-
+	
+		
+	
 	// Draw everything --------------------------------------
 	
 	App->render->Blit(bg, 0, 0, &bgRect, backgroundSpeed); //bg1 last resort----------------------
@@ -837,6 +848,11 @@ update_status ModuleSceneLvl1::Update()
 	}
 
 	//-----------------------------------------------------------------------------------------------
+
+	
+	
+	
+
 	
 	//App->render->Blit(App->textures->textures[6], 0, bgMovY.fg_y, &fgRect, 1.0f); //testing purposes
 

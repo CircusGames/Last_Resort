@@ -100,7 +100,11 @@ bool ModuleEnemies::CleanUp()
 	return true;
 }
 
+<<<<<<< HEAD
+bool ModuleEnemies::AddEnemy(ENEMY_TYPES type, int x, int y, ENEMY_MOVEMENT movement)
+=======
 bool ModuleEnemies::AddEnemy(ENEMY_TYPES type, int x, int y, SDL_Texture* texture)
+>>>>>>> 8ac76136c29a69e4439dd6295233b145c274fd96
 {
 	bool ret = false;
 
@@ -114,6 +118,7 @@ bool ModuleEnemies::AddEnemy(ENEMY_TYPES type, int x, int y, SDL_Texture* textur
 			queue[i].type = type;
 			queue[i].x = x;
 			queue[i].y = y;
+			queue[i].movement = movement;
 			ret = true;
 			break;
 		}
@@ -134,6 +139,7 @@ void ModuleEnemies::SpawnEnemy(const EnemyInfo& info)
 		{
 		case ENEMY_TYPES::BASIC_ENEMY:
 			enemies[i] = new BasicEnemy(info.x, info.y);
+			//enemies[i]->ENEMU
 			break;
 		case ENEMY_TYPES::OSCILATORY:
 			enemies[i] = new Oscilatory(info.x, info.y);
