@@ -843,7 +843,9 @@ update_status ModuleGameTitle::Update()
 			{
 				letterTransitionPositions[i] -= speedY;
 			}
-				App->render->Blit(lettersTexture[i], positionsLettersX[i] - substractX, letterTransitionPositions[i], &r);
+
+				App->render->Blit(lettersTexture[i], positionsLettersX[i] - substractX, 
+													 letterTransitionPositions[i] - substractY, &r);
 		}
 
 		if (current_step == intro_step::firstSecuence)
