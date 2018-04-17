@@ -3,7 +3,7 @@
 #include "ModuleCollision.h"
 #include "ModuleEnemies.h"
 
-BasicEnemy::BasicEnemy(int x, int y) : Enemy(x, y)
+BasicEnemy::BasicEnemy(int x, int y, SDL_Texture* sprite) : Enemy(x, y)
 {
 	/*fly.PushBack({ 5,6,24,24 });
 	fly.PushBack({ 38, 6, 24, 24 });
@@ -23,6 +23,10 @@ BasicEnemy::BasicEnemy(int x, int y) : Enemy(x, y)
 	//texture = (Module*)App->enemies->
 
 	animation = &fly;
+
+	if (sprite != nullptr) //if we defined a specific texture
+		texture = sprite;
+	
 
 	collider = App->collision->AddCollider({ 0, 0, 24, 24 }, COLLIDER_TYPE::COLLIDER_ENEMY, (Module*)App->enemies);
 

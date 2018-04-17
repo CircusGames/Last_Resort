@@ -12,14 +12,15 @@ private:
 	Animation fly;
 	iPoint original_pos;
 	
+	
 
 public:
 
-	BasicEnemy(int x, int y);
+	BasicEnemy(int x, int y, SDL_Texture* sprite = nullptr);//, SDL_Texture* texture = nullptr);
 
 	void Move();
 
-	SDL_Texture* texture = nullptr;
+	//SDL_Texture* texture = nullptr;
 };
 
 #endif // __ENEMY_REDBIRD_H__

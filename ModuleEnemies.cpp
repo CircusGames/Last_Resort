@@ -57,7 +57,7 @@ update_status ModuleEnemies::Update()
 
 	for (uint i = 0; i < MAX_ENEMIES; ++i)
 		//enemies[i].
-		if (enemies[i] != nullptr) enemies[i]->Draw(sprites);
+		if (enemies[i] != nullptr) enemies[i]->Draw(enemies[i]->texture);
 
 	return UPDATE_CONTINUE;
 }
@@ -110,6 +110,7 @@ bool ModuleEnemies::AddEnemy(ENEMY_TYPES type, int x, int y, SDL_Texture* textur
 		{
 			if(texture != nullptr)
 				queue[i].texture = texture;
+			else queue[i].texture = sprites;
 
 			queue[i].type = type;
 			queue[i].x = x;
@@ -122,7 +123,7 @@ bool ModuleEnemies::AddEnemy(ENEMY_TYPES type, int x, int y, SDL_Texture* textur
 	return ret;
 }
 
-void ModuleEnemies::SpawnEnemy(const EnemyInfo& info)
+void ModuleEnemies::SpawnEnemy(EnemyInfo& info, SDL_Texture* texture)
 {
 	// find room for the new enemy
 	uint i = 0;
@@ -133,7 +134,7 @@ void ModuleEnemies::SpawnEnemy(const EnemyInfo& info)
 		switch (info.type)
 		{
 		case ENEMY_TYPES::BASIC_ENEMY:
-			enemies[i] = new BasicEnemy(info.x, info.y);
+			enemies[i] = new BasicEnemy(info.x, info.y, info.texture);
 			break;
 		}
 	}
