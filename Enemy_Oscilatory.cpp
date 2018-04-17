@@ -1,5 +1,5 @@
 #include "Application.h"
-#include "Oscilatory.h"
+#include "Enemy_Oscilatory.h"
 #include "ModuleCollision.h"
 
 Oscilatory::Oscilatory(int x, int y) : Enemy(x, y)
