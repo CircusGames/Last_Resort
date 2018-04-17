@@ -441,15 +441,17 @@ bool ModuleSceneLvl1::Start()
 
 	App->enemies->Enable();
 <<<<<<< HEAD
+<<<<<<< HEAD
 	
 <<<<<<< HEAD
 =======
+=======
+>>>>>>> parent of a3e53bd... Merge branch 'master' of https://github.com/CircusGames/Last_Resort
 	//rect for provisional enemy
 	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 200, 80);//, //App->enemies.);
 	//App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 625, 80);
 	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 640, 80);
 	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 665, 80);
->>>>>>> 8ac76136c29a69e4439dd6295233b145c274fd96
 
 	//Enemy Oscilatory
 	App->enemies->AddEnemy(ENEMY_TYPES::OSCILATORY, 300, 80);

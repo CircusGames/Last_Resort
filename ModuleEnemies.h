@@ -3,13 +3,22 @@
 
 #include "Module.h"
 #include "BasicEnemy.h"
+<<<<<<< HEAD
+=======
+#include "Oscilatory.h"
+>>>>>>> parent of a3e53bd... Merge branch 'master' of https://github.com/CircusGames/Last_Resort
 
 #define MAX_ENEMIES 100
 
 enum ENEMY_TYPES
 {
 	NO_TYPE,
+<<<<<<< HEAD
 	BASIC_ENEMY
+=======
+	BASIC_ENEMY,
+	OSCILATORY
+>>>>>>> parent of a3e53bd... Merge branch 'master' of https://github.com/CircusGames/Last_Resort
 };
 
 class Enemy;
@@ -34,7 +43,11 @@ public:
 	bool CleanUp();
 	void OnCollision(Collider* c1, Collider* c2);
 
+<<<<<<< HEAD
 	bool AddEnemy(ENEMY_TYPES type, int x, int y);
+=======
+	bool AddEnemy(ENEMY_TYPES type, int x, int y, SDL_Texture* texture = nullptr);
+>>>>>>> parent of a3e53bd... Merge branch 'master' of https://github.com/CircusGames/Last_Resort
 
 private:
 
