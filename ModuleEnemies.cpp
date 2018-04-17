@@ -25,6 +25,8 @@ bool ModuleEnemies::Start()
 	// Create a prototype for each enemy available so we can copy them around
 	sprites = App->textures->Load("assets/Graphics/Enemies/Level_1/enemies.png");
 
+	enemy1Texture = App->textures->Load("assets/Graphics/Enemies/Level_1/enemy1.png");
+
 	return true;
 }
 
@@ -42,7 +44,7 @@ update_status ModuleEnemies::PreUpdate()
 				LOG("Spawning enemy at %d", queue[i].x * SCREEN_SIZE);
 			}
 		}
-	}
+	} 
 
 	return UPDATE_CONTINUE;
 }
@@ -54,6 +56,7 @@ update_status ModuleEnemies::Update()
 		if (enemies[i] != nullptr) enemies[i]->Move();
 
 	for (uint i = 0; i < MAX_ENEMIES; ++i)
+		//enemies[i].
 		if (enemies[i] != nullptr) enemies[i]->Draw(sprites);
 
 	return UPDATE_CONTINUE;
@@ -97,7 +100,7 @@ bool ModuleEnemies::CleanUp()
 	return true;
 }
 
-bool ModuleEnemies::AddEnemy(ENEMY_TYPES type, int x, int y)
+bool ModuleEnemies::AddEnemy(ENEMY_TYPES type, int x, int y, SDL_Texture* texture)
 {
 	bool ret = false;
 
@@ -105,6 +108,9 @@ bool ModuleEnemies::AddEnemy(ENEMY_TYPES type, int x, int y)
 	{
 		if (queue[i].type == ENEMY_TYPES::NO_TYPE)
 		{
+			if(texture != nullptr)
+				queue[i].texture = texture;
+
 			queue[i].type = type;
 			queue[i].x = x;
 			queue[i].y = y;
