@@ -24,8 +24,12 @@ BasicEnemy::BasicEnemy(int x, int y, SDL_Texture* sprite) : Enemy(x, y)
 
 	animation = &fly;
 
-	if (sprite != nullptr) //if we defined a specific texture
-		texture = sprite;
+	//on te actual workaround this line is NEEDED to link the sprites to te enemy
+	//if we not send this parameter (called sprite on THIS constructor), links to the general texture
+	//called sprites, on moduleEnemies.cpp Start() method.
+	//BUT ALWAYS, for now:
+	texture = sprite; //THIS LINE IS NEEDED.
+	// ----------------------------------------------------------------------------------------------
 	
 
 	collider = App->collision->AddCollider({ 0, 0, 24, 24 }, COLLIDER_TYPE::COLLIDER_ENEMY, (Module*)App->enemies);
