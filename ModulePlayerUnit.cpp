@@ -466,8 +466,6 @@ update_status ModulePlayerUnit::Update()
 			App->particles->AddParticle(App->particles->unitBasicShot, playerPos.x, playerPos.y, COLLIDER_PLAYER_SHOT,shotVectorSpeed[(int)frameIncrement]);
 	}
 
-
-
 	//draw the unit -----------------------------------------------------------------------------------
 
 	currentUnitAnim = &playerUnitAnim[(int)frameIncrement]; //prepares the correct draw 
