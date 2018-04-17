@@ -15,7 +15,6 @@
 #include "ModuleTeamLogo.h"
 #include "ModuleGameTitle.h"
 #include "ModuleGameOver.h"
-#include "ModuleEnemies.h"
 
 Application::Application()
 {
@@ -28,7 +27,6 @@ Application::Application()
 	modules[i++] = scene_lvl1 = new ModuleSceneLvl1();
 	modules[i++] = gameTitle = new ModuleGameTitle();
 	modules[i++] = gameOverScreen = new ModuleGameOver();
-	modules[i++] = enemies = new ModuleEnemies();
 	modules[i++] = player = new ModulePlayer();
 	//modules[i++] = player2 = new ModulePlayer2();
 	modules[i++] = playerUnit = new ModulePlayerUnit();
@@ -64,8 +62,7 @@ bool Application::Init()
 	//player2Unit->Disable();
 	collision->Disable();
 	particles->Disable();
-	enemies->Disable();
-
+	
 	// -----------------------------------
 	//all modules have their init
 	for(int i = 0; i < NUM_MODULES && ret == true; ++i)

@@ -21,7 +21,6 @@ class ModulePlayer2Unit;
 class Module;
 class ModuleAudio;
 class ModuleCollision;
-class ModuleEnemies;
 class ModuleFadeToBlack;
 
 // dont forget to increase the NUM_MODULES variable whenever you add a new module
@@ -45,7 +44,6 @@ public:
 	ModulePlayer2Unit* player2Unit = nullptr;
 	ModuleCollision* collision = nullptr;
 	ModuleAudio* audio = nullptr;
-	ModuleEnemies*enemies;
 	ModuleFadeToBlack* fade = nullptr;
 	
 
