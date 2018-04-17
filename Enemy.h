@@ -1,3 +1,4 @@
+/*
 #ifndef __ENEMY_H__
 #define __ENEMY_H__
 
@@ -28,3 +29,4 @@ public:
 };
 
 #endif // __ENEMY_H__
+*/

@@ -1,3 +1,4 @@
+/*
 #include "Application.h"
 #include "Enemy.h"
 #include "ModuleCollision.h"
@@ -31,3 +32,4 @@ void Enemy::OnCollision(Collider* collider)
 {
 	App->particles->AddParticle(App->particles->explosion, position.x, position.y);
 }
+*/

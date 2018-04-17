@@ -1,3 +1,4 @@
+/*
 #include "Application.h"
 #include "BasicEnemy.h"
 #include "ModuleCollision.h"
@@ -17,3 +18,4 @@ BasicEnemy::BasicEnemy(int x, int y) : Enemy(x, y)
 
 
 }
+*/

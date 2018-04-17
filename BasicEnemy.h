@@ -1,3 +1,4 @@
+/*
 #ifndef __ENEMY_BROWN_COOKIE_H__
 #define __ENEMY_BROWN_COOKIE_H__
 
@@ -20,3 +21,4 @@ public:
 };
 
 #endif // __ENEMY_REDBIRD_H__
+*/
