@@ -74,7 +74,10 @@
     <ClInclude Include="Application.h" />
     <ClInclude Include="BasicEnemy.h" />
     <ClInclude Include="Enemy.h" />
+<<<<<<< HEAD
     <ClInclude Include="Enemy_Oscilatory.h" />
+=======
+>>>>>>> parent of 9f3a170... Merge branch 'master' of https://github.com/CircusGames/Last_Resort
     <ClInclude Include="Globals.h" />
     <ClInclude Include="MemLeaks.h" />
     <ClInclude Include="Module.h" />
@@ -123,6 +126,7 @@
     <ClCompile Include="ModuleTextures.cpp" />
     <ClCompile Include="ModuleWindow.cpp" />
 <<<<<<< HEAD
+<<<<<<< HEAD
     <ClCompile Include="Enemy_Oscilatory.cpp" />
 =======
 <<<<<<< HEAD
@@ -132,6 +136,9 @@
 >>>>>>> 9f3a1703329f8ad1ab78c2ed6e67b656e4701fa5
     <ClCompile Include="PickUps.cpp" />
 >>>>>>> 8ac76136c29a69e4439dd6295233b145c274fd96
+=======
+    <ClCompile Include="PickUp.cpp" />
+>>>>>>> parent of 9f3a170... Merge branch 'master' of https://github.com/CircusGames/Last_Resort
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

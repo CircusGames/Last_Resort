@@ -47,11 +47,6 @@ public:
 	SDL_Rect provionsalEnemyRect;
 	Collider* provisionalEnemeyCollider;
 	iPoint provisionalEnemyPosition;
-
-	SDL_Texture* oscilatory= nullptr;
-	SDL_Rect oscilatoryRect;
-	Collider* oscilatoryCollider;
-	iPoint oscilatoryPosition;
 	
 	SDL_Rect bgRect;
 	SDL_Rect fgRect;

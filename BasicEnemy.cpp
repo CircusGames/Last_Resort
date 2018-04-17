@@ -1,11 +1,10 @@
 #include "Application.h"
 #include "BasicEnemy.h"
 #include "ModuleCollision.h"
-#include "ModuleEnemies.h"
 
 BasicEnemy::BasicEnemy(int x, int y) : Enemy(x, y)
 {
-	/*fly.PushBack({ 5,6,24,24 });
+	fly.PushBack({ 5,6,24,24 });
 	fly.PushBack({ 38, 6, 24, 24 });
 	fly.PushBack({ 71, 6, 24, 24 });
 	fly.PushBack({ 104, 6, 24, 24 });
@@ -13,14 +12,7 @@ BasicEnemy::BasicEnemy(int x, int y) : Enemy(x, y)
 	fly.PushBack({ 170, 6, 24, 24 });
 	fly.PushBack({ 203, 6, 24, 24 });
 	fly.PushBack({ 236, 6, 24, 24 });
-	fly.speed = 0.2f;*/
-	fly.PushBack({ 0,0,32,16 });
-	fly.PushBack({ 0,16,32,15 });
-	fly.PushBack({ 0,31,32,16 });
-	fly.PushBack({ 0,47,32,15 });
 	fly.speed = 0.2f;
-
-	//texture = (Module*)App->enemies->
 
 	animation = &fly;
 
@@ -47,5 +39,5 @@ void BasicEnemy::Move()
 	}
 
 	position.y = int(float(original_y) + (25.0f * sinf(wave)));
-	position.x -= 0;
+	position.x -= 1;
 }

@@ -445,8 +445,8 @@ bool ModuleSceneLvl1::Start()
 
 	//POVISIONAL ENEMY
 	App->enemies->Enable();
-<<<<<<< HEAD
 	
+<<<<<<< HEAD
 =======
 	//rect for provisional enemy
 	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 200, 80);//, //App->enemies.);
@@ -466,6 +466,8 @@ bool ModuleSceneLvl1::Start()
 	//Oscilatory
 	App->render->Blit(oscilatory, oscilatoryPosition.x, oscilatoryPosition.y, &oscilatoryRect, 1.0f);
 //	oscilatoryCollider->SetPos(oscilatoryPosition.x, oscilatoryPosition.y);
+=======
+>>>>>>> parent of 9f3a170... Merge branch 'master' of https://github.com/CircusGames/Last_Resort
 
 	////lvl1 background textures
 	bg = App->textures->Load("assets/Graphics/Backgrounds/Lvl_1/lvl1_bg.png");
@@ -857,6 +859,13 @@ update_status ModuleSceneLvl1::Update()
 	//App->render->Blit(App->textures->textures[6], 0, bgMovY.fg_y, &fgRect, 1.0f); //testing purposes
 
 
+<<<<<<< HEAD
+=======
+	//provisional static enemy to check collisions
+
+	App->render->Blit(provisionalEnemy, provisionalEnemyPosition.x, provisionalEnemyPosition.y, &provionsalEnemyRect, 1.0f);
+	provisionalEnemeyCollider->SetPos(provisionalEnemyPosition.x, provisionalEnemyPosition.y);
+>>>>>>> parent of 9f3a170... Merge branch 'master' of https://github.com/CircusGames/Last_Resort
 
 	//SCENE SWITCHING
 
