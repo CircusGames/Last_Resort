@@ -44,11 +44,21 @@ ModuleParticles::~ModuleParticles()
 bool ModuleParticles::Start()
 {
 	LOG("Loading particles");
-	graphics = App->textures->Load("assets/Graphics/Player/player1_incomplete.png");
-
-	//load specific Wavs effects for particles
-	App->audio->LoadAudio("assets/Audio/SFX/Player/shot04.wav", "shot", SFX);
 	
+	//load textures and links pointers to -------------
+	graphics = App->textures->Load("assets/Graphics/Player/player1_incomplete.png");
+	unitBasicShotTexture = App->textures->Load("assets/Graphics/Player/unitBasicShot.png");
+	// ------------------------------------------------
+
+	//load and links textures for particles -----------
+	beam.texture = graphics;
+	unitBasicShot.texture = unitBasicShotTexture;
+	// ------------------------------------------------
+
+	//load specific Wavs effects for particles --------
+	App->audio->LoadAudio("assets/Audio/SFX/Player/shot04.wav", "shot", SFX);
+	// ------------------------------------------------
+
 	return true;
 }
 
@@ -93,7 +103,7 @@ update_status ModuleParticles::Update()
 			
 			//p->r = p->anim->GetCurrentFrame(); ---
 			//App->render->Blit(graphics, p->position.x, p->position.y, &(p->r)); // ---
-			App->render->Blit(graphics, p->position.x, p->position.y, &(p->anim.GetCurrentFrame()));
+			App->render->Blit(p->texture, p->position.x, p->position.y, &(p->anim.GetCurrentFrame()));
 			if (p->fx_played == false)
 			{
 				p->fx_played = true;
@@ -153,7 +163,7 @@ Particle::Particle()
 }
 
 Particle::Particle(const Particle& p) :
-	anim(p.anim), position(p.position), speed(p.speed), fx(p.fx), born(p.born), life(p.life)
+	anim(p.anim), position(p.position), speed(p.speed), fx(p.fx), born(p.born), life(p.life),texture(p.texture)
 {}
 
 Particle::~Particle()

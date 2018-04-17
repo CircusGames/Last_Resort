@@ -51,6 +51,7 @@ private:
 	
 	
 	SDL_Texture* graphics = nullptr;
+	SDL_Texture* unitBasicShotTexture = nullptr;
 	Particle* active[MAX_ACTIVE_PARTICLES];
 
 public:
