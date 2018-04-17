@@ -5,6 +5,7 @@
 #include "ModuleRender.h"
 #include "ModulePlayer.h"
 #include "ModulePlayerUnit.h"
+#include "ModuleParticles.h"
 
 #define UNITANIMSPEED 0.25f
 
@@ -462,12 +463,7 @@ update_status ModulePlayerUnit::Update()
 
 	if (App->input->keyboard[SDL_SCANCODE_SPACE] == KEY_DOWN)
 	{
-		if ((int)frameIncrement == 0)
-		{
-			//shotVectorSpeed = { 2,0 }; //speed on X and Y coordinates
-									   //App->particles->AddParticle{};
-		}
-
+			App->particles->AddParticle(App->particles->unitBasicShot, playerPos.x, playerPos.y, COLLIDER_PLAYER_SHOT,shotVectorSpeed[(int)frameIncrement]);
 	}
 
 	//draw the unit -----------------------------------------------------------------------------------
