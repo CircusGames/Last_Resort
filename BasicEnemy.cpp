@@ -22,13 +22,13 @@ BasicEnemy::BasicEnemy(int x, int y, SDL_Texture* sprite) : Enemy(x, y)
 
 	//texture = (Module*)App->enemies->
 
-	animation = &fly;
+	animation = &fly; //links animation
 
 	//on te actual workaround this line is NEEDED to link the sprites to te enemy
-	//if we not send this parameter (called sprite on THIS constructor), links to the general texture
+	//if we not receive this parameter (called sprite on THIS constructor), links to the general texture
 	//called sprites, on moduleEnemies.cpp Start() method.
 	//BUT ALWAYS, for now:
-	texture = sprite; //THIS LINE IS NEEDED.
+	texture = sprite; //THIS LINE IS NEEDED. //links texture ----------------------------------------
 	// ----------------------------------------------------------------------------------------------
 	
 
