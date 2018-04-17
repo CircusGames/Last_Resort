@@ -98,9 +98,6 @@
     <ClInclude Include="ModulePlayer2Unit.h">
       <Filter>Modules\PowerUps</Filter>
     </ClInclude>
-    <ClInclude Include="PickUps.h">
-      <Filter>Modules\PickUps</Filter>
-    </ClInclude>
     <ClInclude Include="ModuleEnemies.h">
       <Filter>Modules</Filter>
     </ClInclude>
@@ -114,7 +111,6 @@
     <ClInclude Include="Path.h">
       <Filter>Containers</Filter>
     </ClInclude>
-<<<<<<< HEAD
     <ClInclude Include="PickUp.h">
       <Filter>Modules\PickUps</Filter>
 <<<<<<< HEAD
@@ -126,8 +122,6 @@
 =======
 >>>>>>> parent of 9f3a170... Merge branch 'master' of https://github.com/CircusGames/Last_Resort
     </ClInclude>
-=======
->>>>>>> parent of e9a8678... Module enemies fixed and path WIP
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -193,13 +187,9 @@
     <ClCompile Include="ModulePlayer2Unit.cpp">
       <Filter>Modules\PowerUps</Filter>
     </ClCompile>
-    <ClCompile Include="PickUps.cpp">
-      <Filter>Modules\PickUps</Filter>
-    </ClCompile>
     <ClCompile Include="ModuleEnemies.cpp">
       <Filter>Modules</Filter>
     </ClCompile>
-<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
     <ClCompile Include="Enemy_Oscilatory.cpp">
@@ -217,7 +207,5 @@
       <Filter>Modules\PickUps</Filter>
 >>>>>>> parent of 9f3a170... Merge branch 'master' of https://github.com/CircusGames/Last_Resort
     </ClCompile>
-=======
->>>>>>> parent of e9a8678... Module enemies fixed and path WIP
   </ItemGroup>
 </Project>
