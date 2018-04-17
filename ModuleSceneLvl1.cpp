@@ -461,6 +461,7 @@ bool ModuleSceneLvl1::Start()
 
 	//Oscilatory
 	App->render->Blit(oscilatory, oscilatoryPosition.x, oscilatoryPosition.y, &oscilatoryRect, 1.0f);
+<<<<<<< HEAD
 //	oscilatoryCollider->SetPos(oscilatoryPosition.x, oscilatoryPosition.y);
 =======
 >>>>>>> parent of 9f3a170... Merge branch 'master' of https://github.com/CircusGames/Last_Resort
@@ -471,6 +472,9 @@ bool ModuleSceneLvl1::Start()
 	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 640, 80);
 	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 665, 80);
 >>>>>>> parent of e9a8678... Module enemies fixed and path WIP
+=======
+	oscilatoryCollider->SetPos(oscilatoryPosition.x, oscilatoryPosition.y);
+>>>>>>> parent of d905c43... Change name from Oscilatory to Enemy_Oscilatory
 
 	////lvl1 background textures
 	bg = App->textures->Load("assets/Graphics/Backgrounds/Lvl_1/lvl1_bg.png");

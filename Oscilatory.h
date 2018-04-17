@@ -1,5 +1,5 @@
-#ifndef __ENEMY_OSCILATORY_H__
-#define __ENEMY_OSCILATORY_H__
+#ifndef __OSCILATORY_H__
+#define __OSCILATORY_H__
 #include "Enemy.h"
 
 class Oscilatory: public Enemy
