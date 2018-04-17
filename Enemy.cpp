@@ -1,4 +1,3 @@
-/*
 #include "Application.h"
 #include "Enemy.h"
 #include "ModuleCollision.h"
@@ -30,6 +29,5 @@ void Enemy::Draw(SDL_Texture* sprites)
 
 void Enemy::OnCollision(Collider* collider)
 {
-	App->particles->AddParticle(App->particles->explosion, position.x, position.y);
+	App->particles->AddParticle(App->particles->explosion, position.x, position.y,COLLIDER_NONE);
 }
-*/

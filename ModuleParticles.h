@@ -54,6 +54,9 @@ private:
 	SDL_Texture* unitBasicShotTexture = nullptr;
 	Particle* active[MAX_ACTIVE_PARTICLES];
 
+
+	SDL_Texture* test = nullptr;
+
 public:
 
 	//Particle explosion;
@@ -64,6 +67,7 @@ public:
 	//Particle beamSmoke;
 	//Unit basic shot ---------
 	Particle unitBasicShot;
+	Particle explosion;
 	
 
 	

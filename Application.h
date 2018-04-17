@@ -3,7 +3,7 @@
 
 #include "Globals.h"
 
-#define NUM_MODULES 14//16
+#define NUM_MODULES 15//17
 
 class ModuleWindow;
 class ModuleInput;
@@ -22,6 +22,8 @@ class Module;
 class ModuleAudio;
 class ModuleCollision;
 class ModuleFadeToBlack;
+
+class ModuleEnemies;
 
 // dont forget to increase the NUM_MODULES variable whenever you add a new module
 class Application
@@ -45,6 +47,8 @@ public:
 	ModuleCollision* collision = nullptr;
 	ModuleAudio* audio = nullptr;
 	ModuleFadeToBlack* fade = nullptr;
+
+	ModuleEnemies* enemies = nullptr;
 	
 
 public:

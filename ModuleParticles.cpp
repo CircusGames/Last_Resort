@@ -35,6 +35,16 @@ ModuleParticles::ModuleParticles()
 	unitBasicShot.anim.PushBack({ 16,46,13,13 });
 	unitBasicShot.anim.speed = 0.3f;
 	// ------------------------------------------
+
+	//Explosion TEST--------------------
+	explosion.anim.PushBack({ 274, 296, 33, 30 });
+	explosion.anim.PushBack({ 313, 296, 33, 30 });
+	explosion.anim.PushBack({ 346, 296, 33, 30 });
+	explosion.anim.PushBack({ 382, 296, 33, 30 });
+	explosion.anim.PushBack({ 419, 296, 33, 30 });
+	explosion.anim.PushBack({ 457, 296, 33, 30 });
+	explosion.anim.repeat = false;
+	explosion.anim.speed = 0.3f;
 }
 
 ModuleParticles::~ModuleParticles()
@@ -59,6 +69,11 @@ bool ModuleParticles::Start()
 	App->audio->LoadAudio("assets/Audio/SFX/Player/shot04.wav", "shot", SFX);
 	// ------------------------------------------------
 
+
+	//TEST PARTICLES
+	test = App->textures->Load("assets/Graphics/player/particles.png");
+
+
 	return true;
 }
 
@@ -68,6 +83,8 @@ bool ModuleParticles::CleanUp()
 	LOG("Unloading particles");
 	App->textures->Unload(graphics);
 
+
+	App->textures->Unload(test);
 	//removing active particles
 	for (uint i = 0; i < MAX_ACTIVE_PARTICLES; ++i)
 	{

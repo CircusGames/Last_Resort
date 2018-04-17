@@ -13,6 +13,8 @@
 #include "ModuleParticles.h"
 #include "ModuleCollision.h"
 
+#include "ModuleEnemies.h"
+
 #define STREET_LIGHTS_A 15
 #define STREET_LIGHTS_B 13
 #define STREET_LIGHTS_FRONT_A 8
@@ -23,12 +25,12 @@
 
 ModuleSceneLvl1::ModuleSceneLvl1()
 {
+	App->enemies->Enable();
 	//rect for provisional enemy
-	provionsalEnemyRect.x = 0;
-	provionsalEnemyRect.y = 0;
-	provionsalEnemyRect.w = 32;
-	provionsalEnemyRect.h = 16;
-	provisionalEnemyPosition = {350,50};
+	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 200, 80);
+	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 625, 80);
+	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 640, 80);
+	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 665, 80);
 
 	//background lvl1 last resort
 	bgRect.x = 0;
