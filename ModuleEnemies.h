@@ -36,19 +36,24 @@ public:
 	void OnCollision(Collider* c1, Collider* c2);
 
 	bool AddEnemy(ENEMY_TYPES type, int x, int y, SDL_Texture* texture = nullptr);
+	
+	//more textures - in public because we call outside this module
+	//more enemies textures -------
+	SDL_Texture* enemy1Texture;
+	// ----------------------------
+	
 
 private:
 
-	void SpawnEnemy(const EnemyInfo& info);
+	void SpawnEnemy( EnemyInfo& info, SDL_Texture* texture = nullptr);
 
 private:
 
 	EnemyInfo queue[MAX_ENEMIES];
 	Enemy* enemies[MAX_ENEMIES];
 	SDL_Texture* sprites;
-
-	//more textures
-	SDL_Texture* enemy1Texture;
+	
+	
 };
 
 #endif // _MODULEENEMIES_H__
