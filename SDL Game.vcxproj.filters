@@ -18,9 +18,6 @@
     <Filter Include="Modules\Enemies">
       <UniqueIdentifier>{81eb9e03-14bd-48e2-8188-3aab409c09f7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Modules\PowerUps">
-      <UniqueIdentifier>{53fc0b3a-fd8f-49b5-bc4a-82f356e95ede}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Module.h">
@@ -80,7 +77,13 @@
     <ClInclude Include="ModulePlayer.h">
       <Filter>Modules\Players</Filter>
     </ClInclude>
+    <ClInclude Include="ModulePlayerUnit.h">
+      <Filter>Modules\Players</Filter>
+    </ClInclude>
     <ClInclude Include="ModulePlayer2.h">
+      <Filter>Modules\Players</Filter>
+    </ClInclude>
+    <ClInclude Include="ModulePlayer2Unit.h">
       <Filter>Modules\Players</Filter>
     </ClInclude>
     <ClInclude Include="Enemy.h">
@@ -88,12 +91,6 @@
     </ClInclude>
     <ClInclude Include="BasicEnemy.h">
       <Filter>Modules\Enemies</Filter>
-    </ClInclude>
-    <ClInclude Include="ModulePlayer2Unit.h">
-      <Filter>Modules\PowerUps</Filter>
-    </ClInclude>
-    <ClInclude Include="ModulePlayerUnit.h">
-      <Filter>Modules\PowerUps</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -142,10 +139,16 @@
     <ClCompile Include="ModuleSceneLvl1.cpp">
       <Filter>Modules</Filter>
     </ClCompile>
+    <ClCompile Include="ModulePlayerUnit.cpp">
+      <Filter>Modules\Players</Filter>
+    </ClCompile>
     <ClCompile Include="ModulePlayer.cpp">
       <Filter>Modules\Players</Filter>
     </ClCompile>
     <ClCompile Include="ModulePlayer2.cpp">
+      <Filter>Modules\Players</Filter>
+    </ClCompile>
+    <ClCompile Include="ModulePlayer2Unit.cpp">
       <Filter>Modules\Players</Filter>
     </ClCompile>
     <ClCompile Include="Enemy.cpp">
@@ -153,12 +156,6 @@
     </ClCompile>
     <ClCompile Include="BasicEnemy.cpp">
       <Filter>Modules\Enemies</Filter>
-    </ClCompile>
-    <ClCompile Include="ModulePlayer2Unit.cpp">
-      <Filter>Modules\PowerUps</Filter>
-    </ClCompile>
-    <ClCompile Include="ModulePlayerUnit.cpp">
-      <Filter>Modules\PowerUps</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

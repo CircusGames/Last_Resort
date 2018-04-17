@@ -53,8 +53,5 @@ public:
 	float last_tick;
 	float delta_time;
 
-	//values needed for basic shooting
-	iPoint shotVectorSpeed;
-
 };
 #endif // !__MODULEPLAYERUNIT_H__
