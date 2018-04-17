@@ -435,12 +435,16 @@ bool ModuleSceneLvl1::Init()
 // Load assets
 bool ModuleSceneLvl1::Start()
 {
+	////SPAWN ENEMIES---------------------
+
+	//Privisional enemy
+	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 200, 20, NO_MOVEMENT);
 
 	LOG("Loading background assets");
 	bool ret = true;
 
+	//POVISIONAL ENEMY
 	App->enemies->Enable();
-<<<<<<< HEAD
 	
 <<<<<<< HEAD
 =======
@@ -464,13 +468,6 @@ bool ModuleSceneLvl1::Start()
 //	oscilatoryCollider->SetPos(oscilatoryPosition.x, oscilatoryPosition.y);
 =======
 >>>>>>> parent of 9f3a170... Merge branch 'master' of https://github.com/CircusGames/Last_Resort
-=======
-	//rect for provisional enemy
-	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 200, 80);
-	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 625, 80);
-	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 640, 80);
-	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 665, 80);
->>>>>>> parent of e9a8678... Module enemies fixed and path WIP
 
 	////lvl1 background textures
 	bg = App->textures->Load("assets/Graphics/Backgrounds/Lvl_1/lvl1_bg.png");
@@ -687,7 +684,7 @@ update_status ModuleSceneLvl1::PreUpdate()
 		}*/
 
 	}
-
+	
 	return UPDATE_CONTINUE;
 
 	//----------------------------------------------------------------------------------------------------
@@ -696,7 +693,9 @@ update_status ModuleSceneLvl1::PreUpdate()
 // Update: draw background
 update_status ModuleSceneLvl1::Update()
 {
-
+	
+		
+	
 	// Draw everything --------------------------------------
 	
 	App->render->Blit(bg, 0, 0, &bgRect, backgroundSpeed); //bg1 last resort----------------------
@@ -851,6 +850,11 @@ update_status ModuleSceneLvl1::Update()
 	}
 
 	//-----------------------------------------------------------------------------------------------
+
+	
+	
+	
+
 	
 	//App->render->Blit(App->textures->textures[6], 0, bgMovY.fg_y, &fgRect, 1.0f); //testing purposes
 
