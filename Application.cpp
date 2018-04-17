@@ -30,7 +30,7 @@ Application::Application()
 	modules[i++] = gameOverScreen = new ModuleGameOver();
 
 
-	
+	modules[i++] = enemies = new ModuleEnemies();
 
 	modules[i++] = player = new ModulePlayer();
 	//modules[i++] = player2 = new ModulePlayer2();
@@ -41,7 +41,6 @@ Application::Application()
 	modules[i++] = audio = new ModuleAudio();
 	modules[i++] = fade = new ModuleFadeToBlack();
 
-	modules[i++] = enemies = new ModuleEnemies();
 }	
 
 Application::~Application()
