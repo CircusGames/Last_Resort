@@ -87,7 +87,10 @@
     <ClInclude Include="Module.h" />
     <ClInclude Include="ModuleAudio.h" />
     <ClInclude Include="ModuleEnemies.h" />
+<<<<<<< HEAD
     <ClInclude Include="Path.h" />
+=======
+>>>>>>> parent of a3e53bd... Merge branch 'master' of https://github.com/CircusGames/Last_Resort
     <ClInclude Include="PickUps.h" />
     <ClInclude Include="ModulePlayer2.h" />
     <ClInclude Include="ModulePlayer2Unit.h" />
@@ -133,6 +136,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     <ClCompile Include="Enemy_Oscilatory.cpp" />
 =======
 <<<<<<< HEAD
@@ -151,6 +155,10 @@
 =======
     <ClCompile Include="PickUps.cpp" />
 >>>>>>> parent of e9a8678... Module enemies fixed and path WIP
+=======
+    <ClCompile Include="Enemy_Oscilatory.cpp" />
+    <ClCompile Include="PickUps.cpp" />
+>>>>>>> parent of a3e53bd... Merge branch 'master' of https://github.com/CircusGames/Last_Resort
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
