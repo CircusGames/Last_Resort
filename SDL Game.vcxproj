@@ -74,14 +74,12 @@
     <ClInclude Include="Application.h" />
     <ClInclude Include="BasicEnemy.h" />
     <ClInclude Include="Enemy.h" />
-    <ClInclude Include="Enemy_Oscilatory.h" />
     <ClInclude Include="Globals.h" />
     <ClInclude Include="MemLeaks.h" />
     <ClInclude Include="Module.h" />
     <ClInclude Include="ModuleAudio.h" />
     <ClInclude Include="ModuleEnemies.h" />
-    <ClInclude Include="Path.h" />
-    <ClInclude Include="PickUp.h" />
+    <ClInclude Include="PickUps.h" />
     <ClInclude Include="ModulePlayer2.h" />
     <ClInclude Include="ModulePlayer2Unit.h" />
     <ClInclude Include="ModuleSceneLvl1.h" />
@@ -122,16 +120,7 @@
     <ClCompile Include="ModuleTeamLogo.cpp" />
     <ClCompile Include="ModuleTextures.cpp" />
     <ClCompile Include="ModuleWindow.cpp" />
-<<<<<<< HEAD
-    <ClCompile Include="Enemy_Oscilatory.cpp" />
-=======
-<<<<<<< HEAD
-    <ClCompile Include="PickUp.cpp" />
-=======
-    <ClCompile Include="Oscilatory.cpp" />
->>>>>>> 9f3a1703329f8ad1ab78c2ed6e67b656e4701fa5
     <ClCompile Include="PickUps.cpp" />
->>>>>>> 8ac76136c29a69e4439dd6295233b145c274fd96
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
