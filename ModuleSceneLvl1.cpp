@@ -447,7 +447,16 @@ bool ModuleSceneLvl1::Start()
 	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 665, 80);
 
 	//Enemy Oscilatory
-	App->enemies->AddEnemy(ENEMY_TYPES::OSCILATORY, 250, 80);
+	App->enemies->AddEnemy(ENEMY_TYPES::OSCILATORY, 300, 80);
+
+	//provisional static enemy to check collisions
+
+	App->render->Blit(provisionalEnemy, provisionalEnemyPosition.x, provisionalEnemyPosition.y, &provionsalEnemyRect, 1.0f);
+	provisionalEnemeyCollider->SetPos(provisionalEnemyPosition.x, provisionalEnemyPosition.y);
+
+	//Oscilatory
+	App->render->Blit(oscilatory, oscilatoryPosition.x, oscilatoryPosition.y, &oscilatoryRect, 1.0f);
+	oscilatoryCollider->SetPos(oscilatoryPosition.x, oscilatoryPosition.y);
 
 	////lvl1 background textures
 	bg = App->textures->Load("assets/Graphics/Backgrounds/Lvl_1/lvl1_bg.png");
@@ -832,14 +841,6 @@ update_status ModuleSceneLvl1::Update()
 	//App->render->Blit(App->textures->textures[6], 0, bgMovY.fg_y, &fgRect, 1.0f); //testing purposes
 
 
-	//provisional static enemy to check collisions
-
-	App->render->Blit(provisionalEnemy, provisionalEnemyPosition.x, provisionalEnemyPosition.y, &provionsalEnemyRect, 1.0f);
-	provisionalEnemeyCollider->SetPos(provisionalEnemyPosition.x, provisionalEnemyPosition.y);
-
-	//Oscilatory
-	App->render->Blit(oscilatory, oscilatoryPosition.x, oscilatoryPosition.y, &oscilatoryRect, 1.0f);
-	//oscilatoryCollider->SetPos(oscilatoryPosition.x, oscilatoryPosition.y); <<<<< With this line a error appears
 
 	//SCENE SWITCHING
 
