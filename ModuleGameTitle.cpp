@@ -834,16 +834,20 @@ update_status ModuleGameTitle::Update()
 			int substractX = 0, substractY=0;
 			current_animation = &letters[i];
 			r = current_animation->GetCurrentFrame();
-			if (!current_animation->finish) 
+			if (!current_animation->finish)
+			{
 				substractX = pivotMegaDimensionalX[i][(int)current_animation->current_frame];
 				substractY = pivotMegaDimensionalY[i][(int)current_animation->current_frame];
+			}
 			//moves the y coordinate
 			float speedY = 1.9f;
 			if (letterTransitionPositions[i] >= positionsLettersY[i])
 			{
 				letterTransitionPositions[i] -= speedY;
 			}
-				App->render->Blit(lettersTexture[i], positionsLettersX[i] - substractX, letterTransitionPositions[i], &r);
+
+				App->render->Blit(lettersTexture[i], positionsLettersX[i] - substractX, 
+													 letterTransitionPositions[i] - substractY, &r);
 		}
 
 		if (current_step == intro_step::firstSecuence)
