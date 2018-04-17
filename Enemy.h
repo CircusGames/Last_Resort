@@ -13,19 +13,25 @@ class Enemy
 protected:
 	Animation * animation = nullptr;
 	Collider* collider = nullptr;
+	
 
 public:
 	iPoint position;
 
 public:
-	Enemy(int x, int y);
+	Enemy(int x, int y, SDL_Texture* texture = nullptr);
+	
+
 	virtual ~Enemy();
 
 	const Collider* GetCollider() const;
 
 	virtual void Move() {};
-	virtual void Draw(SDL_Texture* sprites);
+	//virtual void Draw(SDL_Texture* sprites);
+	virtual void Draw(SDL_Texture* texture);
 	virtual void OnCollision(Collider* collider);
+	
+	SDL_Texture* texture = nullptr;
 };
 
 #endif // __ENEMY_H__
