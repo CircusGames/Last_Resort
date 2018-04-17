@@ -15,6 +15,9 @@
     <Filter Include="Modules\Players">
       <UniqueIdentifier>{19fb52f7-70a5-400b-b325-c2c707efd5a9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Modules\Enemies">
+      <UniqueIdentifier>{81eb9e03-14bd-48e2-8188-3aab409c09f7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Module.h">
@@ -83,6 +86,12 @@
     <ClInclude Include="ModulePlayer2Unit.h">
       <Filter>Modules\Players</Filter>
     </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>Modules\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="BasicEnemy.h">
+      <Filter>Modules\Enemies</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -141,6 +150,12 @@
     </ClCompile>
     <ClCompile Include="ModulePlayer2Unit.cpp">
       <Filter>Modules\Players</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>Modules\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="BasicEnemy.cpp">
+      <Filter>Modules\Enemies</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
