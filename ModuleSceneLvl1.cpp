@@ -456,7 +456,7 @@ bool ModuleSceneLvl1::Start()
 
 	//Oscilatory
 	App->render->Blit(oscilatory, oscilatoryPosition.x, oscilatoryPosition.y, &oscilatoryRect, 1.0f);
-	oscilatoryCollider->SetPos(oscilatoryPosition.x, oscilatoryPosition.y);
+//	oscilatoryCollider->SetPos(oscilatoryPosition.x, oscilatoryPosition.y);
 
 	////lvl1 background textures
 	bg = App->textures->Load("assets/Graphics/Backgrounds/Lvl_1/lvl1_bg.png");

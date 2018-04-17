@@ -104,7 +104,7 @@
     <ClInclude Include="ModuleEnemies.h">
       <Filter>Modules</Filter>
     </ClInclude>
-    <ClInclude Include="Oscilatory.h">
+    <ClInclude Include="Enemy_Oscilatory.h">
       <Filter>Modules\Enemies</Filter>
     </ClInclude>
   </ItemGroup>
@@ -178,7 +178,7 @@
     <ClCompile Include="ModuleEnemies.cpp">
       <Filter>Modules</Filter>
     </ClCompile>
-    <ClCompile Include="Oscilatory.cpp">
+    <ClCompile Include="Enemy_Oscilatory.cpp">
       <Filter>Modules\Enemies</Filter>
     </ClCompile>
   </ItemGroup>
