@@ -10,6 +10,8 @@ BasicEnemy::BasicEnemy(int x, int y, powerUpTypes type, SDL_Texture* sprite) : E
 	fly.PushBack({ 0,16,32,15 });
 	fly.PushBack({ 0,31,32,16 });
 	fly.PushBack({ 0,47,32,15 });
+	fly.PushBack({ 0,31,32,16 });
+	fly.PushBack({ 0,16,32,15 });
 	fly.speed = 0.2f;
 
 	animation = &fly; //links animation
@@ -18,9 +20,9 @@ BasicEnemy::BasicEnemy(int x, int y, powerUpTypes type, SDL_Texture* sprite) : E
 	//if we not receive this parameter (called sprite on THIS constructor), links to the general texture
 	//called sprites, on moduleEnemies.cpp Start() method.
 	//BUT ALWAYS, for now (if you want recieve the texture from the outside):
-	//texture = sprite; //THIS LINE IS NEEDED. //links texture ----------------------------------------
+	texture = sprite; //THIS LINE IS NEEDED. //links texture ----------------------------------------
 	//or another workaround is define the texture here:
-	texture = App->textures->Load("assets/Graphics/Enemies/Level_1/enemy1.png"); //other method to load and link texture
+	//texture = App->textures->Load("assets/Graphics/Enemies/Level_1/enemy1.png"); //other method to load and link texture
 	//and avoid the texture call from AddEnemy method from the scene
 	//and avoid define the texture pointer and load methods from moduleEnemie
 	// ----------------------------------------------------------------------------------------------
@@ -56,7 +58,7 @@ void BasicEnemy::Move()
 			wave -= 0.05f;
 	}
 
-	position.y = int(float(original_y) + (25.0f * sinf(wave)));
-	position.x -= 0;
+	//position.y = int(float(original_y) + (25.0f * sinf(wave)));
+	position.x -= 1.1;
 }
 

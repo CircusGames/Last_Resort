@@ -42,6 +42,7 @@ public:
 	//more textures - in public because we call outside this module
 	//more enemies textures -------
 	SDL_Texture* enemy1Texture;
+
 	// ----------------------------
 	
 

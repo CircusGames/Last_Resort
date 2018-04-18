@@ -443,21 +443,21 @@ bool ModuleSceneLvl1::Start()
 	
 	//EXAMPLE OF PASSING OR NOT, SPECIFIC TEXTURES TO SPECIFIC ENEMY ------------------------------
 	//pass a parameter to specific texture declared and defined inside moduleEnemie.cpp and .h
-	//App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 200, 80, App->enemies->enemy1Texture);
+	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 200, 80 ,NONE, App->enemies->enemy1Texture);
 	//and second workaround, in this case, texture is defined inside specific enemy class
 	//see basic_enemy.cpp and .h to read the instructions for both of them. You decide.
-	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 230, 80);
-	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 260, 80);
-	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 400, 80, UNIT);
-	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 500, 80);
-	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 630, 80);
-	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 750, 65);
-	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 900, 80);
-	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 1200, 80, UNIT);
-	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 1500, 80);
-	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 1600, 94);
-	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 1650, 104, UNIT);
-	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 1800, 150);
+	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 230, 80, NONE, App->enemies->enemy1Texture);
+	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 260, 80, NONE, App->enemies->enemy1Texture);
+	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 400, 80, UNIT, App->enemies->enemy1Texture);
+	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 500, 80, NONE, App->enemies->enemy1Texture);
+	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 630, 80, NONE, App->enemies->enemy1Texture);
+	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 750, 65, NONE, App->enemies->enemy1Texture);
+	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 900, 80, NONE, App->enemies->enemy1Texture);
+	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 1200, 80, UNIT, App->enemies->enemy1Texture);
+	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 1500, 80, NONE, App->enemies->enemy1Texture);
+	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 1600, 94, NONE, App->enemies->enemy1Texture);
+	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 1650, 104, UNIT, App->enemies->enemy1Texture);
+	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 1800, 150, NONE, App->enemies->enemy1Texture);
 	
 	//if you not define a specific texture, remember to write the specific link code (see basic_enemy.cpp),
 	//and the "general" texture is used instead.
