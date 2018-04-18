@@ -30,6 +30,7 @@ BasicEnemy::BasicEnemy(int x, int y, powerUpTypes type, SDL_Texture* sprite) : E
 	//collider = App->collision->AddCollider({ 0, 0, 24, 24 }, COLLIDER_TYPE::COLLIDER_POWER_UP, (Module*)App->enemies);
 
 	original_y = y;
+	fposition.x = x;
 
 
 	powerUpType = type;
@@ -59,6 +60,7 @@ void BasicEnemy::Move()
 	}
 
 	//position.y = int(float(original_y) + (25.0f * sinf(wave)));
-	position.x -= 1.1;
+	fposition.x -= 0.5;
+	position.x = fposition.x;
 }
 
