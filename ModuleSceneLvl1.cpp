@@ -442,13 +442,10 @@ bool ModuleSceneLvl1::Start()
 	App->enemies->Enable();
 	
 	//EXAMPLE OF PASSING OR NOT, SPECIFIC TEXTURES TO SPECIFIC ENEMY ------------------------------
-<<<<<<< HEAD
 	//pass a parameter to specific texture declared and defined inside moduleEnemies.cpp and .h
 	//App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 200, 80, App->enemies->enemy1Texture);
-=======
 	//pass a parameter to specific texture declared and defined inside moduleEnemie.cpp and .h
 	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 200, 80 ,NONE, App->enemies->enemy1Texture);
->>>>>>> 671b9ab602201da0b0e7ba939c7cc6e45ffacdab
 	//and second workaround, in this case, texture is defined inside specific enemy class
 	//see basic_enemy.cpp and .h to read the instructions for both of them. You decide.
 	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 230, 80, NONE, App->enemies->enemy1Texture);

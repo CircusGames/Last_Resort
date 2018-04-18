@@ -20,12 +20,9 @@ BasicEnemy::BasicEnemy(int x, int y, powerUpTypes type, SDL_Texture* sprite) : E
 	//if we not receive this parameter (called sprite on THIS constructor), links to the general texture
 	//called sprites, on moduleEnemies.cpp Start() method.
 	//BUT ALWAYS, for now (if you want recieve the texture from the outside):
-<<<<<<< HEAD
 	//texture = sprite; //THIS LINE IS NEEDED. 
 	//links texture ----------------------------------------
-=======
 	texture = sprite; //THIS LINE IS NEEDED. //links texture ----------------------------------------
->>>>>>> 671b9ab602201da0b0e7ba939c7cc6e45ffacdab
 	//or another workaround is define the texture here:
 	//texture = App->textures->Load("assets/Graphics/Enemies/Level_1/enemy1.png"); //other method to load and link texture
 	//and avoid the texture call from AddEnemy method from the scene
