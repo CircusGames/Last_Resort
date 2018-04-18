@@ -43,7 +43,11 @@ public:
 	//more textures - in public because we call outside this module
 	//more enemies textures -------
 	SDL_Texture* enemy1Texture;
+<<<<<<< HEAD
 	SDL_Texture* enemy2Texture;
+=======
+
+>>>>>>> 671b9ab602201da0b0e7ba939c7cc6e45ffacdab
 	// ----------------------------
 	
 
