@@ -443,15 +443,27 @@ bool ModuleSceneLvl1::Start()
 	
 	//EXAMPLE OF PASSING OR NOT, SPECIFIC TEXTURES TO SPECIFIC ENEMY ------------------------------
 	//pass a parameter to specific texture declared and defined inside moduleEnemie.cpp and .h
-	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 200, 80, App->enemies->enemy1Texture);
+	//App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 200, 80, App->enemies->enemy1Texture);
 	//and second workaround, in this case, texture is defined inside specific enemy class
 	//see basic_enemy.cpp and .h to read the instructions for both of them. You decide.
 	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 230, 80);
+	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 260, 80);
+	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 400, 80, UNIT);
+	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 500, 80);
+	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 630, 80);
+	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 750, 65);
+	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 900, 80);
+	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 1200, 80, UNIT);
+	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 1500, 80);
+	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 1600, 94);
+	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 1650, 104, UNIT);
+	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 1800, 150);
+	
 	//if you not define a specific texture, remember to write the specific link code (see basic_enemy.cpp),
 	//and the "general" texture is used instead.
 	// --------------------------------------------------------------------------------------------
-	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 640, 80);
-	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 665, 80);
+	//App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 640, 80);
+	//App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 665, 80);
 
 	////lvl1 background textures
 	bg = App->textures->Load("assets/Graphics/Backgrounds/Lvl_1/lvl1_bg.png");
@@ -474,7 +486,7 @@ bool ModuleSceneLvl1::Start()
 	App->audio->ControlAudio("song_lvl1", MUSIC, FADEIN, -1, 1500.0f); //type, playMode, loops, fadeIn, fadeOut
 
 	//enable modules --------------
-	App->player->Enable(); //player start two times, WHY???????
+	App->player->Enable();
 	//App->player2->Enable();
 	//App->playerUnit->Enable();
 	App->particles->Enable();
@@ -533,7 +545,7 @@ update_status ModuleSceneLvl1::PreUpdate()
 		App->player->position.x += 1;
 		//App->player2->position.x += 1;
 		//camera speed relative to its size
-		App->render->camera.x -= SCREEN_SIZE;
+		App->render->camera.x -= 1 * SCREEN_SIZE;
 		//returns original pixel position x values foreground
 		App->render->currentCameraPosX = (App->render->camera.x / SCREEN_SIZE) * foregroundSpeed;
 

@@ -2,11 +2,22 @@
 #ifndef __ENEMY_H__
 #define __ENEMY_H__
 
+//#include "Globals.h"
 #include "p2Point.h"
 #include "Animation.h"
 
 struct SDL_Texture;
 struct Collider;
+
+enum powerUpTypes
+{
+	NONE,
+	UNIT,
+	BOOST,
+	MISSILE1,
+	MISSILE2,
+	RANDOM
+};
 
 class Enemy
 {
@@ -19,7 +30,7 @@ public:
 	iPoint position;
 
 public:
-	Enemy(int x, int y, SDL_Texture* texture = nullptr);
+	Enemy(int x, int y, powerUpTypes type = powerUpTypes::NONE, SDL_Texture* texture = nullptr);
 	
 
 	virtual ~Enemy();
@@ -32,6 +43,8 @@ public:
 	virtual void OnCollision(Collider* collider);
 	
 	SDL_Texture* texture = nullptr;
+
+	powerUpTypes powerUpType;// = powerUpTypes::NONE;
 };
 
 #endif // __ENEMY_H__

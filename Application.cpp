@@ -17,6 +17,8 @@
 #include "ModuleGameOver.h"
 #include "ModuleEnemies.h"
 
+#include "ModulePowerUp.h"
+
 Application::Application()
 {
 	int i = 0;
@@ -29,13 +31,15 @@ Application::Application()
 	modules[i++] = gameTitle = new ModuleGameTitle();
 	modules[i++] = gameOverScreen = new ModuleGameOver();
 
-
-	modules[i++] = enemies = new ModuleEnemies();
+	
+	
 
 	modules[i++] = player = new ModulePlayer();
 	//modules[i++] = player2 = new ModulePlayer2();
 	modules[i++] = playerUnit = new ModulePlayerUnit();
 	//modules[i++] = player2Unit = new ModulePlayer2Unit();
+	modules[i++] = modulePowerUp = new ModulePowerUp();
+	modules[i++] = enemies = new ModuleEnemies();
 	modules[i++] = particles = new ModuleParticles();
 	modules[i++] = collision = new ModuleCollision();
 	modules[i++] = audio = new ModuleAudio();

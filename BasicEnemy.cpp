@@ -3,7 +3,7 @@
 #include "ModuleCollision.h"
 #include "ModuleEnemies.h"
 
-BasicEnemy::BasicEnemy(int x, int y, SDL_Texture* sprite) : Enemy(x, y)
+BasicEnemy::BasicEnemy(int x, int y, powerUpTypes type, SDL_Texture* sprite) : Enemy(x, y)
 {
 
 	fly.PushBack({ 0,0,32,16 });
@@ -18,16 +18,25 @@ BasicEnemy::BasicEnemy(int x, int y, SDL_Texture* sprite) : Enemy(x, y)
 	//if we not receive this parameter (called sprite on THIS constructor), links to the general texture
 	//called sprites, on moduleEnemies.cpp Start() method.
 	//BUT ALWAYS, for now (if you want recieve the texture from the outside):
-	texture = sprite; //THIS LINE IS NEEDED. //links texture ----------------------------------------
+	//texture = sprite; //THIS LINE IS NEEDED. //links texture ----------------------------------------
 	//or another workaround is define the texture here:
-	//texture = App->textures->Load("assets/Graphics/Enemies/Level_1/enemy1.png"); //other method to load and link texture
+	texture = App->textures->Load("assets/Graphics/Enemies/Level_1/enemy1.png"); //other method to load and link texture
 	//and avoid the texture call from AddEnemy method from the scene
 	//and avoid define the texture pointer and load methods from moduleEnemie
 	// ----------------------------------------------------------------------------------------------
 	
-	collider = App->collision->AddCollider({ 0, 0, 24, 24 }, COLLIDER_TYPE::COLLIDER_POWER_UP, (Module*)App->enemies);
+	//collider = App->collision->AddCollider({ 0, 0, 24, 24 }, COLLIDER_TYPE::COLLIDER_POWER_UP, (Module*)App->enemies);
 
 	original_y = y;
+
+
+	powerUpType = type;
+
+	/*if (type == powerUpTypes::UNIT)
+		collider = App->collision->AddCollider({ 0, 0, 24, 24 }, COLLIDER_TYPE::COLLIDER_POWER_UP, (Module*)App->enemies);
+	else*/
+	collider = App->collision->AddCollider({ 0, 0, 32, 16 }, COLLIDER_TYPE::COLLIDER_ENEMY, (Module*)App->enemies);
+
 }
 
 void BasicEnemy::Move()
@@ -50,3 +59,4 @@ void BasicEnemy::Move()
 	position.y = int(float(original_y) + (25.0f * sinf(wave)));
 	position.x -= 0;
 }
+

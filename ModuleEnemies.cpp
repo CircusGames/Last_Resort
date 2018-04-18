@@ -6,6 +6,7 @@
 #include "ModuleTextures.h"
 #include "Enemy.h"
 #include "BasicEnemy.h"
+#include "ModulePowerUp.h"
 
 #define SPAWN_MARGIN 50
 
@@ -23,8 +24,11 @@ ModuleEnemies::~ModuleEnemies()
 bool ModuleEnemies::Start()
 {
 	// Create a prototype for each enemy available so we can copy them around
+	//sprites texture pointer is used as "general purpose" texture spritesheet now --------
+	//if you want to add a specific texture to specific enemy, see basic_enemy.cpp
+	//and scenelvl1 start() method.
 	sprites = App->textures->Load("assets/Graphics/Enemies/Level_1/enemies.png");
-
+	//
 	//texture to pass in scene, when calls AddEnemy(); method. -----------------------------
 	enemy1Texture = App->textures->Load("assets/Graphics/Enemies/Level_1/enemy1.png");
 	// -------------------------------------------------------------------------------------
@@ -39,10 +43,12 @@ update_status ModuleEnemies::PreUpdate()
 	{
 		if (queue[i].type != ENEMY_TYPES::NO_TYPE)
 		{
-			if (queue[i].x * SCREEN_SIZE < App->render->camera.x + (App->render->camera.w * SCREEN_SIZE) + SPAWN_MARGIN)
+			//LOG("camPosX ",(int)App->render->currentCameraPosX);
+			if (queue[i].x * SCREEN_SIZE > App->render->camera.x - (App->render->camera.w * SCREEN_SIZE) + SPAWN_MARGIN)
 			{
 				SpawnEnemy(queue[i]);
 				queue[i].type = ENEMY_TYPES::NO_TYPE;
+				//queue[i].powerUpType = powerUpTypes::NONE;
 				LOG("Spawning enemy at %d", queue[i].x * SCREEN_SIZE);
 			}
 		}
@@ -102,7 +108,7 @@ bool ModuleEnemies::CleanUp()
 	return true;
 }
 
-bool ModuleEnemies::AddEnemy(ENEMY_TYPES type, int x, int y, SDL_Texture* texture)
+bool ModuleEnemies::AddEnemy(ENEMY_TYPES type,  int x, int y, powerUpTypes powerUp, SDL_Texture* texture)
 {
 	bool ret = false;
 
@@ -114,6 +120,7 @@ bool ModuleEnemies::AddEnemy(ENEMY_TYPES type, int x, int y, SDL_Texture* textur
 				queue[i].texture = texture;
 			else queue[i].texture = sprites;
 
+			queue[i].powerUpType = powerUp;
 			queue[i].type = type;
 			queue[i].x = x;
 			queue[i].y = y;
@@ -125,7 +132,7 @@ bool ModuleEnemies::AddEnemy(ENEMY_TYPES type, int x, int y, SDL_Texture* textur
 	return ret;
 }
 
-void ModuleEnemies::SpawnEnemy(EnemyInfo& info, SDL_Texture* texture)
+void ModuleEnemies::SpawnEnemy(EnemyInfo& info)
 {
 	// find room for the new enemy
 	uint i = 0;
@@ -136,7 +143,7 @@ void ModuleEnemies::SpawnEnemy(EnemyInfo& info, SDL_Texture* texture)
 		switch (info.type)
 		{
 		case ENEMY_TYPES::BASIC_ENEMY:
-			enemies[i] = new BasicEnemy(info.x, info.y, info.texture);
+			enemies[i] = new BasicEnemy(info.x, info.y,info.powerUpType,info.texture);
 			break;
 		}
 	}
@@ -149,6 +156,7 @@ void ModuleEnemies::OnCollision(Collider* c1, Collider* c2)
 		if (enemies[i] != nullptr && enemies[i]->GetCollider() == c1)
 		{
 			enemies[i]->OnCollision(c2);
+			
 			delete enemies[i];
 			enemies[i] = nullptr;
 			break;

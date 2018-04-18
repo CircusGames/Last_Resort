@@ -79,6 +79,7 @@
     <ClInclude Include="Module.h" />
     <ClInclude Include="ModuleAudio.h" />
     <ClInclude Include="ModuleEnemies.h" />
+    <ClInclude Include="ModulePowerUp.h" />
     <ClInclude Include="PickUps.h" />
     <ClInclude Include="ModulePlayer2.h" />
     <ClInclude Include="ModulePlayer2Unit.h" />
@@ -107,6 +108,7 @@
     <ClCompile Include="ModuleEnemies.cpp" />
     <ClCompile Include="ModulePlayer2.cpp" />
     <ClCompile Include="ModulePlayer2Unit.cpp" />
+    <ClCompile Include="ModulePowerUp.cpp" />
     <ClCompile Include="ModuleSceneLvl1.cpp" />
     <ClCompile Include="ModuleCollision.cpp" />
     <ClCompile Include="ModuleFadeToBlack.cpp" />

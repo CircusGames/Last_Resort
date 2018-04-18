@@ -4,6 +4,7 @@
 #include "Enemy.h"
 #include "ModuleTextures.h"
 
+
 class BasicEnemy : public Enemy
 {
 private:
@@ -15,9 +16,12 @@ private:
 
 public:
 
-	BasicEnemy(int x, int y, SDL_Texture* sprite = nullptr);
+	BasicEnemy(int x, int y, powerUpTypes type, SDL_Texture* sprite = nullptr);
+	
+	//OnCollision
 
 	void Move();
+
 
 };
 

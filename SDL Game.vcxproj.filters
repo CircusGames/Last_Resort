@@ -104,6 +104,9 @@
     <ClInclude Include="ModuleEnemies.h">
       <Filter>Modules</Filter>
     </ClInclude>
+    <ClInclude Include="ModulePowerUp.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -173,6 +176,9 @@
       <Filter>Modules\PickUps</Filter>
     </ClCompile>
     <ClCompile Include="ModuleEnemies.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="ModulePowerUp.cpp">
       <Filter>Modules</Filter>
     </ClCompile>
   </ItemGroup>

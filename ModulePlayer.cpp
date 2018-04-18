@@ -143,7 +143,7 @@ update_status ModulePlayer::Update()
 		//for now activates playerUnit for testing here
 		if (!App->playerUnit->IsEnabled())
 		{
-			App->playerUnit->Enable();
+			//App->playerUnit->Enable();
 		}
 
 		float speed = 1.4f; //player position speed
@@ -333,11 +333,13 @@ void ModulePlayer::OnCollision(Collider* collider1, Collider* collider2)
 		this->Disable();
 		App->playerUnit->Disable();
 
-		if (playerCollider != nullptr)
-			this->playerCollider->to_delete = true;
+	//if (playerCollider != nullptr)
+	//if (collider2->type == COLLIDER_POWER_UP)
+		//App->playerUnit->Enable();
+
+			//this->playerCollider->to_delete = true;
 
 		//Destroyed();
-
 		//Collided = true;
 	//}
 	App->fade->FadeToBlack((Module*)App->scene_lvl1,(Module*)App->gameOverScreen);
