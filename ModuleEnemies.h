@@ -3,13 +3,14 @@
 
 #include "Module.h"
 #include "BasicEnemy.h"
-
+#include "EnemyOscilatory.h"
 #define MAX_ENEMIES 100
 
 enum ENEMY_TYPES
 {
 	NO_TYPE,
-	BASIC_ENEMY
+	BASIC_ENEMY,
+	ENEMYOSCILATORY
 };
 
 class Enemy;
@@ -42,6 +43,7 @@ public:
 	//more textures - in public because we call outside this module
 	//more enemies textures -------
 	SDL_Texture* enemy1Texture;
+	SDL_Texture* enemy2Texture;
 	// ----------------------------
 	
 
