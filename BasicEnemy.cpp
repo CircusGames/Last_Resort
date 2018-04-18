@@ -62,7 +62,7 @@ void BasicEnemy::Move()
 	}
 
 	//position.y = int(float(original_y) + (25.0f * sinf(wave)));
-	fposition.x -= 0.5;
+	fposition.x -= 1.35;
 	position.x = fposition.x;
 }
 

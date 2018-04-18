@@ -445,18 +445,18 @@ bool ModuleSceneLvl1::Start()
 	//pass a parameter to specific texture declared and defined inside moduleEnemies.cpp and .h
 	//App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 200, 80, App->enemies->enemy1Texture);
 	//pass a parameter to specific texture declared and defined inside moduleEnemie.cpp and .h
-	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 670, 72 ,NONE, App->enemies->enemy1Texture);
+	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 900, 72 ,NONE, App->enemies->enemy1Texture);
 	//and second workaround, in this case, texture is defined inside specific enemy class
 	//see basic_enemy.cpp and .h to read the instructions for both of them. You decide.
-	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 750, 90, NONE, App->enemies->enemy1Texture);
-//	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 800, 80, NONE, App->enemies->enemy1Texture);
-//	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 800, 80, UNIT, App->enemies->enemy1Texture);
-//	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 800, 80, NONE, App->enemies->enemy1Texture);
-//	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 800, 80, NONE, App->enemies->enemy1Texture);
-//	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 800, 65, NONE, App->enemies->enemy1Texture);
-//	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 900, 80, NONE, App->enemies->enemy1Texture);
-//	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 1200, 80, UNIT, App->enemies->enemy1Texture);
-//	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 1500, 80, NONE, App->enemies->enemy1Texture);
+	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 980, 90, NONE, App->enemies->enemy1Texture);
+	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 1060, 72, NONE, App->enemies->enemy1Texture);
+	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 1060, 138, UNIT, App->enemies->enemy1Texture);
+	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 1220, 42, NONE, App->enemies->enemy1Texture);
+	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 1285, 138, NONE, App->enemies->enemy1Texture);
+	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 1300, 42, NONE, App->enemies->enemy1Texture);
+	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 1380, 42, NONE, App->enemies->enemy1Texture);
+	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 1460, 42, UNIT, App->enemies->enemy1Texture);
+	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 1540, 42, NONE, App->enemies->enemy1Texture);
 //	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 1600, 94, NONE, App->enemies->enemy1Texture);
 //	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 1650, 104, UNIT, App->enemies->enemy1Texture);
 //	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 1800, 150, NONE, App->enemies->enemy1Texture);
@@ -466,7 +466,7 @@ bool ModuleSceneLvl1::Start()
 	// --------------------------------------------------------------------------------------------
 	//App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 640, 80);
 	//App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 665, 80);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYOSCILATORY, 1300, 30, NONE, App->enemies->enemy2Texture);
+	//App->enemies->AddEnemy(ENEMY_TYPES::ENEMYOSCILATORY, 1300, 30, NONE, App->enemies->enemy2Texture);
 
 	////lvl1 background textures
 	bg = App->textures->Load("assets/Graphics/Backgrounds/Lvl_1/lvl1_bg.png");
