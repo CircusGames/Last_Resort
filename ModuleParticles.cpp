@@ -37,7 +37,7 @@ ModuleParticles::ModuleParticles()
 	unitBasicShot.life = 2000;
 	// ------------------------------------------
 
-	//Explosion TEST--------------------
+	//Explosion TEST --------------------
 	explosion.anim.PushBack({ 274, 296, 33, 30 });
 	explosion.anim.PushBack({ 313, 296, 33, 30 });
 	explosion.anim.PushBack({ 346, 296, 33, 30 });
@@ -64,6 +64,7 @@ bool ModuleParticles::Start()
 	//load and links textures for particles -----------
 	beam.texture = graphics;
 	unitBasicShot.texture = unitBasicShotTexture;
+	
 	// ------------------------------------------------
 
 	//load specific Wavs effects for particles --------
@@ -73,6 +74,7 @@ bool ModuleParticles::Start()
 
 	//TEST PARTICLES
 	test = App->textures->Load("assets/Graphics/player/particles.png");
+	explosion.texture = test;
 
 
 	return true;

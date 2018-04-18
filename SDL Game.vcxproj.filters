@@ -21,9 +21,6 @@
     <Filter Include="Modules\PowerUps">
       <UniqueIdentifier>{7ad52a64-9525-4a13-bc8e-8461a3cdbc79}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Modules\PickUps">
-      <UniqueIdentifier>{11805a20-ea81-4d23-a360-869ae9d92f54}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Module.h">
@@ -98,9 +95,6 @@
     <ClInclude Include="ModulePlayer2Unit.h">
       <Filter>Modules\PowerUps</Filter>
     </ClInclude>
-    <ClInclude Include="PickUps.h">
-      <Filter>Modules\PickUps</Filter>
-    </ClInclude>
     <ClInclude Include="ModuleEnemies.h">
       <Filter>Modules</Filter>
     </ClInclude>
@@ -171,9 +165,6 @@
     </ClCompile>
     <ClCompile Include="ModulePlayer2Unit.cpp">
       <Filter>Modules\PowerUps</Filter>
-    </ClCompile>
-    <ClCompile Include="PickUps.cpp">
-      <Filter>Modules\PickUps</Filter>
     </ClCompile>
     <ClCompile Include="ModuleEnemies.cpp">
       <Filter>Modules</Filter>
