@@ -466,7 +466,8 @@ bool ModuleSceneLvl1::Start()
 	// --------------------------------------------------------------------------------------------
 	//App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 640, 80);
 	//App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 665, 80);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYOSCILATORY, 1300, 30);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYOSCILATORY, 1300, 30, NONE, App->enemies->enemy2Texture);
+
 	////lvl1 background textures
 	bg = App->textures->Load("assets/Graphics/Backgrounds/Lvl_1/lvl1_bg.png");
 	mg = App->textures->Load("assets/Graphics/Backgrounds/Lvl_1/lvl1_mg.png");

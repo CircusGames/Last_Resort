@@ -5,14 +5,12 @@
 
 Oscilatory::Oscilatory(int x, int y) : Enemy(x, y)
 {
-	fly.PushBack({ 4,108,31,28 });
+	fly.PushBack({ 0,0,48,46 });
 	fly.speed = 0.2f;
 
 	animation = &fly;
 
-	texture = App->textures->Load("assets/Graphics/Enemies/Level_1/Oscilator.png");
-
-	collider = App->collision->AddCollider({ 0, 0, 31, 28 }, COLLIDER_TYPE::COLLIDER_ENEMY, (Module*)App->enemies);
+	collider = App->collision->AddCollider({ 0, 0, 48, 46 }, COLLIDER_TYPE::COLLIDER_ENEMY, (Module*)App->enemies);
 
 	original_y = y;
 }
