@@ -25,7 +25,9 @@ bool ModuleEnemies::Start()
 	// Create a prototype for each enemy available so we can copy them around
 	sprites = App->textures->Load("assets/Graphics/Enemies/Level_1/enemies.png");
 
+	//texture to pass in scene, when calls AddEnemy(); method. -----------------------------
 	enemy1Texture = App->textures->Load("assets/Graphics/Enemies/Level_1/enemy1.png");
+	// -------------------------------------------------------------------------------------
 
 	return true;
 }

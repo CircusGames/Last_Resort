@@ -440,9 +440,16 @@ bool ModuleSceneLvl1::Start()
 	bool ret = true;
 
 	App->enemies->Enable();
-	//rect for provisional enemy
-	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 200, 80, App->enemies->enemy1Texture);//, //App->enemies.);
+	
+	//EXAMPLE OF PASSING OR NOT, SPECIFIC TEXTURES TO SPECIFIC ENEMY ------------------------------
+	//pass a parameter to specific texture declared and defined inside moduleEnemie.cpp and .h
+	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 200, 80, App->enemies->enemy1Texture);
+	//and second workaround, in this case, texture is defined inside specific enemy class
+	//see basic_enemy.cpp and .h to read the instructions for both of them. You decide.
 	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 230, 80);
+	//if you not define a specific texture, remember to write the specific link code (see basic_enemy.cpp),
+	//and the "general" texture is used instead.
+	// --------------------------------------------------------------------------------------------
 	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 640, 80);
 	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 665, 80);
 

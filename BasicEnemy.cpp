@@ -5,15 +5,7 @@
 
 BasicEnemy::BasicEnemy(int x, int y, SDL_Texture* sprite) : Enemy(x, y)
 {
-	/*fly.PushBack({ 5,6,24,24 });
-	fly.PushBack({ 38, 6, 24, 24 });
-	fly.PushBack({ 71, 6, 24, 24 });
-	fly.PushBack({ 104, 6, 24, 24 });
-	fly.PushBack({ 137, 6, 24, 24 });
-	fly.PushBack({ 170, 6, 24, 24 });
-	fly.PushBack({ 203, 6, 24, 24 });
-	fly.PushBack({ 236, 6, 24, 24 });
-	fly.speed = 0.2f;*/
+
 	fly.PushBack({ 0,0,32,16 });
 	fly.PushBack({ 0,16,32,15 });
 	fly.PushBack({ 0,31,32,16 });
@@ -25,11 +17,15 @@ BasicEnemy::BasicEnemy(int x, int y, SDL_Texture* sprite) : Enemy(x, y)
 	//on te actual workaround this line is NEEDED to link the sprites to te enemy
 	//if we not receive this parameter (called sprite on THIS constructor), links to the general texture
 	//called sprites, on moduleEnemies.cpp Start() method.
-	//BUT ALWAYS, for now:
+	//BUT ALWAYS, for now (if you want recieve the texture from the outside):
 	texture = sprite; //THIS LINE IS NEEDED. //links texture ----------------------------------------
+	//or another workaround is define the texture here:
+	//texture = App->textures->Load("assets/Graphics/Enemies/Level_1/enemy1.png"); //other method to load and link texture
+	//and avoid the texture call from AddEnemy method from the scene
+	//and avoid define the texture pointer and load methods from moduleEnemie
 	// ----------------------------------------------------------------------------------------------
 	
-	collider = App->collision->AddCollider({ 0, 0, 24, 24 }, COLLIDER_TYPE::COLLIDER_ENEMY, (Module*)App->enemies);
+	collider = App->collision->AddCollider({ 0, 0, 24, 24 }, COLLIDER_TYPE::COLLIDER_POWER_UP, (Module*)App->enemies);
 
 	original_y = y;
 }

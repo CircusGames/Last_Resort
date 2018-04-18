@@ -20,7 +20,7 @@ ModuleParticles::ModuleParticles()
 
 	//beam bullet particle and animation -------------------
 	beam.anim.PushBack({ 148,127,15,7 });
-	beam.speed.x = 6;
+	beam.speed.x = 12;
 	beam.life = 1000;
 	beam.fx = "shot";
 	// -----------------------------------------------------

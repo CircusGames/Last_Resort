@@ -17,3 +17,15 @@ Power_Up::Power_Up(int x, int y) : Enemy(x, y)
 	right = true;
 
 }*/
+
+/*AddEnemy(EnemyType, position.x, .position.y, powerUpType, (optional texture);
+
+enum powerUpType
+{
+	NONE,
+	UNIT,
+	BOOST,
+	MISSILE1,
+	MISSILE2,
+	RANDOM
+};*/

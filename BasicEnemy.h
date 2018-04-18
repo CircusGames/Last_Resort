@@ -2,6 +2,7 @@
 #define __ENEMY_BROWN_COOKIE_H__
 
 #include "Enemy.h"
+#include "ModuleTextures.h"
 
 class BasicEnemy : public Enemy
 {
@@ -11,16 +12,13 @@ private:
 	int original_y = 0;
 	Animation fly;
 	iPoint original_pos;
-	
-	
 
 public:
 
-	BasicEnemy(int x, int y, SDL_Texture* sprite = nullptr);//, SDL_Texture* texture = nullptr);
+	BasicEnemy(int x, int y, SDL_Texture* sprite = nullptr);
 
 	void Move();
 
-	//SDL_Texture* texture = nullptr;
 };
 
-#endif // __ENEMY_REDBIRD_H__
+#endif // __ENEMY__H__

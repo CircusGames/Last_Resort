@@ -55,7 +55,7 @@ public:
 
 	//values needed for basic shooting  ------------------------------------
 	//on x coord. we have to assume that we have -1 (playerMovement(+1) to followCameraMov.)
-	iPoint shotVectorSpeed[16] = { { 3,0 }, { 3,-1 }, { 3,-2 }, { 2,-2 }, { 1,-2 }, { 0,-2 }, { -1,-2 }, { -1,-1 },
+	iPoint shotVectorSpeed[16] = { { 7,0 }, { 3,-1 }, { 3,-2 }, { 2,-2 }, { 1,-2 }, { 0,-2 }, { -1,-2 }, { -1,-1 },
 	                               {-1,0 }, { -1,1 }, { -1, 2 }, { 0, 2 }, { 1,2 }, { 2,2 }, { 3,2 }, { 3,1 } };
 
 };
