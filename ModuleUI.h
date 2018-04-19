@@ -25,6 +25,7 @@ public:
 
 	bool Start();
 	update_status Update();
+	bool CleanUp();
 	// Load Font
 	int Load(const char* texture_path, const char* characters, uint rows = 1);
 	void UnLoad(int font_id);
@@ -38,8 +39,11 @@ private:
 
 public:
 	int font_score = -1;
+	int redNumbers = -1;
 	char score_text[10];
+	char redNumbers_text[10];
 	uint score = 0;
+	uint score2 = 0; //provisonal name to redNumbers call
 };
 
 

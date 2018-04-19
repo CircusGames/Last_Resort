@@ -4,7 +4,9 @@
 #include "ModuleRender.h"
 #include "ModuleUI.h"
 
+//needed standard headers for strings functions
 #include<string.h>
+#include<stdio.h>
 
 // Constructor
 ModuleUI::ModuleUI() : Module()
@@ -18,7 +20,16 @@ bool ModuleUI::Start()
 {
 	//loading fonts typo's
 
-	font_score = App->moduleUI->Load("assets/fonts/scoreFont.png", "! @,_./0123456789$;<&?abcdefghijklmnopqrstuvwxyz", 2);
+	font_score = App->moduleUI->Load("assets/Graphics/UI/blue_chars.png", "0123456789[]abcdefghijklmnopqrstuvwxyz _.,&#", 1);
+	redNumbers = App->moduleUI->Load("assets/Graphics/UI/red_numbers.png", "0123456789 ", 1);
+	return true;
+}
+
+bool ModuleUI::CleanUp()
+{
+	LOG("Unloading font textures");
+	//unload font textures
+	UnLoad(font_score);
 
 	return true;
 }
@@ -26,7 +37,13 @@ bool ModuleUI::Start()
 update_status ModuleUI::Update()
 {
 
+	// Draw UI (score) --------------------------------------
+	sprintf_s(score_text, 10, "%7d", score);
+	sprintf_s(redNumbers_text, 10, "%7d", score2);
 
+	//Blit the text of the score in the screen
+	//BlitText(150, 200, font_score, "hello world 0123");//score_text);
+	//BlitText(150, 210, redNumbers, "01234 56789");//score_text);
 
 	return UPDATE_CONTINUE;
 }
