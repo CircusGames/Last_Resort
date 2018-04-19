@@ -17,7 +17,6 @@ Enemy::~Enemy()
 	{
 		collider->to_delete = true;
 		App->modulePowerUp->powerUpSpawn(powerUpType, position);
-		App->player->playerScore += enemyScore;
 	}
 }
 

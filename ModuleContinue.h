@@ -1,4 +1,4 @@
-#ifndef _MODULECONTINUE_H__
+/*#ifndef _MODULECONTINUE_H__
 #define _MODULECONTINUE_H__
 
 #include "Module.h"
@@ -25,14 +25,11 @@ private:
 
 	SDL_Rect backgroundRect;
 	SDL_Rect continueRect;
-	
-	int number = NULL;
-	bool cycle = NULL;
-	float normalized = NULL;
-	float alpha = NULL;
+
+	bool alpha = true;
 
 	SDL_Texture* backgroundTexture;
 	SDL_Texture* continueTexture;
 
 };
-#endif // !_MODULECONTINUE_H__
+#endif // !_MODULECONTINUE_H__*/
