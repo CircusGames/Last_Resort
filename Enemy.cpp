@@ -31,7 +31,7 @@ void Enemy::Draw(SDL_Texture* sprites)
 		App->render->Blit(sprites, position.x, position.y, &(animation->GetCurrentFrame()));
 }
 
-void Enemy::OnCollision(Collider* collider)
+void Enemy::OnCollision(Collider* collider) //receives the collider wich its colliding (player,shot etc)
 {
 	App->particles->AddParticle(App->particles->explosion, position.x, position.y,COLLIDER_NONE);
 	//powerUpType = this->powerUpType;

@@ -29,7 +29,7 @@ protected:
 public:
 	iPoint position;
 	fPoint fposition;
-	uint life;
+	int life;
 
 public:
 	Enemy(int x, int y, powerUpTypes type = powerUpTypes::NONE, SDL_Texture* texture = nullptr);
