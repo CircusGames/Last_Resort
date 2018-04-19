@@ -75,6 +75,7 @@
     <ClInclude Include="BasicEnemy.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="EnemyOscilatory.h" />
+    <ClInclude Include="EnemyTank.h" />
     <ClInclude Include="Globals.h" />
     <ClInclude Include="MemLeaks.h" />
     <ClInclude Include="Module.h" />
@@ -106,6 +107,7 @@
     <ClCompile Include="BasicEnemy.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="EnemyOscilatory.cpp" />
+    <ClCompile Include="EnemyTank.cpp" />
     <ClCompile Include="Globals.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="ModuleAudio.cpp" />
