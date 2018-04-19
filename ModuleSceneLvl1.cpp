@@ -12,7 +12,7 @@
 #include "ModulePlayerUnit.h"
 #include "ModuleParticles.h"
 #include "ModuleCollision.h"
-
+#include "ModulePowerUp.h"
 #include "ModuleEnemies.h"
 
 #define STREET_LIGHTS_A 15
@@ -485,14 +485,18 @@ bool ModuleSceneLvl1::Start()
 	// --------------------------------------------------------------------------------------------
 	//App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 640, 80);
 	//App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 665, 80);
+
+	//Trial Enemy2
     App->enemies->AddEnemy(ENEMY_TYPES::ENEMYOSCILATORY, 1200, 30, NONE, App->enemies->enemy2Texture);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYOSCILATORY, 400, 30, NONE, App->enemies->enemy2Texture);
+
+	//Enemy Oscilatory
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYOSCILATORY, 5500, 30, NONE, App->enemies->enemy2Texture);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYOSCILATORY, 5580, 30, NONE, App->enemies->enemy2Texture);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYOSCILATORY, 5660, 30, NONE, App->enemies->enemy2Texture);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYOSCILATORY, 400, 30, NONE, App->enemies->enemy2Texture);
 
 
-	////lvl1 background textures
+	//lvl1 background textures --------------------------------------------------------------------------------
 	bg = App->textures->Load("assets/Graphics/Backgrounds/Lvl_1/lvl1_bg.png");
 	mg = App->textures->Load("assets/Graphics/Backgrounds/Lvl_1/lvl1_mg.png");
 	fg = App->textures->Load("assets/Graphics/Backgrounds/Lvl_1/lvl1_fg.png");
@@ -503,12 +507,7 @@ bool ModuleSceneLvl1::Start()
 	midgroundLightsTexture = App->textures->Load("assets/Graphics/Backgrounds/Lvl_1/midgroundLights.png");
 	buildingLasersTexture = App->textures->Load("assets/Graphics/Backgrounds/Lvl_1/lvl1_buildingLasers.png");
 
-	//provisonal enemy texture and collider -------------------------------------------
-	provisionalEnemy = App->textures->Load("assets/Graphics/Enemies/Level_1/enemy1.png");
-	provisionalEnemeyCollider = App->collision->AddCollider({200,50,32,16}, COLLIDER_ENEMY, this);
-	// --------------------------------------------------------------------------------
-
-	//loading music and fx
+	//loading music and fx -------------------------------------------------------------------------------------
 	App->audio->LoadAudio("assets/Audio/Music/song_level_1.ogg", "song_lvl1", MUSIC);
 	App->audio->ControlAudio("song_lvl1", MUSIC, FADEIN, -1, 1500.0f); //type, playMode, loops, fadeIn, fadeOut
 
@@ -518,6 +517,7 @@ bool ModuleSceneLvl1::Start()
 	//App->playerUnit->Enable();
 	App->particles->Enable();
 	App->collision->Enable();
+	App->modulePowerUp->Enable();
 
 	// ----------------------------
 
@@ -636,7 +636,7 @@ update_status ModuleSceneLvl1::PreUpdate()
 
 		if (bgMovY.fgRendezvous && bgMovY.mgRendezvous)
 		{
-			bgMovY.lastMovPosX = App->render->currentCameraPosX;//App->render->camera.x; //updates the last x position
+			bgMovY.lastMovPosX = App->render->currentCameraPosX;//App->render->camera.x; //updates the last x positiond
 			updatePos = true;
 			bgMovY.down = true; //and the next mov will be down
 			bgMovY.move = false;
@@ -878,7 +878,6 @@ update_status ModuleSceneLvl1::Update()
 	//provisional static enemy to check collisions
 
 	App->render->Blit(provisionalEnemy, provisionalEnemyPosition.x, provisionalEnemyPosition.y, &provionsalEnemyRect, 1.0f);
-	provisionalEnemeyCollider->SetPos(provisionalEnemyPosition.x, provisionalEnemyPosition.y);
 
 	//SCENE SWITCHING
 
@@ -898,6 +897,7 @@ bool ModuleSceneLvl1::CleanUp()
 
 	App->player->Disable();
 	App->playerUnit->Disable();
+	App->modulePowerUp->Disable();
 
 	App->textures->Unload(bg);
 	App->textures->Unload(mg);

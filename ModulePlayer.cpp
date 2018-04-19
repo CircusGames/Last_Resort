@@ -292,7 +292,7 @@ update_status ModulePlayer::Update()
 		
 
 		//update player collider to its position -----------------------------------------
-		if (!godMode)
+		
 			playerCollider->SetPos(position.x, position.y - 6);
 
 		//DEBUG: GODMODE F2
@@ -302,6 +302,7 @@ update_status ModulePlayer::Update()
 			{
 				this->playerCollider->to_delete = true;
 				playerCollider = nullptr;
+				playerCollider = App->collision->AddCollider({ position.x, position.y - 6, 32, 12 }, COLLIDER_PLAYER_GOD, this);
 				godMode = true;
 			}
 			else

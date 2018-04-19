@@ -161,14 +161,17 @@ void ModuleEnemies::OnCollision(Collider* c1, Collider* c2)
 		if (enemies[i] != nullptr && enemies[i]->GetCollider() == c1)
 		{
 			enemies[i]->OnCollision(c2);
-			--(enemies[i]->life);
+ 			enemies[i]->life -= c2->damage; //particle damage
 
- 				if (enemies[i]->life <= 0)
-				{
-					delete enemies[i];
-					enemies[i] = nullptr;
-					break;
-				}
+			if (c2->type == COLLIDER_PLAYER)
+				--enemies[i]->life; //by default, player collider substract 1 to enemy life
+
+ 			if (enemies[i]->life <= 0)
+			{
+				delete enemies[i];
+				enemies[i] = nullptr;
+				break;
+			}
 		}
 	}
 }

@@ -23,6 +23,7 @@ ModuleParticles::ModuleParticles()
 	beam.speed.x = 12;
 	beam.life = 1000;
 	beam.fx = "shot";
+	beam.damage = 1;
 	// -----------------------------------------------------
 	//Unit basic shot particle-------------------
 	unitBasicShot.anim.PushBack({ 1,1,13,13 });
@@ -35,6 +36,7 @@ ModuleParticles::ModuleParticles()
 	unitBasicShot.anim.PushBack({ 16,46,13,13 });
 	unitBasicShot.anim.speed = 0.3f;
 	unitBasicShot.life = 2000;
+	unitBasicShot.damage = 1;
 	// ------------------------------------------
 
 	//Explosion TEST --------------------
@@ -154,9 +156,9 @@ void ModuleParticles::AddParticle(const Particle& particle, int x, int y, COLLID
 				p->speed = speed;
 			}
 			if (collider_type != COLLIDER_NONE)
-				p->collider = App->collision->AddCollider(p->anim.GetCurrentFrame(), collider_type, this);
+				p->collider = App->collision->AddCollider(p->anim.GetCurrentFrame(), collider_type, this, p->damage);
 			active[i] = p;
-			break;
+ 			break;
 		}
 	}
 }
@@ -187,7 +189,8 @@ Particle::Particle()
 }
 
 Particle::Particle(const Particle& p) :
-	anim(p.anim), position(p.position), speed(p.speed), fx(p.fx), born(p.born), life(p.life),texture(p.texture)
+	anim(p.anim), position(p.position), speed(p.speed), fx(p.fx), born(p.born), life(p.life),texture(p.texture),
+	damage(p.damage)
 {}
 
 Particle::~Particle()
