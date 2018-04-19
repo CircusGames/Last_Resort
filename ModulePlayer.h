@@ -55,6 +55,8 @@ public:
 	bool godMode = false;
 
 	int cameraPosition;
+
+	Uint32 playerScore = 0;
 };
 
 #endif

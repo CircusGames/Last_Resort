@@ -104,6 +104,9 @@ bool ModulePlayer::Start()
 	ignitionSpeed = 0.2f; //speed when accelerate
 	releaseSpeed = 0.1f; //speed when releases direction keys to return to idle
 
+	//resets player score on every start
+	playerScore = 0;
+
 	//load necessary fx wavs
 	
 	// ---------------------

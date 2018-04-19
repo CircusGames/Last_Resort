@@ -30,10 +30,6 @@ Application::Application()
 	modules[i++] = scene_lvl1 = new ModuleSceneLvl1();
 	modules[i++] = gameTitle = new ModuleGameTitle();
 	modules[i++] = gameOverScreen = new ModuleGameOver();
-
-	
-	
-
 	modules[i++] = player = new ModulePlayer();
 	//modules[i++] = player2 = new ModulePlayer2();
 	modules[i++] = playerUnit = new ModulePlayerUnit();
