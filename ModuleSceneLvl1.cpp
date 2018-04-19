@@ -12,7 +12,7 @@
 #include "ModulePlayerUnit.h"
 #include "ModuleParticles.h"
 #include "ModuleCollision.h"
-
+#include "ModulePowerUp.h"
 #include "ModuleEnemies.h"
 
 #define STREET_LIGHTS_A 15
@@ -499,6 +499,7 @@ bool ModuleSceneLvl1::Start()
 	//App->playerUnit->Enable();
 	App->particles->Enable();
 	App->collision->Enable();
+	App->modulePowerUp->Enable();
 
 	// ----------------------------
 
@@ -879,6 +880,7 @@ bool ModuleSceneLvl1::CleanUp()
 
 	App->player->Disable();
 	App->playerUnit->Disable();
+	App->modulePowerUp->Disable();
 
 	App->textures->Unload(bg);
 	App->textures->Unload(mg);

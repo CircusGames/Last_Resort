@@ -72,6 +72,7 @@ bool Application::Init()
 	//player2Unit->Disable();
 	collision->Disable();
 	particles->Disable();
+	modulePowerUp->Disable();
 
 	enemies->Disable();
 	

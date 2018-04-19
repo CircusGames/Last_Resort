@@ -14,7 +14,10 @@ Enemy::Enemy(int x, int y, powerUpTypes type, SDL_Texture* texture) : position(x
 Enemy::~Enemy()
 {
 	if (collider != nullptr)
+	{
 		collider->to_delete = true;
+		App->modulePowerUp->powerUpSpawn(powerUpType, position);
+	}
 }
 
 const Collider* Enemy::GetCollider() const
@@ -34,7 +37,4 @@ void Enemy::Draw(SDL_Texture* sprites)
 void Enemy::OnCollision(Collider* collider) //receives the collider wich its colliding (player,shot etc)
 {
 	App->particles->AddParticle(App->particles->explosion, position.x, position.y,COLLIDER_NONE);
-	//powerUpType = this->powerUpType;
-	App->modulePowerUp->powerUpSpawn(powerUpType, position);
-	
 }
