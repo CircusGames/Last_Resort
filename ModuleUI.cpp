@@ -3,6 +3,7 @@
 #include "ModuleTextures.h"
 #include "ModuleRender.h"
 #include "ModuleUI.h"
+#include "ModulePlayer.h"
 
 //needed standard headers for strings functions
 #include<string.h>
@@ -36,17 +37,21 @@ bool ModuleUI::CleanUp()
 
 update_status ModuleUI::Update()
 {
-
+	score = App->player->playerScore;
 	// Draw UI (score) --------------------------------------
 	sprintf_s(score_text, 10, "%7d", score);
 	sprintf_s(redNumbers_text, 10, "%7d", score2);
 
 	//Blit the text of the score in the screen
 <<<<<<< HEAD
+<<<<<<< HEAD
 	BlitText(150, 200, font_score, score_text);//"hello world 0123");//score_text);
 =======
 	//BlitText(150, 200, font_score, "hello world 0123");//score_text);
 >>>>>>> parent of 6657e95... Merge branch 'master' of https://github.com/CircusGames/Last_Resort
+=======
+	//BlitText(150, 200, font_score, score_text);//"hello world 0123");//score_text);
+>>>>>>> parent of 6ef4653... Merge branch 'master' of https://github.com/CircusGames/Last_Resort
 	//BlitText(150, 210, redNumbers, "01234 56789");//score_text);
 
 	return UPDATE_CONTINUE;

@@ -5,9 +5,8 @@
 
 EnemyOscilatory::EnemyOscilatory(int x, int y, powerUpTypes type, SDL_Texture* sprite) : Enemy(x, y)
 {
-
 	waveAnim.PushBack({ 0,0,48,45 });
-	waveAnim.PushBack({ 49,0,48,46 });
+	/*waveAnim.PushBack({ 49,0,48,46 });
 	waveAnim.PushBack({ 96,0,47,46 });
 	waveAnim.PushBack({ 144,0,48,46 });
 	waveAnim.PushBack({ 192,0,48,46 });
@@ -32,8 +31,7 @@ EnemyOscilatory::EnemyOscilatory(int x, int y, powerUpTypes type, SDL_Texture* s
 	waveAnim.PushBack({ 144,0,48,46 });
 	waveAnim.PushBack({ 96,0,47,46 });
 	waveAnim.PushBack({ 49,0,48,46 });
-	waveAnim.PushBack({ 0,0,48,45 });
-
+	waveAnim.PushBack({ 0,0,48,45 });*/
 	waveAnim.speed = 0.2f;
 
 	animation = &waveAnim;
