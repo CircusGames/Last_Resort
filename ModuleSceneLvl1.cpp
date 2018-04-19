@@ -7,6 +7,7 @@
 #include "ModulePlayer2.h"
 #include "ModuleInput.h"
 #include "ModuleFadeToBlack.h"
+#include "ModuleContinue.h"
 #include "ModuleGameOver.h"
 #include "ModuleAudio.h"
 #include "ModulePlayerUnit.h"
@@ -882,7 +883,7 @@ update_status ModuleSceneLvl1::Update()
 	//SCENE SWITCHING
 
 	if (App->input->keyboard[SDL_SCANCODE_RETURN] == 1)
-		App->fade->FadeToBlack(App->scene_lvl1, App->gameOverScreen);
+		App->fade->FadeToBlack(App->scene_lvl1, App->continueScreen);
 
 	return UPDATE_CONTINUE;
 }
