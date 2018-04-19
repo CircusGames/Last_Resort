@@ -16,6 +16,8 @@ EnemyOscilatory::EnemyOscilatory(int x, int y, powerUpTypes type, SDL_Texture* s
 	collider = App->collision->AddCollider({ 0, 0, 48, 46 }, COLLIDER_TYPE::COLLIDER_ENEMY, (Module*)App->enemies);
 
 	original_y = y;
+
+	life = 2;
 }
 
 void EnemyOscilatory::Move()
