@@ -62,6 +62,8 @@ ModulePlayer::ModulePlayer()
 	playerDyingAnim.PushBack({ 118,70,47,16 });
 	playerDyingAnim.PushBack({ 124,90,41,12 });
 	playerDyingAnim.PushBack({ 128,108,37,10 });
+	playerDyingAnim.speed = 0.3f;
+	playerDyingAnim.repeat = false;
 
 	//beam flash smoke
 	beamSmoke.PushBack({ 128,126,10,9 });
@@ -107,13 +109,15 @@ bool ModulePlayer::Start()
 	//resets player score on every start
 	playerScore = 0;
 
+	destroyed = false;
+
 	//load necessary fx wavs
 	
 	// ---------------------
 
 	//for new gameLoops
 	//checks if the player state is normal, if is, spawn condition
-	if (player_step == player_state::normal)
+	if (player_step == player_state::normal || player_step == player_state::died)
 		player_step = player_state::spawn;
 
 	return ret;
@@ -141,7 +145,7 @@ update_status ModulePlayer::Update()
 		}
 	}
 
-	else
+	else if (player_step == player_state::normal)
 	{
 		//for now activates playerUnit for testing here
 		if (!App->playerUnit->IsEnabled())
@@ -324,6 +328,26 @@ update_status ModulePlayer::Update()
 	//draw player NORMAL STATE --------------------------------------------------------------
 	App->render->Blit(player, position.x, position.y - (r.h / 2), &r, 1.0f);
 	// --------------------------------------------------------------------------------------
+	else if (player_step == player_state::died && destroyed)
+	{
+		current_animation = &playerDyingAnim;
+		r = current_animation->GetCurrentFrame();
+		App->render->Blit(player, position.x, position.y - (r.h / 2), &r);
+		if (current_animation->finish)
+		{
+			current_animation->current_frame = 0;
+			current_animation->finish = false;
+			destroyed = false;
+			if (lives <= 0)
+				App->fade->FadeToBlack((Module*)App->scene_lvl1, (Module*)App->gameOverScreen);
+			else
+			{
+				App->fade->FadeToBlack((Module*)App->scene_lvl1, (Module*)App->scene_lvl1); 
+				lives--;
+			}
+		}
+
+	}
 
 	
 	return UPDATE_CONTINUE;
@@ -332,21 +356,14 @@ update_status ModulePlayer::Update()
 
 void ModulePlayer::OnCollision(Collider* collider1, Collider* collider2)
 {
-	//if (!Collided)
-	//{
-		this->Disable();
+		//deactivate player active powerUps
+	if(App->playerUnit->IsEnabled())
 		App->playerUnit->Disable();
 
-	//if (playerCollider != nullptr)
-	//if (collider2->type == COLLIDER_POWER_UP)
-		//App->playerUnit->Enable();
-
-			//this->playerCollider->to_delete = true;
-
-		//Destroyed();
-		//Collided = true;
-	//}
-	App->fade->FadeToBlack((Module*)App->scene_lvl1,(Module*)App->gameOverScreen);
+		player_step = player_state::died;
+		destroyed = true;
+	if (playerCollider != nullptr)
+			this->playerCollider->to_delete = true;
 }
 
 bool ModulePlayer::CleanUp()
