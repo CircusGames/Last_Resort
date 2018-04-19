@@ -16,7 +16,7 @@
 #include "ModuleGameTitle.h"
 #include "ModuleGameOver.h"
 #include "ModuleEnemies.h"
-
+#include "ModuleUI.h"
 #include "ModulePowerUp.h"
 
 Application::Application()
@@ -43,6 +43,7 @@ Application::Application()
 	modules[i++] = particles = new ModuleParticles();
 	modules[i++] = collision = new ModuleCollision();
 	modules[i++] = audio = new ModuleAudio();
+	modules[i++] = moduleUI = new ModuleUI();
 	modules[i++] = fade = new ModuleFadeToBlack();
 
 }	
