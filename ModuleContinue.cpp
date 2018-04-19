@@ -39,9 +39,9 @@ ModuleContinue::ModuleContinue()
 			if (j < MAX_FRAMES)
 				fireAnim[i].PushBack({ 32 * j, 96, 32, 32 });
 			else
-				fireAnim[i].PushBack({ 32 * (i - MAX_FRAMES), 128, 32, 32 });
+				fireAnim[i].PushBack({ 32 * (j - MAX_FRAMES), 128, 32, 32 });
 		}
-		fireAnim[i].speed = 0.33f;
+		fireAnim[i].speed = 0.14f;
 	}
 
 	//numbers 
@@ -118,7 +118,8 @@ update_status ModuleContinue::Update()
 	}
 
 	//fire anim
-	for (int i = 0; i <= MAX_FRAMES; i++)
+
+	/*for (int i = 0; i <= MAX_FRAMES; i++)
 	{
 		if (!fireAnim[i].finish)
 		{
@@ -128,8 +129,33 @@ update_status ModuleContinue::Update()
 		{
 			App->render->Blit(continueTexture, 253, 96, &fireAnim[i].GetCurrentFrame());			
 		}
-	}
+	}*/
+
+
+	//for (int i = 0; i <= MAX_FRAMES; ++i)
+	//{
+	Animation* current_animation;
+	current_animation = &fireAnim[0];
+	SDL_Rect fireRect = current_animation->GetCurrentFrame();
+
+		App->render->Blit(continueTexture, 21 , 96, &fireRect);
+		App->render->Blit(continueTexture, 53, 96, &fireRect);
+		App->render->Blit(continueTexture, 85, 96, &fireRect);
+		App->render->Blit(continueTexture, 117, 96,&fireRect);
+		App->render->Blit(continueTexture, 149, 96, &fireRect);
+		App->render->Blit(continueTexture, 181, 96, &fireRect);
+		App->render->Blit(continueTexture, 213, 96, &fireRect);
+		App->render->Blit(continueTexture, 253, 96, &fireRect);
+	//}
+
 		
+
+	/*for (int i = 0; i < MAX_FRAMES; i++)
+	{
+		App->render->Blit(continueTexture, 21 + 32 * i, 96, &fireAnim[i].GetCurrentFrame());
+	}*/
+	
+
 	// continue rect
 	App->render->Blit(continueTexture, 16, 96, &continueRect);
 
