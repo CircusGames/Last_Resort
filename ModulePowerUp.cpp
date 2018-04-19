@@ -58,6 +58,21 @@ update_status ModulePowerUp::Update()
 
 bool ModulePowerUp::CleanUp()
 {
+	//remove powerups and its colliders
+	for (uint i = 0; i < MAX_ACTIVES; ++i)
+	{
+		if (powerUpActives[i] != nullptr)
+		{
+			powerUpActives[i]->collider->to_delete = true; //delete colliders
+			delete powerUpActives[i]; //delete poweUp instance
+			powerUpActives[i] = nullptr;
+		}
+	}
+	//unload textures
+	if (test != nullptr)
+	App->textures->Unload(test);
+	if(unitBlue.texture != nullptr)
+	App->textures->Unload(test);
 
 	return true;
 }

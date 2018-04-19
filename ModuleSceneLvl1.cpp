@@ -12,7 +12,7 @@
 #include "ModulePlayerUnit.h"
 #include "ModuleParticles.h"
 #include "ModuleCollision.h"
-
+#include "ModulePowerUp.h"
 #include "ModuleEnemies.h"
 
 #define STREET_LIGHTS_A 15
@@ -451,12 +451,12 @@ bool ModuleSceneLvl1::Start()
 	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 980, 90, NONE, App->enemies->enemy1Texture);
 	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 1060, 72, NONE, App->enemies->enemy1Texture);
 	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 1060, 138, UNIT, App->enemies->enemy1Texture);
-	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 1220, 42, NONE, App->enemies->enemy1Texture);
-	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 1285, 138, NONE, App->enemies->enemy1Texture);
-	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 1300, 42, NONE, App->enemies->enemy1Texture);
-	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 1380, 42, NONE, App->enemies->enemy1Texture);
-	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 1460, 42, UNIT, App->enemies->enemy1Texture);
-	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 1540, 42, NONE, App->enemies->enemy1Texture);
+	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 1165, 31, NONE, App->enemies->enemy1Texture);
+	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 1210, 138, NONE, App->enemies->enemy1Texture);
+	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 1235, 31, NONE, App->enemies->enemy1Texture);
+	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 1305, 31, NONE, App->enemies->enemy1Texture);
+	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 1375, 31, UNIT, App->enemies->enemy1Texture);
+	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 1445, 31, NONE, App->enemies->enemy1Texture);
 //	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 1600, 94, NONE, App->enemies->enemy1Texture);
 //	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 1650, 104, UNIT, App->enemies->enemy1Texture);
 //	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 1800, 150, NONE, App->enemies->enemy1Texture);
@@ -503,6 +503,7 @@ bool ModuleSceneLvl1::Start()
 	//App->playerUnit->Enable();
 	App->particles->Enable();
 	App->collision->Enable();
+	App->modulePowerUp->Enable();
 
 	// ----------------------------
 
@@ -621,7 +622,7 @@ update_status ModuleSceneLvl1::PreUpdate()
 
 		if (bgMovY.fgRendezvous && bgMovY.mgRendezvous)
 		{
-			bgMovY.lastMovPosX = App->render->currentCameraPosX;//App->render->camera.x; //updates the last x position
+			bgMovY.lastMovPosX = App->render->currentCameraPosX;//App->render->camera.x; //updates the last x positiond
 			updatePos = true;
 			bgMovY.down = true; //and the next mov will be down
 			bgMovY.move = false;
@@ -883,6 +884,7 @@ bool ModuleSceneLvl1::CleanUp()
 
 	App->player->Disable();
 	App->playerUnit->Disable();
+	App->modulePowerUp->Disable();
 
 	App->textures->Unload(bg);
 	App->textures->Unload(mg);
