@@ -328,10 +328,7 @@ update_status ModulePlayer::Update()
 	//draw player NORMAL STATE --------------------------------------------------------------
 	App->render->Blit(player, position.x, position.y - (r.h / 2), &r, 1.0f);
 	// --------------------------------------------------------------------------------------
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> parent of 6ef4653... Merge branch 'master' of https://github.com/CircusGames/Last_Resort
+
 	else if (player_step == player_state::died && destroyed)
 	{
 		current_animation = &playerDyingAnim;
@@ -356,12 +353,6 @@ update_status ModulePlayer::Update()
 		}
 
 	}
-<<<<<<< HEAD
-=======
->>>>>>> parent of 6657e95... Merge branch 'master' of https://github.com/CircusGames/Last_Resort
-=======
->>>>>>> parent of 6ef4653... Merge branch 'master' of https://github.com/CircusGames/Last_Resort
-
 	
 	return UPDATE_CONTINUE;
 
