@@ -14,6 +14,7 @@
 #include "ModuleFadeToBlack.h"
 #include "ModuleTeamLogo.h"
 #include "ModuleGameTitle.h"
+#include "ModuleContinue.h"
 #include "ModuleGameOver.h"
 #include "ModuleEnemies.h"
 #include "ModuleUI.h"
@@ -28,12 +29,9 @@ Application::Application()
 	modules[i++] = textures = new ModuleTextures();
 	modules[i++] = teamLogo = new ModuleTeamLogo();
 	modules[i++] = scene_lvl1 = new ModuleSceneLvl1();
+	modules[i++] = continueScreen = new ModuleContinue();
 	modules[i++] = gameTitle = new ModuleGameTitle();
 	modules[i++] = gameOverScreen = new ModuleGameOver();
-
-	
-	
-
 	modules[i++] = player = new ModulePlayer();
 	//modules[i++] = player2 = new ModulePlayer2();
 	modules[i++] = playerUnit = new ModulePlayerUnit();
@@ -64,6 +62,7 @@ bool Application::Init()
 	teamLogo->Disable();
 	gameTitle->Disable();
 	//scene_lvl1->Disable();
+	continueScreen->Disable();
 	gameOverScreen->Disable();
 	//other modules -----
 	player->Disable();
