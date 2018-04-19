@@ -1,5 +1,6 @@
 #ifndef __ENEMYOSCILATORY_H__
 #define __ENEMYOSCILATORY_H__
+
 #include "Enemy.h"
 #include "ModuleTextures.h"
 
@@ -14,11 +15,11 @@ private:
 
 public:
 
-	Oscilatory(int x, int y);
+	Oscilatory(int x, int y, powerUpTypes type, SDL_Texture * sprite=nullptr);
 
 	void Move();
 
-	SDL_Texture* texture = nullptr;
+	
 };
 
 #endif
