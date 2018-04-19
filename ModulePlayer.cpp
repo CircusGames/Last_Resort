@@ -328,6 +328,7 @@ update_status ModulePlayer::Update()
 	//draw player NORMAL STATE --------------------------------------------------------------
 	App->render->Blit(player, position.x, position.y - (r.h / 2), &r, 1.0f);
 	// --------------------------------------------------------------------------------------
+
 	else if (player_step == player_state::died && destroyed)
 	{
 		current_animation = &playerDyingAnim;
@@ -352,7 +353,6 @@ update_status ModulePlayer::Update()
 		}
 
 	}
-
 	
 	return UPDATE_CONTINUE;
 
