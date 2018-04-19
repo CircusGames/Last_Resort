@@ -1,4 +1,4 @@
-#ifndef _MODULECONTINUE_H__
+/*#ifndef _MODULECONTINUE_H__
 #define _MODULECONTINUE_H__
 
 #include "Module.h"
@@ -20,13 +20,16 @@ public:
 
 private:
 
-	Animation countAnim;
-	Animation fireAnim();
+	Animation numbersAnim;
+	Animation fireAnim[8];
 
-	SDL_Rect background;
-	SDL_Rect cont;
+	SDL_Rect backgroundRect;
+	SDL_Rect continueRect;
 
-	SDL_Texture* continueBack = nullptr;
+	bool alpha = true;
+
+	SDL_Texture* backgroundTexture;
+	SDL_Texture* continueTexture;
 
 };
-#endif // !_MODULECONTINUE_H__
+#endif // !_MODULECONTINUE_H__*/
