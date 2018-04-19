@@ -43,11 +43,7 @@ update_status ModuleUI::Update()
 
 	//Blit the text of the score in the screen
 <<<<<<< HEAD
-<<<<<<< HEAD
 	BlitText(150, 200, font_score, score_text);//"hello world 0123");//score_text);
-=======
-	//BlitText(150, 200, font_score, "hello world 0123");//score_text);
->>>>>>> parent of 6657e95... Merge branch 'master' of https://github.com/CircusGames/Last_Resort
 =======
 	//BlitText(150, 200, font_score, "hello world 0123");//score_text);
 >>>>>>> parent of 6657e95... Merge branch 'master' of https://github.com/CircusGames/Last_Resort
