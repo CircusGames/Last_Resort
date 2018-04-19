@@ -39,9 +39,9 @@ ModuleContinue::ModuleContinue()
 			if (j < MAX_FRAMES)
 				fireAnim[i].PushBack({ 32 * j, 96, 32, 32 });
 			else
-				fireAnim[i].PushBack({ 32 * (i - MAX_FRAMES), 128, 32, 32 });
+				fireAnim[i].PushBack({ 32 * (j - MAX_FRAMES), 128, 32, 32 });
 		}
-		fireAnim[i].speed = 0.33f;
+		fireAnim[i].speed = 0.14f;
 	}
 
 	//numbers 
@@ -118,18 +118,11 @@ update_status ModuleContinue::Update()
 	}
 
 	//fire anim
-	for (int i = 0; i <= MAX_FRAMES; i++)
+	for (int i = 0; i < MAX_FRAMES; i++)
 	{
-		if (!fireAnim[i].finish)
-		{
-			App->render->Blit(continueTexture, 21 + 32 * i, 96, &fireAnim[i].GetCurrentFrame());
-		}
-		else
-		{
-			App->render->Blit(continueTexture, 253, 96, &fireAnim[i].GetCurrentFrame());			
-		}
+		App->render->Blit(continueTexture, 21 + 32 * i, 96, &fireAnim[i].GetCurrentFrame());
 	}
-		
+	
 	// continue rect
 	App->render->Blit(continueTexture, 16, 96, &continueRect);
 
