@@ -55,10 +55,6 @@ public:
 	bool godMode = false;
 
 	int cameraPosition;
-
-	uint lives = 3;
-	Uint32 playerScore = 0;
-	bool destroyed = false;
 };
 
 #endif

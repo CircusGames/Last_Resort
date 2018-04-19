@@ -37,7 +37,6 @@ BasicEnemy::BasicEnemy(int x, int y, powerUpTypes type, SDL_Texture* sprite) : E
 
 	powerUpType = type;
 	life = 1;
-	enemyScore = 100;
 
 	/*if (type == powerUpTypes::UNIT)
 		collider = App->collision->AddCollider({ 0, 0, 24, 24 }, COLLIDER_TYPE::COLLIDER_POWER_UP, (Module*)App->enemies);

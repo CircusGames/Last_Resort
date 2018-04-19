@@ -30,7 +30,6 @@ public:
 	iPoint position;
 	fPoint fposition;
 	int life;
-	uint enemyScore;
 
 public:
 	Enemy(int x, int y, powerUpTypes type = powerUpTypes::NONE, SDL_Texture* texture = nullptr);
