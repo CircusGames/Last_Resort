@@ -145,10 +145,10 @@ void ModuleEnemies::SpawnEnemy(EnemyInfo& info)
 		switch (info.type)
 		{
 		case ENEMY_TYPES::BASIC_ENEMY:
-			//enemies[i] = new BasicEnemy(info.x, info.y,info.powerUpType,info.texture);
+			enemies[i] = new BasicEnemy(info.x, info.y,info.powerUpType,info.texture);
 			break;
 		case ENEMY_TYPES::ENEMYOSCILATORY:
-			//enemies[i] = new EnemyOscilatory(info.x, info.y, info.powerUpType, info.texture);
+			enemies[i] = new EnemyOscilatory(info.x, info.y, info.powerUpType, info.texture);
 			break;
 		}
 	}
