@@ -338,7 +338,7 @@ update_status ModulePlayer::Update()
 			current_animation->current_frame = 0;
 			current_animation->finish = false;
 			destroyed = false;
-			if (lives <= 0)
+			if (lives <= 1)
 			{
 				//resets lives counter for next gameLoop
 				lives = 3;
@@ -347,7 +347,7 @@ update_status ModulePlayer::Update()
 			else
 			{
 				App->fade->FadeToBlack((Module*)App->scene_lvl1, (Module*)App->scene_lvl1); 
-				lives--;
+				--lives;
 			}
 		}
 
