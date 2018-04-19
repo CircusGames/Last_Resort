@@ -781,22 +781,22 @@ bool ModuleGameTitle::Start()
 	//initializes needed variables
 	timeBetweenLetters = 160; //in ms
 
-	titleScreen = App->textures->Load("assets/Graphics/Screens/intro/titleScreen.png");
-	blackScreenTexture = App->textures->Load("assets/Graphics/Screens/intro/black.png");
-	pushStartTexture = App->textures->Load("assets/Graphics/Screens/intro/pushStart.png");
-	snkTexture = App->textures->Load("assets/Graphics/Screens/intro/snk.png");
-	snkCorpTexture = App->textures->Load("assets/Graphics/Screens/intro/snkCorp.png");
+	titleScreen = App->textures->Load("assets/Graphics/Screens/Intro/titleScreen.png");
+	blackScreenTexture = App->textures->Load("assets/Graphics/Screens/Intro/black.png");
+	pushStartTexture = App->textures->Load("assets/Graphics/Screens/Intro/pushStart.png");
+	snkTexture = App->textures->Load("assets/Graphics/Screens/Intro/snk.png");
+	snkCorpTexture = App->textures->Load("assets/Graphics/Screens/Intro/snkCorp.png");
 
-	lettersTexture[0] = App->textures->Load("assets/Graphics/Screens/intro/L1.png");
-	lettersTexture[1] = App->textures->Load("assets/Graphics/Screens/intro/A.png");
-	lettersTexture[2] = App->textures->Load("assets/Graphics/Screens/intro/S1.png");
-	lettersTexture[3] = App->textures->Load("assets/Graphics/Screens/intro/T1.png");
-	lettersTexture[4] = App->textures->Load("assets/Graphics/Screens/intro/R1.png");
-	lettersTexture[5] = App->textures->Load("assets/Graphics/Screens/intro/E.png");
-	lettersTexture[6] = App->textures->Load("assets/Graphics/Screens/intro/S2.png");
-	lettersTexture[7] = App->textures->Load("assets/Graphics/Screens/intro/O.png");
-	lettersTexture[8] = App->textures->Load("assets/Graphics/Screens/intro/R2.png");
-	lettersTexture[9] = App->textures->Load("assets/Graphics/Screens/intro/T2MOD.png");
+	lettersTexture[0] = App->textures->Load("assets/Graphics/Screens/Intro/L1.png");
+	lettersTexture[1] = App->textures->Load("assets/Graphics/Screens/Intro/A.png");
+	lettersTexture[2] = App->textures->Load("assets/Graphics/Screens/Intro/S1.png");
+	lettersTexture[3] = App->textures->Load("assets/Graphics/Screens/Intro/T1.png");
+	lettersTexture[4] = App->textures->Load("assets/Graphics/Screens/Intro/R1.png");
+	lettersTexture[5] = App->textures->Load("assets/Graphics/Screens/Intro/E.png");
+	lettersTexture[6] = App->textures->Load("assets/Graphics/Screens/Intro/S2.png");
+	lettersTexture[7] = App->textures->Load("assets/Graphics/Screens/Intro/O.png");
+	lettersTexture[8] = App->textures->Load("assets/Graphics/Screens/Intro/R2.png");
+	lettersTexture[9] = App->textures->Load("assets/Graphics/Screens/Intro/T2MOD.png");
 
 	//loading appropiate music
 	App->audio->LoadAudio("assets/Audio/Music/titleScreenSong.ogg", "titleSong", MUSIC);
