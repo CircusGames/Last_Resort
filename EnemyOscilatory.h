@@ -4,18 +4,18 @@
 #include "Enemy.h"
 #include "ModuleTextures.h"
 
-class Oscilatory : public Enemy
+class EnemyOscilatory : public Enemy
 {
 private:
 	float wave = -1.0f;
 	bool going_up = true;
 	int original_y = 0;
-	Animation fly;
+	Animation waveAnim;
 	iPoint original_pos;
 
 public:
 
-	Oscilatory(int x, int y, powerUpTypes type, SDL_Texture * sprite=nullptr);
+	EnemyOscilatory(int x, int y, powerUpTypes type, SDL_Texture * sprite=nullptr);
 
 	void Move();
 
