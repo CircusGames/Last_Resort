@@ -466,11 +466,15 @@ bool ModuleSceneLvl1::Start()
 	// --------------------------------------------------------------------------------------------
 	//App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 640, 80);
 	//App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 665, 80);
+
+	//Trial Enemy2
     App->enemies->AddEnemy(ENEMY_TYPES::ENEMYOSCILATORY, 1200, 30, NONE, App->enemies->enemy2Texture);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYOSCILATORY, 400, 30, NONE, App->enemies->enemy2Texture);
+
+	//Enemy Oscilatory
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYOSCILATORY, 5500, 30, NONE, App->enemies->enemy2Texture);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYOSCILATORY, 5580, 30, NONE, App->enemies->enemy2Texture);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYOSCILATORY, 5660, 30, NONE, App->enemies->enemy2Texture);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYOSCILATORY, 400, 30, NONE, App->enemies->enemy2Texture);
 
 
 	//lvl1 background textures --------------------------------------------------------------------------------
@@ -613,7 +617,7 @@ update_status ModuleSceneLvl1::PreUpdate()
 
 		if (bgMovY.fgRendezvous && bgMovY.mgRendezvous)
 		{
-			bgMovY.lastMovPosX = App->render->currentCameraPosX;//App->render->camera.x; //updates the last x position
+			bgMovY.lastMovPosX = App->render->currentCameraPosX;//App->render->camera.x; //updates the last x positiond
 			updatePos = true;
 			bgMovY.down = true; //and the next mov will be down
 			bgMovY.move = false;
