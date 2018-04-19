@@ -34,5 +34,8 @@ private:
 	SDL_Texture* backgroundTexture;
 	SDL_Texture* continueTexture;
 
+	Uint32 timeBetweenNumbers;
+	Uint32 fireProgessionCounter;
+
 };
 #endif // !_MODULECONTINUE_H__

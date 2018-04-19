@@ -118,7 +118,7 @@ update_status ModuleContinue::Update()
 	}
 
 	//fire anim
-	for (int i = 0; i <= MAX_FRAMES; i++)
+	/*for (int i = 0; i <= MAX_FRAMES; i++)
 	{
 		if (!fireAnim[i].finish)
 		{
@@ -128,7 +128,25 @@ update_status ModuleContinue::Update()
 		{
 			App->render->Blit(continueTexture, 253, 96, &fireAnim[i].GetCurrentFrame());			
 		}
-	}
+	}*/
+
+
+	//for (int i = 0; i <= MAX_FRAMES; ++i)
+	//{
+	Animation* current_animation;
+	current_animation = &fireAnim[0];
+	SDL_Rect fireRect = current_animation->GetCurrentFrame();
+
+		App->render->Blit(continueTexture, 21 , 96, &fireRect);
+		App->render->Blit(continueTexture, 53, 96, &fireRect);
+		App->render->Blit(continueTexture, 85, 96, &fireRect);
+		App->render->Blit(continueTexture, 117, 96,&fireRect);
+		App->render->Blit(continueTexture, 149, 96, &fireRect);
+		App->render->Blit(continueTexture, 181, 96, &fireRect);
+		App->render->Blit(continueTexture, 213, 96, &fireRect);
+		App->render->Blit(continueTexture, 253, 96, &fireRect);
+	//}
+
 		
 	// continue rect
 	App->render->Blit(continueTexture, 16, 96, &continueRect);

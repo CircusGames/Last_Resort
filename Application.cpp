@@ -61,8 +61,8 @@ bool Application::Init()
 	//scenes ------------
 	teamLogo->Disable();
 	gameTitle->Disable();
-	//scene_lvl1->Disable();
-	continueScreen->Disable();
+	scene_lvl1->Disable();
+	//continueScreen->Disable();
 	gameOverScreen->Disable();
 	//other modules -----
 	player->Disable();
