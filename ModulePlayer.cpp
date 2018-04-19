@@ -323,6 +323,7 @@ update_status ModulePlayer::Update()
 	// --------------------------------------------------------------------------------------
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	else if (player_step == player_state::died && destroyed)
 	{
 		current_animation = &playerDyingAnim;
@@ -343,6 +344,8 @@ update_status ModulePlayer::Update()
 		}
 
 	}
+=======
+>>>>>>> parent of 6657e95... Merge branch 'master' of https://github.com/CircusGames/Last_Resort
 =======
 >>>>>>> parent of 6657e95... Merge branch 'master' of https://github.com/CircusGames/Last_Resort
 =======
