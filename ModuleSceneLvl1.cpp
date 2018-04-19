@@ -473,7 +473,7 @@ bool ModuleSceneLvl1::Start()
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYOSCILATORY, 400, 30, NONE, App->enemies->enemy2Texture);
 
 
-	////lvl1 background textures
+	//lvl1 background textures --------------------------------------------------------------------------------
 	bg = App->textures->Load("assets/Graphics/Backgrounds/Lvl_1/lvl1_bg.png");
 	mg = App->textures->Load("assets/Graphics/Backgrounds/Lvl_1/lvl1_mg.png");
 	fg = App->textures->Load("assets/Graphics/Backgrounds/Lvl_1/lvl1_fg.png");
@@ -484,12 +484,7 @@ bool ModuleSceneLvl1::Start()
 	midgroundLightsTexture = App->textures->Load("assets/Graphics/Backgrounds/Lvl_1/midgroundLights.png");
 	buildingLasersTexture = App->textures->Load("assets/Graphics/Backgrounds/Lvl_1/lvl1_buildingLasers.png");
 
-	//provisonal enemy texture and collider -------------------------------------------
-	provisionalEnemy = App->textures->Load("assets/Graphics/Enemies/Level_1/enemy1.png");
-	provisionalEnemeyCollider = App->collision->AddCollider({200,50,32,16}, COLLIDER_ENEMY, this);
-	// --------------------------------------------------------------------------------
-
-	//loading music and fx
+	//loading music and fx -------------------------------------------------------------------------------------
 	App->audio->LoadAudio("assets/Audio/Music/song_level_1.ogg", "song_lvl1", MUSIC);
 	App->audio->ControlAudio("song_lvl1", MUSIC, FADEIN, -1, 1500.0f); //type, playMode, loops, fadeIn, fadeOut
 
@@ -860,7 +855,6 @@ update_status ModuleSceneLvl1::Update()
 	//provisional static enemy to check collisions
 
 	App->render->Blit(provisionalEnemy, provisionalEnemyPosition.x, provisionalEnemyPosition.y, &provionsalEnemyRect, 1.0f);
-	provisionalEnemeyCollider->SetPos(provisionalEnemyPosition.x, provisionalEnemyPosition.y);
 
 	//SCENE SWITCHING
 
