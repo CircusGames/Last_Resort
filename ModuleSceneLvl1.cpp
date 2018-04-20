@@ -524,6 +524,8 @@ bool ModuleSceneLvl1::Start()
 	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 19428, 41, NONE, App->enemies->enemy1Texture);
 	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 19466, 105, NONE, App->enemies->enemy1Texture);
 	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 19503, 163, NONE, App->enemies->enemy1Texture);
+	//little pause
+	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 20833, 40, NONE, App->enemies->enemy1Texture);
 
 	//if you not define a specific texture, remember to write the specific link code (see basic_enemy.cpp),
 	//and the "general" texture is used instead.
