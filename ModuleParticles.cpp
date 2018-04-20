@@ -11,6 +11,8 @@
 
 #include "SDL/include/SDL_timer.h"
 
+#define MARGIN 20
+
 ModuleParticles::ModuleParticles()
 {
 	for (uint i = 0; i < MAX_ACTIVE_PARTICLES; ++i)
@@ -208,10 +210,15 @@ bool Particle::Update()
 		if ((SDL_GetTicks() - born) > life)
 			ret = false;
 	}
-	else
-		if (anim.finish)
-			ret = false;
+	else if (anim.finish)
+				ret = false;
 	
+	//destroy particles respect camera position margins
+	if (position.x > (abs(App->render->camera.x) / SCREEN_SIZE) + SCREEN_WIDTH - MARGIN)
+		ret = false;
+	else if (position.x < (abs(App->render->camera.x) / SCREEN_SIZE) - MARGIN)
+		ret = false;
+
 	position.x += speed.x;
 	position.y += speed.y;
 
