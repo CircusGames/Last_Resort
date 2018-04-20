@@ -249,9 +249,9 @@ update_status ModulePlayer::Update()
 			//if (position.x + (int)playerSpeed >= 256) //0 = min y coordinate, 9=texture height/2 + offset
 				//position.x = 256; //target min y player position
 
-			if (position.x > (abs(App->render->camera.x) / SCREEN_SIZE) + SCREEN_WIDTH - 30)
+			if (position.x > (abs(App->render->camera.x) / SCREEN_SIZE) + SCREEN_WIDTH - (32+16)) //player text width + offset
 			{
-				position.x = (abs(App->render->camera.x) / SCREEN_SIZE) + SCREEN_WIDTH - 30;// 16 = 1/2 player width + 16 offset original game
+				position.x = (abs(App->render->camera.x) / SCREEN_SIZE) + SCREEN_WIDTH - (32+16);// 16 = 1/2 player width + 16 offset original game
 			}
 		}
 
@@ -265,9 +265,9 @@ update_status ModulePlayer::Update()
 
 			/*if (position.x + (int)playerSpeed <= 0 + 16) //0 = min y coordinate, 9=texture height/2 + offset
 				position.x = 16; //target min y player position*/
-			if (position.x < abs(App->render->camera.x) / SCREEN_SIZE + 30)
+			if (position.x < abs(App->render->camera.x) / SCREEN_SIZE + 16)
 			{
-				position.x = abs(App->render->camera.x) / SCREEN_SIZE + 30;// 16 = 1/2 player width + 16 offset original game
+				position.x = abs(App->render->camera.x) / SCREEN_SIZE + 16;// 16 = 1/2 player width + 16 offset original game
 			}
 		}
 
