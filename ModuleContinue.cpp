@@ -41,7 +41,7 @@ ModuleContinue::ModuleContinue()
 			else
 				fireAnim[i].PushBack({ 32 * (j - MAX_FRAMES), 128, 32, 32 });
 		}
-		fireAnim[i].speed = 0.14f;
+		fireAnim[i].speed = 0.25f;
 	}
 
 	//numbers 
@@ -90,6 +90,13 @@ bool ModuleContinue::Start()
 	App->audio->LoadAudio("assets/Audio/Music/Continue.ogg", "continueSong", MUSIC);
 	App->audio->ControlAudio("continueSong", SFX, PLAY);
 
+	start_time = SDL_GetTicks(); //next letter counter
+	next = 0;
+	timeBetweenFrames = 10; //in ms
+
+	row = 0;
+	nextPrint = true;
+
 	return true;
 }
 
@@ -131,30 +138,93 @@ update_status ModuleContinue::Update()
 		}
 	}*/
 
+	//index of fireAnims current frame incrementer
+	int incrementOrder[20][4][6] = //here for testing //row,next,i
+	{ 
+		{ {0}, {-1}, {7}, {1,2,3,4,5,6} }, //-1 indicates its prints nothing,no frame increment
+		{ {0}, {1}, {7}, {2,3,4,5,6} },
+		{ {0}, {1}, {2,7}, {3,4,5,6} },
+		{ {0}, {1}, {2,7}, {3,4,5,6} },
+		{ {0}, {1}, {2,7}, {3,4,5,6} },
+		{ {0,4}, {1}, {2,7}, {3,5,6} },
+		{ {0,4}, {1,5}, {2,7}, {3,6} },
+		{ { 0,4 },{ 1,5 },{ 2,6,7 },{ 3 } },
+		{ { 0,4 },{ 1,5 },{ 2,6,7 },{ 3 } },
+		{ { 0,4 },{ 1,5 },{ 2,6,7 },{ 3 } },
+		{ { 0,4 },{ 1,5 },{ 2,6,7 },{ 3 } },
+		{ { 0,4 },{ 1,5 },{ 2,6,7 },{ 3 } },
+		{ { 0,4 },{ 1,5 },{ 2,6,7 },{ 3 } },
 
-	//for (int i = 0; i <= MAX_FRAMES; ++i)
-	//{
-	Animation* current_animation;
-	current_animation = &fireAnim[0];
-	SDL_Rect fireRect = current_animation->GetCurrentFrame();
+		//this is not really tested, step frame is needed in shot factory
+		{ { 0,4 },{ 1,5 },{ 2,6,7 },{ 3 } },
+		{ { 0,4 },{ 1,5 },{ 2,6,7 },{ 3 } },
+		{ { 0,4 },{ 1,5 },{ 2,6,7 },{ 3 } },
+		{ { 0,4 },{ 1,5 },{ 2,6,7 },{ 3 } },
+		{ { 0,4 },{ 1,5 },{ 2,6,7 },{ 3 } },
+		{ { 0,4 },{ 1,5 },{ 2,6,7 },{ 3 } },
 
-		App->render->Blit(continueTexture, 21 , 96, &fireRect);
-		App->render->Blit(continueTexture, 53, 96, &fireRect);
-		App->render->Blit(continueTexture, 85, 96, &fireRect);
-		App->render->Blit(continueTexture, 117, 96,&fireRect);
-		App->render->Blit(continueTexture, 149, 96, &fireRect);
-		App->render->Blit(continueTexture, 181, 96, &fireRect);
-		App->render->Blit(continueTexture, 213, 96, &fireRect);
-		App->render->Blit(continueTexture, 253, 96, &fireRect);
-	//}
+		//and fires progressive disappears //not completed yet
+
+	};
+
+	
+	now = SDL_GetTicks() - start_time;
+	if (now >= timeBetweenFrames && row < 19)
+	{
+		next++;
+		start_time = SDL_GetTicks();
 
 		
+		if (next > 3) //cycles of 4 frames
+		{
+			row++;
+			next = 0;
+			
+		}
+		nextPrint = true;
 
-	/*for (int i = 0; i < MAX_FRAMES; i++)
-	{
-		App->render->Blit(continueTexture, 21 + 32 * i, 96, &fireAnim[i].GetCurrentFrame());
-	}*/
-	
+	}
+
+		Animation* current_animation;
+		SDL_Rect fireFrame;
+		
+		//prints the frames always (current frame)
+		for (int i = 0; i < 8; ++i)
+		{
+			current_animation = &fireAnim[i];
+			fireFrame = current_animation->frames[(int)current_animation->current_frame];
+			App->render->Blit(continueTexture, firePositions[i], 96, &fireFrame);	
+		}
+
+		//still not really fine, but seems to be a good way
+		if (nextPrint)
+		{
+			for (int i = 0; i < 7; ++i) //this works fine, show the correct positions and frames
+			{							 //but we need increment the frames too, only one time per index
+				current_animation = &fireAnim[incrementOrder[row][next][i]];
+				if (incrementOrder[row][next][i] == 0 && i != 0) //if index is the first frame, ignore, if not, break
+				{												 //for initials conditions on index 0, we need it first
+					nextPrint = false;
+					break;
+				}
+				
+				current_animation->current_frame += 1;
+				
+			}
+		}
+
+		/*for (int i = 0; i <= incrementOrder[row][next][i]; ++i) //this works fine, show the correct positions and frames
+		{															   //but we need increment the frames too, only one time per index
+
+
+		current_animation = &fireAnim[incrementOrder[row][next][i]];
+		SDL_Rect fireFrame = current_animation->frames[row];
+
+		//prints the current fireloop frame of the changing animations
+		App->render->Blit(continueTexture, firePositions[incrementOrder[row][next][i]], 96, &fireFrame);
+
+
+		}*/
 
 	// continue rect
 	App->render->Blit(continueTexture, 16, 96, &continueRect);

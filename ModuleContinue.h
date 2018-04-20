@@ -37,5 +37,15 @@ private:
 	Uint32 timeBetweenNumbers;
 	Uint32 fireProgessionCounter;
 
+	Uint32 start_time;
+	Uint32 now;
+	int next;
+	int timeBetweenFrames;
+	bool nextPrint = false;
+	int firePositions[8] = {21,53,85,117,149,181,213,253};
+	int row;
+	
+	
+
 };
 #endif // !_MODULECONTINUE_H__
