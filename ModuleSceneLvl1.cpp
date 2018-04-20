@@ -531,11 +531,8 @@ bool ModuleSceneLvl1::Start()
 	//App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 640, 80);
 	//App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 665, 80);
 
-	//Trial Enemy2
-    //App->enemies->AddEnemy(ENEMY_TYPES::ENEMYOSCILATORY, 1200, 30, NONE, App->enemies->enemy2Texture);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYOSCILATORY, 400, 80, NONE, App->enemies->enemy2Texture);
-
 	//Enemy Oscilatory
+	//First Wave
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYOSCILATORY, 5500, 90, NONE, App->enemies->enemy2Texture);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYOSCILATORY, 5590, 90, NONE, App->enemies->enemy2Texture);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYOSCILATORY, 5680, 90, NONE, App->enemies->enemy2Texture);
@@ -548,6 +545,20 @@ bool ModuleSceneLvl1::Start()
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYOSCILATORY, 6310, 90, NONE, App->enemies->enemy2Texture);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYOSCILATORY, 6400, 90, NONE, App->enemies->enemy2Texture);
 
+	//Second Wave
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYOSCILATORY, 11200, 90, NONE, App->enemies->enemy2Texture);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYOSCILATORY, 11290, 90, NONE, App->enemies->enemy2Texture);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYOSCILATORY, 11380, 120, NONE, App->enemies->enemy2Texture);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYOSCILATORY, 11470, 120, NONE, App->enemies->enemy2Texture);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYOSCILATORY, 11560, 120, NONE, App->enemies->enemy2Texture);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYOSCILATORY, 11650, 120, NONE, App->enemies->enemy2Texture);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYOSCILATORY, 11740, 120, NONE, App->enemies->enemy2Texture);
+
+	//Third Wave Still Not Exact
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYOSCILATORY, 12200, 65, NONE, App->enemies->enemy2Texture);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYOSCILATORY, 12350, 65, NONE, App->enemies->enemy2Texture);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYOSCILATORY, 12500, 65, NONE, App->enemies->enemy2Texture);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYOSCILATORY, 12650, 65, NONE, App->enemies->enemy2Texture);
 
 	//lvl1 background textures --------------------------------------------------------------------------------
 	bg = App->textures->Load("assets/Graphics/Backgrounds/Lvl_1/lvl1_bg.png");
