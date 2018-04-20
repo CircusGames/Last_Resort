@@ -62,6 +62,6 @@ void EnemyOscilatory::Move()
 			wave -= 0.05f;
 	}
 
-	position.y = int(float(original_y) + (80.0f * sinf(wave)));
+	position.y = int(float(original_y) + (82.0f * sinf(wave)));
 	position.x -= 1;
 }
