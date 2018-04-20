@@ -37,9 +37,9 @@ bool ModuleGameOver::Start()
 
 update_status ModuleGameOver::Update()
 {
-	/*for (int time = 0; time < 100000; time++) {
+	for (int time = 0; time < 100000; time++) {
 		App->render->Blit(gameOverTexture, 25, 36, &gameOverFirstRect);
-	}*/
+	}
 	now = SDL_GetTicks() - start_time;
 	current_step = intro_step::fade_to_white;
 	start_time = SDL_GetTicks();
