@@ -456,13 +456,13 @@ bool ModuleSceneLvl1::Start()
 	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 1210, 138, NONE, App->enemies->enemy1Texture);
 	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 1235, 31, NONE, App->enemies->enemy1Texture);
 	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 1305, 31, NONE, App->enemies->enemy1Texture);
-	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 1375, 31, UNIT, App->enemies->enemy1Texture);
-	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 1445, 31, NONE, App->enemies->enemy1Texture);
+	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 1375, 31, NONE, App->enemies->enemy1Texture);
+	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 1445, 31, UNIT, App->enemies->enemy1Texture);//10 - L
 	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 1505, 164, NONE, App->enemies->enemy1Texture);
-	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 1575, 164, UNIT, App->enemies->enemy1Texture);
+	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 1575, 164, NONE, App->enemies->enemy1Texture);
 	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 1645, 164, NONE, App->enemies->enemy1Texture);
 	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 1715, 164, NONE, App->enemies->enemy1Texture);
-	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 1785, 164, NONE, App->enemies->enemy1Texture);
+	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 1785, 164, BOOST, App->enemies->enemy1Texture);//15 - S
 	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 1809, 115, NONE, App->enemies->enemy1Texture);
 	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 1885, 131, NONE, App->enemies->enemy1Texture);
 	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 1887, 60, NONE, App->enemies->enemy1Texture);
@@ -478,8 +478,8 @@ bool ModuleSceneLvl1::Start()
 	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 2446, 162, NONE, App->enemies->enemy1Texture);
 	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 2506, 52, NONE, App->enemies->enemy1Texture);
 	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 2516, 162, NONE, App->enemies->enemy1Texture);
-	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 2576, 52, NONE, App->enemies->enemy1Texture);
-	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 2586, 162, NONE, App->enemies->enemy1Texture);
+	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 2576, 52, UNIT, App->enemies->enemy1Texture);//31 - H
+	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 2586, 162, UNIT, App->enemies->enemy1Texture);//32 - L
 	//little pause during middle boss 
 	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 4755, 40, NONE, App->enemies->enemy1Texture);
 	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 4830, 72, NONE, App->enemies->enemy1Texture);
@@ -489,7 +489,7 @@ bool ModuleSceneLvl1::Start()
 	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 5125, 168, NONE, App->enemies->enemy1Texture);
 	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 5195, 168, NONE, App->enemies->enemy1Texture);
 	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 5265, 168, NONE, App->enemies->enemy1Texture);
-	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 5335, 168, NONE, App->enemies->enemy1Texture);
+	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 5335, 168, BOOST, App->enemies->enemy1Texture); //41 - S
 	//little pause during oscillers
 	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 7615, 103, NONE, App->enemies->enemy1Texture);
 	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 7685, 55, NONE, App->enemies->enemy1Texture);
@@ -509,7 +509,7 @@ bool ModuleSceneLvl1::Start()
 	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 8750, 64, NONE, App->enemies->enemy1Texture);
 	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 8820, 64, NONE, App->enemies->enemy1Texture);
 	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 8890, 64, NONE, App->enemies->enemy1Texture);
-	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 8960, 64, NONE, App->enemies->enemy1Texture);
+	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 8960, 64, BOOST, App->enemies->enemy1Texture); //59 - S
 	//tunel pause
 	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 18810, 105, NONE, App->enemies->enemy1Texture);
 	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 18887, 54, NONE, App->enemies->enemy1Texture);
@@ -533,7 +533,7 @@ bool ModuleSceneLvl1::Start()
 	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 21205, 168, NONE, App->enemies->enemy1Texture);
 	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 21277, 168, NONE, App->enemies->enemy1Texture);
 	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 21349, 168, NONE, App->enemies->enemy1Texture);
-	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 21421, 168, NONE, App->enemies->enemy1Texture);
+	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 21421, 168, UNIT, App->enemies->enemy1Texture); //last - G
 
 	//if you not define a specific texture, remember to write the specific link code (see basic_enemy.cpp),
 	//and the "general" texture is used instead.
