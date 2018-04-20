@@ -31,7 +31,7 @@ EnemyOscilatory::EnemyOscilatory(int x, int y, powerUpTypes type, SDL_Texture* s
 	waveAnim.PushBack({ 144,0,48,46 });
 	waveAnim.PushBack({ 96,0,47,46 });
 	waveAnim.PushBack({ 49,0,48,46 });
-	waveAnim.speed = 0.25f;
+	waveAnim.speed = 0.05f;
 
 	animation = &waveAnim;
 	texture = sprite;
@@ -49,19 +49,19 @@ void EnemyOscilatory::Move()
 {
 	if (going_up)
 	{
-		if (wave > 1.0f)
+		if (wave > 1.25f)
 			going_up = false;
 		else
 			wave += 0.05f;
 	}
 	else
 	{
-		if (wave < -1.0f)
+		if (wave < -1.25f)
 			going_up = true;
 		else
 			wave -= 0.05f;
 	}
 
-	position.y = int(float(original_y) + (25.0f * sinf(wave)));
+	position.y = int(float(original_y) + (80.0f * sinf(wave)));
 	position.x -= 1;
 }
