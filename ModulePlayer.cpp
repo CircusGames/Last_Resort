@@ -349,7 +349,7 @@ update_status ModulePlayer::Update()
 			}
 			else
 			{
-				App->fade->FadeToBlack((Module*)App->scene_lvl1, (Module*)App->scene_lvl1); 
+				App->fade->FadeToBlack((Module*)App->scene_lvl1, (Module*)App->continueScreen, 1.0f); 
 				--lives;
 			}
 		}
