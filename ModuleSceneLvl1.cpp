@@ -526,6 +526,14 @@ bool ModuleSceneLvl1::Start()
 	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 19503, 163, NONE, App->enemies->enemy1Texture);
 	//little pause
 	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 20833, 40, NONE, App->enemies->enemy1Texture);
+	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 20908, 72, NONE, App->enemies->enemy1Texture);
+	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 20983, 104, NONE, App->enemies->enemy1Texture);
+	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 21058, 136, NONE, App->enemies->enemy1Texture);
+	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 21133, 168, NONE, App->enemies->enemy1Texture);
+	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 21205, 168, NONE, App->enemies->enemy1Texture);
+	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 21277, 168, NONE, App->enemies->enemy1Texture);
+	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 21349, 168, NONE, App->enemies->enemy1Texture);
+	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 21421, 168, NONE, App->enemies->enemy1Texture);
 
 	//if you not define a specific texture, remember to write the specific link code (see basic_enemy.cpp),
 	//and the "general" texture is used instead.
@@ -631,7 +639,7 @@ bool ModuleSceneLvl1::Start()
 update_status ModuleSceneLvl1::PreUpdate()
 {
 
-	if (App->render->currentCameraPosX <= -4408)
+	if (App->render->currentCameraPosX <= -5008)
 	{
 		scrollX = false;
 	}
