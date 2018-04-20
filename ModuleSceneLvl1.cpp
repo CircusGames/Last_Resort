@@ -531,6 +531,8 @@ bool ModuleSceneLvl1::Start()
 	//App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 640, 80);
 	//App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 665, 80);
 
+	//Trial
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYOSCILATORY, 500, 90, NONE, App->enemies->enemy2Texture);
 	//Enemy Oscilatory
 	//First Wave
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYOSCILATORY, 5500, 90, NONE, App->enemies->enemy2Texture);
