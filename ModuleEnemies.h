@@ -10,7 +10,8 @@ enum ENEMY_TYPES
 {
 	NO_TYPE,
 	BASIC_ENEMY,
-	ENEMYOSCILATORY
+	ENEMYOSCILATORY,
+	TANK
 };
 
 class Enemy;
@@ -44,7 +45,7 @@ public:
 	//more enemies textures -------
 	SDL_Texture* enemy1Texture;
 	SDL_Texture* enemy2Texture;
-
+	SDL_Texture* enemyTankTexture;
 	// ----------------------------
 	
 

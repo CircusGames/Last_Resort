@@ -7,6 +7,7 @@
 #include "Enemy.h"
 #include "BasicEnemy.h"
 #include "EnemyOscilatory.h"
+#include "EnemyTank.h"
 #include "ModulePowerUp.h"
 
 #define SPAWN_MARGIN 50
@@ -33,6 +34,7 @@ bool ModuleEnemies::Start()
 	//texture to pass in scene, when calls AddEnemy(); method. -----------------------------
 	enemy1Texture = App->textures->Load("assets/Graphics/Enemies/Level_1/enemy1.png");
 	enemy2Texture = App->textures->Load("assets/Graphics/Enemies/Level_1/oscilator.png");
+	enemyTankTexture = App->textures->Load("assets/Graphics/Enemies/Level_1/Tank.png");
 	// -------------------------------------------------------------------------------------
 
 	return true;
@@ -149,6 +151,9 @@ void ModuleEnemies::SpawnEnemy(EnemyInfo& info)
 			break;
 		case ENEMY_TYPES::ENEMYOSCILATORY:
 			enemies[i] = new EnemyOscilatory(info.x, info.y, info.powerUpType, info.texture);
+			break;
+		case ENEMY_TYPES::TANK:
+			enemies[i]=new EnemyTank(info.x, info.y, info.powerUpType, info.texture);
 			break;
 		}
 	}
