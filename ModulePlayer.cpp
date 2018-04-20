@@ -305,7 +305,7 @@ update_status ModulePlayer::Update()
 		//DEBUG: GODMODE F2
 		if (App->input->keyboard[SDL_SCANCODE_F2] == KEY_DOWN)
 		{
-			if (playerCollider != nullptr)
+			if (playerCollider != nullptr && !godMode)
 			{
 				this->playerCollider->to_delete = true;
 				playerCollider = nullptr;
@@ -314,6 +314,8 @@ update_status ModulePlayer::Update()
 			}
 			else
 			{
+				this->playerCollider->to_delete = true;
+				playerCollider = nullptr;
 				playerCollider = App->collision->AddCollider({ position.x, position.y - 6, 32, 12 }, COLLIDER_PLAYER, this);
 				godMode = false;
 			}
