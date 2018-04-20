@@ -61,7 +61,7 @@ bool ModuleContinue::Start()
 {
 	LOG("-------- Loading continue scene");
 
-	SDL_SetRenderDrawBlendMode(App->render->renderer, SDL_BLENDMODE_ADD);
+	//SDL_SetRenderDrawBlendMode(App->render->renderer, SDL_BLENDMODE_ADD);
 
 	//disable
 	/*if (App->player->IsEnabled())
@@ -77,7 +77,7 @@ bool ModuleContinue::Start()
 		App->player2Unit->Disable();*/
 
 	//alpha
-	number = 9;
+	//number = 9;
 	cycle = true;
 	normalized = 2.5f;
 	alpha = 255.0f;
@@ -96,6 +96,7 @@ bool ModuleContinue::Start()
 
 	row = 0;
 	nextPrint = true;
+	nextNumber = 9;
 
 	return true;
 }
@@ -167,8 +168,9 @@ update_status ModuleContinue::Update()
 
 	};
 
-	
+	//increments by time
 	now = SDL_GetTicks() - start_time;
+
 	if (now >= timeBetweenFrames && row < 19)
 	{
 		next++;
@@ -184,6 +186,7 @@ update_status ModuleContinue::Update()
 		nextPrint = true;
 
 	}
+	
 
 		Animation* current_animation;
 		SDL_Rect fireFrame;
@@ -208,37 +211,30 @@ update_status ModuleContinue::Update()
 					break;
 				}
 				
-				current_animation->current_frame += 1;
-				
+				current_animation->current_frame += 1.0f;
 			}
 		}
 
-		/*for (int i = 0; i <= incrementOrder[row][next][i]; ++i) //this works fine, show the correct positions and frames
-		{															   //but we need increment the frames too, only one time per index
+		if (row >= 19) //loops forever
+		{
+			row = 0, next = 0; // nextPrint = true; 
+			nextNumber--;
+			for (int i = 0; i < 8; ++i) fireAnim[i].current_frame = 0;
+		};
 
-
-		current_animation = &fireAnim[incrementOrder[row][next][i]];
-		SDL_Rect fireFrame = current_animation->frames[row];
-
-		//prints the current fireloop frame of the changing animations
-		App->render->Blit(continueTexture, firePositions[incrementOrder[row][next][i]], 96, &fireFrame);
-
-
-		}*/
 
 	// continue rect
 	App->render->Blit(continueTexture, 16, 96, &continueRect);
 
 	// numbers anim
-	App->render->Blit(continueTexture, 256, 96, &numbersAnim.frames[0]);
+	App->render->Blit(continueTexture, 256, 96, &numbersAnim.frames[nextNumber]);
 
-	if (number < 0)
+	if (nextNumber <= 0)
 		App->fade->FadeToBlack(App->continueScreen, App->gameOverScreen, 0.8f);
 
 
-
-	if (App->input->keyboard[SDL_SCANCODE_RETURN] == 1)
-		App->fade->FadeToBlack(App->continueScreen, App->gameOverScreen, 0.8f);
+	if (App->input->keyboard[SDL_SCANCODE_RETURN] == 1 && App->player->lives > 0)
+		App->fade->FadeToBlack(App->continueScreen, (Module*)App->scene_lvl1, 0.8f);
 
 	return UPDATE_CONTINUE;
 }
@@ -251,6 +247,9 @@ bool ModuleContinue::CleanUp()
 	App->textures->Unload(continueTexture);
 
 	App->audio->UnloadAudio("continueSong", MUSIC);
+
+	//resets all fireframes positions
+	for (int i = 0; i < 8; ++i) fireAnim[i].current_frame = 0;
 
 	return true;
 }
