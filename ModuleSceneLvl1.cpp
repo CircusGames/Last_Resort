@@ -946,10 +946,6 @@ update_status ModuleSceneLvl1::Update()
 	//App->render->Blit(App->textures->textures[6], 0, bgMovY.fg_y, &fgRect, 1.0f); //testing purposes
 
 
-	//provisional static enemy to check collisions
-
-	App->render->Blit(provisionalEnemy, provisionalEnemyPosition.x, provisionalEnemyPosition.y, &provionsalEnemyRect, 1.0f);
-
 	//SCENE SWITCHING
 
 	if (App->input->keyboard[SDL_SCANCODE_RETURN] == 1)

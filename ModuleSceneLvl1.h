@@ -31,7 +31,6 @@ public:
 
 public:
 	
-	SDL_Texture* graphics = nullptr;
 	//bg textures---------------------------
 	SDL_Texture* bg = nullptr; //background
 	SDL_Texture* mg = nullptr; //midground
@@ -42,11 +41,6 @@ public:
 	SDL_Texture* boss = nullptr;
 	SDL_Texture* buildingLasersTexture = nullptr;
 	SDL_Texture* midgroundLightsTexture = nullptr;
-
-	SDL_Texture* provisionalEnemy = nullptr;
-	SDL_Rect provionsalEnemyRect;
-	Collider* provisionalEnemeyCollider;
-	iPoint provisionalEnemyPosition;
 	
 	SDL_Rect bgRect;
 	SDL_Rect fgRect;
