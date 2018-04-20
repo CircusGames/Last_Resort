@@ -62,7 +62,7 @@ update_status ModuleGameOver::Update()
 			{
 
 				App->render->Blit(blackScreenTexture, 0, 0, NULL);
-				App->render->Blit(gameOverTexture, 12, 9, &gameOverFirstRect);
+				//App->render->Blit(gameOverTexture, 12, 9, &gameOverFirstRect);
 
 				SDL_SetRenderDrawColor(App->render->renderer, 255, 255, 255, (Uint8)(normalized * 255.0f));
 				SDL_RenderFillRect(App->render->renderer, NULL);
