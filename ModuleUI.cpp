@@ -43,10 +43,16 @@ update_status ModuleUI::Update()
 	sprintf_s(redNumbers_text, 10, "%7d", score2);
 
 	//Blit the text of the score in the screen
-	
+
+	//BlitText(150, 200, font_score, score_text);//"hello world 0123");//score_text);
+
 	//BlitText(150, 200, font_score, "hello world 0123");//score_text);
 
 	//BlitText(150, 200, font_score, score_text);//"hello world 0123");//score_text);
+
+
+	//BlitText(150, 200, font_score, score_text);//"hello world 0123");//score_text);
+
 	//BlitText(150, 210, redNumbers, "01234 56789");//score_text);
 
 	return UPDATE_CONTINUE;
