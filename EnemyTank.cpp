@@ -2,6 +2,7 @@
 #include "EnemyTank.h"
 #include "ModuleCollision.h"
 #include "ModuleEnemies.h"
+#include "Path.h"
 
 #define BOOST_FRAMES 4
 
@@ -46,5 +47,6 @@ EnemyTank::EnemyTank(int x, int y, powerUpTypes type, SDL_Texture* sprite) : Ene
 
 void EnemyTank::Move()
 {
-	position.x += 1;
+	position.x += 2;
+	position = originalPos + path.GetCurrentSpeed(&animation);
 }
