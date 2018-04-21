@@ -9,6 +9,10 @@
 #include "ModuleFadeToBlack.h"
 #include "ModuleAudio.h"
 #include "SDL/include/SDL_timer.h"
+#include "ModulePlayer.h"
+#include "ModulePlayer2.h"
+#include "ModulePlayerUnit.h"
+#include "ModulePlayer2Unit.h"
 
 #include "SDL/include/SDL_render.h"
 
@@ -37,67 +41,33 @@ bool ModuleGameOver::Start()
 
 update_status ModuleGameOver::Update()
 {
+	current_step = intro_step::firstSecuence; //<------ If you put this, the first Game Over is ok but the secuence don't continue to the Fade to White and last Game Over
 	//App->render->Blit(gameOverTexture, 25, 36, &gameOverFirstRect);
 	//App->render->Blit(gameOverTexture, 25, 36, &gameOverMidRect);
 	//App->render->Blit(gameOverTexture, 35,46, &gameOverRect);
-	if (current_step == intro_step::firstSecuence ||
-		current_step == intro_step::firstletters)
+	if (current_step == intro_step::firstSecuence)
 	{
 		App->render->Blit(blackScreenTexture, 0, 0, NULL);
-		now = SDL_GetTicks() - start_time;
-		float normalized;
-		if (current_step == intro_step::secondletters) normalized = MIN(1.0f, (float)now / (float)lastFadeFromWhiteTime);
-		else normalized = MIN(1.0f, (float)now / (float)total_time);
-
-		if (current_step == intro_step::firstSecuence)
-		{
-			if (now >= total_time)
-			{
-
-				//App->render->Blit(blackScreenTexture, 0, 0, NULL);
-				//App->render->Blit(gameOverTexture, 12, 9, NULL);
-
-				App->render->Blit(gameOverTexture, 25, 36, &gameOverFirstRect);
-				//SDL_RenderFillRect(App->render->renderer, NULL);
-				// ---
-				total_time += total_time;
-				start_time = SDL_GetTicks();
-				current_step = intro_step::secondletters;
-
-			}
-			if (current_step == intro_step::firstletters)
-			{
-				current_step = intro_step::secondletters;
-				start_time = SDL_GetTicks();
-				total_time = 500.0f;
-				lastFadeFromWhiteTime = 3000.0f;
-			}
-		}
-	}
-	else if (current_step == intro_step::secondletters) {
-		now = SDL_GetTicks() - start_time;
-		float normalized;
-		normalized = MIN(1.0f, (float)now / (float)total_time);
-
-
-		//App->render->Blit(blackScreenTexture, 0, 0, NULL);
-		App->render->Blit(gameOverTexture, 12, 9, &gameOverFirstRect);
-
-		App->render->Blit(gameOverTexture, 25, 36, &gameOverMidRect);
+		App->render->Blit(gameOverTexture, 25, 36, &gameOverFirstRect);
+		//App->render->Blit(gameOverTexture, 25,36, &gameOverFirstRect);
 		SDL_RenderFillRect(App->render->renderer, NULL);
 		// ---
 		total_time += total_time;
 		start_time = SDL_GetTicks();
+		total_time = 500.0f;
+		lastFadeFromWhiteTime = 3000.0f;
 		current_step = intro_step::fade_to_white;
+
 	}
+
 	else if (current_step == intro_step::fade_to_white ||
 		current_step == intro_step::fade_from_white ||
-		current_step == intro_step::time_in_white) {
+		current_step == intro_step::time_in_white)
+	{
 		now = SDL_GetTicks() - start_time;
 		float normalized;
 		if (current_step == intro_step::fade_from_white) normalized = MIN(1.0f, (float)now / (float)lastFadeFromWhiteTime);
 		else normalized = MIN(1.0f, (float)now / (float)total_time);
-
 
 		if (current_step == intro_step::fade_to_white)
 		{
@@ -105,7 +75,7 @@ update_status ModuleGameOver::Update()
 			{
 
 				App->render->Blit(blackScreenTexture, 0, 0, NULL);
-				App->render->Blit(gameOverTexture, 12, 9, NULL);
+				App->render->Blit(gameOverTexture, 35, 46, NULL);
 
 				SDL_SetRenderDrawColor(App->render->renderer, 255, 255, 255, (Uint8)(normalized * 255.0f));
 				SDL_RenderFillRect(App->render->renderer, NULL);
@@ -131,7 +101,7 @@ update_status ModuleGameOver::Update()
 		{
 
 			App->render->Blit(blackScreenTexture, 0, 0, NULL);
-			App->render->Blit(gameOverTexture, 12, 9, &gameOverRect);
+			App->render->Blit(gameOverTexture, 35, 46, &gameOverRect);
 			normalized = 1.0f - normalized;
 
 			if (now >= lastFadeFromWhiteTime)
@@ -139,13 +109,20 @@ update_status ModuleGameOver::Update()
 		}
 		SDL_SetRenderDrawColor(App->render->renderer, 255, 255, 255, (Uint8)(normalized * 255.0f));
 		SDL_RenderFillRect(App->render->renderer, NULL);
-
-		if (current_step == intro_step::lastgameover)
-		{
-			App->render->Blit(blackScreenTexture, 0, 0, NULL);
-			App->render->Blit(gameOverTexture, 12, 9, &gameOverRect);
-		}
+		SDL_SetRenderDrawColor(App->render->renderer, 0, 0, 0, (Uint8)(0.0f));
+		SDL_RenderFillRect(App->render->renderer, NULL);
 	}
+	else if (current_step == intro_step::lastgameover)
+	{
+		//SDL_SetRenderDrawColor(App->render->renderer, 0, 0, 0, (Uint8)(0.0f));
+		//SDL_RenderFillRect(App->render->renderer, NULL);
+		App->render->Blit(gameOverTexture, 35, 46, &gameOverRect);
+	}
+
+	if (App->input->keyboard[SDL_SCANCODE_RETURN] == 1 && App->player->lives > 0)
+		App->fade->FadeToBlack(App->gameOverScreen, (Module*)App->gameTitle, 0.8f);
+
+
 	return UPDATE_CONTINUE;
 }
 	
