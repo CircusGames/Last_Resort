@@ -395,6 +395,19 @@ ModuleSceneLvl1::ModuleSceneLvl1()
 	midgroundLights[5].PushBack({ 373,378,61,77 });
 	midgroundLights[5].speed = 0.143f;
 
+	//enemy langostas background
+	/*basicEnemyBgAnim.PushBack({ 0, 0, 9, 4 });
+	basicEnemyBgAnim.PushBack({ 15, 0, 9, 4 });
+	basicEnemyBgAnim.PushBack({ 30, 0, 9, 4 });
+	basicEnemyBgAnim.PushBack({ 45, 0, 9, 4 });
+	basicEnemyBgAnim.PushBack({ 60, 0, 9, 4 });
+	basicEnemyBgAnim.PushBack({ 75, 0, 9, 4 });*/
+	
+	
+	
+	
+	
+
 }
 
 ModuleSceneLvl1::~ModuleSceneLvl1()
@@ -996,6 +1009,7 @@ bool ModuleSceneLvl1::CleanUp()
 	App->render->camera.y = 0;
 
 	LOG("Unloading level music and fx");
+	if (Mix_PausedMusic()) Mix_ResumeMusic();
 	Mix_FadeOutMusic(250);
 	App->audio->UnloadAudio("song_lvl1", MUSIC);
 	return true;

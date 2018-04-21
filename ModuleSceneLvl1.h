@@ -42,6 +42,10 @@ public:
 	SDL_Texture* buildingLasersTexture = nullptr;
 	SDL_Texture* midgroundLightsTexture = nullptr;
 	
+	//basic enemy background texture
+	SDL_Texture* basicEnemyBg = nullptr;
+	
+	
 	SDL_Rect bgRect;
 	SDL_Rect fgRect;
 	SDL_Rect mgRect;
@@ -132,7 +136,11 @@ public:
 	Animation orangeLaser;
 	Animation backgroundLights[6]; //6 "rects" for total background animations
 	Animation midgroundLights[6];
-
+	
+	//basic enemy background animation
+	Animation basicEnemyBgAnim[20];
+	int basicEnemyBgPositionsX[20] = { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 };
+	int basicEnemyBgPositionsY[20] = { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 };
 	//---------------------------------------------
 
 	float foregroundSpeed;

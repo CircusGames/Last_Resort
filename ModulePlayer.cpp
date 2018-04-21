@@ -461,7 +461,7 @@ update_status ModulePlayer::Update()
 			App->modulePowerUp->SpawnPowerUp({ position.x + (32 + 100),position.y - 8 }, powerUpTypes::MISSILES);
 		}
 
-		//DEBUG: PAUSE/UNPAUSE MUSIC on modulePlayer for now --- debugginf SFX etc
+		//DEBUG: PAUSE/UNPAUSE MUSIC on modulePlayer for now --- debugging SFX etc
 		if (App->input->keyboard[SDL_SCANCODE_F10] == KEY_DOWN)
 		{
 			if (Mix_PausedMusic())
