@@ -580,9 +580,9 @@ bool ModuleSceneLvl1::Start()
 
 	//Third Wave
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYOSCILATORY, 6200, 65, NONE, App->enemies->enemy2Texture);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYOSCILATORY, 6260, 65, NONE, App->enemies->enemy2Texture);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYOSCILATORY, 6320, 65, NONE, App->enemies->enemy2Texture);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYOSCILATORY, 6380, 65, NONE, App->enemies->enemy2Texture);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYOSCILATORY, 6299, 65, NONE, App->enemies->enemy2Texture);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYOSCILATORY, 6422, 65, NONE, App->enemies->enemy2Texture);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYOSCILATORY, 6521, 65, NONE, App->enemies->enemy2Texture);
 
 	//Tank
 	App->enemies->AddEnemy(ENEMY_TYPES::TANK, 100, 111, NONE, App->enemies->enemyTankTexture);
