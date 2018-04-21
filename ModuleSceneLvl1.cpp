@@ -458,10 +458,10 @@ bool ModuleSceneLvl1::Start()
 	//pass a parameter to specific texture declared and defined inside moduleEnemies.cpp and .h
 	//App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 200, 80, App->enemies->enemy1Texture);
 	//pass a parameter to specific texture declared and defined inside moduleEnemie.cpp and .h
-	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 545, 72 ,NONE, App->enemies->enemy1Texture);
+	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 555, 72 ,NONE, App->enemies->enemy1Texture);
 	//and second workaround, in this case, texture is defined inside specific enemy class
 	//see basic_enemy.cpp and .h to read the instructions for both of them. You decide.
-	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 580, 90, NONE, App->enemies->enemy1Texture);
+	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 585, 90, NONE, App->enemies->enemy1Texture);
 	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 1060, 72, NONE, App->enemies->enemy1Texture);
 	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 1060, 138, NONE, App->enemies->enemy1Texture); //no powerup
 	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 1165, 31, NONE, App->enemies->enemy1Texture);
@@ -669,7 +669,7 @@ update_status ModuleSceneLvl1::PreUpdate()
 		//returns original pixel position x values foreground
 		App->render->currentCameraPosX = (App->render->camera.x / SCREEN_SIZE) * foregroundSpeed;
 
-		debugValue = App->render->camera.x / SCREEN_SIZE;
+		//debugValue = - App->render->camera.x / SCREEN_SIZE;
 
 	}
 
@@ -976,6 +976,7 @@ update_status ModuleSceneLvl1::Update()
 	
 	//App->render->Blit(App->textures->textures[6], 0, bgMovY.fg_y, &fgRect, 1.0f); //testing purposes
 
+	SDL_QueryTexture(App->enemies->enemyTankTexture, NULL, NULL, &width, &height);
 
 	//SCENE SWITCHING
 
@@ -1021,18 +1022,37 @@ bool ModuleSceneLvl1::CleanUp()
 	return true;
 }
 
+//DEBUG MODE: SPAWN ENEMIES
 void ModuleSceneLvl1::spawnEnemies(int x, int y)
 {
 	int positionX, positionY;
-	positionX = -(App->render->camera.x / SCREEN_SIZE) * foregroundSpeed;
-	positionY = -(App->render->camera.x / SCREEN_SIZE) * foregroundSpeed;
+	//int width, height;
+
+	positionY = y / SCREEN_SIZE;
+	positionX = x / SCREEN_SIZE - App->render->camera.x / SCREEN_SIZE;
+
+	LOG("Spawn Enemy at position x:%d y:%d ", positionX, positionY);
 
 	if (App->input->keyboard[SDL_SCANCODE_1] == KEY_REPEAT)
 	{
-		App->enemies->AddEnemy(ENEMY_TYPES::TANK, x  + (App->render->camera.x / SCREEN_SIZE), App->player->position.y, NONE, App->enemies->enemyTankTexture);
+		//for now calculated center position manually, until fix it (access to animation frame)
+		positionX -= 32 / 2;
+		positionY -= 16 / 2;
+		App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, positionX,  positionY, NONE, App->enemies->enemy1Texture);
 	}
-
-	LOG("Spawn Enemy at position x:%d y:%d ",x,y);
-
+	if (App->input->keyboard[SDL_SCANCODE_2] == KEY_REPEAT)
+	{
+		//for now calculated center position manually, until fix it (access to animation frame)
+		positionX -= 48 / 2;
+		positionY -= 46 / 2;
+		App->enemies->AddEnemy(ENEMY_TYPES::ENEMYOSCILATORY, positionX, positionY, NONE, App->enemies->enemy2Texture);
+	}
+	if (App->input->keyboard[SDL_SCANCODE_3] == KEY_REPEAT)
+	{
+		//for now calculated center position manually, until fix it (access to animation frame)
+		positionX -= 157 / 2;
+		positionY -= 64 / 2;
+		App->enemies->AddEnemy(ENEMY_TYPES::TANK, positionX, positionY, NONE, App->enemies->enemyTankTexture);
+	}
 
 }

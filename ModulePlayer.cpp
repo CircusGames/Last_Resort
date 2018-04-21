@@ -473,39 +473,6 @@ update_status ModulePlayer::Update()
 				Mix_PauseMusic();
 		}
 
-		
-			//switch (mouse.type)
-			//{
-			//case SDL_MOUSEBUTTONDOWN:
-
-				//LOG("mouse up");
-				//App->modulePowerUp->SpawnPowerUp({ position.x + (32 + 100),position.y - 8 }, powerUpTypes::BOMBS);
-				//break;
-
-			//default:
-				//break;
-
-			//}
-		
-		
-		
-		
-		//{ 
-			/*if (App->input->Event.type == SDL_MOUSEBUTTONDOWN)
-			{
-				if (App->input->Event.button.button == SDL_BUTTON_LEFT)
-				{
-					if (App->input->Event.button.clicks < 1)
-					{
-						LOG("mouse up");
-					}
-				}
-			}
-		//}*/
-
-		
-
-		
 	}	// ----------------------------------------------------------------------------------------------------------------------
 
 	//DRAW PLAYER ---------------------------------------------------------------------------
