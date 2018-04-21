@@ -29,6 +29,12 @@ enum powerUpTypes
 	BOMBS
 };
 
+enum playerNum
+{
+	PLAYER1,
+	PLAYER2,
+};
+
 // Useful typedefs ---------
 typedef unsigned int uint;
 
