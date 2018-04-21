@@ -396,7 +396,7 @@ ModuleSceneLvl1::ModuleSceneLvl1()
 	midgroundLights[5].speed = 0.143f;
 
 	//enemy langostas background
-	for (int i = 0; i < 20; ++i) //20 is the index of the animations array, if you need more, increment it in .h
+	for (int i = 0; i < MAX_BG_SHIPS; ++i) //20 is the index of the animations array, if you need more, increment it in .h
 	{
 		basicEnemyBgAnim[i].PushBack({ 0, 0, 9, 4 });
 		basicEnemyBgAnim[i].PushBack({ 15, 0, 9, 4 });
@@ -406,11 +406,6 @@ ModuleSceneLvl1::ModuleSceneLvl1()
 		basicEnemyBgAnim[i].PushBack({ 75, 0, 9, 4 });
 		basicEnemyBgAnim[i].speed = 0.25f;
 	}
-	
-	
-	
-	
-	
 
 }
 
