@@ -131,6 +131,7 @@ bool ModulePlayer::Start()
 	//load necessary fx wavs
 	App->audio->LoadAudio("assets/Audio/SFX/Player/speedUpgrade.wav", "speedUP", SFX);
 	App->audio->LoadAudio("assets/Audio/SFX/Player/speedDowngrade.wav", "speedDN", SFX);
+	App->audio->LoadAudio("assets/Audio/SFX/Player/spawn.wav", "spawn", SFX);
 	
 	// ---------------------
 
@@ -138,6 +139,10 @@ bool ModulePlayer::Start()
 	//checks if the player state is normal, if is, spawn condition
 	if (player_step == player_state::normal || player_step == player_state::died)
 		player_step = player_state::spawn;
+		
+	//and play FX, for the moment, right here is good
+	App->audio->ControlAudio("spawn", SFX, PLAY);
+	
 
 	//defines times for buffs
 	powerUpTime = 5000; //in ms
@@ -523,6 +528,8 @@ bool ModulePlayer::CleanUp()
 	//unloading SFX
 	App->audio->UnloadAudio("speedDN", SFX);
 	App->audio->UnloadAudio("speedUP", SFX);
+	App->audio->UnloadAudio("spawn", SFX);
+
 
 	//deactivate all possible active buffs
 	activebuff.bombs = false;
