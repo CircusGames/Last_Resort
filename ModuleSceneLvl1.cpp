@@ -1009,7 +1009,7 @@ bool ModuleSceneLvl1::CleanUp()
 	App->render->camera.y = 0;
 
 	LOG("Unloading level music and fx");
-	if (Mix_PausedMusic()) Mix_ResumeMusic();
+	if (Mix_PausedMusic()) Mix_HaltMusic();//Mix_ResumeMusic();
 	Mix_FadeOutMusic(250);
 	App->audio->UnloadAudio("song_lvl1", MUSIC);
 	return true;
