@@ -10,7 +10,7 @@
 #include "EnemyTank.h"
 #include "ModulePowerUp.h"
 
-#define SPAWN_MARGIN 50
+#define SPAWN_MARGIN 15*SCREEN_SIZE
 
 ModuleEnemies::ModuleEnemies()
 {
@@ -56,7 +56,7 @@ update_status ModuleEnemies::PreUpdate()
 			//}
 
 			//if (queue[i].x * SCREEN_SIZE > App->render->camera.x - (App->render->camera.w * SCREEN_SIZE) + SPAWN_MARGIN)
-			if (-queue[i].x * SCREEN_SIZE > App->render->camera.x - (App->render->camera.w * SCREEN_SIZE) + SPAWN_MARGIN)
+			if (-queue[i].x * SCREEN_SIZE > App->render->camera.x - (App->render->camera.w * SCREEN_SIZE) - SPAWN_MARGIN)
 			{
 				SpawnEnemy(queue[i]);
 				queue[i].type = ENEMY_TYPES::NO_TYPE;
