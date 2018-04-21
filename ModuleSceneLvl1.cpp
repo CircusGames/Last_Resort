@@ -458,10 +458,10 @@ bool ModuleSceneLvl1::Start()
 	//pass a parameter to specific texture declared and defined inside moduleEnemies.cpp and .h
 	//App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 200, 80, App->enemies->enemy1Texture);
 	//pass a parameter to specific texture declared and defined inside moduleEnemie.cpp and .h
-	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 545, 72 ,NONE, App->enemies->enemy1Texture);
+	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 555, 72 ,NONE, App->enemies->enemy1Texture);
 	//and second workaround, in this case, texture is defined inside specific enemy class
 	//see basic_enemy.cpp and .h to read the instructions for both of them. You decide.
-	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 580, 90, NONE, App->enemies->enemy1Texture);
+	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 585, 90, NONE, App->enemies->enemy1Texture);
 	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 1060, 72, NONE, App->enemies->enemy1Texture);
 	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 1060, 138, NONE, App->enemies->enemy1Texture); //no powerup
 	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 1165, 31, NONE, App->enemies->enemy1Texture);
