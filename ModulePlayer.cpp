@@ -76,6 +76,23 @@ ModulePlayer::ModulePlayer()
 	beamSmoke.PushBack({ 115,124,13,12 });
 	beamSmoke.speed = 0.5f;
 	beamSmoke.repeat = false;
+
+	//boost animation
+	boostAnim.PushBack({ 0,0,32,31 });
+	boostAnim.PushBack({ 33,0,32,32});
+	boostAnim.PushBack({ 64,2,32,26 });
+	boostAnim.PushBack({ 96,7,32,18 });
+	boostAnim.PushBack({ 0,33,32,13 });
+	boostAnim.PushBack({ 33,36,32,7 }); //42,36,22,7 
+	boostAnim.PushBack({ 64,36,32,7 }); //71,36,25,7 
+	boostAnim.PushBack({ 96,36,32,6 }); //42,36,22,7 
+	boostAnim.PushBack({ 0,53,32,6 });
+	boostAnim.PushBack({ 33,52,32,6 });
+	boostAnim.speed = 0.25f;
+	boostAnim.repeat = false;
+
+
+
 }
 
 
@@ -92,7 +109,7 @@ bool ModulePlayer::Start()
 	bool ret = true;
 
 	player = App->textures->Load("assets/Graphics/Player/player1_incomplete.png");
-
+	powerUpTextures = App->textures->Load("assets/Graphics/Player/PowerUps.png");
 	//restart player positions for next time playerModule call
 	
 	position.x = 40;
@@ -112,6 +129,8 @@ bool ModulePlayer::Start()
 	destroyed = false;
 
 	//load necessary fx wavs
+	App->audio->LoadAudio("assets/Audio/SFX/Player/speedUpgrade.wav", "speedUP", SFX);
+	App->audio->LoadAudio("assets/Audio/SFX/Player/speedDowngrade.wav", "speedDN", SFX);
 	
 	// ---------------------
 
@@ -120,15 +139,50 @@ bool ModulePlayer::Start()
 	if (player_step == player_state::normal || player_step == player_state::died)
 		player_step = player_state::spawn;
 
+	//defines times for buffs
+	powerUpTime = 5000; //in ms
+
 	return ret;
 
 
 }
 
+update_status ModulePlayer::PreUpdate()
+{
+	//FUNCTIONALITY POWERUPS, assigns speeds, animations etc
+	if (player_step == player_state::normal)
+	{
+		now = SDL_GetTicks() - start_time; //time events/states general counter
+		//BOOST LOGIC ---------------------------------------------------------
+		if (powerUpActive == powerUpTypes::BOOST)
+		{
+			start_time = SDL_GetTicks(); //start time of the boost buff
+			speed = boostPlayerSpeed;
+			activebuff.boost = true; //actives bool condition
+			activebuff.boostAnim = true;
+			powerUpActive = powerUpTypes::NONE; //resets the enumerator to free the way for another
+			//play FX
+			App->audio->ControlAudio("speedUP", SFX, PLAY);
+		}
+		//float speed = 1.4f; //player position speed
+		if (!activebuff.boost) //if the time for boost go out...
+			playerSpeed = speed = normalPlayerSpeed; //resets the temporal incrementer to always Nicolas at the desired incrementer count
+												 //new change direction starts incrementer at speed correct value (always same distances)
+		else
+		{
+
+		}
+		// --------------------------------------------------------------------
+		
+	}
+
+
+	return UPDATE_CONTINUE;
+}
 // Update: draw background
 update_status ModulePlayer::Update()
 {
-	Animation* current_animation = &playerAnim;
+	current_animation = &playerAnim;
 	SDL_Rect r;
 
 	if (player_step == player_state::spawn)
@@ -152,10 +206,23 @@ update_status ModulePlayer::Update()
 		{
 			//App->playerUnit->Enable();
 		}
+		
+		/*if (powerUpActive == powerUpTypes::BOOST)
+		{
+			speed = boostPlayerSpeed;
+			now = SDL_GetTicks() - start_time;
 
-		float speed = 1.4f; //player position speed
-		playerSpeed = speed; //resets the temporal incrementer to always Nicolas at the desired incrementer count
-							  //new change direction starts incrementer at speed correct value (always same distances)
+			if (now >= poweUpTime)
+			{
+				start_time = SDL_GetTicks();
+				powerUpActive = powerUpTypes::NONE;
+
+			}
+		}
+		//float speed = 1.4f; //player position speed
+		else
+		playerSpeed = speed = normalPlayerSpeed; //resets the temporal incrementer to always Nicolas at the desired incrementer count
+							  //new change direction starts incrementer at speed correct value (always same distances)*/
 
 		//App->render->Blit(player,300, 50, &spawnAnim.GetCurrentFrame());
 
@@ -296,7 +363,33 @@ update_status ModulePlayer::Update()
 			App->render->Blit(player, position.x + 32, position.y - 6, &beamSmoke.GetCurrentFrame());
 		}
 
+		//CHECK POWERUP ANIMATIONS etc ---------------------------------------------------------------------------------------------
+		if (activebuff.boost)
+		{
+			now = SDL_GetTicks() - start_time;
+			if (now >= powerUpTime) //checks the timer counter and deactivate the boost time
+			{
+				activebuff.boost = false;
+				//PLAY SFX
+				App->audio->ControlAudio("speedDN", SFX, PLAY);
+			}
+
+			if (activebuff.boostAnim)
+			{
+				current_animation = &boostAnim;
+				SDL_Rect boostAnimRect = current_animation->GetCurrentFrame();
+				if (current_animation->finish) 
+				{ 
+					activebuff.boostAnim = false;
+					current_animation->current_frame = 0; //and resets its values for next boost
+					current_animation->finish = false;
+				}
+				else
+					App->render->Blit(powerUpTextures, position.x - 32, position.y - (boostAnimRect.h / 2), &boostAnimRect);
+			}
+		}
 		
+		// --------------------------------------------------------------------------------------------------------------------------
 
 		//update player collider to its position -----------------------------------------
 		
@@ -416,12 +509,26 @@ void ModulePlayer::OnCollision(Collider* collider1, Collider* collider2)
 
 bool ModulePlayer::CleanUp()
 {
-	App->textures->Unload(player);
+	//freeing textures
+	if(player != nullptr)
+		App->textures->Unload(player);
+	if(powerUpTextures != nullptr)
+		App->textures->Unload(player);
 
 	if (playerCollider != nullptr)
 	{
 		playerCollider->to_delete = true;
 	}
+
+	//unloading SFX
+	App->audio->UnloadAudio("speedDN", SFX);
+	App->audio->UnloadAudio("speedUP", SFX);
+
+	//deactivate all possible active buffs
+	activebuff.bombs = false;
+	activebuff.boost = false;
+	activebuff.brake = false;
+	activebuff.laser = false;
 	
 	return true;
 }

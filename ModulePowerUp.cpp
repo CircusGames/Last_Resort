@@ -33,7 +33,6 @@ ModulePowerUp::ModulePowerUp()
 	powerUpG.anim.PushBack({ 49,96,31,16 });
 	powerUpG.anim.speed = 0.01f;
 	powerUpG.type = powerUpTypes::BOMBS;
-	powerUpG.collider;
 
 	powerUpH.anim.PushBack({18,64,31,16});
 	powerUpH.anim.PushBack({ 49,64,31,16 });
@@ -50,7 +49,7 @@ ModulePowerUp::ModulePowerUp()
 
 	powerUpZ.anim.PushBack({ 0,85,18,21 });
 	powerUpZ.type = powerUpTypes::BRAKE;
-	//powerUpZ.color = App->playerUnit->actualUnitColor;
+	
 
 }
 
@@ -84,6 +83,7 @@ update_status ModulePowerUp::Update()
 				p->fx_played = true;
 
 				// PLAY SPAWN power up effect
+
 				App->audio->ControlAudio(p->fx, SFX, PLAY);
 
 
@@ -183,6 +183,7 @@ void ModulePowerUp::OnCollision(Collider* c1, Collider* c2)
 				break;
 			case powerUpTypes::BOOST:
 					//call the functionality of the bombs powerup
+				App->player->powerUpActive = powerUpTypes::BOOST;
 				color = App->playerUnit->actualUnitColor; //this not change the color of the unit
 				break;
 			case powerUpTypes::BRAKE:

@@ -20,14 +20,6 @@ enum powerUpColor
 	ORANGE
 };
 
-struct powerUpTypeBox
-{
-	SDL_Texture* texture = nullptr;
-	powerUpTypes type;
-	Collider* collider = nullptr;
-	iPoint position;
-};
-
 struct PowerUp
 {
 	Collider* collider = nullptr;
@@ -70,11 +62,8 @@ public:
 	void OnCollision(Collider* c1, Collider* c2);
 
 public:
-
-	//SDL_Texture * powerUpS = nullptr;
 	
 	SDL_Rect testRect;
-	powerUpTypeBox unitBlue;
 
 	//SDL_Rect powerUpS;
 	//SDL_Rect powerUpZ;
