@@ -63,8 +63,8 @@ public:
 
 	//values needed for basic shooting  ------------------------------------
 	//on x coord. we have to assume that we have -1 (playerMovement(+1) to followCameraMov.)
-	iPoint shotVectorSpeed[16] = { { 6,0 }, { 3,-1 }, { 10,-8 }, { 2,-2 }, { 1,-2 }, { 0,-2 }, { -1,-2 }, { -1,-1 },
-	                               {-1,0 }, { -1,1 }, { -1, 2 }, { 0, 2 }, { 1,2 }, { 2,2 }, { 3,2 }, { 3,1 } };
+	iPoint shotVectorSpeed[16] = { { 6,0 }, { 5,-2 }, { 5,-5 }, { 3,-4 }, { 1,-4 }, { -1,-4 }, { -3,-5 }, { -3,-2 },
+	                               {-4,0 }, { -3,2 }, { -3, 5 }, { -1, 4 }, { 1,4 }, { 3,4 }, { 5,5 }, { 5,2 } };
 
 	powerUpColor actualUnitColor;
 };
