@@ -396,12 +396,16 @@ ModuleSceneLvl1::ModuleSceneLvl1()
 	midgroundLights[5].speed = 0.143f;
 
 	//enemy langostas background
-	/*basicEnemyBgAnim.PushBack({ 0, 0, 9, 4 });
-	basicEnemyBgAnim.PushBack({ 15, 0, 9, 4 });
-	basicEnemyBgAnim.PushBack({ 30, 0, 9, 4 });
-	basicEnemyBgAnim.PushBack({ 45, 0, 9, 4 });
-	basicEnemyBgAnim.PushBack({ 60, 0, 9, 4 });
-	basicEnemyBgAnim.PushBack({ 75, 0, 9, 4 });*/
+	for (int i = 0; i < 20; ++i) //20 is the index of the animations array, if you need more, increment it in .h
+	{
+		basicEnemyBgAnim[i].PushBack({ 0, 0, 9, 4 });
+		basicEnemyBgAnim[i].PushBack({ 15, 0, 9, 4 });
+		basicEnemyBgAnim[i].PushBack({ 30, 0, 9, 4 });
+		basicEnemyBgAnim[i].PushBack({ 45, 0, 9, 4 });
+		basicEnemyBgAnim[i].PushBack({ 60, 0, 9, 4 });
+		basicEnemyBgAnim[i].PushBack({ 75, 0, 9, 4 });
+		basicEnemyBgAnim[i].speed = 0.25f;
+	}
 	
 	
 	
@@ -602,6 +606,8 @@ bool ModuleSceneLvl1::Start()
 	bgLights = App->textures->Load("assets/Graphics/Backgrounds/Lvl_1/bg_lights.png");
 	midgroundLightsTexture = App->textures->Load("assets/Graphics/Backgrounds/Lvl_1/midgroundLights.png");
 	buildingLasersTexture = App->textures->Load("assets/Graphics/Backgrounds/Lvl_1/lvl1_buildingLasers.png");
+	//Enemy ships langostas texture
+	basicEnemyBgTexture = App->textures->Load("assets/Graphics/Backgrounds/Lvl_1/bgShips.png");
 
 	//loading music and fx -------------------------------------------------------------------------------------
 	App->audio->LoadAudio("assets/Audio/Music/song_level_1.ogg", "song_lvl1", MUSIC);
@@ -866,6 +872,13 @@ update_status ModuleSceneLvl1::Update()
 	Animation* current_animation = &orangeLaser;
 	SDL_Rect r = current_animation->GetCurrentFrame();
 	App->render->Blit(buildingLasersTexture, 334 - pivotArrayOrangeLaser[(int)current_animation->current_frame] + 1, 0, &r, backgroundSpeed);
+
+	//Enemy ships langostas Background ----------------------------------------------------------------
+	for (int i = 0; i < MAX_BG_SHIPS; ++i)
+	{
+		App->render->Blit(basicEnemyBgTexture, basicEnemyBgPositionsX[i], basicEnemyBgPositionsY[i], &(basicEnemyBgAnim[i].GetCurrentFrame()), -1.0f);
+	}
+	// ------------------------------------------------------------------------------------------------
 
 	//boss
 

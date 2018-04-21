@@ -9,6 +9,7 @@
 
 #define QTY_BACK_LIGHTS 18 //max streetlights for each pattern (max)
 #define QTY_FRONT_LIGHTS 8
+#define MAX_BG_SHIPS 20
 //#define MAX 14
 
 struct SDL_Texture;
@@ -43,7 +44,7 @@ public:
 	SDL_Texture* midgroundLightsTexture = nullptr;
 	
 	//basic enemy background texture
-	SDL_Texture* basicEnemyBg = nullptr;
+	SDL_Texture* basicEnemyBgTexture = nullptr;
 	
 	
 	SDL_Rect bgRect;
@@ -138,9 +139,9 @@ public:
 	Animation midgroundLights[6];
 	
 	//basic enemy background animation
-	Animation basicEnemyBgAnim[20];
-	int basicEnemyBgPositionsX[20] = { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 };
-	int basicEnemyBgPositionsY[20] = { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 };
+	Animation basicEnemyBgAnim[MAX_BG_SHIPS];
+	int basicEnemyBgPositionsX[MAX_BG_SHIPS] = { 100,300,470,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 };
+	int basicEnemyBgPositionsY[MAX_BG_SHIPS] = { 20,200,140,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 };
 	//---------------------------------------------
 
 	float foregroundSpeed;
