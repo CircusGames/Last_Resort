@@ -11,7 +11,7 @@ BasicEnemy::BasicEnemy(int x, int y, powerUpTypes type, SDL_Texture* sprite) : E
 	fly.PushBack({ 0,31,32,16 });
 	fly.PushBack({ 0,47,32,15 });
 	fly.PushBack({ 0,31,32,16 });
-	fly.PushBack({ 0,16,32,15 });
+	//fly.PushBack({ 0,16,32,15 });
 	fly.speed = 0.2f;
 
 	animation = &fly; //links animation
