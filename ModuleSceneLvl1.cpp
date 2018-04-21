@@ -458,20 +458,16 @@ bool ModuleSceneLvl1::Start()
 	//pass a parameter to specific texture declared and defined inside moduleEnemies.cpp and .h
 	//App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 200, 80, App->enemies->enemy1Texture);
 	//pass a parameter to specific texture declared and defined inside moduleEnemie.cpp and .h
-	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 900, 72 ,NONE, App->enemies->enemy1Texture);
+	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 545, 72 ,NONE, App->enemies->enemy1Texture);
 	//and second workaround, in this case, texture is defined inside specific enemy class
 	//see basic_enemy.cpp and .h to read the instructions for both of them. You decide.
-	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 980, 90, NONE, App->enemies->enemy1Texture);
+	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 580, 90, NONE, App->enemies->enemy1Texture);
 	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 1060, 72, NONE, App->enemies->enemy1Texture);
-	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 1060, 138, MISSILES, App->enemies->enemy1Texture); //idk powerup?
+	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 1060, 138, NONE, App->enemies->enemy1Texture); //no powerup
 	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 1165, 31, NONE, App->enemies->enemy1Texture);
 	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 1210, 138, NONE, App->enemies->enemy1Texture);
 	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 1235, 31, NONE, App->enemies->enemy1Texture);
 	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 1305, 31, NONE, App->enemies->enemy1Texture);
-	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 1375, 31, MISSILES, App->enemies->enemy1Texture);  //idk powerup?
-	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 1445, 31, NONE, App->enemies->enemy1Texture);
-	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 1505, 164, NONE, App->enemies->enemy1Texture);
-	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 1575, 164, MISSILES, App->enemies->enemy1Texture); //idk powerup?
 	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 1375, 31, NONE, App->enemies->enemy1Texture);
 	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 1445, 31, LASER, App->enemies->enemy1Texture);//10 - L
 	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 1505, 164, NONE, App->enemies->enemy1Texture);
