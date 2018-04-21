@@ -33,13 +33,14 @@ private:
 
 	enum intro_step
 	{
+		firstSecuence,
 		firstletters,
 		secondletters,
 		fade_to_white,
 		time_in_white,
 		fade_from_white,
-		press_start_screen,
-	} current_step = intro_step::firstletters;
+		lastgameover,
+	} current_step = intro_step::firstSecuence;
 };
 
 #endif //__MODULEGAMEOVER_H__
