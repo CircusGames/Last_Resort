@@ -42,7 +42,7 @@ EnemyOscilatory::EnemyOscilatory(int x, int y, powerUpTypes type, SDL_Texture* s
 
 	original_y = y;
 
-	life = 2;
+	life = 5;
 }
 
 void EnemyOscilatory::Move()

@@ -218,7 +218,7 @@
       <Filter>Modules\Enemies\Tank</Filter>
     </ClCompile>
     <ClCompile Include="ModuleWinScreen.cpp">
-      <Filter>Core</Filter>
+      <Filter>Modules</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
