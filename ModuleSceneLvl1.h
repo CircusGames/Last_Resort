@@ -140,8 +140,8 @@ public:
 	
 	//basic enemy background animation
 	Animation basicEnemyBgAnim[MAX_BG_SHIPS];
-	int basicEnemyBgPositionsX[MAX_BG_SHIPS] = { 100,300,470,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 };
-	int basicEnemyBgPositionsY[MAX_BG_SHIPS] = { 20,200,140,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 };
+	int basicEnemyBgPositionsX[MAX_BG_SHIPS] = { 50,100,150,75,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 };
+	int basicEnemyBgPositionsY[MAX_BG_SHIPS] = { 20,20,30,40,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 };
 	//---------------------------------------------
 
 	float foregroundSpeed;
