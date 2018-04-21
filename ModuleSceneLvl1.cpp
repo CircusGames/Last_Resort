@@ -673,6 +673,8 @@ update_status ModuleSceneLvl1::PreUpdate()
 		//returns original pixel position x values foreground
 		App->render->currentCameraPosX = (App->render->camera.x / SCREEN_SIZE) * foregroundSpeed;
 
+		debugValue = App->render->camera.x / SCREEN_SIZE;
+
 	}
 
 	//-------------------background up and down movement -------------------------------
@@ -1021,4 +1023,20 @@ bool ModuleSceneLvl1::CleanUp()
 	Mix_FadeOutMusic(250);
 	App->audio->UnloadAudio("song_lvl1", MUSIC);
 	return true;
+}
+
+void ModuleSceneLvl1::spawnEnemies(int x, int y)
+{
+	int positionX, positionY;
+	positionX = -(App->render->camera.x / SCREEN_SIZE) * foregroundSpeed;
+	positionY = -(App->render->camera.x / SCREEN_SIZE) * foregroundSpeed;
+
+	if (App->input->keyboard[SDL_SCANCODE_1] == KEY_REPEAT)
+	{
+		App->enemies->AddEnemy(ENEMY_TYPES::TANK, x  + (App->render->camera.x / SCREEN_SIZE), App->player->position.y, NONE, App->enemies->enemyTankTexture);
+	}
+
+	LOG("Spawn Enemy at position x:%d y:%d ",x,y);
+
+
 }
