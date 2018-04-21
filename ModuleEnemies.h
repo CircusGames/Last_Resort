@@ -2,6 +2,7 @@
 #define _MODULEENEMIES_H__
 
 #include "Module.h"
+#include "EnemyTank.h"
 #include "BasicEnemy.h"
 #include "EnemyOscilatory.h"
 #define MAX_ENEMIES 100
@@ -11,7 +12,9 @@ enum ENEMY_TYPES
 	NO_TYPE,
 	BASIC_ENEMY,
 	ENEMYOSCILATORY,
-	TANK
+	TANK,
+	BIG_TURRET,
+	SMALL_TURRET
 };
 
 class Enemy;

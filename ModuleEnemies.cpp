@@ -153,7 +153,7 @@ void ModuleEnemies::SpawnEnemy(EnemyInfo& info)
 			enemies[i] = new EnemyOscilatory(info.x, info.y, info.powerUpType, info.texture);
 			break;
 		case ENEMY_TYPES::TANK:
-			enemies[i]=new EnemyTank(info.x, info.y, info.powerUpType, info.texture);
+			enemies[i] = new EnemyTank(info.x, info.y, info.powerUpType, info.texture);
 			break;
 		}
 	}

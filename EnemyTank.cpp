@@ -48,5 +48,7 @@ EnemyTank::EnemyTank(int x, int y, powerUpTypes type, SDL_Texture* sprite) : Ene
 void EnemyTank::Move()
 {
 	position.x += 2;
-	position = originalPos + path.GetCurrentSpeed(&animation);
+	//when tank appears it remains inmobile until it reaches the left collider, afther that it goes 0,5 faster than
+	//the camera speed until it reaches the right side of the screen(no margins) and it follows the camera speed until
+	//it reaches the broken bridge
 }

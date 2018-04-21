@@ -19,7 +19,5 @@ public:
 
 	void Move();
 
-	
 };
-
 #endif
