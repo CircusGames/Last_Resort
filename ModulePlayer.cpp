@@ -132,6 +132,7 @@ bool ModulePlayer::Start()
 	App->audio->LoadAudio("assets/Audio/SFX/Player/speedUpgrade.wav", "speedUP", SFX);
 	App->audio->LoadAudio("assets/Audio/SFX/Player/speedDowngrade.wav", "speedDN", SFX);
 	App->audio->LoadAudio("assets/Audio/SFX/Player/spawn.wav", "spawn", SFX);
+	App->audio->LoadAudio("assets/Audio/SFX/Player/death.wav", "death", SFX);
 	
 	// ---------------------
 
@@ -459,6 +460,18 @@ update_status ModulePlayer::Update()
 		{
 			App->modulePowerUp->SpawnPowerUp({ position.x + (32 + 100),position.y - 8 }, powerUpTypes::MISSILES);
 		}
+
+		//DEBUG: PAUSE/UNPAUSE MUSIC on modulePlayer for now --- debugginf SFX etc
+		if (App->input->keyboard[SDL_SCANCODE_F10] == KEY_DOWN)
+		{
+			if (Mix_PausedMusic())
+			{
+				Mix_ResumeMusic();
+				
+			}
+			else
+				Mix_PauseMusic();
+		}
 		
 	}	// ----------------------------------------------------------------------------------------------------------------------
 
@@ -508,6 +521,9 @@ void ModulePlayer::OnCollision(Collider* collider1, Collider* collider2)
 
 		player_step = player_state::died;
 		destroyed = true;
+		//PLAY FX
+		App->audio->ControlAudio("death", SFX, PLAY);
+
 	if (playerCollider != nullptr)
 			this->playerCollider->to_delete = true;
 }
@@ -529,7 +545,7 @@ bool ModulePlayer::CleanUp()
 	App->audio->UnloadAudio("speedDN", SFX);
 	App->audio->UnloadAudio("speedUP", SFX);
 	App->audio->UnloadAudio("spawn", SFX);
-
+	App->audio->UnloadAudio("death", SFX);
 
 	//deactivate all possible active buffs
 	activebuff.bombs = false;
