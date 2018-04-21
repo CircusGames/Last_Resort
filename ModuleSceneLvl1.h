@@ -48,7 +48,8 @@ public:
 	//basic enemy background texture
 	SDL_Texture* basicEnemyBgTexture = nullptr;
 	
-	int debugValue;
+	int height;
+	int width;
 	
 	SDL_Rect bgRect;
 	SDL_Rect fgRect;

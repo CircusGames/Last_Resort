@@ -673,7 +673,7 @@ update_status ModuleSceneLvl1::PreUpdate()
 		//returns original pixel position x values foreground
 		App->render->currentCameraPosX = (App->render->camera.x / SCREEN_SIZE) * foregroundSpeed;
 
-		debugValue = App->render->camera.x / SCREEN_SIZE;
+		//debugValue = - App->render->camera.x / SCREEN_SIZE;
 
 	}
 
@@ -980,6 +980,7 @@ update_status ModuleSceneLvl1::Update()
 	
 	//App->render->Blit(App->textures->textures[6], 0, bgMovY.fg_y, &fgRect, 1.0f); //testing purposes
 
+	SDL_QueryTexture(App->enemies->enemyTankTexture, NULL, NULL, &width, &height);
 
 	//SCENE SWITCHING
 
@@ -1025,18 +1026,37 @@ bool ModuleSceneLvl1::CleanUp()
 	return true;
 }
 
+//DEBUG MODE: SPAWN ENEMIES
 void ModuleSceneLvl1::spawnEnemies(int x, int y)
 {
 	int positionX, positionY;
-	positionX = -(App->render->camera.x / SCREEN_SIZE) * foregroundSpeed;
-	positionY = -(App->render->camera.x / SCREEN_SIZE) * foregroundSpeed;
+	//int width, height;
+
+	positionY = y / SCREEN_SIZE;
+	positionX = x / SCREEN_SIZE - App->render->camera.x / SCREEN_SIZE;
+
+	LOG("Spawn Enemy at position x:%d y:%d ", positionX, positionY);
 
 	if (App->input->keyboard[SDL_SCANCODE_1] == KEY_REPEAT)
 	{
-		App->enemies->AddEnemy(ENEMY_TYPES::TANK, x  + (App->render->camera.x / SCREEN_SIZE), App->player->position.y, NONE, App->enemies->enemyTankTexture);
+		//for now calculated center position manually, until fix it (access to animation frame)
+		positionX -= 32 / 2;
+		positionY -= 16 / 2;
+		App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, positionX,  positionY, NONE, App->enemies->enemy1Texture);
 	}
-
-	LOG("Spawn Enemy at position x:%d y:%d ",x,y);
-
+	if (App->input->keyboard[SDL_SCANCODE_2] == KEY_REPEAT)
+	{
+		//for now calculated center position manually, until fix it (access to animation frame)
+		positionX -= 48 / 2;
+		positionY -= 46 / 2;
+		App->enemies->AddEnemy(ENEMY_TYPES::ENEMYOSCILATORY, positionX, positionY, NONE, App->enemies->enemy2Texture);
+	}
+	if (App->input->keyboard[SDL_SCANCODE_3] == KEY_REPEAT)
+	{
+		//for now calculated center position manually, until fix it (access to animation frame)
+		positionX -= 157 / 2;
+		positionY -= 64 / 2;
+		App->enemies->AddEnemy(ENEMY_TYPES::TANK, positionX, positionY, NONE, App->enemies->enemyTankTexture);
+	}
 
 }
