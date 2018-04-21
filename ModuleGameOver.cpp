@@ -41,7 +41,7 @@ bool ModuleGameOver::Start()
 
 update_status ModuleGameOver::Update()
 {
-	current_step = intro_step::firstSecuence; //<------ If you put this, the first Game Over is ok but the secuence don't continue to the Fade to White and last Game Over
+	//current_step = intro_step::firstSecuence; //<------ If you put this, the first Game Over is ok but the secuence don't continue to the Fade to White and last Game Over
 	//App->render->Blit(gameOverTexture, 25, 36, &gameOverFirstRect);
 	//App->render->Blit(gameOverTexture, 25, 36, &gameOverMidRect);
 	//App->render->Blit(gameOverTexture, 35,46, &gameOverRect);

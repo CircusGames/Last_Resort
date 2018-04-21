@@ -19,6 +19,7 @@
 #include "ModuleEnemies.h"
 #include "ModuleUI.h"
 #include "ModulePowerUp.h"
+//#include "ModuleWinScreen.h"
 
 Application::Application()
 {
@@ -43,6 +44,7 @@ Application::Application()
 	modules[i++] = audio = new ModuleAudio();
 	modules[i++] = moduleUI = new ModuleUI();
 	modules[i++] = fade = new ModuleFadeToBlack();
+	//modules[i++] = winscreen = new ModuleWinScreen();
 
 }	
 
@@ -72,6 +74,7 @@ bool Application::Init()
 	collision->Disable();
 	particles->Disable();
 	modulePowerUp->Disable();
+	//winscreen->Disable();
 
 	enemies->Disable();
 	

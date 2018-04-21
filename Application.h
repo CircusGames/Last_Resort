@@ -25,7 +25,7 @@ class ModuleCollision;
 class ModuleFadeToBlack;
 class ModulePowerUp;
 class ModuleUI;
-
+//class ModuleWinScreen;
 class ModuleEnemies;
 
 // dont forget to increase the NUM_MODULES variable whenever you add a new module
@@ -54,6 +54,7 @@ public:
 	ModuleAudio* audio = nullptr;
 	ModuleUI* moduleUI = nullptr;
 	ModuleFadeToBlack* fade = nullptr;
+	//ModuleWinScreen* winscreen = nullptr;
 
 	
 	
