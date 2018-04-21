@@ -6,6 +6,7 @@
 #include "ModulePlayer.h"
 #include "ModulePlayerUnit.h"
 #include "ModuleParticles.h"
+#include "ModulePowerUp.h"
 
 #define UNITANIMSPEED 0.25f
 
@@ -189,7 +190,10 @@ bool ModulePlayerUnit::Start()
 	LOG("Starting playerUnit Module");
 
 	
-	playerUnitBlue = App->textures->Load("assets/Graphics/Player/blueUnit.png");
+	//playerUnitBlue = App->textures->Load("assets/Graphics/Player/blueUnit.png");
+	//playerUnitOrange = App->textures->Load("assets/Graphics/Player/orangeUnit.png");
+
+	
 
 	//delta calculations
 	orbitSpeed = 1.0f;
@@ -479,7 +483,7 @@ update_status ModulePlayerUnit::Update()
 	playerPos.x = (App->player->position.x + 9) + cos(angle) * 31.5f;//orginal distance // 9
 	playerPos.y = (App->player->position.y - 7) - sin(angle) * 32;//24; // 7
 	
-	App->render->Blit(playerUnitBlue,
+	App->render->Blit(graphics,
 		playerPos.x - pivotArrayPositionsX[(int)frameIncrement],
 		playerPos.y - pivotArrayPositionsY[(int)frameIncrement],
 		&unitRect);
@@ -495,3 +499,28 @@ bool ModulePlayerUnit::CleanUp()
 
 	return true;
 }
+
+void ModulePlayerUnit::swapColor(powerUpColor color) //loads and swaps color
+{
+
+	if (graphics != nullptr)
+	{
+		App->textures->Unload(graphics);
+		graphics = nullptr;
+	}
+
+	LOG("Swaping Unit Colors and functionality");
+	if (color == powerUpColor::ORANGE)
+	{
+		graphics = App->textures->Load("assets/Graphics/Player/OrangeUnit.png");
+		actualUnitColor = color;
+	}
+	else if (color == powerUpColor::BLUE)
+	{
+		graphics = App->textures->Load("assets/Graphics/Player/blueUnit.png");
+		actualUnitColor = color;
+	}
+	
+
+}
+

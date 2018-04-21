@@ -451,15 +451,15 @@ bool ModuleSceneLvl1::Start()
 	//see basic_enemy.cpp and .h to read the instructions for both of them. You decide.
 	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 980, 90, NONE, App->enemies->enemy1Texture);
 	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 1060, 72, NONE, App->enemies->enemy1Texture);
-	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 1060, 138, UNIT, App->enemies->enemy1Texture);
+	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 1060, 138, MISSILES, App->enemies->enemy1Texture);
 	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 1165, 31, NONE, App->enemies->enemy1Texture);
 	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 1210, 138, NONE, App->enemies->enemy1Texture);
 	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 1235, 31, NONE, App->enemies->enemy1Texture);
 	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 1305, 31, NONE, App->enemies->enemy1Texture);
-	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 1375, 31, UNIT, App->enemies->enemy1Texture);
+	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 1375, 31, MISSILES, App->enemies->enemy1Texture);
 	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 1445, 31, NONE, App->enemies->enemy1Texture);
 	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 1505, 164, NONE, App->enemies->enemy1Texture);
-	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 1575, 164, UNIT, App->enemies->enemy1Texture);
+	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 1575, 164, MISSILES, App->enemies->enemy1Texture);
 	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 1645, 164, NONE, App->enemies->enemy1Texture);
 	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 1715, 164, NONE, App->enemies->enemy1Texture);
 	App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 1785, 164, NONE, App->enemies->enemy1Texture);
@@ -542,7 +542,7 @@ bool ModuleSceneLvl1::Start()
 	//App->enemies->AddEnemy(ENEMY_TYPES::BASIC_ENEMY, 665, 80);
 
 	//Trial
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYOSCILATORY, 500, 90, NONE, App->enemies->enemy2Texture);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYOSCILATORY, 500, 90, MISSILES, App->enemies->enemy2Texture);
 	//Enemy Oscilatory
 	//First Wave
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYOSCILATORY, 5500, 90, NONE, App->enemies->enemy2Texture);

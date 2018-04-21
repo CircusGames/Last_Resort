@@ -19,6 +19,16 @@ enum update_status
 	UPDATE_ERROR
 };
 
+enum powerUpTypes
+{
+	NONE,
+	BOOST,
+	BRAKE,
+	MISSILES,
+	LASER,
+	BOMBS
+};
+
 // Useful typedefs ---------
 typedef unsigned int uint;
 

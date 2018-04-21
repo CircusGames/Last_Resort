@@ -301,8 +301,10 @@ update_status ModulePlayer::Update()
 		//update player collider to its position -----------------------------------------
 		
 			playerCollider->SetPos(position.x, position.y - 6);
+		
+		//DEBUG FUNCTIONALITIES -------------------------------------------------------------------------------------------------
 
-		//DEBUG: GODMODE F2
+		//DEBUG: GODMODE F2 ---------------------------------
 		if (App->input->keyboard[SDL_SCANCODE_F2] == KEY_DOWN)
 		{
 			if (playerCollider != nullptr && !godMode)
@@ -320,7 +322,47 @@ update_status ModulePlayer::Update()
 				godMode = false;
 			}
 		}
-	}
+		//DEBUG: ACTIVATE/DEACTIVATE UNIT, cycle: blue/orange/off
+		if (App->input->keyboard[SDL_SCANCODE_F3] == KEY_DOWN)
+		{
+			if (!App->playerUnit->IsEnabled())
+			{
+				App->playerUnit->swapColor(powerUpColor::BLUE);
+				App->playerUnit->Enable();
+			}
+			else if (App->playerUnit->actualUnitColor == powerUpColor::ORANGE)
+			{
+				App->playerUnit->Disable();
+			}
+			else if (App->playerUnit->actualUnitColor == powerUpColor::BLUE)
+			{
+				App->playerUnit->swapColor(powerUpColor::ORANGE);
+			}
+			
+		}
+		//DEBUG: SPAWN POWERUPS ------------------------------------------------------------------------------
+		if (App->input->keyboard[SDL_SCANCODE_F4] == KEY_DOWN)
+		{
+			App->modulePowerUp->SpawnPowerUp({ position.x + (32 + 100),position.y - 8}, powerUpTypes::BOOST);
+		}
+		if (App->input->keyboard[SDL_SCANCODE_F5] == KEY_DOWN)
+		{
+			App->modulePowerUp->SpawnPowerUp({ position.x + (32 + 100),position.y - 8 }, powerUpTypes::BOMBS);
+		}
+		if (App->input->keyboard[SDL_SCANCODE_F6] == KEY_DOWN)
+		{
+			App->modulePowerUp->SpawnPowerUp({ position.x + (32 + 100),position.y - 8}, powerUpTypes::BRAKE);
+		}
+		if (App->input->keyboard[SDL_SCANCODE_F7] == KEY_DOWN)
+		{
+			App->modulePowerUp->SpawnPowerUp({ position.x + (32 + 100),position.y - 8}, powerUpTypes::LASER);
+		}
+		if (App->input->keyboard[SDL_SCANCODE_F8] == KEY_DOWN)
+		{
+			App->modulePowerUp->SpawnPowerUp({ position.x + (32 + 100),position.y - 8 }, powerUpTypes::MISSILES);
+		}
+		
+	}	// ----------------------------------------------------------------------------------------------------------------------
 
 	//DRAW PLAYER ---------------------------------------------------------------------------
 	//draw SPAWN ANIMATION --------

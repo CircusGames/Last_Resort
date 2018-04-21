@@ -11,6 +11,7 @@
 #include "ModuleInput.h"
 #include "ModulePlayer.h"
 #include <math.h>
+#include "ModulePowerUp.h"
 
 class ModulePlayerUnit : public Module
 {
@@ -30,8 +31,15 @@ public:
 	update_status Update();
 	bool CleanUp();
 
+	void swapColor(powerUpColor color);
+
 public:
+
+	bool alive = false; //prevent
+
 	//some needed vars or specific functions
+	SDL_Texture * graphics;
+	SDL_Texture * playerUnitOrange;
 	SDL_Texture* playerUnitBlue;
 	Animation playerUnitAnim[MAX_ANIMS];
 	Animation *currentUnitAnim;
@@ -55,8 +63,9 @@ public:
 
 	//values needed for basic shooting  ------------------------------------
 	//on x coord. we have to assume that we have -1 (playerMovement(+1) to followCameraMov.)
-	iPoint shotVectorSpeed[16] = { { 7,0 }, { 3,-1 }, { 10,-8 }, { 2,-2 }, { 1,-2 }, { 0,-2 }, { -1,-2 }, { -1,-1 },
+	iPoint shotVectorSpeed[16] = { { 6,0 }, { 3,-1 }, { 10,-8 }, { 2,-2 }, { 1,-2 }, { 0,-2 }, { -1,-2 }, { -1,-1 },
 	                               {-1,0 }, { -1,1 }, { -1, 2 }, { 0, 2 }, { 1,2 }, { 2,2 }, { 3,2 }, { 3,1 } };
 
+	powerUpColor actualUnitColor;
 };
 #endif // !__MODULEPLAYERUNIT_H__

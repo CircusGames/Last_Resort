@@ -9,7 +9,7 @@
 struct SDL_Texture;
 struct Collider;
 
-enum powerUpTypes
+/*enum powerUpTypes
 {
 	NONE,
 	UNIT,
@@ -17,7 +17,7 @@ enum powerUpTypes
 	MISSILE1,
 	MISSILE2,
 	RANDOM
-};
+};*/
 
 class Enemy
 {

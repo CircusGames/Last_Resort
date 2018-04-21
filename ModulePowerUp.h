@@ -5,11 +5,20 @@
 #include "Globals.h"
 #include "ModuleEnemies.h"
 //#include "ModuleCollision.h"
+#include "Animation.h"
+//#include "ModulePlayerUnit.h"
+#include "ModuleCollision.h"
 
-#define MAX_ACTIVES 10
+#define MAX_ACTIVE_POWERUPS 10
 #define MAX_TYPES 6
 
 struct SDL_Texture;
+
+enum powerUpColor
+{
+	BLUE,
+	ORANGE
+};
 
 struct powerUpTypeBox
 {
@@ -17,6 +26,26 @@ struct powerUpTypeBox
 	powerUpTypes type;
 	Collider* collider = nullptr;
 	iPoint position;
+};
+
+struct PowerUp
+{
+	Collider* collider = nullptr;
+	Animation anim;
+	SDL_Texture* texture = nullptr;
+	char* fx;
+	iPoint position;
+	iPoint speed;
+	powerUpTypes type;
+	powerUpColor color;
+	bool fx_played = false;
+
+	fPoint fspeed; //if we want the powerup movement more slowly/faster than camera/player scroll/mov
+
+	PowerUp();
+	//PowerUp(const PowerUp& p);
+	~PowerUp();
+	bool Update();
 };
 
 class ModulePowerUp : public Module
@@ -32,19 +61,30 @@ public:
 
 public:
 
-	powerUpTypeBox* powerUpActives[MAX_ACTIVES];
-	//iPoint coordinate;
-
+	PowerUp* active_powerUps[MAX_ACTIVE_POWERUPS];
 	SDL_Texture * powerUpUnit;
 
-	void powerUpSpawn(powerUpTypes type, iPoint coordinate);
+	SDL_Texture* powerUpTextures;
+
+	void SpawnPowerUp(iPoint position, powerUpTypes type);
 	void OnCollision(Collider* c1, Collider* c2);
 
 public:
 
-	SDL_Texture * test = nullptr;
+	//SDL_Texture * powerUpS = nullptr;
+	
 	SDL_Rect testRect;
 	powerUpTypeBox unitBlue;
+
+	//SDL_Rect powerUpS;
+	//SDL_Rect powerUpZ;
+	PowerUp powerUpS;
+	PowerUp powerUpZ;
+	PowerUp powerUpH;
+	PowerUp powerUpG;
+	PowerUp powerUpL;
+
+	powerUpColor color;
 	
 
 };

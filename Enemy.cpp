@@ -15,9 +15,14 @@ Enemy::~Enemy()
 {
 	if (collider != nullptr)
 	{
+		//iPoint position, COLLIDER_TYPE collider_type, powerUpTypes type, iPoint speed)
 		collider->to_delete = true;
-		App->modulePowerUp->powerUpSpawn(powerUpType, position);
-		App->player->playerScore += enemyScore;
+		
+		if (life <= 0) //only spawn powerup if the enemy is really death
+		{
+			App->modulePowerUp->SpawnPowerUp(position, powerUpType);
+			App->player->playerScore += enemyScore;
+		}
 	}
 }
 
