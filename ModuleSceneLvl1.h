@@ -30,6 +30,8 @@ public:
 
 	bool CleanUp();
 
+	void spawnEnemies(int x , int y);
+	
 public:
 	
 	//bg textures---------------------------
@@ -46,6 +48,7 @@ public:
 	//basic enemy background texture
 	SDL_Texture* basicEnemyBgTexture = nullptr;
 	
+	int debugValue;
 	
 	SDL_Rect bgRect;
 	SDL_Rect fgRect;

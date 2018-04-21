@@ -5,10 +5,12 @@
 #include "Animation.h"
 //#include "Globals.h"
 #include "p2Point.h"
+#include "SDL\include\SDL_events.h"
 
 struct SDL_Texture;
 struct Collider;
 struct Mix_Chunk;
+
 
 class ModulePlayer : public Module
 {
@@ -95,6 +97,8 @@ public:
 	Uint32 start_time;
 	Uint32 now;
 	Uint32 powerUpTime;
+
+	bool click = false;
 
 };
 

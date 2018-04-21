@@ -3,6 +3,8 @@
 #include "ModuleInput.h"
 #include "SDL/include/SDL.h"
 
+#include "ModuleSceneLvl1.h" //for now scene lv1 spawn enemies debug mode
+
 ModuleInput::ModuleInput() : Module()
 {
 	for (uint i = 0; i < MAX_KEYS; ++i)
@@ -60,10 +62,18 @@ update_status ModuleInput::PreUpdate()
 		return update_status::UPDATE_STOP;
 
 	while (SDL_PollEvent(&Event)) //close window with mouse
-		 {
+	{
+
 		if (Event.type == SDL_QUIT)
-			 return update_status::UPDATE_STOP;
-		 }
+			return update_status::UPDATE_STOP;
+
+		if (Event.type == SDL_MOUSEBUTTONDOWN)
+		{
+			App->scene_lvl1->spawnEnemies(Event.button.x, Event.button.y);
+
+		}
+
+	}
 
 
 	return update_status::UPDATE_CONTINUE;
