@@ -3,6 +3,9 @@
 #include "ModuleCollision.h"
 #include "ModuleEnemies.h"
 #include "ModulePlayer.h"
+#include "ModuleParticles.h"
+
+#include "SDL\include\SDL_timer.h"
 
 EnemyBee::EnemyBee(int x, int y, powerUpTypes type, SDL_Texture* sprite) : Enemy(x, y)
 {
@@ -56,12 +59,17 @@ EnemyBee::EnemyBee(int x, int y, powerUpTypes type, SDL_Texture* sprite) : Enemy
 	fposition.y = y;
 
 	powerUpType = type;
-	life = 1; //6 points of life original
+	life = 6; //6 points of life original
 	enemyScore = 300;
 
 	iSpeed = 40;
 	//fSpeed = 50;
 	fSpeed = 47.3f;
+
+	attackRange = 100;
+	cadence = 1000;
+
+	start_time = SDL_GetTicks();
 
 	collider = App->collision->AddCollider({ 0, 0, 32, 16 }, COLLIDER_TYPE::COLLIDER_ENEMY, (Module*)App->enemies);
 
@@ -73,7 +81,36 @@ void EnemyBee::Move()
 	fposition.x += ((float)App->player->position.x - fposition.x) / fSpeed;
 	fposition.y += ((float)App->player->position.y - fposition.y) / fSpeed;
 
+	
+
 	position.x = fposition.x + 1;
 	position.y = fposition.y;
+
+	distance = App->player->position.x - position.x;
+
+
+	int dirx = App->player->position.x - position.y;
+	int diry = App->player->position.y - position.y;
+
+	length = sqrt(dirx*dirx + diry*diry);
+
+	dirx /= length; //normalize vector (make 1 unit length)
+	diry /= length;
+	dirx *= 2; //scale to our speed
+	diry *= 2;
+
+
+	now = SDL_GetTicks() - start_time;
+
+	if (now >= cadence) attack = true;
+
+	if (attack) {
+		if (abs(distance) < attackRange)
+			App->particles->AddParticle(App->particles->beam, position.x, position.y, COLLIDER_ENEMY_SHOT, { dirx,diry });
+		attack = false;
+		start_time = SDL_GetTicks();
+	}
+	//if (position.x > App->player->position.x - position.x + 100)
+		//App->particles->AddParticle(App->particles->beam, position.x, position.y, COLLIDER_ENEMY_SHOT, {2,2});
 
 }

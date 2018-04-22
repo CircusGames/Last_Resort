@@ -20,7 +20,7 @@ private:
 	
 	Animation circusCarpAnim;
 	SDL_Texture* logoTexture;
-	SDL_Texture* provisionalTexture;
+	//SDL_Texture* provisionalTexture;
 	SDL_Texture* circusCarp = nullptr;
 
 	Animation LogoTextAnim;
