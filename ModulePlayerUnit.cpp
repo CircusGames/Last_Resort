@@ -504,9 +504,10 @@ bool ModulePlayerUnit::CleanUp()
 {
 	//unload textures
 	App->textures->Unload(playerUnitBlue);
+	App->textures->Unload(playerUnitOrange);
 	//unload audio
-	App->audio->UnloadAudio("Fix Unit", SFX);
-	App->audio->UnloadAudio("Unfix Unit", SFX);
+	App->audio->UnloadAudio("UnitLocked", SFX);
+	App->audio->UnloadAudio("UnitUnlocked", SFX);
 	return true;
 }
 
