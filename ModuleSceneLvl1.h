@@ -151,6 +151,10 @@ public:
 	float foregroundSpeed;
 	float midgroundSpeed;
 	float backgroundSpeed;
+
+
+	//Player 2
+	bool spawn = false;
 };
 
 #endif //! _MODULESCENELVL1_H__

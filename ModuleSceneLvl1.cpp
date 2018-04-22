@@ -11,6 +11,7 @@
 #include "ModuleGameOver.h"
 #include "ModuleAudio.h"
 #include "ModulePlayerUnit.h"
+#include "ModulePlayer2Unit.h"
 #include "ModuleParticles.h"
 #include "ModuleCollision.h"
 #include "ModulePowerUp.h"
@@ -680,7 +681,7 @@ update_status ModuleSceneLvl1::PreUpdate()
 	{
 		//move player position to follow the camera movement
 		App->player->position.x += 1;
-		//App->player2->position.x += 1;
+		App->player2->position.x += 1;
 		//camera speed relative to its size
 		App->render->camera.x -= 1 * SCREEN_SIZE;
 		//returns original pixel position x values foreground
@@ -828,7 +829,15 @@ update_status ModuleSceneLvl1::PreUpdate()
 // Update: draw background
 update_status ModuleSceneLvl1::Update()
 {
-
+	if (App->input->keyboard[SDL_SCANCODE_Q] == KEY_STATE::KEY_DOWN)
+	{
+		spawn = true;
+	}
+	if (spawn == true)
+	{
+		App->player2->Enable();
+		spawn = false;
+	}
 	// Draw everything --------------------------------------
 	
 	App->render->Blit(bg, 0, 0, &bgRect, backgroundSpeed); //bg1 last resort----------------------
@@ -1018,6 +1027,10 @@ bool ModuleSceneLvl1::CleanUp()
 	App->enemies->Disable();
 
 	App->player->Disable();
+	if (App->player2->IsEnabled())
+		App->player2->Disable();
+	if (App->player2Unit->IsEnabled())
+		App->player2Unit->Disable();
 	App->playerUnit->Disable();
 	App->modulePowerUp->Disable();
 

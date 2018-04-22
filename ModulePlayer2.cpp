@@ -14,33 +14,33 @@
 ModulePlayer2::ModulePlayer2()
 {
 	position.x = 40;
-	position.y = 120;
+	position.y = 80;
 
-	//spawn anim WIP
-	spawnAnim.PushBack({ 144,70,111,1 }); //0,79 
+	//spawn anim
+	spawnAnim.PushBack({ 0,122,111,1 }); //0,79 
 	spawnAnim.PushBack({ 6,125,105,2 }); //13,80 
 	spawnAnim.PushBack({ 1,127,76,4 }); //12,79 
 	spawnAnim.PushBack({ 0,131,74,8 }); //12,76 
 	spawnAnim.PushBack({ 2,142,62,15 }); //8,72
 	spawnAnim.PushBack({ 2,171,62,15 }); //8,73
-	spawnAnim.PushBack({ 0,102 ,62,15 }); //16,72
-	spawnAnim.PushBack({ 62,102,51,16 }); //16,72
-	spawnAnim.PushBack({ 113,102,64,16 }); //8,72
-	spawnAnim.PushBack({ 177,102,64,25 }); //8,67
-	spawnAnim.PushBack({ 241,102,57,25 }); //15,67       
-	spawnAnim.PushBack({ 298,102,56,25 }); //16,67
-	spawnAnim.PushBack({ 354,102,36,19 }); //36,71
-	spawnAnim.PushBack({ 390,102,32,15 }); //40,73        
-	spawnAnim.speed = 0.143f;
+	spawnAnim.PushBack({ 13,193,51,16 }); //16,72
+	spawnAnim.PushBack({ 13,219,51,16 }); //16,72
+	spawnAnim.PushBack({ 64,143,64,16 }); //8,72
+	spawnAnim.PushBack({ 64,164,64,25 }); //8,67
+	spawnAnim.PushBack({ 71,188,57,25 }); //15,67
+	spawnAnim.PushBack({ 72,214,56,25 }); //16,67
+	spawnAnim.PushBack({ 156,143,36,19 }); //36,71
+	spawnAnim.PushBack({ 160,171,32,15 }); //40,73        
+	spawnAnim.speed = 0.25f;
 	spawnAnim.repeat = false;
 
 
 	//movement anim
-	playerAnim.PushBack({ 160,0,32,11 }); //up2 - 0
-	playerAnim.PushBack({ 128,0,32,11 }); //up1 - 1
-	playerAnim.PushBack({ 32,0,32,11 }); //idle - 2
-	playerAnim.PushBack({ 64,0,32,12 }); //down1 - 3
-	playerAnim.PushBack({ 96,0,32,12 }); //down2 - 4
+	playerAnim.PushBack({ 0,3,32,13 }); //up2 - 0
+	playerAnim.PushBack({ 32,3,32,13 }); //up1 - 1
+	playerAnim.PushBack({ 64,3,32,12 }); //idle - 2
+	playerAnim.PushBack({ 96,3,32,12 }); //down1 - 3
+	playerAnim.PushBack({ 128,4,32,11 }); //down2 - 4
 
 
 										  //Player Dying animation
@@ -62,6 +62,53 @@ ModulePlayer2::ModulePlayer2()
 	playerDyingAnim.PushBack({ 118,70,47,16 });
 	playerDyingAnim.PushBack({ 124,90,41,12 });
 	playerDyingAnim.PushBack({ 128,108,37,10 });
+	playerDyingAnim.speed = 0.3f;
+	playerDyingAnim.repeat = false;
+
+	//beam flash smoke
+	beamSmoke.PushBack({ 128,126,10,9 });
+	beamSmoke.PushBack({ 115,124,13,12 });
+	beamSmoke.PushBack({ 0,0,0,0 });
+	beamSmoke.PushBack({ 0,0,0,0 });
+	beamSmoke.PushBack({ 0,0,0,0 });
+	beamSmoke.PushBack({ 128,126,10,9 });
+	beamSmoke.PushBack({ 115,124,13,12 });
+	beamSmoke.PushBack({ 115,124,13,12 });
+	beamSmoke.speed = 0.5f;
+	beamSmoke.repeat = false;
+
+	//boost animation
+	boostAnim.PushBack({ 0,0,32,31 });
+	boostAnim.PushBack({ 33,0,32,32 });
+	boostAnim.PushBack({ 64,2,32,26 });
+	boostAnim.PushBack({ 96,7,32,18 });
+	boostAnim.PushBack({ 0,33,32,13 });
+	boostAnim.PushBack({ 33,36,32,7 }); //42,36,22,7 
+	boostAnim.PushBack({ 64,36,32,7 }); //71,36,25,7 
+	boostAnim.PushBack({ 96,36,32,6 }); //42,36,22,7 
+	boostAnim.PushBack({ 0,53,32,6 });
+	boostAnim.PushBack({ 33,52,32,6 });
+	boostAnim.speed = 0.25f;
+	boostAnim.repeat = false;
+
+	//laser powerUp flash
+	laserFlash.PushBack({ 1,1,13,13 });
+	laserFlash.PushBack({ 16,1,15,15 });
+	laserFlash.PushBack({ 33,1,27,9 });
+	laserFlash.PushBack({ 32,18,31,7 });
+	laserFlash.PushBack({ 1,27,31,5 });
+	laserFlash.PushBack({ 1,39,32,3 });
+	laserFlash.PushBack({ 1,34,32,3 });
+	laserFlash.PushBack({ 1,18,30,3 });
+	laserFlash.speed = 0.25f;
+	laserFlash.repeat = false;
+
+
+
+
+
+
+
 }
 
 
@@ -77,38 +124,105 @@ bool ModulePlayer2::Start()
 	LOG("Loading player textures");
 	bool ret = true;
 
-	player2 = App->textures->Load("assets/Graphics/Player/player2_spriteSheet.png");
+	player2 = App->textures->Load("assets/Graphics/Player/player1_incomplete.png");
+	powerUpTextures = App->textures->Load("assets/Graphics/Player/PowerUps.png");
+	laserFlashTexture = App->textures->Load("assets/Graphics/Player/laserFlash.png");
 	//restart player positions for next time playerModule call
 
 	position.x = 40;
-	position.y = 120;
+	position.y = 80;
 
 	//player collision rect
-	playerCollider = App->collision->AddCollider({ position.x, position.y, 32, 12 }, COLLIDER_PLAYER, this);
+	//playerCollider = App->collision->AddCollider({ position.x, position.y, 32, 12 }, COLLIDER_PLAYER,this);
 
 	frameIncrement = 2; //initializes speed positions frame rect array incrementer at "center" -> idle
 
 	ignitionSpeed = 0.2f; //speed when accelerate
 	releaseSpeed = 0.1f; //speed when releases direction keys to return to idle
 
-						 //load necessary fx wavs
+						 //resets player score on every start
+	playerScore = 0;
 
-						 // ---------------------
+	destroyed = false;
 
-						 //for new gameLoops
-						 //checks if the player state is normal, if is, spawn condition
-	if (player_step == player_state::normal)
+	//load necessary fx wavs
+	App->audio->LoadAudio("assets/Audio/SFX/Player/speedUpgrade.wav", "speedUP", SFX);
+	App->audio->LoadAudio("assets/Audio/SFX/Player/speedDowngrade.wav", "speedDN", SFX);
+	App->audio->LoadAudio("assets/Audio/SFX/Player/spawn.wav", "spawn", SFX);
+	App->audio->LoadAudio("assets/Audio/SFX/Player/death.wav", "death", SFX);
+
+
+	// ---------------------
+
+	//for new gameLoops
+	//checks if the player state is normal, if is, spawn condition
+	if (player_step == player_state::normal || player_step == player_state::died)
 		player_step = player_state::spawn;
+
+	//and play FX, for the moment, right here is good
+	App->audio->ControlAudio("spawn", SFX, PLAY);
+
+
+	//defines times for buffs
+	powerUpTime = 5000; //in ms
 
 	return ret;
 
 
 }
 
+update_status ModulePlayer2::PreUpdate()
+{
+	//FUNCTIONALITY POWERUPS, assigns speeds, animations, etc
+	if (player_step == player_state::normal)
+	{
+		now = SDL_GetTicks() - start_time; //time events/states general counter
+										   //BOOST LOGIC ---------------------------------------------------------
+		if (powerUpActive == powerUpTypes::BOOST)
+		{
+			//play FX
+			App->audio->ControlAudio("speedUP", SFX, PLAY);
+			start_time = SDL_GetTicks(); //start time of the boost buff
+			speed = boostPlayerSpeed;
+			activebuff.boost = true; //actives bool condition
+			activebuff.boostAnim = true;
+			powerUpActive = powerUpTypes::NONE; //resets the enumerator to free the way for another
+												//if we are on brake
+			activebuff.brake = false;
+		}
+		//float speed = 1.4f; //player position speed
+		if (!activebuff.boost && !activebuff.brake) //if the time for boost go out... and the boost brake is not active, normal speed
+		{
+
+			playerSpeed = speed = normalPlayerSpeed; //resets the temporal incrementer to always Nicolas at the desired incrementer count
+													 //new change direction starts incrementer at speed correct value (always same distances)
+		}
+		else if (activebuff.brake)
+			speed = brakePlayerSpeed;
+
+		if (powerUpActive == powerUpTypes::BRAKE)
+		{
+			//activebuff.boost = false; //its finish automatic when its animation finish
+			activebuff.brake = true;
+			powerUpActive = powerUpTypes::NONE;
+		}
+
+		if (powerUpActive == powerUpTypes::LASER)
+		{
+			activebuff.laser = true;
+			powerUpActive = powerUpTypes::NONE;
+		}
+		// --------------------------------------------------------------------
+
+	}
+
+
+	return UPDATE_CONTINUE;
+}
 // Update: draw background
 update_status ModulePlayer2::Update()
 {
-	Animation* current_animation = &playerAnim;
+	current_animation = &playerAnim;
 	SDL_Rect r;
 
 	if (player_step == player_state::spawn)
@@ -120,26 +234,41 @@ update_status ModulePlayer2::Update()
 			player_step = player_state::normal;
 			current_animation->finish = false; //and resets condition
 			current_animation->current_frame = 0;
+			//activate collider
+			playerCollider = App->collision->AddCollider({ position.x, position.y, 32, 12 }, COLLIDER_PLAYER, this);
 		}
 	}
 
-	else
+	else if (player_step == player_state::normal)
 	{
 		//for now activates playerUnit for testing here
 		if (!App->player2Unit->IsEnabled())
 		{
-			App->player2Unit->Enable();
+			//App->playerUnit->Enable();
 		}
 
-		float speed = 1.4f; //player position speed
-		playerSpeed = speed; //resets the temporal incrementer to always Nicolas at the desired incrementer count
-							 //new change direction starts incrementer at speed correct value (always same distances)
+		/*if (powerUpActive == powerUpTypes::BOOST)
+		{
+		speed = boostPlayerSpeed;
+		now = SDL_GetTicks() - start_time;
 
-							 //App->render->Blit(player,300, 50, &spawnAnim.GetCurrentFrame());
+		if (now >= poweUpTime)
+		{
+		start_time = SDL_GetTicks();
+		powerUpActive = powerUpTypes::NONE;
 
-							 //Animation* current_animation = &playerAnim;
+		}
+		}
+		//float speed = 1.4f; //player position speed
+		else
+		playerSpeed = speed = normalPlayerSpeed; //resets the temporal incrementer to always Nicolas at the desired incrementer count
+		//new change direction starts incrementer at speed correct value (always same distances)*/
 
-							 //animation logic ---------------------------------------------------------------
+		//App->render->Blit(player,300, 50, &spawnAnim.GetCurrentFrame());
+
+		//Animation* current_animation = &playerAnim;
+
+		//animation logic ---------------------------------------------------------------
 
 		if (App->input->keyboard[SDL_SCANCODE_DOWN] == KEY_STATE::KEY_REPEAT) //while press down
 		{
@@ -227,9 +356,9 @@ update_status ModulePlayer2::Update()
 											//if (position.x + (int)playerSpeed >= 256) //0 = min y coordinate, 9=texture height/2 + offset
 											//position.x = 256; //target min y player position
 
-			if (position.x > (abs(App->render->camera.x) / SCREEN_SIZE) + SCREEN_WIDTH - 30)
+			if (position.x > (abs(App->render->camera.x) / SCREEN_SIZE) + SCREEN_WIDTH - (32 + 16)) //player text width + offset
 			{
-				position.x = (abs(App->render->camera.x) / SCREEN_SIZE) + SCREEN_WIDTH - 30;// 16 = 1/2 player width + 16 offset original game
+				position.x = (abs(App->render->camera.x) / SCREEN_SIZE) + SCREEN_WIDTH - (32 + 16);// 16 = 1/2 player width + 16 offset original game
 			}
 		}
 
@@ -243,9 +372,9 @@ update_status ModulePlayer2::Update()
 
 											/*if (position.x + (int)playerSpeed <= 0 + 16) //0 = min y coordinate, 9=texture height/2 + offset
 											position.x = 16; //target min y player position*/
-			if (position.x < abs(App->render->camera.x) / SCREEN_SIZE + 30)
+			if (position.x < abs(App->render->camera.x) / SCREEN_SIZE + 16)
 			{
-				position.x = abs(App->render->camera.x) / SCREEN_SIZE + 30;// 16 = 1/2 player width + 16 offset original game
+				position.x = abs(App->render->camera.x) / SCREEN_SIZE + 16;// 16 = 1/2 player width + 16 offset original game
 			}
 		}
 
@@ -254,26 +383,145 @@ update_status ModulePlayer2::Update()
 
 		//if player press keys of particles emitters
 
-		if (App->input->keyboard[SDL_SCANCODE_SPACE] == KEY_STATE::KEY_DOWN)
+		if (App->input->keyboard[SDL_SCANCODE_M] == KEY_STATE::KEY_DOWN)
 		{
 			LOG("Beam!");
-			//App->particles->AddParticle(App->particles->beamSmoke, position.x + 16, position.y - 6, COLLIDER_NONE);
 
-			App->particles->AddParticle(App->particles->beam, position.x + 14, position.y - 4, COLLIDER_PLAYER_SHOT); //, "shot");
+			if (activebuff.laser)
+			{
+				shootingLaser = true;
+				App->particles->AddParticle(App->particles->laser, position.x + 32, position.y - 2, COLLIDER_PLAYER_SHOT); //"shot");
+			}
+
+
+			shooting = true;
+
+
+			App->particles->AddParticle(App->particles->beam, position.x + 32, position.y - 4, COLLIDER_PLAYER_SHOT); //, "shot");
 
 		}
+		//checks animation cycle --------------------------------------------------------------------------------------------------
+		if (shooting)
+		{
+			if (beamSmoke.current_frame == beamSmoke.last_frame) //resets animation cycle
+			{
+				beamSmoke.current_frame = 0;
+				beamSmoke.finish = false;
+				shooting = false;
+			}
+			App->render->Blit(player2, position.x + 32, position.y - 6, &beamSmoke.GetCurrentFrame());
+		}
+		if (shootingLaser)
+		{
+			Animation* currentLaserFlash = &laserFlash;
+			SDL_Rect currentLaserFlashRect = currentLaserFlash->GetCurrentFrame();
+
+			if (App->input->keyboard[SDL_SCANCODE_M] == KEY_DOWN) //force restart animation for new shot
+				currentLaserFlash->current_frame = 0;
+
+			if (currentLaserFlash->current_frame >= currentLaserFlash->last_frame) //resets animation cycle
+			{
+				laserFlash.current_frame = 0;
+				laserFlash.finish = false;
+				shootingLaser = false;
+			}
+			App->render->Blit(laserFlashTexture, position.x + 32, position.y - 1 - (currentLaserFlashRect.h / 2), &currentLaserFlashRect);
+		}
+		// -------------------------------------------------------------------------------------------------------------------------
+		//CHECK POWERUP ANIMATIONS etc ---------------------------------------------------------------------------------------------
+		if (activebuff.boost)
+		{
+			now = SDL_GetTicks() - start_time;
+			if (now >= powerUpTime) //checks the timer counter and deactivate the boost time
+			{
+				activebuff.boost = false;
+				//PLAY SFX
+				App->audio->ControlAudio("speedDN", SFX, PLAY);
+			}
+
+			if (activebuff.boostAnim)
+			{
+				current_animation = &boostAnim;
+				SDL_Rect boostAnimRect = current_animation->GetCurrentFrame();
+				if (current_animation->finish)
+				{
+					activebuff.boostAnim = false;
+					current_animation->current_frame = 0; //and resets its values for next boost
+					current_animation->finish = false;
+				}
+				else
+					App->render->Blit(powerUpTextures, position.x - 32, position.y - (boostAnimRect.h / 2), &boostAnimRect);
+			}
+
+			/*if (activebuff.laser)
+			{
+			current_animation = &laserFlash;
+
+			}*/
+		}
+
+		// --------------------------------------------------------------------------------------------------------------------------
+
+		//update player collider to its position -----------------------------------------
+
+		playerCollider->SetPos(position.x, position.y - 6);
+
+		//DEBUG FUNCTIONALITIES -------------------------------------------------------------------------------------------------
+
+		//DEBUG: GODMODE F2 ---------------------------------
+		if (App->input->keyboard[SDL_SCANCODE_F2] == KEY_DOWN)
+		{
+			if (playerCollider != nullptr && !godMode)
+			{
+				this->playerCollider->to_delete = true;
+				playerCollider = nullptr;
+				playerCollider = App->collision->AddCollider({ position.x, position.y - 6, 32, 12 }, COLLIDER_PLAYER_GOD, this);
+				godMode = true;
+			}
+			else
+			{
+				this->playerCollider->to_delete = true;
+				playerCollider = nullptr;
+				playerCollider = App->collision->AddCollider({ position.x, position.y - 6, 32, 12 }, COLLIDER_PLAYER, this);
+				godMode = false;
+			}
+		}
+
+	}	// ----------------------------------------------------------------------------------------------------------------------
+
+		//DRAW PLAYER ---------------------------------------------------------------------------
+		//draw SPAWN ANIMATION --------
+	if (player_step == player_state::spawn)
+		App->render->Blit(player2, position.x - pivotsSpawnX[(int)current_animation->current_frame], position.y - (r.h / 2), &r, 1.0f);
+	else if (player_step == player_state::normal)
+		//draw player NORMAL STATE --------------------------------------------------------------
+		App->render->Blit(player2, position.x, position.y - (r.h / 2), &r, 1.0f);
+	// --------------------------------------------------------------------------------------
+
+	else if (player_step == player_state::died && destroyed)
+	{
+		current_animation = &playerDyingAnim;
+		r = current_animation->GetCurrentFrame();
+		App->render->Blit(player2, position.x, position.y - (r.h / 2), &r);
+		if (current_animation->finish)
+		{
+			current_animation->current_frame = 0;
+			current_animation->finish = false;
+			destroyed = false;
+			if (lives <= 1)
+			{
+				//resets lives counter for next gameLoop
+				lives = 3;
+				App->fade->FadeToBlack((Module*)App->scene_lvl1, (Module*)App->gameOverScreen);
+			}
+			else
+			{
+				App->fade->FadeToBlack((Module*)App->scene_lvl1, (Module*)App->continueScreen, 1.0f);
+				--lives;
+			}
+		}
+
 	}
-
-	//update player collider to its position -----------------------------------------
-
-	playerCollider->SetPos(position.x - 16, position.y - 6);
-
-	//draw player --------------------------------------------------------------------
-
-	App->render->Blit(player2, position.x - (r.w / 2), position.y - (r.h / 2), &r, 1.0f);
-
-	//if (App->playerUnit->IsEnabled()) App->playerUnit->playerPos.x = position.x;
-
 
 	return UPDATE_CONTINUE;
 
@@ -281,24 +529,46 @@ update_status ModulePlayer2::Update()
 
 void ModulePlayer2::OnCollision(Collider* collider1, Collider* collider2)
 {
-	//if (!Collided)
-	//{
-	this->Disable();
-	App->player2Unit->Disable();
+	//deactivate player active powerUps
+	if (App->player2Unit->IsEnabled())
+		App->player2Unit->Disable();
+
+	player_step = player_state::died;
+	destroyed = true;
+	//PLAY FX
+	App->audio->ControlAudio("death", SFX, PLAY);
 
 	if (playerCollider != nullptr)
 		this->playerCollider->to_delete = true;
-
-	//Destroyed();
-
-	//Collided = true;
-	//}
-	App->fade->FadeToBlack((Module*)App->scene_lvl1, (Module*)App->gameOverScreen);
 }
 
 bool ModulePlayer2::CleanUp()
 {
-	App->textures->Unload(player2);
+	//freeing textures
+	if (player2 != nullptr)
+		App->textures->Unload(player2);
+	if (powerUpTextures != nullptr)
+		App->textures->Unload(player2);
+
+	if (playerCollider != nullptr)
+	{
+		playerCollider->to_delete = true;
+	}
+
+	//if we are on super sayan GOD
+	godMode = false;
+
+	//unloading SFX
+	App->audio->UnloadAudio("speedDN", SFX);
+	//App->audio->UnloadAudio("speedUP", SFX);
+	App->audio->UnloadAudio("spawn", SFX);
+	App->audio->UnloadAudio("death", SFX);
+
+	//deactivate all possible active buffs
+	activebuff.bombs = false;
+	activebuff.boost = false;
+	activebuff.brake = false;
+	activebuff.laser = false;
 
 	return true;
 }
