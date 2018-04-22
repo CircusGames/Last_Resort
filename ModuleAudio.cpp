@@ -37,6 +37,8 @@ bool ModuleAudio::Init()
 		ret = false;
 	};
 
+	Mix_AllocateChannels(48);
+
 	return ret;
 }
 
@@ -191,7 +193,10 @@ void ModuleAudio::ControlAudio(char* name, type type, audio_state state ,int loo
 		switch (state)
 		{
 		case PLAY:
-			Mix_PlayChannel(-1, wav, loops);
+			//Mix_PlayChannel(-1, wav, loops);
+			if (Mix_PlayChannel(-1, wav, loops) == -1) {
+				LOG("Mix_PlayChannel Error: %s", Mix_GetError());
+			}
 			break;
 
 		default:

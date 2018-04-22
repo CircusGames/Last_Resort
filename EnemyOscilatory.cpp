@@ -43,7 +43,7 @@ EnemyOscilatory::EnemyOscilatory(int x, int y, powerUpTypes type, SDL_Texture* s
 
 	original_y = y;
 
-	life = 5;
+	life = 1;
 }
 
 void EnemyOscilatory::Move()
@@ -67,13 +67,13 @@ void EnemyOscilatory::Move()
 	position.x -= 1;
 }
 
-EnemyOscilatory::~EnemyOscilatory()
+/*EnemyOscilatory::~EnemyOscilatory()
 {
 	App->particles->AddParticle(App->particles->explosion, position.x + 30, position.y, COLLIDER_NONE, {}, 0);
-	App->particles->AddParticle(App->particles->explosion, position.x+50, position.y - 7, COLLIDER_NONE, {}, 100);
-	App->particles->AddParticle(App->particles->explosion, position.x+10, position.y + 30, COLLIDER_NONE,{}, 70);
+	App->particles->AddParticle(App->particles->explosion, position.x+50, position.y - 7, COLLIDER_NONE, {}, 300);
+	App->particles->AddParticle(App->particles->explosion, position.x+10, position.y + 30, COLLIDER_NONE,{},500);
 	App->particles->AddParticle(App->particles->explosion, position.x, position.y - 20, COLLIDER_NONE, {}, 144);
-	App->particles->AddParticle(App->particles->explosion, position.x - 10, position.y + 5, COLLIDER_NONE,{}, 29);
+	App->particles->AddParticle(App->particles->explosion, position.x - 10, position.y + 5, COLLIDER_NONE,{}, 170);
 	App->particles->AddParticle(App->particles->explosion, position.x - 20, position.y - 8, COLLIDER_NONE,{}, 240);
 
-}
+}*/

@@ -41,8 +41,8 @@ private:
 	songsStruct songsArray[MAX_SONGS] = { nullptr };
 	sfx sfxArray[MAX_FX] = { nullptr };
 
-	int last_chunk = 0;
-	int last_song = 0;
+	//int last_chunk = 0;
+	//int last_song = 0;
 
 public:
 

@@ -49,14 +49,7 @@ update_status ModuleEnemies::PreUpdate()
 	{
 		if (queue[i].type != ENEMY_TYPES::NO_TYPE)
 		{
-			//LOG("camPosX ",(int)App->render->currentCameraPosX);
-
-			//Force the debugged enemies to spawn
-			//if (queue[i].debug)
-			//{ 
-			//	SpawnEnemy(queue[i]);// queue[i].type = ENEMY_TYPES::NO_TYPE; 
-			//}
-
+			
 			//if (queue[i].x * SCREEN_SIZE > App->render->camera.x - (App->render->camera.w * SCREEN_SIZE) + SPAWN_MARGIN)
 			if (-queue[i].x * SCREEN_SIZE > App->render->camera.x - (App->render->camera.w * SCREEN_SIZE) - SPAWN_MARGIN)
 			{
@@ -91,7 +84,8 @@ update_status ModuleEnemies::PostUpdate()
 	{
 		if (enemies[i] != nullptr)
 		{
-			if (enemies[i]->position.x * SCREEN_SIZE < (App->render->camera.x) - SPAWN_MARGIN)
+			//if (enemies[i]->position.x * SCREEN_SIZE < (App->render->camera.x) - SPAWN_MARGIN)
+			if(enemies[i]->position.x < (abs(App->render->camera.x) / SCREEN_SIZE) - 100)
 			{
 				LOG("DeSpawning enemy at %d", enemies[i]->position.x * SCREEN_SIZE);
 				delete enemies[i];
@@ -184,7 +178,11 @@ void ModuleEnemies::OnCollision(Collider* c1, Collider* c2)
 
  			if (enemies[i]->life <= 0)
 			{
+<<<<<<< HEAD
 				App->audio->ControlAudio("Enemy Dying", SFX, PLAY);
+=======
+				
+>>>>>>> 42cb756ead752d08dcfb9191818e6cfd40f08c75
 				delete enemies[i];
 				enemies[i] = nullptr;
 				break;
