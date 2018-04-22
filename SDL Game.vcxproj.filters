@@ -1,241 +1,76 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Core">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Modules">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
-    </Filter>
-    <Filter Include="Containers">
-      <UniqueIdentifier>{78a7f487-1d77-4fdc-9f51-f067eccd6239}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Modules\Players">
-      <UniqueIdentifier>{19fb52f7-70a5-400b-b325-c2c707efd5a9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Modules\Enemies">
-      <UniqueIdentifier>{81eb9e03-14bd-48e2-8188-3aab409c09f7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Modules\PowerUps">
-      <UniqueIdentifier>{7ad52a64-9525-4a13-bc8e-8461a3cdbc79}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Modules\Enemies\Tank">
-      <UniqueIdentifier>{7831760f-45f0-49f2-9e24-6105cde93a1f}</UniqueIdentifier>
-    </Filter>
+    <ClCompile Include="Application.cpp" />
+    <ClCompile Include="BasicEnemy.cpp" />
+    <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="EnemyBee.cpp" />
+    <ClCompile Include="EnemyBigTurret.cpp" />
+    <ClCompile Include="EnemyOscilatory.cpp" />
+    <ClCompile Include="EnemySmallTurret.cpp" />
+    <ClCompile Include="EnemyTank.cpp" />
+    <ClCompile Include="Globals.cpp" />
+    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="ModuleAudio.cpp" />
+    <ClCompile Include="ModuleContinue.cpp" />
+    <ClCompile Include="ModuleEnemies.cpp" />
+    <ClCompile Include="ModulePlayer2.cpp" />
+    <ClCompile Include="ModulePlayer2Unit.cpp" />
+    <ClCompile Include="ModulePowerUp.cpp" />
+    <ClCompile Include="ModuleReady.cpp" />
+    <ClCompile Include="ModuleSceneLvl1.cpp" />
+    <ClCompile Include="ModuleCollision.cpp" />
+    <ClCompile Include="ModuleFadeToBlack.cpp" />
+    <ClCompile Include="ModuleGameOver.cpp" />
+    <ClCompile Include="ModuleInput.cpp" />
+    <ClCompile Include="ModuleParticles.cpp" />
+    <ClCompile Include="ModulePlayer.cpp" />
+    <ClCompile Include="ModulePlayerUnit.cpp" />
+    <ClCompile Include="ModuleRender.cpp" />
+    <ClCompile Include="ModuleGameTitle.cpp" />
+    <ClCompile Include="ModuleTeamLogo.cpp" />
+    <ClCompile Include="ModuleTextures.cpp" />
+    <ClCompile Include="ModuleUI.cpp" />
+    <ClCompile Include="ModuleWin.cpp" />
+    <ClCompile Include="ModuleWindow.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Module.h">
-      <Filter>Modules</Filter>
-    </ClInclude>
-    <ClInclude Include="ModuleWindow.h">
-      <Filter>Modules</Filter>
-    </ClInclude>
-    <ClInclude Include="MemLeaks.h">
-      <Filter>Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Globals.h">
-      <Filter>Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Application.h">
-      <Filter>Core</Filter>
-    </ClInclude>
-    <ClInclude Include="ModuleInput.h">
-      <Filter>Modules</Filter>
-    </ClInclude>
-    <ClInclude Include="ModuleRender.h">
-      <Filter>Modules</Filter>
-    </ClInclude>
-    <ClInclude Include="ModuleTextures.h">
-      <Filter>Modules</Filter>
-    </ClInclude>
-    <ClInclude Include="p2Point.h">
-      <Filter>Containers</Filter>
-    </ClInclude>
-    <ClInclude Include="Animation.h">
-      <Filter>Containers</Filter>
-    </ClInclude>
-    <ClInclude Include="ModuleAudio.h">
-      <Filter>Modules</Filter>
-    </ClInclude>
-    <ClInclude Include="ModuleFadeToBlack.h">
-      <Filter>Modules</Filter>
-    </ClInclude>
-    <ClInclude Include="ModuleGameOver.h">
-      <Filter>Modules</Filter>
-    </ClInclude>
-    <ClInclude Include="ModuleGameTitle.h">
-      <Filter>Modules</Filter>
-    </ClInclude>
-    <ClInclude Include="ModuleTeamLogo.h">
-      <Filter>Modules</Filter>
-    </ClInclude>
-    <ClInclude Include="ModuleParticles.h">
-      <Filter>Modules</Filter>
-    </ClInclude>
-    <ClInclude Include="ModuleCollision.h">
-      <Filter>Modules</Filter>
-    </ClInclude>
-    <ClInclude Include="ModuleSceneLvl1.h">
-      <Filter>Modules</Filter>
-    </ClInclude>
-    <ClInclude Include="ModulePlayer.h">
-      <Filter>Modules\Players</Filter>
-    </ClInclude>
-    <ClInclude Include="ModulePlayer2.h">
-      <Filter>Modules\Players</Filter>
-    </ClInclude>
-    <ClInclude Include="Enemy.h">
-      <Filter>Modules\Enemies</Filter>
-    </ClInclude>
-    <ClInclude Include="BasicEnemy.h">
-      <Filter>Modules\Enemies</Filter>
-    </ClInclude>
-    <ClInclude Include="ModulePlayerUnit.h">
-      <Filter>Modules\PowerUps</Filter>
-    </ClInclude>
-    <ClInclude Include="ModulePlayer2Unit.h">
-      <Filter>Modules\PowerUps</Filter>
-    </ClInclude>
-    <ClInclude Include="ModuleEnemies.h">
-      <Filter>Modules</Filter>
-    </ClInclude>
-    <ClInclude Include="ModulePowerUp.h">
-      <Filter>Modules</Filter>
-    </ClInclude>
-    <ClInclude Include="EnemyOscilatory.h">
-      <Filter>Modules\Enemies</Filter>
-    </ClInclude>
-    <ClInclude Include="ModuleContinue.h">
-      <Filter>Modules</Filter>
-    </ClInclude>
-    <ClInclude Include="ModuleUI.h">
-      <Filter>Modules</Filter>
-    </ClInclude>
-    <ClInclude Include="Path.h">
-      <Filter>Containers</Filter>
-    </ClInclude>
-    <ClInclude Include="EnemyTank.h">
-      <Filter>Modules\Enemies\Tank</Filter>
-    </ClInclude>
-    <ClInclude Include="EnemyBigTurret.h">
-      <Filter>Modules\Enemies\Tank</Filter>
-    </ClInclude>
-    <ClInclude Include="EnemySmallTurret.h">
-      <Filter>Modules\Enemies\Tank</Filter>
-    </ClInclude>
-    <ClInclude Include="ModuleWinScreen.h">
-      <Filter>Modules</Filter>
-    </ClInclude>
-    <ClInclude Include="ModuleWin.h">
-      <Filter>Modules</Filter>
-    </ClInclude>
-    <ClInclude Include="EnemyBee.h">
-      <Filter>Modules\Enemies</Filter>
-
-    <ClInclude Include="ModuleReady.h">
-      <Filter>Modules</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="Main.cpp">
-      <Filter>Core</Filter>
-    </ClCompile>
-    <ClCompile Include="Application.cpp">
-      <Filter>Core</Filter>
-    </ClCompile>
-    <ClCompile Include="ModuleWindow.cpp">
-      <Filter>Modules</Filter>
-    </ClCompile>
-    <ClCompile Include="ModuleInput.cpp">
-      <Filter>Modules</Filter>
-    </ClCompile>
-    <ClCompile Include="ModuleRender.cpp">
-      <Filter>Modules</Filter>
-    </ClCompile>
-    <ClCompile Include="ModuleTextures.cpp">
-      <Filter>Modules</Filter>
-    </ClCompile>
-    <ClCompile Include="Globals.cpp">
-      <Filter>Core</Filter>
-    </ClCompile>
-    <ClCompile Include="ModuleAudio.cpp">
-      <Filter>Modules</Filter>
-    </ClCompile>
-    <ClCompile Include="ModuleFadeToBlack.cpp">
-      <Filter>Modules</Filter>
-    </ClCompile>
-    <ClCompile Include="ModuleGameOver.cpp">
-      <Filter>Modules</Filter>
-    </ClCompile>
-    <ClCompile Include="ModuleGameTitle.cpp">
-      <Filter>Modules</Filter>
-    </ClCompile>
-    <ClCompile Include="ModuleTeamLogo.cpp">
-      <Filter>Modules</Filter>
-    </ClCompile>
-    <ClCompile Include="ModuleParticles.cpp">
-      <Filter>Modules</Filter>
-    </ClCompile>
-    <ClCompile Include="ModuleCollision.cpp">
-      <Filter>Modules</Filter>
-    </ClCompile>
-    <ClCompile Include="ModuleSceneLvl1.cpp">
-      <Filter>Modules</Filter>
-    </ClCompile>
-    <ClCompile Include="ModulePlayer.cpp">
-      <Filter>Modules\Players</Filter>
-    </ClCompile>
-    <ClCompile Include="ModulePlayer2.cpp">
-      <Filter>Modules\Players</Filter>
-    </ClCompile>
-    <ClCompile Include="Enemy.cpp">
-      <Filter>Modules\Enemies</Filter>
-    </ClCompile>
-    <ClCompile Include="BasicEnemy.cpp">
-      <Filter>Modules\Enemies</Filter>
-    </ClCompile>
-    <ClCompile Include="ModulePlayerUnit.cpp">
-      <Filter>Modules\PowerUps</Filter>
-    </ClCompile>
-    <ClCompile Include="ModulePlayer2Unit.cpp">
-      <Filter>Modules\PowerUps</Filter>
-    </ClCompile>
-    <ClCompile Include="ModuleEnemies.cpp">
-      <Filter>Modules</Filter>
-    </ClCompile>
-    <ClCompile Include="ModulePowerUp.cpp">
-      <Filter>Modules</Filter>
-    </ClCompile>
-    <ClCompile Include="EnemyOscilatory.cpp">
-      <Filter>Modules\Enemies</Filter>
-    </ClCompile>
-    <ClCompile Include="ModuleContinue.cpp">
-      <Filter>Modules</Filter>
-    </ClCompile>
-    <ClCompile Include="ModuleUI.cpp">
-      <Filter>Modules</Filter>
-    </ClCompile>
-    <ClCompile Include="EnemyTank.cpp">
-      <Filter>Modules\Enemies\Tank</Filter>
-    </ClCompile>
-    <ClCompile Include="EnemySmallTurret.cpp">
-      <Filter>Modules\Enemies\Tank</Filter>
-    </ClCompile>
-    <ClCompile Include="EnemyBigTurret.cpp">
-      <Filter>Modules\Enemies\Tank</Filter>
-    </ClCompile>
-    <ClCompile Include="ModuleWin.cpp">
-      <Filter>Modules</Filter>
-    </ClCompile>
-
-    <ClCompile Include="EnemyBee.cpp">
-      <Filter>Modules\Enemies</Filter>
-
-    <ClCompile Include="ModuleReady.cpp">
-      <Filter>Modules</Filter>
-
-    </ClCompile>
+    <ClInclude Include="Animation.h" />
+    <ClInclude Include="Application.h" />
+    <ClInclude Include="BasicEnemy.h" />
+    <ClInclude Include="EnemyBee.h" />
+    <ClInclude Include="Enemy.h" />
+    <ClInclude Include="EnemyOscilatory.h" />
+    <ClInclude Include="EnemySmallTurret.h" />
+    <ClInclude Include="EnemyTank.h" />
+    <ClInclude Include="EnemyBigTurret.h" />
+    <ClInclude Include="Globals.h" />
+    <ClInclude Include="MemLeaks.h" />
+    <ClInclude Include="Module.h" />
+    <ClInclude Include="ModuleAudio.h" />
+    <ClInclude Include="ModuleContinue.h" />
+    <ClInclude Include="ModuleEnemies.h" />
+    <ClInclude Include="ModulePowerUp.h" />
+    <ClInclude Include="ModulePlayer2.h" />
+    <ClInclude Include="ModulePlayer2Unit.h" />
+    <ClInclude Include="ModuleReady.h" />
+    <ClInclude Include="ModuleSceneLvl1.h" />
+    <ClInclude Include="ModuleCollision.h" />
+    <ClInclude Include="ModuleFadeToBlack.h" />
+    <ClInclude Include="ModuleGameOver.h" />
+    <ClInclude Include="ModuleInput.h" />
+    <ClInclude Include="ModuleParticles.h" />
+    <ClInclude Include="ModulePlayer.h" />
+    <ClInclude Include="ModulePlayerUnit.h" />
+    <ClInclude Include="ModuleRender.h" />
+    <ClInclude Include="ModuleGameTitle.h" />
+    <ClInclude Include="ModuleTeamLogo.h" />
+    <ClInclude Include="ModuleTextures.h" />
+    <ClInclude Include="ModuleUI.h" />
+    <ClInclude Include="ModuleWin.h" />
+    <ClInclude Include="ModuleWindow.h" />
+    <ClInclude Include="ModuleWinScreen.h" />
+    <ClInclude Include="p2Point.h" />
+    <ClInclude Include="Path.h" />
   </ItemGroup>
 </Project>
