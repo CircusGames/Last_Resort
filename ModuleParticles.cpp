@@ -115,7 +115,8 @@ bool ModuleParticles::CleanUp()
 {
 	LOG("Unloading particles");
 	App->textures->Unload(graphics);
-
+	App->textures->Unload(unitBasicShotTexture);
+	App->textures->Unload(laserTexture);
 
 	App->textures->Unload(test);
 	//removing active particles

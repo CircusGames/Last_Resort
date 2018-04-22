@@ -194,8 +194,8 @@ bool ModulePlayerUnit::Start()
 	//playerUnitOrange = App->textures->Load("assets/Graphics/Player/orangeUnit.png");
 
 	//Audio
-	App->audio->LoadAudio("assets/Audio/SFX/player/Fix_Unit.wav", "Fix Unit", SFX);
-	App->audio->LoadAudio("assets/audio/SFX/player/Unfix_Unit.wav", "Unfix Unit", SFX);
+	App->audio->LoadAudio("assets/Audio/SFX/player/Fix_Unit.wav", "UnitLocked", SFX);
+	App->audio->LoadAudio("assets/audio/SFX/player/Unfix_Unit.wav", "UnitUnlocked", SFX);
 
 	//delta calculations
 	orbitSpeed = 1.0f;
@@ -218,11 +218,11 @@ update_status ModulePlayerUnit::PreUpdate()
 	{
 		if (unitLocked) {
 			unitLocked = false;
-			App->audio->ControlAudio("Fix Unit", SFX, PLAY);
+			App->audio->ControlAudio("UnitUnlocked", SFX, PLAY);
 		}
 		else {
 			unitLocked = true;
-			App->audio->ControlAudio("Unfix Unit", SFX, PLAY);
+			App->audio->ControlAudio("UnitLocked", SFX, PLAY);
 		}
 	}
 
@@ -504,9 +504,10 @@ bool ModulePlayerUnit::CleanUp()
 {
 	//unload textures
 	App->textures->Unload(playerUnitBlue);
+	App->textures->Unload(playerUnitOrange);
 	//unload audio
-	App->audio->UnloadAudio("Fix Unit", SFX);
-	App->audio->UnloadAudio("Unfix Unit", SFX);
+	App->audio->UnloadAudio("UnitLocked", SFX);
+	App->audio->UnloadAudio("UnitUnlocked", SFX);
 	return true;
 }
 

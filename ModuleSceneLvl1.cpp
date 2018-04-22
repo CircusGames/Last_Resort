@@ -617,6 +617,8 @@ bool ModuleSceneLvl1::Start()
 	//loading music and fx -------------------------------------------------------------------------------------
 	App->audio->LoadAudio("assets/Audio/Music/song_level_1.ogg", "song_lvl1", MUSIC);
 	App->audio->ControlAudio("song_lvl1", MUSIC, FADEIN, -1, 1500.0f); //type, playMode, loops, fadeIn, fadeOut
+	//adjusting volume
+	Mix_VolumeMusic(MIX_MAX_VOLUME);
 
 	// ----------------------------
 

@@ -90,6 +90,10 @@ bool ModuleContinue::Start()
 	App->audio->LoadAudio("assets/Audio/Music/Continue.ogg", "continueSong", MUSIC);
 	App->audio->ControlAudio("continueSong", MUSIC, PLAY);
 	App->audio->LoadAudio("assets/Audio/SFX/Screens/Continue_Countdown.wav", "Countdown", SFX);
+	//volume adjust
+	//Mix_Volume(-1, MIX_MAX_VOLUME / 2);
+	Mix_VolumeMusic(32);
+
 	start_time = SDL_GetTicks(); //next letter counter
 	next = 0;
 	timeBetweenFrames = 10; //in ms
@@ -197,7 +201,7 @@ update_status ModuleContinue::Update()
 			current_animation = &fireAnim[i];
 			fireFrame = current_animation->frames[(int)current_animation->current_frame];
 			App->render->Blit(continueTexture, firePositions[i], 96, &fireFrame);
-			App->audio->ControlAudio("Countdown", SFX, PLAY);
+			
 		}
 
 		//still not really fine, but seems to be a good way
@@ -218,6 +222,7 @@ update_status ModuleContinue::Update()
 
 		if (row >= 19) //loops forever
 		{
+			App->audio->ControlAudio("Countdown", SFX, PLAY);
 			row = 0, next = 0; // nextPrint = true; 
 			nextNumber--;
 			for (int i = 0; i < 8; ++i) fireAnim[i].current_frame = 0;
