@@ -7,7 +7,7 @@
 #include "ModulePlayerUnit.h"
 #include "ModuleParticles.h"
 #include "ModulePowerUp.h"
-
+#include "ModuleAudio.h"
 #define UNITANIMSPEED 0.25f
 
 ModulePlayerUnit::ModulePlayerUnit()
@@ -193,7 +193,9 @@ bool ModulePlayerUnit::Start()
 	//playerUnitBlue = App->textures->Load("assets/Graphics/Player/blueUnit.png");
 	//playerUnitOrange = App->textures->Load("assets/Graphics/Player/orangeUnit.png");
 
-	
+	//Audio
+	App->audio->LoadAudio("assets/Audio/SFX/player/Fix Unit.wav", "Fix Unit", SFX);
+	App->audio->LoadAudio("assets/audio/SFX/player/Unfix Unit.wav", "Unfix Unit", SFX);
 
 	//delta calculations
 	orbitSpeed = 1.0f;
@@ -214,8 +216,14 @@ update_status ModulePlayerUnit::PreUpdate()
 	//locks and unlocks unit movement control
 	if (App->input->keyboard[SDL_SCANCODE_LSHIFT] == KEY_STATE::KEY_DOWN)
 	{
-		if (unitLocked) unitLocked = false;
-		else unitLocked = true;
+		if (unitLocked) {
+			unitLocked = false;
+			App->audio->ControlAudio("Fix Unit", SFX, PLAY);
+		}
+		else {
+			unitLocked = true;
+			App->audio->ControlAudio("Unfix Unit", SFX, PLAY);
+		}
 	}
 
 	//PlayerUnit movement logic and input -----------------------------------------------------------------
@@ -496,7 +504,9 @@ bool ModulePlayerUnit::CleanUp()
 {
 	//unload textures
 	App->textures->Unload(playerUnitBlue);
-
+	//unload audio
+	App->audio->UnloadAudio("Fix Unit", SFX);
+	App->audio->UnloadAudio("Unfix Unit", SFX);
 	return true;
 }
 

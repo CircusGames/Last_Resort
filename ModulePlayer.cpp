@@ -79,7 +79,7 @@ ModulePlayer::ModulePlayer()
 
 	//boost animation
 	boostAnim.PushBack({ 0,0,32,31 });
-	boostAnim.PushBack({ 33,0,32,32 });
+	boostAnim.PushBack({ 33,0,32,32});
 	boostAnim.PushBack({ 64,2,32,26 });
 	boostAnim.PushBack({ 96,7,32,18 });
 	boostAnim.PushBack({ 0,33,32,13 });
@@ -90,22 +90,6 @@ ModulePlayer::ModulePlayer()
 	boostAnim.PushBack({ 33,52,32,6 });
 	boostAnim.speed = 0.25f;
 	boostAnim.repeat = false;
-
-	//laser powerUp flash
-	laserFlash.PushBack({ 1,1,13,13 });
-	laserFlash.PushBack({ 16,1,15,15 });
-	laserFlash.PushBack({ 33,1,27,9 });
-	laserFlash.PushBack({ 32,18,31,7 });
-	laserFlash.PushBack({ 1,27,31,5 });
-	laserFlash.PushBack({ 1,39,32,3 });
-	laserFlash.PushBack({ 1,34,32,3 });
-	laserFlash.PushBack({ 1,18,30,3 });
-	laserFlash.speed = 0.25f;
-	laserFlash.repeat = false;
-
-
-
-
 
 
 
@@ -126,7 +110,6 @@ bool ModulePlayer::Start()
 
 	player = App->textures->Load("assets/Graphics/Player/player1_incomplete.png");
 	powerUpTextures = App->textures->Load("assets/Graphics/Player/PowerUps.png");
-	laserFlashTexture = App->textures->Load("assets/Graphics/Player/laserFlash.png");
 	//restart player positions for next time playerModule call
 	
 	position.x = 40;
@@ -151,7 +134,6 @@ bool ModulePlayer::Start()
 	App->audio->LoadAudio("assets/Audio/SFX/Player/spawn.wav", "spawn", SFX);
 	App->audio->LoadAudio("assets/Audio/SFX/Player/death.wav", "death", SFX);
 	
-	
 	// ---------------------
 
 	//for new gameLoops
@@ -173,44 +155,28 @@ bool ModulePlayer::Start()
 
 update_status ModulePlayer::PreUpdate()
 {
-	//FUNCTIONALITY POWERUPS, assigns speeds, animations, etc
+	//FUNCTIONALITY POWERUPS, assigns speeds, animations etc
 	if (player_step == player_state::normal)
 	{
 		now = SDL_GetTicks() - start_time; //time events/states general counter
 		//BOOST LOGIC ---------------------------------------------------------
 		if (powerUpActive == powerUpTypes::BOOST)
 		{
-			//play FX
-			App->audio->ControlAudio("speedUP", SFX, PLAY);
 			start_time = SDL_GetTicks(); //start time of the boost buff
 			speed = boostPlayerSpeed;
 			activebuff.boost = true; //actives bool condition
 			activebuff.boostAnim = true;
 			powerUpActive = powerUpTypes::NONE; //resets the enumerator to free the way for another
-			//if we are on brake
-			activebuff.brake = false;
+			//play FX
+			App->audio->ControlAudio("speedUP", SFX, PLAY);
 		}
 		//float speed = 1.4f; //player position speed
-			if (!activebuff.boost && !activebuff.brake) //if the time for boost go out... and the boost brake is not active, normal speed
-			{
-				
-				playerSpeed = speed = normalPlayerSpeed; //resets the temporal incrementer to always Nicolas at the desired incrementer count
-													 //new change direction starts incrementer at speed correct value (always same distances)
-			}
-			else if(activebuff.brake)
-				speed = brakePlayerSpeed;
-
-		if (powerUpActive == powerUpTypes::BRAKE)
+		if (!activebuff.boost) //if the time for boost go out...
+			playerSpeed = speed = normalPlayerSpeed; //resets the temporal incrementer to always Nicolas at the desired incrementer count
+												 //new change direction starts incrementer at speed correct value (always same distances)
+		else
 		{
-			//activebuff.boost = false; //its finish automatic when its animation finish
-			activebuff.brake = true;
-			powerUpActive = powerUpTypes::NONE;
-		}
 
-		if (powerUpActive == powerUpTypes::LASER)
-		{
-			activebuff.laser = true;
-			powerUpActive = powerUpTypes::NONE;
 		}
 		// --------------------------------------------------------------------
 		
@@ -386,21 +352,12 @@ update_status ModulePlayer::Update()
 		if (App->input->keyboard[SDL_SCANCODE_SPACE] == KEY_STATE::KEY_DOWN)
 		{
 			LOG("Beam!");
-
-			if (activebuff.laser)
-			{
-				shootingLaser = true;
-				App->particles->AddParticle(App->particles->laser, position.x + 32, position.y - 2, COLLIDER_PLAYER_SHOT); //"shot");
-			}
-
-
 			shooting = true;
-			
-			
+			App->particles->AddParticle(App->particles->laser, position.x, position.y - 2, COLLIDER_PLAYER_SHOT); //, "shot");
 			App->particles->AddParticle(App->particles->beam, position.x + 32, position.y - 4, COLLIDER_PLAYER_SHOT); //, "shot");
 		
 		}
-		//checks animation cycle --------------------------------------------------------------------------------------------------
+		//checks animation cycle
 		if (shooting)
 		{
 			if (beamSmoke.current_frame == beamSmoke.last_frame) //resets animation cycle
@@ -411,23 +368,7 @@ update_status ModulePlayer::Update()
 			}
 			App->render->Blit(player, position.x + 32, position.y - 6, &beamSmoke.GetCurrentFrame());
 		}
-		if (shootingLaser)
-		{
-			Animation* currentLaserFlash = &laserFlash;
-			SDL_Rect currentLaserFlashRect = currentLaserFlash->GetCurrentFrame();
 
-			if (App->input->keyboard[SDL_SCANCODE_SPACE] == KEY_DOWN) //force restart animation for new shot
-				currentLaserFlash->current_frame = 0;
-
-			if (currentLaserFlash->current_frame >= currentLaserFlash->last_frame) //resets animation cycle
-			{
-				laserFlash.current_frame = 0;
-				laserFlash.finish = false;
-				shootingLaser = false;
-			}
-			App->render->Blit(laserFlashTexture, position.x + 32, position.y - 1 -(currentLaserFlashRect.h / 2) , &currentLaserFlashRect);
-		}
-		// -------------------------------------------------------------------------------------------------------------------------
 		//CHECK POWERUP ANIMATIONS etc ---------------------------------------------------------------------------------------------
 		if (activebuff.boost)
 		{
@@ -452,12 +393,6 @@ update_status ModulePlayer::Update()
 				else
 					App->render->Blit(powerUpTextures, position.x - 32, position.y - (boostAnimRect.h / 2), &boostAnimRect);
 			}
-
-			/*if (activebuff.laser)
-			{
-				current_animation = &laserFlash;
-
-			}*/
 		}
 		
 		// --------------------------------------------------------------------------------------------------------------------------
@@ -611,7 +546,7 @@ bool ModulePlayer::CleanUp()
 
 	//unloading SFX
 	App->audio->UnloadAudio("speedDN", SFX);
-	//App->audio->UnloadAudio("speedUP", SFX);
+	App->audio->UnloadAudio("speedUP", SFX);
 	App->audio->UnloadAudio("spawn", SFX);
 	App->audio->UnloadAudio("death", SFX);
 

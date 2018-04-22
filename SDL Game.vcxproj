@@ -102,7 +102,6 @@
     <ClInclude Include="ModuleUI.h" />
     <ClInclude Include="ModuleWin.h" />
     <ClInclude Include="ModuleWindow.h" />
-    <ClInclude Include="ModuleWinScreen.h" />
     <ClInclude Include="p2Point.h" />
     <ClInclude Include="Path.h" />
   </ItemGroup>

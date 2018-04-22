@@ -125,9 +125,6 @@
     <ClInclude Include="EnemySmallTurret.h">
       <Filter>Modules\Enemies\Tank</Filter>
     </ClInclude>
-    <ClInclude Include="ModuleWinScreen.h">
-      <Filter>Modules</Filter>
-    </ClInclude>
     <ClInclude Include="ModuleWin.h">
       <Filter>Modules</Filter>
     </ClInclude>

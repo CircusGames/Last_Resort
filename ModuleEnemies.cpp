@@ -178,11 +178,7 @@ void ModuleEnemies::OnCollision(Collider* c1, Collider* c2)
 
  			if (enemies[i]->life <= 0)
 			{
-<<<<<<< HEAD
 				App->audio->ControlAudio("Enemy Dying", SFX, PLAY);
-=======
-				
->>>>>>> 42cb756ead752d08dcfb9191818e6cfd40f08c75
 				delete enemies[i];
 				enemies[i] = nullptr;
 				break;

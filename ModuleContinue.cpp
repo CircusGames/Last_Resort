@@ -88,8 +88,8 @@ bool ModuleContinue::Start()
 
 	//audio
 	App->audio->LoadAudio("assets/Audio/Music/Continue.ogg", "continueSong", MUSIC);
-	App->audio->ControlAudio("continueSong", SFX, PLAY);
-
+	App->audio->ControlAudio("continueSong", MUSIC, PLAY);
+	App->audio->LoadAudio("assets/Audio/SFX/Screens/Continue_Countdown.wav", "Countdown", SFX);
 	start_time = SDL_GetTicks(); //next letter counter
 	next = 0;
 	timeBetweenFrames = 10; //in ms
@@ -247,6 +247,7 @@ bool ModuleContinue::CleanUp()
 	App->textures->Unload(continueTexture);
 
 	App->audio->UnloadAudio("continueSong", MUSIC);
+	App->audio->UnloadAudio("Countdown", SFX);
 
 	//resets all fireframes positions
 	for (int i = 0; i < 8; ++i) fireAnim[i].current_frame = 0;
