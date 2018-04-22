@@ -73,6 +73,7 @@
     <ClInclude Include="Animation.h" />
     <ClInclude Include="Application.h" />
     <ClInclude Include="BasicEnemy.h" />
+    <ClInclude Include="EnemyBee.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="EnemyOscilatory.h" />
     <ClInclude Include="EnemySmallTurret.h" />
@@ -110,6 +111,7 @@
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="BasicEnemy.cpp" />
     <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="EnemyBee.cpp" />
     <ClCompile Include="EnemyBigTurret.cpp" />
     <ClCompile Include="EnemyOscilatory.cpp" />
     <ClCompile Include="EnemySmallTurret.cpp" />

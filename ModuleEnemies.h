@@ -5,6 +5,8 @@
 #include "EnemyTank.h"
 #include "BasicEnemy.h"
 #include "EnemyOscilatory.h"
+#include "EnemyBee.h"
+
 #define MAX_ENEMIES 300
 
 enum ENEMY_TYPES
@@ -14,7 +16,8 @@ enum ENEMY_TYPES
 	ENEMYOSCILATORY,
 	TANK,
 	BIG_TURRET,
-	SMALL_TURRET
+	SMALL_TURRET,
+	ENEMYBEE
 };
 
 class Enemy;
@@ -49,6 +52,7 @@ public:
 	SDL_Texture* enemy1Texture;
 	SDL_Texture* enemy2Texture;
 	SDL_Texture* enemyTankTexture;
+	SDL_Texture* enemyBeeTexture;
 	// ----------------------------
 	
 
