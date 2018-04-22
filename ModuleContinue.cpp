@@ -90,6 +90,10 @@ bool ModuleContinue::Start()
 	App->audio->LoadAudio("assets/Audio/Music/Continue.ogg", "continueSong", MUSIC);
 	App->audio->ControlAudio("continueSong", MUSIC, PLAY);
 	App->audio->LoadAudio("assets/Audio/SFX/Screens/Continue_Countdown.wav", "Countdown", SFX);
+	//volume adjust
+	//Mix_Volume(-1, MIX_MAX_VOLUME / 2);
+	Mix_VolumeMusic(32);
+
 	start_time = SDL_GetTicks(); //next letter counter
 	next = 0;
 	timeBetweenFrames = 10; //in ms
