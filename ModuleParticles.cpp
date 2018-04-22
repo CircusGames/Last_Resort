@@ -42,12 +42,19 @@ ModuleParticles::ModuleParticles()
 	// ------------------------------------------
 
 	//Explosion TEST --------------------
-	explosion.anim.PushBack({ 274, 296, 33, 30 });
-	explosion.anim.PushBack({ 313, 296, 33, 30 });
-	explosion.anim.PushBack({ 346, 296, 33, 30 });
-	explosion.anim.PushBack({ 382, 296, 33, 30 });
-	explosion.anim.PushBack({ 419, 296, 33, 30 });
-	explosion.anim.PushBack({ 457, 296, 33, 30 });
+	explosion.anim.PushBack({ 101, 16, 16, 16 });
+	explosion.anim.PushBack({ 124, 14, 20, 20 });
+	explosion.anim.PushBack({ 151, 11, 25, 25 });
+	explosion.anim.PushBack({ 181, 11, 26, 26 });
+	explosion.anim.PushBack({ 211, 7, 32, 32 });
+	explosion.anim.PushBack({ 248, 7, 32, 32 });
+	explosion.anim.PushBack({ 285, 7, 32, 32 });
+	explosion.anim.PushBack({ 318, 7, 32, 32 });
+	explosion.anim.PushBack({ 351, 7, 32, 32 });
+	explosion.anim.PushBack({ 387, 7, 32, 32 });
+	explosion.anim.PushBack({ 420, 5, 31, 32 });
+	explosion.anim.PushBack({ 452, 7, 30, 28 });
+	explosion.anim.PushBack({ 485, 5, 30, 26 });
 	explosion.anim.repeat = false;
 	explosion.anim.speed = 0.3f;
 
@@ -93,7 +100,7 @@ bool ModuleParticles::Start()
 
 
 	//TEST PARTICLES
-	test = App->textures->Load("assets/Graphics/player/particles.png");
+	test = App->textures->Load("assets/Graphics/Enemies/explosions.png");
 	explosion.texture = test;
 
 
