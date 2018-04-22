@@ -16,6 +16,18 @@ private:
 	Animation flyToLeft;
 	iPoint original_pos;
 
+	int attackRange;
+	int distance;
+	bool attack = true;
+
+	int length;
+
+
+	//times calculation
+	int start_time;
+	int now;
+	int cadence;
+
 	int iSpeed;
 	float fSpeed;
 
