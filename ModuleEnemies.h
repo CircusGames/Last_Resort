@@ -5,6 +5,8 @@
 #include "EnemyTank.h"
 #include "BasicEnemy.h"
 #include "EnemyOscilatory.h"
+#include "EnemySmallTurret.h"
+#include "EnemyBigTurret.h"
 #define MAX_ENEMIES 300
 
 enum ENEMY_TYPES

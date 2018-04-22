@@ -1,4 +1,4 @@
-/*#include "Application.h"
+#include "Application.h"
 #include "EnemySmallTurret.h"
 #include "ModuleCollision.h"
 #include "ModuleEnemies.h"
@@ -18,8 +18,19 @@ EnemySmallTurret::EnemySmallTurret(int x, int y, powerUpTypes type, SDL_Texture*
 
 	animation = &rotateAnim;
 
+	path.PushBack({ 0.0f, 0.0f }, 320, &rotateAnim);
+	path.PushBack({ 1.5f, 0 }, 304, &rotateAnim);
+	path.PushBack({ 1,0 }, 1700, &rotateAnim);
+
 	texture = sprite;
 	powerUpType = type;
+	originalPos.x = x;
+	originalPos.y = y;
 
 	collider = App->collision->AddCollider({ 0, 0, 15, 9 }, COLLIDER_TYPE::COLLIDER_ENEMY, (Module*)App->enemies);
-}*/
+}
+
+void EnemySmallTurret::Move()
+{
+	position = originalPos + path.GetCurrentSpeed(&animation);
+}

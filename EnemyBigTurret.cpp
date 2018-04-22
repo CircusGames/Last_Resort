@@ -1,4 +1,4 @@
-/*#include "Application.h"
+#include "Application.h"
 #include "EnemyBigTurret.h"
 #include "ModuleCollision.h"
 #include "ModuleEnemies.h"
@@ -24,4 +24,15 @@ EnemyBigTurret::EnemyBigTurret(int x, int y, powerUpTypes type, SDL_Texture* spr
 	powerUpType = type;
 
 	collider = App->collision->AddCollider({ 0, 0, 29, 14 }, COLLIDER_TYPE::COLLIDER_ENEMY, (Module*)App->enemies);
-}*/
+
+	path.PushBack({ 0.0f, 0.0f }, 320, &rotateAnim);
+	path.PushBack({ 1.5f, 0 }, 304, &rotateAnim);
+	path.PushBack({ 1,0 }, 1700, &rotateAnim);
+	originalPos.x = x;
+	originalPos.y = y;
+}
+
+void EnemyBigTurret::Move() 
+{
+	position = originalPos + path.GetCurrentSpeed(&animation);
+}

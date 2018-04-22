@@ -1,4 +1,4 @@
-/*#ifndef _ENEMYSMALLTURRET_H__
+#ifndef _ENEMYSMALLTURRET_H__
 #define _ENEMYSMALLTURRET_H__
 
 #include "Enemy.h"
@@ -12,8 +12,6 @@ private:
 	Path path;
 	Animation rotateAnim;
 	iPoint originalPos;
-
-	int original_x = NULL;
 
 public:
 
