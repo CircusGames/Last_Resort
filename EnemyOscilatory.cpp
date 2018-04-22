@@ -69,11 +69,11 @@ void EnemyOscilatory::Move()
 
 EnemyOscilatory::~EnemyOscilatory()
 {
-	App->particles->AddParticle(App->particles->explosion, position.x+30, position.y, COLLIDER_NONE);
-	App->particles->AddParticle(App->particles->explosion, position.x+50, position.y, COLLIDER_NONE);
-	App->particles->AddParticle(App->particles->explosion, position.x+10, position.y, COLLIDER_NONE);
-	App->particles->AddParticle(App->particles->explosion, position.x, position.y, COLLIDER_NONE);
-	App->particles->AddParticle(App->particles->explosion, position.x - 10, position.y, COLLIDER_NONE);
-	App->particles->AddParticle(App->particles->explosion, position.x - 20, position.y, COLLIDER_NONE);
+	App->particles->AddParticle(App->particles->explosion, position.x + 30, position.y, COLLIDER_NONE, {}, 0);
+	App->particles->AddParticle(App->particles->explosion, position.x+50, position.y - 7, COLLIDER_NONE, {}, 100);
+	App->particles->AddParticle(App->particles->explosion, position.x+10, position.y + 30, COLLIDER_NONE,{}, 70);
+	App->particles->AddParticle(App->particles->explosion, position.x, position.y - 20, COLLIDER_NONE, {}, 144);
+	App->particles->AddParticle(App->particles->explosion, position.x - 10, position.y + 5, COLLIDER_NONE,{}, 29);
+	App->particles->AddParticle(App->particles->explosion, position.x - 20, position.y - 8, COLLIDER_NONE,{}, 240);
 
 }
