@@ -353,7 +353,7 @@ update_status ModulePlayer::Update()
 		{
 			LOG("Beam!");
 			shooting = true;
-	
+			App->particles->AddParticle(App->particles->laser, position.x, position.y - 2, COLLIDER_PLAYER_SHOT); //, "shot");
 			App->particles->AddParticle(App->particles->beam, position.x + 32, position.y - 4, COLLIDER_PLAYER_SHOT); //, "shot");
 		
 		}
