@@ -218,7 +218,7 @@ update_status ModulePlayerUnit::PreUpdate()
 	{
 		if (unitLocked) {
 			unitLocked = false;
-			App->audio->ControlAudio("UnitUlocked", SFX, PLAY);
+			App->audio->ControlAudio("UnitUnlocked", SFX, PLAY);
 		}
 		else {
 			unitLocked = true;
