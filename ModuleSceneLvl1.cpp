@@ -1069,6 +1069,6 @@ void ModuleSceneLvl1::spawnEnemies(int x, int y)
 		//for now calculated center position manually, until fix it (access to animation frame)
 		positionX -= 30 / 2;
 		positionY -= 30 / 2;
-		App->enemies->AddEnemy(ENEMY_TYPES::ENEMYBEE, positionX, positionY, NONE, App->enemies->enemyTankTexture);
+		App->enemies->AddEnemy(ENEMY_TYPES::ENEMYBEE, positionX, positionY, NONE, App->enemies->enemyBeeTexture);
 	}
 }
