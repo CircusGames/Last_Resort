@@ -30,7 +30,7 @@ bool ModuleEnemies::Start()
 	//sprites texture pointer is used as "general purpose" texture spritesheet now --------
 	//if you want to add a specific texture to specific enemy, see basic_enemy.cpp
 	//and scenelvl1 start() method.
-	sprites = App->textures->Load("assets/Graphics/Enemies/Level_1/enemies.png");
+	sprites = App->textures->Load("assets/Graphics/Enemies/Level_1/enemy1.png"); //general purpose texture
 	//
 	//texture to pass in scene, when calls AddEnemy(); method. -----------------------------
 	enemy1Texture = App->textures->Load("assets/Graphics/Enemies/Level_1/enemy1.png");
