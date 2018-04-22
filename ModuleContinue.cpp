@@ -197,7 +197,7 @@ update_status ModuleContinue::Update()
 			current_animation = &fireAnim[i];
 			fireFrame = current_animation->frames[(int)current_animation->current_frame];
 			App->render->Blit(continueTexture, firePositions[i], 96, &fireFrame);
-			App->audio->ControlAudio("Countdown", SFX, PLAY);
+			
 		}
 
 		//still not really fine, but seems to be a good way
@@ -218,6 +218,7 @@ update_status ModuleContinue::Update()
 
 		if (row >= 19) //loops forever
 		{
+			App->audio->ControlAudio("Countdown", SFX, PLAY);
 			row = 0, next = 0; // nextPrint = true; 
 			nextNumber--;
 			for (int i = 0; i < 8; ++i) fireAnim[i].current_frame = 0;
