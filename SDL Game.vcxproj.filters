@@ -21,6 +21,9 @@
     <Filter Include="Modules\PowerUps">
       <UniqueIdentifier>{7ad52a64-9525-4a13-bc8e-8461a3cdbc79}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Modules\Enemies\Tank">
+      <UniqueIdentifier>{7831760f-45f0-49f2-9e24-6105cde93a1f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Module.h">
@@ -113,14 +116,20 @@
     <ClInclude Include="Path.h">
       <Filter>Containers</Filter>
     </ClInclude>
+    <ClInclude Include="EnemyTank.h">
+      <Filter>Modules\Enemies\Tank</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyBigTurret.h">
+      <Filter>Modules\Enemies\Tank</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemySmallTurret.h">
+      <Filter>Modules\Enemies\Tank</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleWinScreen.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
     <ClInclude Include="ModuleWin.h">
       <Filter>Modules</Filter>
-    </ClInclude>
-    <ClInclude Include="ModuleReady.h">
-      <Filter>Modules</Filter>
-    </ClInclude>
-    <ClInclude Include="EnemyTank.h">
-      <Filter>Modules\Enemies</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -202,17 +211,17 @@
     <ClCompile Include="ModuleUI.cpp">
       <Filter>Modules</Filter>
     </ClCompile>
-    <ClCompile Include="ModuleWinScreen.cpp">
-      <Filter>Core</Filter>
+    <ClCompile Include="EnemyTank.cpp">
+      <Filter>Modules\Enemies\Tank</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemySmallTurret.cpp">
+      <Filter>Modules\Enemies\Tank</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyBigTurret.cpp">
+      <Filter>Modules\Enemies\Tank</Filter>
     </ClCompile>
     <ClCompile Include="ModuleWin.cpp">
       <Filter>Modules</Filter>
-    </ClCompile>
-    <ClCompile Include="ModuleReady.cpp">
-      <Filter>Modules</Filter>
-    </ClCompile>
-    <ClCompile Include="EnemyTank.cpp">
-      <Filter>Modules\Enemies</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

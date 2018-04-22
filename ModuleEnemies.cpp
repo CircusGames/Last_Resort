@@ -11,7 +11,6 @@
 #include "ModulePowerUp.h"
 #include "ModuleAudio.h"
 
-
 #define SPAWN_MARGIN 15*SCREEN_SIZE
 
 ModuleEnemies::ModuleEnemies()
@@ -31,14 +30,14 @@ bool ModuleEnemies::Start()
 	//sprites texture pointer is used as "general purpose" texture spritesheet now --------
 	//if you want to add a specific texture to specific enemy, see basic_enemy.cpp
 	//and scenelvl1 start() method.
-	sprites = App->textures->Load("assets/Graphics/Enemies/Level_1/enemy1.png"); //general purpose texture
+	sprites = App->textures->Load("assets/Graphics/Enemies/Level_1/enemies.png");
 	//
 	//texture to pass in scene, when calls AddEnemy(); method. -----------------------------
 	enemy1Texture = App->textures->Load("assets/Graphics/Enemies/Level_1/enemy1.png");
 	enemy2Texture = App->textures->Load("assets/Graphics/Enemies/Level_1/oscilator.png");
 	enemyTankTexture = App->textures->Load("assets/Graphics/Enemies/Level_1/Tank.png");
 	//Audio
-	App->audio->LoadAudio("assets/Audio/SFX/enemies/Enemy_Explosion.wav", "EnemyDeath", SFX);
+	App->audio->LoadAudio("assets/Audio/SFX/enemies/Enemy Explosion.wav", "Enemy Dying", SFX);
 
 	return true;
 }
@@ -104,10 +103,7 @@ bool ModuleEnemies::CleanUp()
 	LOG("Freeing all enemies");
 
 	App->textures->Unload(sprites);
-	App->textures->Unload(enemy1Texture);
-	App->textures->Unload(enemy2Texture);
-	App->textures->Unload(enemyTankTexture);
-	App->audio->UnloadAudio("EnemyDeath",SFX);
+	App->audio->UnloadAudio("Enemy Dying",SFX);
 
 	for (uint i = 0; i < MAX_ENEMIES; ++i)
 	{
@@ -182,7 +178,8 @@ void ModuleEnemies::OnCollision(Collider* c1, Collider* c2)
 
  			if (enemies[i]->life <= 0)
 			{
-				App->audio->ControlAudio("EnemyDeath", SFX, PLAY);
+				App->audio->ControlAudio("Enemy Dying", SFX, PLAY);
+
 				delete enemies[i];
 				enemies[i] = nullptr;
 				break;

@@ -88,11 +88,7 @@ bool ModuleContinue::Start()
 
 	//audio
 	App->audio->LoadAudio("assets/Audio/Music/Continue.ogg", "continueSong", MUSIC);
-	App->audio->ControlAudio("continueSong", MUSIC, PLAY);
-	App->audio->LoadAudio("assets/Audio/SFX/Screens/Continue_Countdown.wav", "Countdown", SFX);
-	//volume adjust
-	//Mix_Volume(-1, MIX_MAX_VOLUME / 2);
-	Mix_VolumeMusic(32);
+	App->audio->ControlAudio("continueSong", SFX, PLAY);
 
 	start_time = SDL_GetTicks(); //next letter counter
 	next = 0;
@@ -200,8 +196,7 @@ update_status ModuleContinue::Update()
 		{
 			current_animation = &fireAnim[i];
 			fireFrame = current_animation->frames[(int)current_animation->current_frame];
-			App->render->Blit(continueTexture, firePositions[i], 96, &fireFrame);
-			
+			App->render->Blit(continueTexture, firePositions[i], 96, &fireFrame);	
 		}
 
 		//still not really fine, but seems to be a good way
@@ -222,7 +217,6 @@ update_status ModuleContinue::Update()
 
 		if (row >= 19) //loops forever
 		{
-			App->audio->ControlAudio("Countdown", SFX, PLAY);
 			row = 0, next = 0; // nextPrint = true; 
 			nextNumber--;
 			for (int i = 0; i < 8; ++i) fireAnim[i].current_frame = 0;
@@ -240,7 +234,7 @@ update_status ModuleContinue::Update()
 
 
 	if (App->input->keyboard[SDL_SCANCODE_RETURN] == 1 && App->player->lives > 0)
-		App->fade->FadeToBlack(this, (Module*)App->readyScreen, 0.8f);
+		App->fade->FadeToBlack(this, (Module*)App->scene_lvl1, 0.8f);
 
 	return UPDATE_CONTINUE;
 }
@@ -253,7 +247,6 @@ bool ModuleContinue::CleanUp()
 	App->textures->Unload(continueTexture);
 
 	App->audio->UnloadAudio("continueSong", MUSIC);
-	App->audio->UnloadAudio("Countdown", SFX);
 
 	//resets all fireframes positions
 	for (int i = 0; i < 8; ++i) fireAnim[i].current_frame = 0;

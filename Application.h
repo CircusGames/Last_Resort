@@ -3,7 +3,7 @@
 
 #include "Globals.h"
 
-#define NUM_MODULES 20
+#define NUM_MODULES 19//20
 
 class ModuleWindow;
 class ModuleInput;
@@ -43,7 +43,7 @@ public:
 	ModuleTeamLogo* teamLogo = nullptr;
 	ModuleGameTitle* gameTitle = nullptr;
 	ModuleSceneLvl1* scene_lvl1 = nullptr;
-	ModuleReady* readyScreen = nullptr;
+	//ModuleReady* readyScreen = nullptr;
 	ModuleContinue* continueScreen = nullptr;
 	ModuleGameOver* gameOverScreen = nullptr;
 	ModulePlayer* player = nullptr;

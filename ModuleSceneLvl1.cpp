@@ -596,13 +596,7 @@ bool ModuleSceneLvl1::Start()
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYOSCILATORY, 6499, 65, NONE, App->enemies->enemy2Texture);
 
 	//Tank
-	App->enemies->AddEnemy(ENEMY_TYPES::TANK, 6100, 150, NONE, App->enemies->enemyTankTexture);
-	App->enemies->AddEnemy(ENEMY_TYPES::BIG_TURRET, 6200, 146, NONE, App->enemies->enemyTankTexture);
-	App->enemies->AddEnemy(ENEMY_TYPES::SMALL_TURRET, 6270, 152, NONE, App->enemies->enemyTankTexture);
-	App->enemies->AddEnemy(ENEMY_TYPES::TANK, 400, 150, NONE, App->enemies->enemyTankTexture);
-	App->enemies->AddEnemy(ENEMY_TYPES::BIG_TURRET, 500, 146, NONE, App->enemies->enemyTankTexture);
-	App->enemies->AddEnemy(ENEMY_TYPES::SMALL_TURRET, 570, 152, NONE, App->enemies->enemyTankTexture);
-	
+	App->enemies->AddEnemy(ENEMY_TYPES::TANK, 100, 111, NONE, App->enemies->enemyTankTexture);
 
 	//lvl1 background textures --------------------------------------------------------------------------------
 	bg = App->textures->Load("assets/Graphics/Backgrounds/Lvl_1/lvl1_bg.png");
@@ -620,8 +614,6 @@ bool ModuleSceneLvl1::Start()
 	//loading music and fx -------------------------------------------------------------------------------------
 	App->audio->LoadAudio("assets/Audio/Music/song_level_1.ogg", "song_lvl1", MUSIC);
 	App->audio->ControlAudio("song_lvl1", MUSIC, FADEIN, -1, 1500.0f); //type, playMode, loops, fadeIn, fadeOut
-	//adjusting volume
-	Mix_VolumeMusic(MIX_MAX_VOLUME);
 
 	// ----------------------------
 

@@ -58,8 +58,7 @@ ModulePowerUp::~ModulePowerUp() {}
 bool ModulePowerUp::Start()
 {
 	powerUpTextures = App->textures->Load("assets/Graphics/Player/PowerUps.png");
-	//Audio
-	App->audio->LoadAudio("assets/Audio/SFX/Player/taking_Unit.wav", "Taking_Unit", SFX);
+
 	return true;
 }
 
@@ -105,15 +104,11 @@ bool ModulePowerUp::CleanUp()
 			active_powerUps[i]->collider->to_delete = true; //delete colliders
 			delete active_powerUps[i]; //delete poweUp instance
 			active_powerUps[i] = nullptr;
-			
 		}
 	}
-
 	//unload textures
 	if (powerUpTextures != nullptr)
 	App->textures->Unload(powerUpTextures);
-	//unload audio
-	App->audio->UnloadAudio("Taking_Unit", SFX);
 
 	return true;
 }
@@ -218,7 +213,6 @@ void ModulePowerUp::OnCollision(Collider* c1, Collider* c2)
 			if (!App->playerUnit->IsEnabled()) //if the player does not have the unit active, activate and swap color
 			{
 				App->playerUnit->Enable();
-				App->audio->ControlAudio("Taking_Unit", SFX, PLAY);
 			}
 
 			//delete the instanciated powerup
@@ -242,7 +236,6 @@ PowerUp::~PowerUp()
 {
 	if (collider != nullptr)
 		collider->to_delete = true;
-	
 }
 
 bool PowerUp::Update()

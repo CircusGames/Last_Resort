@@ -31,7 +31,7 @@ Application::Application()
 	modules[i++] = textures = new ModuleTextures();
 	modules[i++] = teamLogo = new ModuleTeamLogo();
 	modules[i++] = scene_lvl1 = new ModuleSceneLvl1();
-	modules[i++] = readyScreen = new ModuleReady();
+	//modules[i++] = readyScreen = new ModuleReady();
 	modules[i++] = continueScreen = new ModuleContinue();
 	modules[i++] = gameTitle = new ModuleGameTitle();
 	modules[i++] = gameOverScreen = new ModuleGameOver();
@@ -66,7 +66,7 @@ bool Application::Init()
 	//scenes ------------
 	teamLogo->Disable();
 	gameTitle->Disable();
-	readyScreen->Disable();
+	//readyScreen->Disable();
 	//scene_lvl1->Disable();
 	continueScreen->Disable();
 	gameOverScreen->Disable();
