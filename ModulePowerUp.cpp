@@ -59,6 +59,9 @@ bool ModulePowerUp::Start()
 {
 	powerUpTextures = App->textures->Load("assets/Graphics/Player/PowerUps.png");
 
+	//Audio
+	App->audio->LoadAudio("assets/Audio/SFX/Player/taking_Unit.wav", "Taking_Unit", SFX);
+
 	return true;
 }
 
@@ -109,6 +112,8 @@ bool ModulePowerUp::CleanUp()
 	//unload textures
 	if (powerUpTextures != nullptr)
 	App->textures->Unload(powerUpTextures);
+	//unload audio
+	App->audio->UnloadAudio("Taking_Unit", SFX);
 
 	return true;
 }
@@ -212,6 +217,7 @@ void ModulePowerUp::OnCollision(Collider* c1, Collider* c2)
 			App->playerUnit->swapColor(color); //swap color to the right picked up item
 			if (!App->playerUnit->IsEnabled()) //if the player does not have the unit active, activate and swap color
 			{
+				App->audio->ControlAudio("Taking_Unit", SFX, PLAY);
 				App->playerUnit->Enable();
 			}
 
