@@ -47,14 +47,7 @@ update_status ModuleEnemies::PreUpdate()
 	{
 		if (queue[i].type != ENEMY_TYPES::NO_TYPE)
 		{
-			//LOG("camPosX ",(int)App->render->currentCameraPosX);
-
-			//Force the debugged enemies to spawn
-			//if (queue[i].debug)
-			//{ 
-			//	SpawnEnemy(queue[i]);// queue[i].type = ENEMY_TYPES::NO_TYPE; 
-			//}
-
+			
 			//if (queue[i].x * SCREEN_SIZE > App->render->camera.x - (App->render->camera.w * SCREEN_SIZE) + SPAWN_MARGIN)
 			if (-queue[i].x * SCREEN_SIZE > App->render->camera.x - (App->render->camera.w * SCREEN_SIZE) - SPAWN_MARGIN)
 			{
