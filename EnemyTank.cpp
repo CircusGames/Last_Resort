@@ -9,6 +9,7 @@
 EnemyTank::EnemyTank(int x, int y, powerUpTypes type, SDL_Texture* sprite) : Enemy(x, y)
 {
 	// tank movement animation
+	staticAnim.PushBack({ 0,31,157,64 });
 	moveAnim.PushBack({ 0, 31, 157, 64 });
 	moveAnim.PushBack({ 0, 95, 157, 63 });
 	moveAnim.speed = 0.3f;
@@ -37,9 +38,9 @@ EnemyTank::EnemyTank(int x, int y, powerUpTypes type, SDL_Texture* sprite) : Ene
 	//animation = &boostAnim;
 	//animation = &particlesAnim;
 
-	path.PushBack({ 0.0f, 0.0f }, 320, &moveAnim);
+	path.PushBack({ 0.5f, 0.0f }, 640, &staticAnim);
 	path.PushBack({ 1.5f, 0 }, 304, &moveAnim);
-	path.PushBack({ 1,0}, 1700, &moveAnim);
+	path.PushBack({ 1,0}, 1600, &moveAnim);
 	
 	texture = sprite;
 	powerUpType = type;

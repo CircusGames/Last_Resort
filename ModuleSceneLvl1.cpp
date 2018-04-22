@@ -597,9 +597,12 @@ bool ModuleSceneLvl1::Start()
 
 	//Tank
 	App->enemies->AddEnemy(ENEMY_TYPES::TANK, 6100, 150, NONE, App->enemies->enemyTankTexture);
-	//App->enemies->AddEnemy(ENEMY_TYPES::TANK, 100, 150, NONE, App->enemies->enemyTankTexture);
-	App->enemies->AddEnemy(ENEMY_TYPES::SMALL_TURRET, 105, 122, NONE, App->enemies->enemyTankTexture);
-	App->enemies->AddEnemy(ENEMY_TYPES::BIG_TURRET, 102, 153, NONE, App->enemies->enemyTankTexture);
+	App->enemies->AddEnemy(ENEMY_TYPES::BIG_TURRET, 6200, 146, NONE, App->enemies->enemyTankTexture);
+	App->enemies->AddEnemy(ENEMY_TYPES::SMALL_TURRET, 6270, 152, NONE, App->enemies->enemyTankTexture);
+	App->enemies->AddEnemy(ENEMY_TYPES::TANK, 400, 150, NONE, App->enemies->enemyTankTexture);
+	App->enemies->AddEnemy(ENEMY_TYPES::BIG_TURRET, 500, 146, NONE, App->enemies->enemyTankTexture);
+	App->enemies->AddEnemy(ENEMY_TYPES::SMALL_TURRET, 570, 152, NONE, App->enemies->enemyTankTexture);
+	
 
 	//lvl1 background textures --------------------------------------------------------------------------------
 	bg = App->textures->Load("assets/Graphics/Backgrounds/Lvl_1/lvl1_bg.png");
