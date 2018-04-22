@@ -162,6 +162,11 @@ void ModuleEnemies::SpawnEnemy(EnemyInfo& info)
 		case ENEMY_TYPES::TANK:
 			enemies[i] = new EnemyTank(info.x, info.y, info.powerUpType, info.texture);
 			break;
+		case ENEMY_TYPES::SMALL_TURRET:
+			enemies[i] = new EnemyTank(info.x, info.y, info.powerUpType, info.texture);
+			break;
+		case ENEMY_TYPES::BIG_TURRET:
+			enemies[i] = new EnemyTank(info.x, info.y, info.powerUpType, info.texture);
 		case ENEMY_TYPES::ENEMYBEE:
 			enemies[i] = new EnemyBee(info.x, info.y, info.powerUpType, info.texture);
 			break;

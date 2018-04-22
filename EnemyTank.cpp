@@ -9,8 +9,10 @@
 EnemyTank::EnemyTank(int x, int y, powerUpTypes type, SDL_Texture* sprite) : Enemy(x, y)
 {
 	// tank movement animation
+	staticAnim.PushBack({ 0,31,157,64 });
 	moveAnim.PushBack({ 0, 31, 157, 64 });
 	moveAnim.PushBack({ 0, 95, 157, 63 });
+	moveAnim.speed = 0.3f;
 
 	// boost animation
 	for (int i = 0; i < BOOST_FRAMES; i++)
@@ -36,19 +38,68 @@ EnemyTank::EnemyTank(int x, int y, powerUpTypes type, SDL_Texture* sprite) : Ene
 	//animation = &boostAnim;
 	//animation = &particlesAnim;
 
+	path.PushBack({ 0.5f, 0.0f }, 640, &staticAnim);
+	path.PushBack({ 1.5f, 0 }, 304, &moveAnim);
+	path.PushBack({ 1,0 }, 1600, &moveAnim);
+
 	texture = sprite;
 	powerUpType = type;
 
-	original_x = x;
+	originalPos.x = x;
+	originalPos.y = y;
 	life = 5;
 
 	collider = App->collision->AddCollider({ 0, 0, 157, 64 }, COLLIDER_TYPE::COLLIDER_ENEMY, (Module*)App->enemies);
+
+	//Big Turret
+	rotateAnimBig.PushBack({ 157, 95, 28, 10 });
+	rotateAnimBig.PushBack({ 185, 95, 26, 12 });
+	rotateAnimBig.PushBack({ 211, 95, 26, 13 });
+	rotateAnimBig.PushBack({ 0, 158, 26, 14 });
+	rotateAnimBig.PushBack({ 26, 158, 26, 14 });
+	rotateAnimBig.PushBack({ 52, 158, 26, 14 });
+	rotateAnimBig.PushBack({ 78, 158, 26, 13 });
+	rotateAnimBig.PushBack({ 104, 158, 26, 12 });
+	rotateAnimBig.PushBack({ 130, 158, 29, 10 });
+	rotateAnimBig.speed = 0.05f;
+
+	animation2 = &rotateAnimBig;
+
+	collider = App->collision->AddCollider({ 0, 0, 29, 14 }, COLLIDER_TYPE::COLLIDER_ENEMY, (Module*)App->enemies);
+
+	path.PushBack({ 0.5f, 0.0f }, 540, &rotateAnimBig);
+	path.PushBack({ 1.5f, 0 }, 304, &rotateAnimBig);
+	path.PushBack({ 1,0 }, 1600, &rotateAnimBig);
+	originalPos2.x = x;
+	originalPos2.y = y;
+
+	//Small Turret
+	rotateAnimSmall.PushBack({ 159, 158, 15, 6 });
+	rotateAnimSmall.PushBack({ 174, 158, 13, 8 });
+	rotateAnimSmall.PushBack({ 187, 158, 13, 9 });
+	rotateAnimSmall.PushBack({ 200, 158, 13, 9 });
+	rotateAnimSmall.PushBack({ 213, 158, 13, 9 });
+	rotateAnimSmall.PushBack({ 226, 158, 13, 9 });
+	rotateAnimSmall.PushBack({ 239, 158, 14, 6 });
+	rotateAnimSmall.speed = 0.05f;
+
+	animation3 = &rotateAnimSmall;
+
+	path.PushBack({ 0.5f, 0.0f }, 470, &rotateAnimSmall);
+	path.PushBack({ 1.5f, 0 }, 304, &rotateAnimSmall);
+	path.PushBack({ 1,0 }, 1700, &rotateAnimSmall);
+	originalPos3.x = x;
+	originalPos3.y = y;
+
+	collider = App->collision->AddCollider({ 0, 0, 15, 9 }, COLLIDER_TYPE::COLLIDER_ENEMY, (Module*)App->enemies);
 }
 
 void EnemyTank::Move()
 {
-	position.x += 2;
-	//when tank appears it remains inmobile until it reaches the left collider, afther that it goes 0,5 faster than
+	position = originalPos + path.GetCurrentSpeed(&animation);
+	position2 = originalPos2 + path.GetCurrentSpeed(&animation2);
+	position3 = originalPos3 + path.GetCurrentSpeed(&animation3);
+	//when tank appears it remains inmobile until it reaches the left collider, after that it goes 0,5 faster than
 	//the camera speed until it reaches the right side of the screen(no margins) and it follows the camera speed until
 	//it reaches the broken bridge
 }
