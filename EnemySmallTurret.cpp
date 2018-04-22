@@ -15,10 +15,11 @@ EnemySmallTurret::EnemySmallTurret(int x, int y, powerUpTypes type, SDL_Texture*
 	rotateAnim.PushBack({ 213, 158, 13, 9 });
 	rotateAnim.PushBack({ 226, 158, 13, 9 });
 	rotateAnim.PushBack({ 239, 158, 14, 6 });
+	rotateAnim.speed = 0.05f;
 
 	animation = &rotateAnim;
 
-	path.PushBack({ 0.0f, 0.0f }, 320, &rotateAnim);
+	path.PushBack({ 0.5f, 0.0f }, 470, &rotateAnim);
 	path.PushBack({ 1.5f, 0 }, 304, &rotateAnim);
 	path.PushBack({ 1,0 }, 1700, &rotateAnim);
 

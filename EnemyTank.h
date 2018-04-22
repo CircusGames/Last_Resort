@@ -10,6 +10,7 @@ class EnemyTank : public Enemy
 private:
 
 	Path path;
+	Animation staticAnim;
 	Animation moveAnim;
 	Animation boostAnim;
 	Animation particlesAnim;
