@@ -37,7 +37,7 @@ bool ModuleEnemies::Start()
 	enemy2Texture = App->textures->Load("assets/Graphics/Enemies/Level_1/oscilator.png");
 	enemyTankTexture = App->textures->Load("assets/Graphics/Enemies/Level_1/Tank.png");
 	//Audio
-	App->audio->LoadAudio("assets/Audio/SFX/enemies/Enemy Explosion.wav", "Enemy Dying", SFX);
+	App->audio->LoadAudio("assets/Audio/SFX/enemies/Enemy_Explosion.wav", "Enemy Dying", SFX);
 
 	return true;
 }

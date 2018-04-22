@@ -196,7 +196,7 @@ update_status ModuleContinue::Update()
 		{
 			current_animation = &fireAnim[i];
 			fireFrame = current_animation->frames[(int)current_animation->current_frame];
-			App->render->Blit(continueTexture, firePositions[i], 96, &fireFrame);	
+			App->render->Blit(continueTexture, firePositions[i], 96, &fireFrame);
 		}
 
 		//still not really fine, but seems to be a good way
