@@ -596,12 +596,12 @@ bool ModuleSceneLvl1::Start()
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYOSCILATORY, 6497, 65, NONE, App->enemies->enemy2Texture);
 
 	//Tank
-	App->enemies->AddEnemy(ENEMY_TYPES::TANK, 6100, 150, NONE, App->enemies->enemyTankTexture);
+	/*//App->enemies->AddEnemy(ENEMY_TYPES::TANK, 6100, 150, NONE, App->enemies->enemyTankTexture);
 	App->enemies->AddEnemy(ENEMY_TYPES::BIG_TURRET, 6200, 146, NONE, App->enemies->enemyTankTexture);
 	App->enemies->AddEnemy(ENEMY_TYPES::SMALL_TURRET, 6270, 152, NONE, App->enemies->enemyTankTexture);
-	App->enemies->AddEnemy(ENEMY_TYPES::TANK, 400, 150, NONE, App->enemies->enemyTankTexture);
+	//App->enemies->AddEnemy(ENEMY_TYPES::TANK, 400, 150, NONE, App->enemies->enemyTankTexture);
 	App->enemies->AddEnemy(ENEMY_TYPES::BIG_TURRET, 500, 146, NONE, App->enemies->enemyTankTexture);
-	App->enemies->AddEnemy(ENEMY_TYPES::SMALL_TURRET, 570, 152, NONE, App->enemies->enemyTankTexture);
+	App->enemies->AddEnemy(ENEMY_TYPES::SMALL_TURRET, 570, 152, NONE, App->enemies->enemyTankTexture);*/
 	
 	//BEE's, very alpha
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYBEE, 5000, 70, NONE, App->enemies->enemyBeeTexture);
