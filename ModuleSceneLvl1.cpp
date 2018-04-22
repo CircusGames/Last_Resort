@@ -602,6 +602,14 @@ bool ModuleSceneLvl1::Start()
 	App->enemies->AddEnemy(ENEMY_TYPES::TANK, 400, 150, NONE, App->enemies->enemyTankTexture);
 	App->enemies->AddEnemy(ENEMY_TYPES::BIG_TURRET, 500, 146, NONE, App->enemies->enemyTankTexture);
 	App->enemies->AddEnemy(ENEMY_TYPES::SMALL_TURRET, 570, 152, NONE, App->enemies->enemyTankTexture);
+	
+	//BEE's, very alpha
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYBEE, 5000, 70, NONE, App->enemies->enemyBeeTexture);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYBEE, 5500, 30, NONE, App->enemies->enemyBeeTexture);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYBEE, 4900, 60, NONE, App->enemies->enemyBeeTexture);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYBEE, 5200, 70, NONE, App->enemies->enemyBeeTexture);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYBEE, 6000, 100, NONE, App->enemies->enemyBeeTexture);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYBEE, 4798, 90, NONE, App->enemies->enemyBeeTexture);
 
 	//lvl1 background textures --------------------------------------------------------------------------------
 	bg = App->textures->Load("assets/Graphics/Backgrounds/Lvl_1/lvl1_bg.png");
@@ -985,7 +993,6 @@ update_status ModuleSceneLvl1::Update()
 	
 	//App->render->Blit(App->textures->textures[6], 0, bgMovY.fg_y, &fgRect, 1.0f); //testing purposes
 
-	SDL_QueryTexture(App->enemies->enemyTankTexture, NULL, NULL, &width, &height);
 
 	//SCENE SWITCHING
 
