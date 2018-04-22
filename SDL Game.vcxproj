@@ -73,6 +73,7 @@
     <ClInclude Include="Animation.h" />
     <ClInclude Include="Application.h" />
     <ClInclude Include="BasicEnemy.h" />
+    <ClInclude Include="EnemyBee.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="EnemyOscilatory.h" />
     <ClInclude Include="EnemySmallTurret.h" />
@@ -87,6 +88,7 @@
     <ClInclude Include="ModulePowerUp.h" />
     <ClInclude Include="ModulePlayer2.h" />
     <ClInclude Include="ModulePlayer2Unit.h" />
+    <ClInclude Include="ModuleReady.h" />
     <ClInclude Include="ModuleSceneLvl1.h" />
     <ClInclude Include="ModuleCollision.h" />
     <ClInclude Include="ModuleFadeToBlack.h" />
@@ -110,6 +112,7 @@
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="BasicEnemy.cpp" />
     <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="EnemyBee.cpp" />
     <ClCompile Include="EnemyBigTurret.cpp" />
     <ClCompile Include="EnemyOscilatory.cpp" />
     <ClCompile Include="EnemySmallTurret.cpp" />
@@ -122,6 +125,7 @@
     <ClCompile Include="ModulePlayer2.cpp" />
     <ClCompile Include="ModulePlayer2Unit.cpp" />
     <ClCompile Include="ModulePowerUp.cpp" />
+    <ClCompile Include="ModuleReady.cpp" />
     <ClCompile Include="ModuleSceneLvl1.cpp" />
     <ClCompile Include="ModuleCollision.cpp" />
     <ClCompile Include="ModuleFadeToBlack.cpp" />

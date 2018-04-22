@@ -10,6 +10,7 @@
 #include "EnemyTank.h"
 #include "ModulePowerUp.h"
 #include "ModuleAudio.h"
+#include "EnemyBee.h"
 
 #define SPAWN_MARGIN 15*SCREEN_SIZE
 
@@ -36,6 +37,7 @@ bool ModuleEnemies::Start()
 	enemy1Texture = App->textures->Load("assets/Graphics/Enemies/Level_1/enemy1.png");
 	enemy2Texture = App->textures->Load("assets/Graphics/Enemies/Level_1/oscilator.png");
 	enemyTankTexture = App->textures->Load("assets/Graphics/Enemies/Level_1/Tank.png");
+	enemyBeeTexture = App->textures->Load("assets/Graphics/Enemies/Level_1/enemy1.png");;
 	//Audio
 	App->audio->LoadAudio("assets/Audio/SFX/enemies/Enemy Explosion.wav", "Enemy Dying", SFX);
 
@@ -165,6 +167,8 @@ void ModuleEnemies::SpawnEnemy(EnemyInfo& info)
 			break;
 		case ENEMY_TYPES::BIG_TURRET:
 			enemies[i] = new EnemyTank(info.x, info.y, info.powerUpType, info.texture);
+		case ENEMY_TYPES::ENEMYBEE:
+			enemies[i] = new EnemyBee(info.x, info.y, info.powerUpType, info.texture);
 			break;
 		}
 	}

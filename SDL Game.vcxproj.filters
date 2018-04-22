@@ -131,6 +131,12 @@
     <ClInclude Include="ModuleWin.h">
       <Filter>Modules</Filter>
     </ClInclude>
+    <ClInclude Include="EnemyBee.h">
+      <Filter>Modules\Enemies</Filter>
+
+    <ClInclude Include="ModuleReady.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -222,6 +228,14 @@
     </ClCompile>
     <ClCompile Include="ModuleWin.cpp">
       <Filter>Modules</Filter>
+    </ClCompile>
+
+    <ClCompile Include="EnemyBee.cpp">
+      <Filter>Modules\Enemies</Filter>
+
+    <ClCompile Include="ModuleReady.cpp">
+      <Filter>Modules</Filter>
+
     </ClCompile>
   </ItemGroup>
 </Project>
