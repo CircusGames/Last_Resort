@@ -19,7 +19,7 @@
 #include "ModuleEnemies.h"
 #include "ModuleUI.h"
 #include "ModulePowerUp.h"
-//#include "ModuleWinScreen.h"
+#include "ModuleWin.h"
 
 Application::Application()
 {
@@ -33,6 +33,7 @@ Application::Application()
 	modules[i++] = continueScreen = new ModuleContinue();
 	modules[i++] = gameTitle = new ModuleGameTitle();
 	modules[i++] = gameOverScreen = new ModuleGameOver();
+	modules[i++] = winScreen = new ModuleWin();
 	modules[i++] = player = new ModulePlayer();
 	//modules[i++] = player2 = new ModulePlayer2();
 	modules[i++] = playerUnit = new ModulePlayerUnit();
@@ -44,7 +45,7 @@ Application::Application()
 	modules[i++] = audio = new ModuleAudio();
 	modules[i++] = moduleUI = new ModuleUI();
 	modules[i++] = fade = new ModuleFadeToBlack();
-	//modules[i++] = winscreen = new ModuleWinScreen();
+	
 
 }	
 
@@ -62,8 +63,8 @@ bool Application::Init()
 	//disable modulePlayer at init -------
 	//scenes ------------
 	teamLogo->Disable();
-	gameTitle->Disable();
-	//scene_lvl1->Disable();
+	//gameTitle->Disable();
+	scene_lvl1->Disable();
 	continueScreen->Disable();
 	gameOverScreen->Disable();
 	//other modules -----
@@ -74,8 +75,7 @@ bool Application::Init()
 	collision->Disable();
 	particles->Disable();
 	modulePowerUp->Disable();
-	//winscreen->Disable();
-
+	winScreen->Disable();
 	enemies->Disable();
 	
 	// -----------------------------------

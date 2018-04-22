@@ -541,6 +541,9 @@ bool ModulePlayer::CleanUp()
 		playerCollider->to_delete = true;
 	}
 
+	//if we are on super sayan GOD
+	godMode = false;
+
 	//unloading SFX
 	App->audio->UnloadAudio("speedDN", SFX);
 	App->audio->UnloadAudio("speedUP", SFX);

@@ -44,8 +44,8 @@ update_status ModuleGameOver::Update()
 	//current_step = intro_step::firstSecuence; //<------ If you put this, the first Game Over is ok but the secuence don't continue to the Fade to White and last Game Over
 	//App->render->Blit(gameOverTexture, 25, 36, &gameOverFirstRect);
 	//App->render->Blit(gameOverTexture, 25, 36, &gameOverMidRect);
-	//App->render->Blit(gameOverTexture, 35,46, &gameOverRect);
-	if (current_step == intro_step::firstSecuence)
+	App->render->Blit(gameOverTexture, 35,46, &gameOverRect);
+	/*if (current_step == intro_step::firstSecuence)
 	{
 		App->render->Blit(blackScreenTexture, 0, 0, NULL);
 		App->render->Blit(gameOverTexture, 25, 36, &gameOverFirstRect);
@@ -117,12 +117,12 @@ update_status ModuleGameOver::Update()
 		//SDL_SetRenderDrawColor(App->render->renderer, 0, 0, 0, (Uint8)(0.0f));
 		//SDL_RenderFillRect(App->render->renderer, NULL);
 		App->render->Blit(gameOverTexture, 35, 46, &gameOverRect);
-	}
+	}*/
 
-	if (App->input->keyboard[SDL_SCANCODE_RETURN] == 1 && App->player->lives > 0)
-		App->fade->FadeToBlack(App->gameOverScreen, (Module*)App->gameTitle, 0.8f);
+	if (App->input->keyboard[SDL_SCANCODE_RETURN] == 1) //&& App->player->lives > 0)
+		App->fade->FadeToBlack(App->gameOverScreen, (Module*)App->winScreen, 0.8f);
 
-
+		
 	return UPDATE_CONTINUE;
 }
 	

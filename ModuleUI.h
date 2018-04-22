@@ -7,6 +7,13 @@
 #define MAX_FONTS 10
 #define MAX_FONT_CHARS 256
 
+enum gameplay_state
+{
+	NO,
+	SCENE,
+	WIN
+};
+
 struct SDL_Texture;
 
 struct Font
@@ -38,12 +45,22 @@ private:
 	Font	 fonts[MAX_FONTS];
 
 public:
-	int font_score = -1;
+	int lastResortBlueFont = -1;
 	int redNumbers = -1;
 	char score_text[10];
 	char redNumbers_text[10];
 	Uint32 score = 0;
 	Uint32 score2 = 0; //provisonal name to redNumbers call
+	uint lives1 = 0;
+	uint lives2 = 0;
+	
+	int scores[10] = { 0,0,0,0,0,0,0,0,0,0 };
+	Uint32 lastScore;
+	int scorePosY[10] = { 48,68,88,108,128,148,168,188,208,228 };
+
+	bool computed = false;
+	gameplay_state UI;
+
 };
 
 

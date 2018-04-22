@@ -15,6 +15,7 @@
 #include "ModuleCollision.h"
 #include "ModulePowerUp.h"
 #include "ModuleEnemies.h"
+#include "ModuleUI.h"
 
 #define STREET_LIGHTS_A 15
 #define STREET_LIGHTS_B 13
@@ -452,7 +453,17 @@ bool ModuleSceneLvl1::Start()
 	LOG("Loading background assets");
 	bool ret = true;
 
+	//enable modules --------------
+	App->player->Enable();
+	//App->player2->Enable();
+	//App->playerUnit->Enable();
+	App->particles->Enable();
+	App->collision->Enable();
+	App->modulePowerUp->Enable();
 	App->enemies->Enable();
+	//changes the state of the UI
+	App->moduleUI->UI = gameplay_state::SCENE;
+
 	
 	//EXAMPLE OF PASSING OR NOT, SPECIFIC TEXTURES TO SPECIFIC ENEMY ------------------------------
 	//pass a parameter to specific texture declared and defined inside moduleEnemies.cpp and .h
@@ -603,14 +614,6 @@ bool ModuleSceneLvl1::Start()
 	//loading music and fx -------------------------------------------------------------------------------------
 	App->audio->LoadAudio("assets/Audio/Music/song_level_1.ogg", "song_lvl1", MUSIC);
 	App->audio->ControlAudio("song_lvl1", MUSIC, FADEIN, -1, 1500.0f); //type, playMode, loops, fadeIn, fadeOut
-
-	//enable modules --------------
-	App->player->Enable();
-	//App->player2->Enable();
-	//App->playerUnit->Enable();
-	App->particles->Enable();
-	App->collision->Enable();
-	App->modulePowerUp->Enable();
 
 	// ----------------------------
 
@@ -980,8 +983,12 @@ update_status ModuleSceneLvl1::Update()
 
 	//SCENE SWITCHING
 
-	if (App->input->keyboard[SDL_SCANCODE_RETURN] == 1)
-		App->fade->FadeToBlack(App->scene_lvl1, App->continueScreen);
+	if (App->input->keyboard[SDL_SCANCODE_RETURN] == KEY_DOWN)
+		App->fade->FadeToBlack(this, App->continueScreen);
+	if(App->input->keyboard[SDL_SCANCODE_U] == KEY_DOWN)
+		App->fade->FadeToBlack(this, (Module*)App->winScreen);
+	if(App->input->keyboard[SDL_SCANCODE_O] == KEY_DOWN)
+		App->fade->FadeToBlack(this, (Module*)App->gameOverScreen);
 
 	return UPDATE_CONTINUE;
 }
@@ -989,6 +996,9 @@ update_status ModuleSceneLvl1::Update()
 bool ModuleSceneLvl1::CleanUp()
 {
 	LOG("Unloading lvl1 textures");
+
+	//changes the state of the UI
+	App->moduleUI->UI = gameplay_state::NO;
 
 	App->collision->Disable();
 	App->particles->Disable();
