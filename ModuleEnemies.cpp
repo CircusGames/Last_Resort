@@ -10,8 +10,7 @@
 #include "EnemyTank.h"
 #include "ModulePowerUp.h"
 #include "ModuleAudio.h"
-#include "EnemyBigTurret.h"
-#include"EnemySmallTurret.h"
+
 
 #define SPAWN_MARGIN 15*SCREEN_SIZE
 
@@ -164,12 +163,6 @@ void ModuleEnemies::SpawnEnemy(EnemyInfo& info)
 			break;
 		case ENEMY_TYPES::TANK:
 			enemies[i] = new EnemyTank(info.x, info.y, info.powerUpType, info.texture);
-			break;
-		case ENEMY_TYPES::BIG_TURRET:
-			enemies[i] = new EnemyBigTurret(info.x, info.y, info.powerUpType, info.texture);
-			break;
-		case ENEMY_TYPES::SMALL_TURRET:
-			enemies[i] = new EnemySmallTurret(info.x, info.y, info.powerUpType, info.texture);
 			break;
 		}
 	}

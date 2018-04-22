@@ -86,7 +86,7 @@ bool ModuleParticles::Start()
 	//load textures and links pointers to -------------
 	graphics = App->textures->Load("assets/Graphics/Player/player1_incomplete.png");
 	unitBasicShotTexture = App->textures->Load("assets/Graphics/Player/unitBasicShot.png");
-	laserTexture = App->textures->Load("assets/Graphics/Player/laser.png");;
+	laserTexture = App->textures->Load("assets/Graphics/Player/laser.png");
 	// ------------------------------------------------
 	
 	//load and links textures for particles -----------

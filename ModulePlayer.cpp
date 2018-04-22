@@ -91,7 +91,17 @@ ModulePlayer::ModulePlayer()
 	boostAnim.speed = 0.25f;
 	boostAnim.repeat = false;
 
-
+	// laser powerUp flash
+	laserFlash.PushBack({ 1,1,13,13 });
+	laserFlash.PushBack({ 16,1,15,15 });
+	laserFlash.PushBack({ 33,1,27,9 });
+	laserFlash.PushBack({ 32,18,31,7 });
+	laserFlash.PushBack({ 1,27,31,5 });
+	laserFlash.PushBack({ 1,39,32,3 });
+	laserFlash.PushBack({ 1,34,32,3 });
+	laserFlash.PushBack({ 1,18,30,3 });
+	laserFlash.speed = 0.25f;
+	laserFlash.repeat = false;
 
 }
 
@@ -110,6 +120,7 @@ bool ModulePlayer::Start()
 
 	player = App->textures->Load("assets/Graphics/Player/player1_incomplete.png");
 	powerUpTextures = App->textures->Load("assets/Graphics/Player/PowerUps.png");
+	laserFlashTexture = App->textures->Load("assets/Graphics/Player/laserFlash.png");
 	//restart player positions for next time playerModule call
 	
 	position.x = 40;
@@ -171,12 +182,26 @@ update_status ModulePlayer::PreUpdate()
 			App->audio->ControlAudio("speedUP", SFX, PLAY);
 		}
 		//float speed = 1.4f; //player position speed
-		if (!activebuff.boost) //if the time for boost go out...
-			playerSpeed = speed = normalPlayerSpeed; //resets the temporal incrementer to always Nicolas at the desired incrementer count
-												 //new change direction starts incrementer at speed correct value (always same distances)
-		else
+		if (!activebuff.boost && !activebuff.brake) //if the time for boost go out... and the boost brake is not active, normal speed
 		{
 
+			playerSpeed = speed = normalPlayerSpeed; //resets the temporal incrementer to always Nicolas at the desired incrementer count
+													 //new change direction starts incrementer at speed correct value (always same distances)
+		}
+		else if (activebuff.brake)
+			speed = brakePlayerSpeed;
+
+		if (powerUpActive == powerUpTypes::BRAKE)
+		{
+			//activebuff.boost = false; //its finish automatic when its animation finish
+			activebuff.brake = true;
+			powerUpActive = powerUpTypes::NONE;
+		}
+
+		if (powerUpActive == powerUpTypes::LASER)
+		{
+			activebuff.laser = true;
+			powerUpActive = powerUpTypes::NONE;
 		}
 		// --------------------------------------------------------------------
 		
@@ -352,8 +377,13 @@ update_status ModulePlayer::Update()
 		if (App->input->keyboard[SDL_SCANCODE_SPACE] == KEY_STATE::KEY_DOWN)
 		{
 			LOG("Beam!");
+			if (activebuff.laser)
+			{
+				shootingLaser = true;
+				App->particles->AddParticle(App->particles->laser, position.x + 32, position.y - 2, COLLIDER_PLAYER_SHOT); //"shot");
+			}
+
 			shooting = true;
-			App->particles->AddParticle(App->particles->laser, position.x, position.y - 2, COLLIDER_PLAYER_SHOT); //, "shot");
 			App->particles->AddParticle(App->particles->beam, position.x + 32, position.y - 4, COLLIDER_PLAYER_SHOT); //, "shot");
 		
 		}
@@ -368,6 +398,25 @@ update_status ModulePlayer::Update()
 			}
 			App->render->Blit(player, position.x + 32, position.y - 6, &beamSmoke.GetCurrentFrame());
 		}
+
+		if (shootingLaser)
+		{
+			Animation* currentLaserFlash = &laserFlash;
+			SDL_Rect currentLaserFlashRect = currentLaserFlash->GetCurrentFrame();
+
+			if (App->input->keyboard[SDL_SCANCODE_SPACE] == KEY_DOWN) //force restart animation for new shot
+				currentLaserFlash->current_frame = 0;
+
+			if (currentLaserFlash->current_frame >= currentLaserFlash->last_frame) //resets animation cycle
+			{
+				laserFlash.current_frame = 0;
+				laserFlash.finish = false;
+				shootingLaser = false;
+			}
+			App->render->Blit(laserFlashTexture, position.x + 32, position.y - 1 - (currentLaserFlashRect.h / 2), &currentLaserFlashRect);
+		}
+		// -------------------------------------------------------------------------------------------------------------------------
+
 
 		//CHECK POWERUP ANIMATIONS etc ---------------------------------------------------------------------------------------------
 		if (activebuff.boost)
