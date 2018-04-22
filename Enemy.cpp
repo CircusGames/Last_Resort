@@ -4,6 +4,7 @@
 #include "ModuleParticles.h"
 #include "ModuleRender.h"
 #include "ModulePowerUp.h"
+//#include "ModuleAudio.h"
 //#include "Globals.h"
 
 #include "ModulePlayerUnit.h"
@@ -44,4 +45,5 @@ void Enemy::Draw(SDL_Texture* sprites)
 void Enemy::OnCollision(Collider* collider) //receives the collider wich its colliding (player,shot etc)
 {
 	App->particles->AddParticle(App->particles->explosion, position.x, position.y,COLLIDER_NONE);
+	
 }

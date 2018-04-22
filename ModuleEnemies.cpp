@@ -9,6 +9,7 @@
 #include "EnemyOscilatory.h"
 #include "EnemyTank.h"
 #include "ModulePowerUp.h"
+#include "ModuleAudio.h"
 
 #define SPAWN_MARGIN 15*SCREEN_SIZE
 
@@ -35,7 +36,8 @@ bool ModuleEnemies::Start()
 	enemy1Texture = App->textures->Load("assets/Graphics/Enemies/Level_1/enemy1.png");
 	enemy2Texture = App->textures->Load("assets/Graphics/Enemies/Level_1/oscilator.png");
 	enemyTankTexture = App->textures->Load("assets/Graphics/Enemies/Level_1/Tank.png");
-	// -------------------------------------------------------------------------------------
+	//Audio
+	App->audio->LoadAudio("assets/Audio/SFX/enemies/Enemy Explosion.wav", "Enemy Dying", SFX);
 
 	return true;
 }
@@ -107,6 +109,7 @@ bool ModuleEnemies::CleanUp()
 	LOG("Freeing all enemies");
 
 	App->textures->Unload(sprites);
+	App->audio->UnloadAudio("Enemy Dying",SFX);
 
 	for (uint i = 0; i < MAX_ENEMIES; ++i)
 	{
@@ -181,6 +184,7 @@ void ModuleEnemies::OnCollision(Collider* c1, Collider* c2)
 
  			if (enemies[i]->life <= 0)
 			{
+				App->audio->ControlAudio("Enemy Dying", SFX, PLAY);
 				delete enemies[i];
 				enemies[i] = nullptr;
 				break;
