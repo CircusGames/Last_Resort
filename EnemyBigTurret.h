@@ -1,4 +1,4 @@
-/*#ifndef _ENEMYBIGTURRET_H__
+#ifndef _ENEMYBIGTURRET_H__
 #define _ENEMYBIGTURRET_H__
 
 #include "Enemy.h"
@@ -13,12 +13,10 @@ private:
 	Animation rotateAnim;
 	iPoint originalPos;
 
-	int original_x = NULL;
-
 public:
 
 	EnemyBigTurret(int x, int y, powerUpTypes, SDL_Texture* sprite = nullptr);
 	void Move();
 };
 
-#endif // !_ENEMYSMALLTURRET_H__*/
+#endif // !_ENEMYSMALLTURRET_H__

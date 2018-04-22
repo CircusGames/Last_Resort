@@ -11,6 +11,7 @@ EnemyTank::EnemyTank(int x, int y, powerUpTypes type, SDL_Texture* sprite) : Ene
 	// tank movement animation
 	moveAnim.PushBack({ 0, 31, 157, 64 });
 	moveAnim.PushBack({ 0, 95, 157, 63 });
+	moveAnim.speed = 0.3f;
 
 	// boost animation
 	for (int i = 0; i < BOOST_FRAMES; i++)
@@ -36,10 +37,15 @@ EnemyTank::EnemyTank(int x, int y, powerUpTypes type, SDL_Texture* sprite) : Ene
 	//animation = &boostAnim;
 	//animation = &particlesAnim;
 
+	path.PushBack({ 0.0f, 0.0f }, 320, &moveAnim);
+	path.PushBack({ 1.5f, 0 }, 304, &moveAnim);
+	path.PushBack({ 1,0}, 1700, &moveAnim);
+	
 	texture = sprite;
 	powerUpType = type;
 
-	original_x = x;
+	originalPos.x = x;
+	originalPos.y = y;
 	life = 5;
 
 	collider = App->collision->AddCollider({ 0, 0, 157, 64 }, COLLIDER_TYPE::COLLIDER_ENEMY, (Module*)App->enemies);
@@ -47,8 +53,8 @@ EnemyTank::EnemyTank(int x, int y, powerUpTypes type, SDL_Texture* sprite) : Ene
 
 void EnemyTank::Move()
 {
-	position.x += 2;
-	//when tank appears it remains inmobile until it reaches the left collider, afther that it goes 0,5 faster than
+	position = originalPos + path.GetCurrentSpeed(&animation);
+	//when tank appears it remains inmobile until it reaches the left collider, after that it goes 0,5 faster than
 	//the camera speed until it reaches the right side of the screen(no margins) and it follows the camera speed until
 	//it reaches the broken bridge
 }

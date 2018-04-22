@@ -10,6 +10,8 @@
 #include "EnemyTank.h"
 #include "ModulePowerUp.h"
 #include "ModuleAudio.h"
+#include "EnemyBigTurret.h"
+#include"EnemySmallTurret.h"
 
 #define SPAWN_MARGIN 15*SCREEN_SIZE
 

@@ -15,8 +15,6 @@ private:
 	Animation particlesAnim;
 	iPoint originalPos;
 
-	int original_x = NULL;
-
 public:
 
 	EnemyTank(int x, int y, powerUpTypes, SDL_Texture* sprite = nullptr);
