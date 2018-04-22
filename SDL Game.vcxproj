@@ -87,6 +87,7 @@
     <ClInclude Include="ModulePowerUp.h" />
     <ClInclude Include="ModulePlayer2.h" />
     <ClInclude Include="ModulePlayer2Unit.h" />
+    <ClInclude Include="ModuleReady.h" />
     <ClInclude Include="ModuleSceneLvl1.h" />
     <ClInclude Include="ModuleCollision.h" />
     <ClInclude Include="ModuleFadeToBlack.h" />
@@ -121,6 +122,7 @@
     <ClCompile Include="ModulePlayer2.cpp" />
     <ClCompile Include="ModulePlayer2Unit.cpp" />
     <ClCompile Include="ModulePowerUp.cpp" />
+    <ClCompile Include="ModuleReady.cpp" />
     <ClCompile Include="ModuleSceneLvl1.cpp" />
     <ClCompile Include="ModuleCollision.cpp" />
     <ClCompile Include="ModuleFadeToBlack.cpp" />
