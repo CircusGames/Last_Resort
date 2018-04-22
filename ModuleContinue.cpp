@@ -240,7 +240,7 @@ update_status ModuleContinue::Update()
 
 
 	if (App->input->keyboard[SDL_SCANCODE_RETURN] == 1 && App->player->lives > 0)
-		App->fade->FadeToBlack(this, (Module*)App->scene_lvl1, 0.8f);
+		App->fade->FadeToBlack(this, (Module*)App->readyScreen, 0.8f);
 
 	return UPDATE_CONTINUE;
 }

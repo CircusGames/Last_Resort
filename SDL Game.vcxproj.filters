@@ -128,6 +128,9 @@
     <ClInclude Include="ModuleWin.h">
       <Filter>Modules</Filter>
     </ClInclude>
+    <ClInclude Include="ModuleReady.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -221,6 +224,9 @@
       <Filter>Core</Filter>
     </ClCompile>
     <ClCompile Include="ModuleWin.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleReady.cpp">
       <Filter>Modules</Filter>
     </ClCompile>
   </ItemGroup>
