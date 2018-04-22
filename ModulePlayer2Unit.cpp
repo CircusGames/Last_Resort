@@ -192,8 +192,8 @@ bool ModulePlayer2Unit::Start()
 	playerUnitBlue = App->textures->Load("assets/Graphics/Player/orangeUnit.png");
 
 	//Audio
-	App->audio->LoadAudio("assets/Audio/SFX/player/Fix Unit.wav", "Fix Unit", SFX);
-	App->audio->LoadAudio("assets/audio/SFX/player/Unfix Unit.wav", "Unfix Unit", SFX);
+	App->audio->LoadAudio("assets/Audio/SFX/player/Fix_Unit.wav", "Fix Unit", SFX);
+	App->audio->LoadAudio("assets/audio/SFX/player/Unfix_Unit.wav", "Unfix Unit", SFX);
 
 	//delta calculations
 	orbitSpeed = 1.0f;
