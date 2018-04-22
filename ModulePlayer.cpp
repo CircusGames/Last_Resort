@@ -534,7 +534,7 @@ bool ModulePlayer::CleanUp()
 	if(player != nullptr)
 		App->textures->Unload(player);
 	if(powerUpTextures != nullptr)
-		App->textures->Unload(player);
+		App->textures->Unload(powerUpTextures);
 
 	if (playerCollider != nullptr)
 	{
