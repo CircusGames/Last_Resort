@@ -24,7 +24,7 @@ ModuleParticles::ModuleParticles()
 	beam.anim.PushBack({ 148,127,15,7 });
 	beam.speed.x = 12;
 	beam.life = 1000;
-	beam.fx = "shot";
+	//beam.fx = "shot";
 	beam.damage = 1;
 	// -----------------------------------------------------
 	//Unit basic shot particle-------------------
@@ -37,7 +37,7 @@ ModuleParticles::ModuleParticles()
 	unitBasicShot.anim.PushBack({ 1,46,13,13 });
 	unitBasicShot.anim.PushBack({ 16,46,13,13 });
 	unitBasicShot.anim.speed = 0.3f;
-	unitBasicShot.life = 2000;
+	unitBasicShot.life = 1500;
 	unitBasicShot.damage = 1;
 	// ------------------------------------------
 
@@ -66,11 +66,12 @@ ModuleParticles::ModuleParticles()
 	laser.anim.PushBack({ 59,1,48,3 });
 	laser.anim.PushBack({ 1,1,56,3 });
 	laser.anim.PushBack({ 1,6,56,3 });
-	laser.anim.speed = 0.25f;
+	laser.anim.speed = 0.6f;
 	laser.anim.repeat = false;
 	laser.speed.x = 6;
 	laser.damage = 2;
 	laser.life = 1500;
+	//laser.fx = "laser";
 
 }
 
@@ -87,7 +88,7 @@ bool ModuleParticles::Start()
 	unitBasicShotTexture = App->textures->Load("assets/Graphics/Player/unitBasicShot.png");
 	laserTexture = App->textures->Load("assets/Graphics/Player/laser.png");;
 	// ------------------------------------------------
-
+	
 	//load and links textures for particles -----------
 	beam.texture = graphics;
 	unitBasicShot.texture = unitBasicShotTexture;
@@ -96,8 +97,10 @@ bool ModuleParticles::Start()
 
 	//load specific Wavs effects for particles --------
 	App->audio->LoadAudio("assets/Audio/SFX/Player/shot04.wav", "shot", SFX);
+	App->audio->LoadAudio("assets/Audio/SFX/Player/laser.wav", "laser", SFX);
 	// ------------------------------------------------
-
+	laser.fx = "laser";
+	beam.fx = "shot";
 
 	//TEST PARTICLES
 	test = App->textures->Load("assets/Graphics/Enemies/explosions.png");
@@ -126,6 +129,8 @@ bool ModuleParticles::CleanUp()
 	}
 	//removing particles FX audio
 	App->audio->UnloadAudio("shot", SFX);
+	App->audio->UnloadAudio("laser", SFX);
+
 
 	return true;
 }
@@ -142,8 +147,9 @@ update_status ModuleParticles::Update()
 
 		if (p->Update() == false)
 		{
-			delete p;
-			active[i] = nullptr;
+				delete p;
+				active[i] = nullptr;
+			
 		}
 		else if (SDL_GetTicks() >= p->born)
 		{
@@ -151,7 +157,7 @@ update_status ModuleParticles::Update()
 			//p->r = p->anim->GetCurrentFrame(); ---
 			//App->render->Blit(graphics, p->position.x, p->position.y, &(p->r)); // ---
 			App->render->Blit(p->texture, p->position.x, p->position.y, &(p->anim.GetCurrentFrame()));
-			if (p->fx_played == false)
+			if (p->fx_played == false && p->fx != nullptr)
 			{
 				p->fx_played = true;
 				// Play particle fx here

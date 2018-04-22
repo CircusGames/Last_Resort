@@ -89,7 +89,8 @@ update_status ModuleEnemies::PostUpdate()
 	{
 		if (enemies[i] != nullptr)
 		{
-			if (enemies[i]->position.x * SCREEN_SIZE < (App->render->camera.x) - SPAWN_MARGIN)
+			//if (enemies[i]->position.x * SCREEN_SIZE < (App->render->camera.x) - SPAWN_MARGIN)
+			if(enemies[i]->position.x < (abs(App->render->camera.x) / SCREEN_SIZE) - 100)
 			{
 				LOG("DeSpawning enemy at %d", enemies[i]->position.x * SCREEN_SIZE);
 				delete enemies[i];
@@ -181,6 +182,7 @@ void ModuleEnemies::OnCollision(Collider* c1, Collider* c2)
 
  			if (enemies[i]->life <= 0)
 			{
+				
 				delete enemies[i];
 				enemies[i] = nullptr;
 				break;

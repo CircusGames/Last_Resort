@@ -57,7 +57,10 @@ public:
 	Animation playerDyingAnim;
 	Animation beamSmoke;
 	Animation boostAnim;
+	Animation laserFlash;
+	SDL_Texture* laserFlashTexture;
 	bool shooting = false;
+	bool shootingLaser = false;
 
 	float frameIncrement;
 	float ignitionSpeed;
@@ -67,6 +70,7 @@ public:
 	float speed; // for movement and powerup calculations
 	const float normalPlayerSpeed = 1.4f;
 	const float boostPlayerSpeed = 2.0f;
+	const float brakePlayerSpeed = 0.9f;
 
 	Collider* playerCollider;
 	bool godMode = false;
@@ -74,7 +78,7 @@ public:
 	int cameraPosition;
 
 	uint lives = 3;
-	Uint32 playerScore = 0;
+	int playerScore = 0;
 	bool destroyed = false;
 
 	//condition of the powerup call ---

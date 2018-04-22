@@ -78,7 +78,7 @@ update_status ModulePowerUp::Update()
 		}
 		
   			App->render->Blit(powerUpTextures, p->position.x, p->position.y, &(p->anim.GetCurrentFrame()));
-			if (p->fx_played == false)
+			if (p->fx_played == false && p->fx != nullptr)
 			{
 				p->fx_played = true;
 
@@ -183,15 +183,20 @@ void ModulePowerUp::OnCollision(Collider* c1, Collider* c2)
 				break;
 			case powerUpTypes::BOOST:
 					//call the functionality of the bombs powerup
+					//play FX
+				//App->audio->ControlAudio("speedUP", SFX, PLAY);
 				App->player->powerUpActive = powerUpTypes::BOOST;
 				color = App->playerUnit->actualUnitColor; //this not change the color of the unit
 				break;
 			case powerUpTypes::BRAKE:
 				//call the functionality of the bombs powerup
+				App->audio->ControlAudio("speedDN", SFX, PLAY);
 				color = App->playerUnit->actualUnitColor; //this not change the color of the unit
+				App->player->powerUpActive = powerUpTypes::BRAKE;
 				break;
 			case powerUpTypes::LASER:
-				    //call the functionality of the laser powerup
+				//call the functionality of the laser powerup
+				App->player->powerUpActive = powerUpTypes::LASER;
 				break;
 			case powerUpTypes::MISSILES:
 
