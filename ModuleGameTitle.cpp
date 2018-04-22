@@ -3,6 +3,7 @@
 #include "ModuleTextures.h"
 #include "ModuleRender.h"
 #include "ModuleGameTitle.h"
+#include "ModuleReady.h"
 #include "ModuleSceneLvl1.h"
 #include "ModuleInput.h"
 #include "ModuleFadeToBlack.h"
@@ -931,7 +932,7 @@ update_status ModuleGameTitle::Update()
 		App->render->Blit(snkCorpTexture, 64, 200, &snkCorp);
 
 		if (App->input->keyboard[SDL_SCANCODE_RETURN] == 1)
-			App->fade->FadeToBlack(App->gameTitle, App->scene_lvl1, 1.0f);
+			App->fade->FadeToBlack(App->gameTitle, App->readyScreen, 1.0f);
 	}
 
 
