@@ -37,7 +37,7 @@ bool ModuleEnemies::Start()
 	enemy2Texture = App->textures->Load("assets/Graphics/Enemies/Level_1/oscilator.png");
 	enemyTankTexture = App->textures->Load("assets/Graphics/Enemies/Level_1/Tank.png");
 	//Audio
-	App->audio->LoadAudio("assets/Audio/SFX/enemies/Enemy_Explosion.wav", "Enemy Dying", SFX);
+	App->audio->LoadAudio("assets/Audio/SFX/enemies/Enemy_Explosion.wav", "EnemyDeath", SFX);
 
 	return true;
 }
@@ -103,7 +103,7 @@ bool ModuleEnemies::CleanUp()
 	LOG("Freeing all enemies");
 
 	App->textures->Unload(sprites);
-	App->audio->UnloadAudio("Enemy Dying",SFX);
+	App->audio->UnloadAudio("EnemyDeath",SFX);
 
 	for (uint i = 0; i < MAX_ENEMIES; ++i)
 	{
@@ -178,7 +178,7 @@ void ModuleEnemies::OnCollision(Collider* c1, Collider* c2)
 
  			if (enemies[i]->life <= 0)
 			{
-				App->audio->ControlAudio("Enemy Dying", SFX, PLAY);
+				App->audio->ControlAudio("EnemyDeath", SFX, PLAY);
 				delete enemies[i];
 				enemies[i] = nullptr;
 				break;
