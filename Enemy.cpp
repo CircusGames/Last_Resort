@@ -15,6 +15,7 @@ Enemy::~Enemy()
 {
 	if (collider != nullptr)
 	{
+		
 		//iPoint position, COLLIDER_TYPE collider_type, powerUpTypes type, iPoint speed)
 		collider->to_delete = true;
 		

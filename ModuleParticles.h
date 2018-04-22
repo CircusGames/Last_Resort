@@ -53,6 +53,8 @@ private:
 	
 	SDL_Texture* graphics = nullptr;
 	SDL_Texture* unitBasicShotTexture = nullptr;
+	SDL_Texture* laserTexture = nullptr;
+
 	Particle* active[MAX_ACTIVE_PARTICLES];
 
 
@@ -69,6 +71,7 @@ public:
 	//Unit basic shot ---------
 	Particle unitBasicShot;
 	Particle explosion;
+	Particle laser;
 	
 
 	

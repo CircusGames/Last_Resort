@@ -2,6 +2,7 @@
 #include "EnemyOscilatory.h"
 #include "ModuleCollision.h"
 #include "ModuleEnemies.h"
+#include "ModuleParticles.h"
 
 EnemyOscilatory::EnemyOscilatory(int x, int y, powerUpTypes type, SDL_Texture* sprite) : Enemy(x, y)
 {
@@ -64,4 +65,15 @@ void EnemyOscilatory::Move()
 
 	position.y = int(float(original_y) + (82.0f * sinf(wave)));
 	position.x -= 1;
+}
+
+EnemyOscilatory::~EnemyOscilatory()
+{
+	App->particles->AddParticle(App->particles->explosion, position.x+30, position.y, COLLIDER_NONE);
+	App->particles->AddParticle(App->particles->explosion, position.x+50, position.y, COLLIDER_NONE);
+	App->particles->AddParticle(App->particles->explosion, position.x+10, position.y, COLLIDER_NONE);
+	App->particles->AddParticle(App->particles->explosion, position.x, position.y, COLLIDER_NONE);
+	App->particles->AddParticle(App->particles->explosion, position.x - 10, position.y, COLLIDER_NONE);
+	App->particles->AddParticle(App->particles->explosion, position.x - 20, position.y, COLLIDER_NONE);
+
 }

@@ -57,6 +57,21 @@ ModuleParticles::ModuleParticles()
 	explosion.anim.PushBack({ 485, 5, 30, 26 });
 	explosion.anim.repeat = false;
 	explosion.anim.speed = 0.3f;
+
+	//laser
+	laser.anim.PushBack({ 27,11,16,3 });
+	laser.anim.PushBack({ 1,11,24,3 });
+	laser.anim.PushBack({ 45,11,32,3 });
+	laser.anim.PushBack({ 67,6,40,3 });
+	laser.anim.PushBack({ 59,1,48,3 });
+	laser.anim.PushBack({ 1,1,56,3 });
+	laser.anim.PushBack({ 1,6,56,3 });
+	laser.anim.speed = 0.25f;
+	laser.anim.repeat = false;
+	laser.speed.x = 6;
+	laser.damage = 2;
+	laser.life = 1500;
+
 }
 
 ModuleParticles::~ModuleParticles()
@@ -70,12 +85,13 @@ bool ModuleParticles::Start()
 	//load textures and links pointers to -------------
 	graphics = App->textures->Load("assets/Graphics/Player/player1_incomplete.png");
 	unitBasicShotTexture = App->textures->Load("assets/Graphics/Player/unitBasicShot.png");
+	laserTexture = App->textures->Load("assets/Graphics/Player/laser.png");;
 	// ------------------------------------------------
 
 	//load and links textures for particles -----------
 	beam.texture = graphics;
 	unitBasicShot.texture = unitBasicShotTexture;
-	
+	laser.texture = laserTexture;
 	// ------------------------------------------------
 
 	//load specific Wavs effects for particles --------
@@ -217,7 +233,7 @@ bool Particle::Update()
 		if ((SDL_GetTicks() - born) > life)
 			ret = false;
 	}
-	else if (anim.finish)
+	else if (anim.finish && (SDL_GetTicks() - born) > life)
 				ret = false;
 	
 	//destroy particles respect camera position margins
