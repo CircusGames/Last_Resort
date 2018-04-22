@@ -177,6 +177,7 @@ update_status ModulePlayer::PreUpdate()
 			speed = boostPlayerSpeed;
 			activebuff.boost = true; //actives bool condition
 			activebuff.boostAnim = true;
+			activebuff.brake = false;
 			powerUpActive = powerUpTypes::NONE; //resets the enumerator to free the way for another
 			//play FX
 			App->audio->ControlAudio("speedUP", SFX, PLAY);
