@@ -56,7 +56,7 @@ EnemyBee::EnemyBee(int x, int y, powerUpTypes type, SDL_Texture* sprite) : Enemy
 	fposition.y = y;
 
 	powerUpType = type;
-	life = 1; //6 points of life original
+	life = 6; //6 points of life original
 	enemyScore = 300;
 
 	iSpeed = 40;

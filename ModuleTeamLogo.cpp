@@ -109,8 +109,10 @@ update_status ModuleTeamLogo::Update()
 
 bool ModuleTeamLogo::CleanUp()
 {
-	App->textures->Unload(provisionalTexture);
+	//App->textures->Unload(provisionalTexture);
 	App->textures->Unload(logoTexture);
+	App->textures->Unload(logoTextTexture);
+	App->textures->Unload(logoTextTexture);
 
 	//Mix_FadeOutMusic(500);
 	//App->audio->UnloadAudio("titleSong", MUSIC);

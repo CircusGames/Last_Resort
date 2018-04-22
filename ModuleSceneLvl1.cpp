@@ -669,7 +669,7 @@ bool ModuleSceneLvl1::Start()
 update_status ModuleSceneLvl1::PreUpdate()
 {
 
-	if (App->render->currentCameraPosX <= -5008)
+	if (App->render->currentCameraPosX <= -4408)
 	{
 		scrollX = false;
 		App->fade->FadeToBlack(this, (Module*)App->winScreen);
