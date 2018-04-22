@@ -64,10 +64,10 @@ bool Application::Init()
 	//desactivate Modules ----------------
 	//disable modulePlayer at init -------
 	//scenes ------------
-	teamLogo->Disable();
+	//teamLogo->Disable();
 	gameTitle->Disable();
 	readyScreen->Disable();
-	//scene_lvl1->Disable();
+	scene_lvl1->Disable();
 	continueScreen->Disable();
 	gameOverScreen->Disable();
 	//other modules -----
