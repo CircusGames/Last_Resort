@@ -48,6 +48,7 @@ bool ModuleWin::CleanUp()
 {
 	LOG("Unloading font textures");
 	//unload font textures
+	App->textures->Unload(winBackground);
 	App->textures->Unload(winInterface);
 	
 	//changing gamePlay state

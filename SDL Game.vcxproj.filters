@@ -180,9 +180,6 @@
     <ClInclude Include="ModuleWindow.h">
       <Filter>Modules</Filter>
     </ClInclude>
-    <ClInclude Include="ModuleWinScreen.h">
-      <Filter>Modules</Filter>
-    </ClInclude>
     <ClInclude Include="BasicEnemy.h">
       <Filter>Modules\Enemies</Filter>
     </ClInclude>
