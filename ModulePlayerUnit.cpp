@@ -190,10 +190,6 @@ bool ModulePlayerUnit::Start()
 {
 	LOG("Starting playerUnit Module");
 
-	
-	//playerUnitBlue = App->textures->Load("assets/Graphics/Player/blueUnit.png");
-	//playerUnitOrange = App->textures->Load("assets/Graphics/Player/orangeUnit.png");
-
 	//Audio
 	App->audio->LoadAudio("assets/Audio/SFX/player/Fix_Unit.wav", "UnitLocked", SFX);
 	App->audio->LoadAudio("assets/audio/SFX/player/Unfix_Unit.wav", "UnitUnlocked", SFX);
@@ -507,8 +503,8 @@ update_status ModulePlayerUnit::Update()
 bool ModulePlayerUnit::CleanUp()
 {
 	//unload textures
-	App->textures->Unload(playerUnitBlue);
-	App->textures->Unload(playerUnitOrange);
+	if (graphics != nullptr)
+		App->textures->Unload(graphics);
 	//unload audio
 	App->audio->UnloadAudio("UnitLocked", SFX);
 	App->audio->UnloadAudio("UnitUnlocked", SFX);

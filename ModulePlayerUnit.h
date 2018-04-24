@@ -39,8 +39,6 @@ public:
 
 	//some needed vars or specific functions
 	SDL_Texture * graphics;
-	SDL_Texture * playerUnitOrange;
-	SDL_Texture* playerUnitBlue;
 	Animation playerUnitAnim[MAX_ANIMS];
 	Animation *currentUnitAnim;
 
