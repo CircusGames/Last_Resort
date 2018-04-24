@@ -33,7 +33,7 @@ private:
 
 public:
 
-	EnemyBee(int x, int y, powerUpTypes type, SDL_Texture* sprite = nullptr);
+	EnemyBee(int x, int y, powerUpTypes type, SDL_Texture* thisTexture = nullptr);
 
 	//OnCollision
 

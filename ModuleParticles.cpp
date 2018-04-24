@@ -114,10 +114,13 @@ bool ModuleParticles::Start()
 bool ModuleParticles::CleanUp()
 {
 	LOG("Unloading particles");
+
+	//unloading graphics
+	App->textures->Unload(test); //remember erase this and its texture etc
+	App->textures->Unload(laserTexture);
+	App->textures->Unload(unitBasicShotTexture);
 	App->textures->Unload(graphics);
 
-
-	App->textures->Unload(test);
 	//removing active particles
 	for (uint i = 0; i < MAX_ACTIVE_PARTICLES; ++i)
 	{
@@ -127,6 +130,7 @@ bool ModuleParticles::CleanUp()
 			active[i] = nullptr;
 		}
 	}
+
 	//removing particles FX audio
 	App->audio->UnloadAudio("shot", SFX);
 	App->audio->UnloadAudio("laser", SFX);

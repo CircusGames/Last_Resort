@@ -16,7 +16,7 @@ private:
 
 public:
 
-	BasicEnemy(int x, int y, powerUpTypes type, SDL_Texture* sprite = nullptr);
+	BasicEnemy(int x, int y, powerUpTypes type,SDL_Texture* thisTexture);
 	
 	//OnCollision
 

@@ -7,8 +7,13 @@
 
 #include "SDL\include\SDL_timer.h"
 
-EnemyBee::EnemyBee(int x, int y, powerUpTypes type, SDL_Texture* sprite) : Enemy(x, y)
+EnemyBee::EnemyBee(int x, int y, powerUpTypes type, SDL_Texture* thisTexture) : Enemy(x, y)
 {
+
+	//links correct texture
+	enemyTex = thisTexture;
+	// --------------------
+
 	flyToLeft.PushBack({ 0, 0, 48, 45 });
 	flyToLeft.PushBack({ 49, 0, 48, 45 });
 	flyToLeft.PushBack({ 98, 0, 37, 46 });
@@ -50,9 +55,6 @@ EnemyBee::EnemyBee(int x, int y, powerUpTypes type, SDL_Texture* sprite) : Enemy
 	flyToLeft.speed = 0.2f;
 
 	animation = &flyToLeft; //links animation
-
-
-	texture = sprite;
 
 
 	fposition.x = x;

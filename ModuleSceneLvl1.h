@@ -135,7 +135,7 @@ public:
 	Animation streetLightA[QTY_BACK_LIGHTS];
 	Animation streetLightB[QTY_BACK_LIGHTS];
 	Animation streetLightsFrontA[QTY_FRONT_LIGHTS];
-	Animation streetLightsFrontB[QTY_FRONT_LIGHTS]; //qty?
+	Animation streetLightsFrontB[6]; //qty?
 	Animation tunnelLights[QTY_FRONT_LIGHTS];
 	Animation buildingLasers[5];
 	Animation orangeLaser;

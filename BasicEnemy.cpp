@@ -3,7 +3,7 @@
 #include "ModuleCollision.h"
 #include "ModuleEnemies.h"
 
-BasicEnemy::BasicEnemy(int x, int y, powerUpTypes type, SDL_Texture* sprite) : Enemy(x, y)
+BasicEnemy::BasicEnemy(int x, int y, powerUpTypes type, SDL_Texture* thisTexture) : Enemy(x, y)
 {
 	fly.PushBack({ 0,16,32,15 });
 	fly.PushBack({ 0,0,32,16 });
@@ -21,12 +21,13 @@ BasicEnemy::BasicEnemy(int x, int y, powerUpTypes type, SDL_Texture* sprite) : E
 	//BUT ALWAYS, for now (if you want recieve the texture from the outside):
 	//texture = sprite; //THIS LINE IS NEEDED. 
 	//links texture ----------------------------------------
-	texture = sprite; //THIS LINE IS NEEDED. //links texture ----------------------------------------
+	//texture = App->enemies->enemy1Texture;//sprite; //THIS LINE IS NEEDED. //links texture ----------------------------------------
 	//or another workaround is define the texture here:
 	//texture = App->textures->Load("assets/Graphics/Enemies/Level_1/enemy1.png"); //other method to load and link texture
 	//and avoid the texture call from AddEnemy method from the scene
 	//and avoid define the texture pointer and load methods from moduleEnemie
 	// ----------------------------------------------------------------------------------------------
+	enemyTex = thisTexture;
 	
 	//collider = App->collision->AddCollider({ 0, 0, 24, 24 }, COLLIDER_TYPE::COLLIDER_POWER_UP, (Module*)App->enemies);
 

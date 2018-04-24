@@ -87,8 +87,8 @@ bool Application::Init()
 		ret = modules[i]->Init();
 
 	//but only the needed have start
-	//for(int i = 0; i < NUM_MODULES && ret == true; ++i)
-	for (int i = NUM_MODULES; i >= 0 && ret == true; --i)            //only if the scene is load at first stage
+	for(int i = 0; i < NUM_MODULES && ret == true; ++i)
+	//for (int i = NUM_MODULES; i >= 0 && ret == true; --i)            //only if the scene is load at first stage
 		ret = modules[i]->IsEnabled() ? modules[i]->Start() : true;  //(for debug and testing new functionalities)
 	
 	return ret;

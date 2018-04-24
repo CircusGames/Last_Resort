@@ -19,12 +19,13 @@ enum ENEMY_TYPES
 };
 
 class Enemy;
+//struct SDL_Texture;
 
 struct EnemyInfo
 {
 	ENEMY_TYPES type = ENEMY_TYPES::NO_TYPE;
 	int x, y;
-	SDL_Texture* texture = nullptr;
+	//SDL_Texture* texture;
 	powerUpTypes powerUpType = powerUpTypes::NONE;
 };
 
@@ -42,7 +43,7 @@ public:
 	bool CleanUp();
 	void OnCollision(Collider* c1, Collider* c2);
 
-	bool AddEnemy(ENEMY_TYPES type, int x, int y, powerUpTypes powerUpType = powerUpTypes::NONE, SDL_Texture* texture = nullptr);
+	bool AddEnemy(ENEMY_TYPES type, int x, int y, powerUpTypes powerUpType);
 	
 
 	//more textures - in public because we call outside this module

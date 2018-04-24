@@ -9,16 +9,6 @@
 struct SDL_Texture;
 struct Collider;
 
-/*enum powerUpTypes
-{
-	NONE,
-	UNIT,
-	BOOST,
-	MISSILE1,
-	MISSILE2,
-	RANDOM
-};*/
-
 class Enemy
 {
 protected:
@@ -31,9 +21,10 @@ public:
 	fPoint fposition;
 	int life;
 	uint enemyScore;
+	SDL_Texture* enemyTex = nullptr; //links to enemy spritesheet texture
 
 public:
-	Enemy(int x, int y, powerUpTypes type = powerUpTypes::NONE, SDL_Texture* texture = nullptr);
+	Enemy(int x, int y, powerUpTypes type = powerUpTypes::NONE);
 	
 
 	virtual ~Enemy();
@@ -42,12 +33,12 @@ public:
 
 	virtual void Move() {};
 	//virtual void Draw(SDL_Texture* sprites);
-	virtual void Draw(SDL_Texture* texture);
+	virtual void Draw();
 	virtual void OnCollision(Collider* collider);
 	
-	SDL_Texture* texture = nullptr;
+	
 
-	powerUpTypes powerUpType;// = powerUpTypes::NONE;
+	powerUpTypes powerUpType;
 };
 
 #endif // __ENEMY_H__

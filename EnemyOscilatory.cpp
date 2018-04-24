@@ -4,8 +4,11 @@
 #include "ModuleEnemies.h"
 #include "ModuleParticles.h"
 
-EnemyOscilatory::EnemyOscilatory(int x, int y, powerUpTypes type, SDL_Texture* sprite) : Enemy(x, y)
+EnemyOscilatory::EnemyOscilatory(int x, int y, powerUpTypes type, SDL_Texture* thisTexture) : Enemy(x, y)
 {
+	//links correct spritesheet texture
+	enemyTex = thisTexture;
+
 	waveAnim.PushBack({ 0,0,48,45 });
 	waveAnim.PushBack({ 49,0,48,46 });
 	waveAnim.PushBack({ 96,0,47,46 });
@@ -35,7 +38,7 @@ EnemyOscilatory::EnemyOscilatory(int x, int y, powerUpTypes type, SDL_Texture* s
 	waveAnim.speed = 0.05f;
 
 	animation = &waveAnim;
-	texture = sprite;
+	
 
 	powerUpType = type;
 

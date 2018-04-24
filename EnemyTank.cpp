@@ -6,8 +6,12 @@
 
 #define BOOST_FRAMES 4
 
-EnemyTank::EnemyTank(int x, int y, powerUpTypes type, SDL_Texture* sprite) : Enemy(x, y)
+EnemyTank::EnemyTank(int x, int y, powerUpTypes type, SDL_Texture* thisTexture) : Enemy(x, y)
 {
+	//links correct spritesheet texture
+	enemyTex = thisTexture;
+	// -------------------------------
+
 	// tank movement animation
 	staticAnim.PushBack({ 0,31,157,64 });
 	moveAnim.PushBack({ 0, 31, 157, 64 });
@@ -42,7 +46,6 @@ EnemyTank::EnemyTank(int x, int y, powerUpTypes type, SDL_Texture* sprite) : Ene
 	path.PushBack({ 1.5f, 0 }, 304, &moveAnim);
 	path.PushBack({ 1,0 }, 1600, &moveAnim);
 
-	texture = sprite;
 	powerUpType = type;
 
 	originalPos.x = x;

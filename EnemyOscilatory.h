@@ -17,7 +17,7 @@ private:
 
 public:
 
-	EnemyOscilatory(int x, int y, powerUpTypes type, SDL_Texture * sprite=nullptr);
+	EnemyOscilatory(int x, int y, powerUpTypes type, SDL_Texture * thisTexture = nullptr);
 	
 	void Move();
 

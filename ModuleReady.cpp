@@ -50,5 +50,5 @@ bool ModuleReady::CleanUp()
 {
 	App->textures->Unload(readyTexture);
 
-	return 0;
+	return true;
 }

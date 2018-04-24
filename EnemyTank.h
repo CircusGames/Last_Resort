@@ -26,7 +26,7 @@ private:
 
 public:
 
-	EnemyTank(int x, int y, powerUpTypes, SDL_Texture* sprite = nullptr);
+	EnemyTank(int x, int y, powerUpTypes, SDL_Texture* thisTexture = nullptr);
 	void Move();
 };
 

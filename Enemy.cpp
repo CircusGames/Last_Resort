@@ -9,7 +9,7 @@
 
 #include "ModulePlayerUnit.h"
 
-Enemy::Enemy(int x, int y, powerUpTypes type, SDL_Texture* texture) : position(x, y)
+Enemy::Enemy(int x, int y, powerUpTypes type) : position(x, y)
 {}
 
 Enemy::~Enemy()
@@ -26,6 +26,8 @@ Enemy::~Enemy()
 			App->player->playerScore += enemyScore;
 		}
 	}
+	
+	
 }
 
 const Collider* Enemy::GetCollider() const
@@ -33,13 +35,20 @@ const Collider* Enemy::GetCollider() const
 	return collider;
 }
 
-void Enemy::Draw(SDL_Texture* sprites)
+void Enemy::Draw()
 {
-	if (collider != nullptr)
-		collider->SetPos(position.x, position.y);
+	//check if the texture is correctly linked, if not, you probably miss the link parameter on especific enemy constructor
+	if (enemyTex == nullptr)
+		LOG("incorrect enemy texture link");
 
-	//if (animation != nullptr)
-		App->render->Blit(sprites, position.x, position.y, &(animation->GetCurrentFrame()));
+	if (collider != nullptr) //while the enemy is alive
+	{
+		collider->SetPos(position.x, position.y); //update collider pos
+		App->render->Blit(enemyTex, position.x, position.y, &(animation->GetCurrentFrame())); //and draw texture
+	}
+
+
+	
 }
 
 void Enemy::OnCollision(Collider* collider) //receives the collider wich its colliding (player,shot etc)

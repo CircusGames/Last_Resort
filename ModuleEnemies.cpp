@@ -75,7 +75,7 @@ update_status ModuleEnemies::Update()
 
 	for (uint i = 0; i < MAX_ENEMIES; ++i)
 		//enemies[i].
-		if (enemies[i] != nullptr) enemies[i]->Draw(enemies[i]->texture);
+		if (enemies[i] != nullptr) enemies[i]->Draw();
 
 	return UPDATE_CONTINUE;
 }
@@ -105,17 +105,19 @@ bool ModuleEnemies::CleanUp()
 {
 	LOG("Freeing all enemies");
 	
+	//unloading loaded textures
+
 	App->textures->Unload(enemyBeeTexture);
 	App->textures->Unload(enemyTankTexture);
 	App->textures->Unload(enemy2Texture);
 	App->textures->Unload(enemy1Texture);
 	App->textures->Unload(sprites);
 	
-	
-	
-	
+	//Unloading loaded audio's
 
 	App->audio->UnloadAudio("EnemyDeath",SFX);
+
+	//removing spawned enemies
 
 	for (uint i = 0; i < MAX_ENEMIES; ++i)
 	{
@@ -126,10 +128,19 @@ bool ModuleEnemies::CleanUp()
 		}
 	}
 
+	//removing queue enemies
+	for (uint i = 0; i < MAX_ENEMIES; ++i)
+	{
+		if (queue[i].type != ENEMY_TYPES::NO_TYPE) //if we have on queue some enemy with explicit type
+		{
+		  queue[i].type = ENEMY_TYPES::NO_TYPE; //with no type defined, function addEnemy can overWrite the needed values
+		}
+	}
+
 	return true;
 }
 
-bool ModuleEnemies::AddEnemy(ENEMY_TYPES type,  int x, int y, powerUpTypes powerUp, SDL_Texture* texture)
+bool ModuleEnemies::AddEnemy(ENEMY_TYPES type,  int x, int y, powerUpTypes powerUp)
 {
 	bool ret = false;
 
@@ -137,10 +148,6 @@ bool ModuleEnemies::AddEnemy(ENEMY_TYPES type,  int x, int y, powerUpTypes power
 	{
 		if (queue[i].type == ENEMY_TYPES::NO_TYPE)
 		{
-			if(texture != nullptr)
-				queue[i].texture = texture;
-			else queue[i].texture = sprites;
-
 			queue[i].powerUpType = powerUp;
 			queue[i].type = type;
 			queue[i].x = x;
@@ -164,16 +171,16 @@ void ModuleEnemies::SpawnEnemy(EnemyInfo& info)
 		switch (info.type)
 		{
 		case ENEMY_TYPES::BASIC_ENEMY:
-			enemies[i] = new BasicEnemy(info.x, info.y,info.powerUpType,info.texture);
+			enemies[i] = new BasicEnemy(info.x, info.y,info.powerUpType, enemy1Texture);
 			break;
 		case ENEMY_TYPES::ENEMYOSCILATORY:
-			enemies[i] = new EnemyOscilatory(info.x, info.y, info.powerUpType, info.texture);
+			enemies[i] = new EnemyOscilatory(info.x, info.y, info.powerUpType, enemy2Texture);
 			break;
 		case ENEMY_TYPES::TANK:
-			enemies[i] = new EnemyTank(info.x, info.y, info.powerUpType, info.texture);
+			enemies[i] = new EnemyTank(info.x, info.y, info.powerUpType, enemyTankTexture);
 			break;
 		case ENEMY_TYPES::ENEMYBEE:
-			enemies[i] = new EnemyBee(info.x, info.y, info.powerUpType, info.texture);
+			enemies[i] = new EnemyBee(info.x, info.y, info.powerUpType, enemyBeeTexture);
 			break;
 		}
 	}
