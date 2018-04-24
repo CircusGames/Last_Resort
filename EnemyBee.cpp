@@ -89,15 +89,15 @@ void EnemyBee::Move()
 	distance = App->player->position.x - position.x;
 
 
-	int dirx = App->player->position.x - position.y;
+	int dirx = App->player->position.x - position.x;
 	int diry = App->player->position.y - position.y;
 
 	length = sqrt(dirx*dirx + diry*diry);
 
-	dirx /= length; //normalize vector (make 1 unit length)
+	/*dirx /= length; //normalize vector (make 1 unit length)
 	diry /= length;
-	dirx *= 2; //scale to our speed
-	diry *= 2;
+	dirx *= 1; //scale to our speed
+	diry *= 1;*/
 
 
 	now = SDL_GetTicks() - start_time;

@@ -8,9 +8,10 @@
 #include "BasicEnemy.h"
 #include "EnemyOscilatory.h"
 #include "EnemyTank.h"
+#include "EnemyBee.h"
 #include "ModulePowerUp.h"
 #include "ModuleAudio.h"
-#include "EnemyBee.h"
+
 
 #define SPAWN_MARGIN 15*SCREEN_SIZE
 
@@ -103,11 +104,16 @@ update_status ModuleEnemies::PostUpdate()
 bool ModuleEnemies::CleanUp()
 {
 	LOG("Freeing all enemies");
-
-	App->textures->Unload(sprites);
-	App->textures->Unload(enemy2Texture);
-	App->textures->Unload(enemyTankTexture);
+	
 	App->textures->Unload(enemyBeeTexture);
+	App->textures->Unload(enemyTankTexture);
+	App->textures->Unload(enemy2Texture);
+	App->textures->Unload(enemy1Texture);
+	App->textures->Unload(sprites);
+	
+	
+	
+	
 
 	App->audio->UnloadAudio("EnemyDeath",SFX);
 
@@ -164,12 +170,6 @@ void ModuleEnemies::SpawnEnemy(EnemyInfo& info)
 			enemies[i] = new EnemyOscilatory(info.x, info.y, info.powerUpType, info.texture);
 			break;
 		case ENEMY_TYPES::TANK:
-			enemies[i] = new EnemyTank(info.x, info.y, info.powerUpType, info.texture);
-			break;
-		case ENEMY_TYPES::SMALL_TURRET:
-			enemies[i] = new EnemyTank(info.x, info.y, info.powerUpType, info.texture);
-			break;
-		case ENEMY_TYPES::BIG_TURRET:
 			enemies[i] = new EnemyTank(info.x, info.y, info.powerUpType, info.texture);
 			break;
 		case ENEMY_TYPES::ENEMYBEE:
