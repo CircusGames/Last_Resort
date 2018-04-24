@@ -3,7 +3,7 @@
 
 #include "Globals.h"
 
-#define NUM_MODULES 22
+#define NUM_MODULES 20//22
 
 class ModuleWindow;
 class ModuleInput;
@@ -47,9 +47,9 @@ public:
 	ModuleContinue* continueScreen = nullptr;
 	ModuleGameOver* gameOverScreen = nullptr;
 	ModulePlayer* player = nullptr;
-	ModulePlayer2* player2 = nullptr;
+	//ModulePlayer2* player2 = nullptr;
 	ModulePlayerUnit* playerUnit = nullptr;
-	ModulePlayer2Unit* player2Unit = nullptr;
+	//ModulePlayer2Unit* player2Unit = nullptr;
 	ModulePowerUp* modulePowerUp = nullptr;
 	ModuleEnemies* enemies = nullptr;
 	ModuleCollision* collision = nullptr;

@@ -1,4 +1,4 @@
-#include "Globals.h"
+/*#include "Globals.h"
 #include "Application.h"
 #include "ModuleTextures.h"
 #include "ModuleInput.h"
@@ -181,7 +181,7 @@ ModulePlayer2Unit::~ModulePlayer2Unit() {}
 {
 
 return true;
-}*/
+}
 
 bool ModulePlayer2Unit::Start()
 {
@@ -484,4 +484,4 @@ bool ModulePlayer2Unit::CleanUp()
 	App->textures->Unload(playerUnitBlue);
 
 	return true;
-}
+}*/

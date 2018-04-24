@@ -7,9 +7,9 @@
 #include "ModuleReady.h"
 #include "ModuleParticles.h"
 #include "ModulePlayer.h"
-#include "ModulePlayer2.h"
+//#include "ModulePlayer2.h"
 #include "ModulePlayerUnit.h"
-#include "ModulePlayer2Unit.h"
+//#include "ModulePlayer2Unit.h"
 #include "ModuleCollision.h"
 #include "ModuleAudio.h"
 #include "ModuleFadeToBlack.h"
@@ -40,9 +40,9 @@ Application::Application()
 	modules[i++] = enemies = new ModuleEnemies();
 	modules[i++] = particles = new ModuleParticles();
 	modules[i++] = player = new ModulePlayer();
-	modules[i++] = player2 = new ModulePlayer2();
+	//modules[i++] = player2 = new ModulePlayer2();
 	modules[i++] = playerUnit = new ModulePlayerUnit();
-	modules[i++] = player2Unit = new ModulePlayer2Unit();
+	//modules[i++] = player2Unit = new ModulePlayer2Unit();
 	modules[i++] = collision = new ModuleCollision();
 	modules[i++] = audio = new ModuleAudio();
 	modules[i++] = moduleUI = new ModuleUI();
@@ -72,9 +72,9 @@ bool Application::Init()
 	gameOverScreen->Disable();
 	//other modules -----
 	player->Disable();
-	player2->Disable();
+	//player2->Disable();
 	playerUnit->Disable();
-	player2Unit->Disable();
+	//player2Unit->Disable();
 	collision->Disable();
 	particles->Disable();
 	modulePowerUp->Disable();

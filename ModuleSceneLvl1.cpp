@@ -681,7 +681,7 @@ update_status ModuleSceneLvl1::PreUpdate()
 	{
 		//move player position to follow the camera movement
 		App->player->position.x += 1;
-		App->player2->position.x += 1;
+		//App->player2->position.x += 1;
 		//camera speed relative to its size
 		App->render->camera.x -= 1 * SCREEN_SIZE;
 		//returns original pixel position x values foreground
@@ -829,7 +829,7 @@ update_status ModuleSceneLvl1::PreUpdate()
 // Update: draw background
 update_status ModuleSceneLvl1::Update()
 {
-	if (App->input->keyboard[SDL_SCANCODE_Q] == KEY_STATE::KEY_DOWN)
+	/*if (App->input->keyboard[SDL_SCANCODE_Q] == KEY_STATE::KEY_DOWN)
 	{
 		spawn = true;
 	}
@@ -837,7 +837,7 @@ update_status ModuleSceneLvl1::Update()
 	{
 		App->player2->Enable();
 		spawn = false;
-	}
+	}*/
 	// Draw everything --------------------------------------
 	
 	App->render->Blit(bg, 0, 0, &bgRect, backgroundSpeed); //bg1 last resort----------------------
@@ -1027,22 +1027,25 @@ bool ModuleSceneLvl1::CleanUp()
 	App->enemies->Disable();
 
 	App->player->Disable();
-	if (App->player2->IsEnabled())
+	/*if (App->player2->IsEnabled())
 		App->player2->Disable();
 	if (App->player2Unit->IsEnabled())
-		App->player2Unit->Disable();
+		App->player2Unit->Disable();*/
 	App->playerUnit->Disable();
 	App->modulePowerUp->Disable();
 
-	App->textures->Unload(bg);
-	App->textures->Unload(mg);
-	App->textures->Unload(fg);
-	App->textures->Unload(boss);
-	App->textures->Unload(roadLights);
-	App->textures->Unload(tunelLights);
-	App->textures->Unload(bgLights);
-	App->textures->Unload(midgroundLightsTexture);
+	//unloading graphics textures
+
+	App->textures->Unload(basicEnemyBgTexture);
 	App->textures->Unload(buildingLasersTexture);
+	App->textures->Unload(midgroundLightsTexture);
+	App->textures->Unload(bgLights);
+	App->textures->Unload(tunelLights);
+	App->textures->Unload(roadLights);
+	App->textures->Unload(boss);
+	App->textures->Unload(fg);
+	App->textures->Unload(mg);
+	App->textures->Unload(bg);
 
 	LOG("Return correct camera values");
 	//returns correct value for next cameraPosition on camera.x position for next scene

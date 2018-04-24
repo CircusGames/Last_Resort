@@ -1,4 +1,4 @@
-#include "Globals.h"
+/*#include "Globals.h"
 #include "Application.h"
 #include "ModuleTextures.h"
 #include "ModuleInput.h"
@@ -242,10 +242,10 @@ update_status ModulePlayer2::Update()
 	else if (player_step == player_state::normal)
 	{
 		//for now activates playerUnit for testing here
-		if (!App->player2Unit->IsEnabled())
-		{
-			//App->playerUnit->Enable();
-		}
+		//if (!App->player2Unit->IsEnabled())
+		//{
+		//	//App->playerUnit->Enable();
+		//}
 
 		/*if (powerUpActive == powerUpTypes::BOOST)
 		{
@@ -262,7 +262,7 @@ update_status ModulePlayer2::Update()
 		//float speed = 1.4f; //player position speed
 		else
 		playerSpeed = speed = normalPlayerSpeed; //resets the temporal incrementer to always Nicolas at the desired incrementer count
-		//new change direction starts incrementer at speed correct value (always same distances)*/
+		//new change direction starts incrementer at speed correct value (always same distances)
 
 		//App->render->Blit(player,300, 50, &spawnAnim.GetCurrentFrame());
 
@@ -371,7 +371,7 @@ update_status ModulePlayer2::Update()
 				playerSpeed = speed;		//and next cycle
 
 											/*if (position.x + (int)playerSpeed <= 0 + 16) //0 = min y coordinate, 9=texture height/2 + offset
-											position.x = 16; //target min y player position*/
+											position.x = 16; //target min y player position
 			if (position.x < abs(App->render->camera.x) / SCREEN_SIZE + 16)
 			{
 				position.x = abs(App->render->camera.x) / SCREEN_SIZE + 16;// 16 = 1/2 player width + 16 offset original game
@@ -453,11 +453,11 @@ update_status ModulePlayer2::Update()
 					App->render->Blit(powerUpTextures, position.x - 32, position.y - (boostAnimRect.h / 2), &boostAnimRect);
 			}
 
-			/*if (activebuff.laser)
-			{
-			current_animation = &laserFlash;
+			//if (activebuff.laser)
+			//{
+			//current_animation = &laserFlash;
 
-			}*/
+			//}
 		}
 
 		// --------------------------------------------------------------------------------------------------------------------------
@@ -530,8 +530,8 @@ update_status ModulePlayer2::Update()
 void ModulePlayer2::OnCollision(Collider* collider1, Collider* collider2)
 {
 	//deactivate player active powerUps
-	if (App->player2Unit->IsEnabled())
-		App->player2Unit->Disable();
+	//if (App->player2Unit->IsEnabled())
+	//	App->player2Unit->Disable();
 
 	player_step = player_state::died;
 	destroyed = true;
@@ -571,4 +571,4 @@ bool ModulePlayer2::CleanUp()
 	activebuff.laser = false;
 
 	return true;
-}
+}*/

@@ -596,10 +596,15 @@ void ModulePlayer::OnCollision(Collider* collider1, Collider* collider2)
 bool ModulePlayer::CleanUp()
 {
 	//freeing textures
+
+	if (laserFlashTexture != nullptr)
+		App->textures->Unload(laserFlashTexture);
+	if (powerUpTextures != nullptr)
+		App->textures->Unload(powerUpTextures);
 	if(player != nullptr)
 		App->textures->Unload(player);
-	if(powerUpTextures != nullptr)
-		App->textures->Unload(player);
+	
+	//deleting collider
 
 	if (playerCollider != nullptr)
 	{
