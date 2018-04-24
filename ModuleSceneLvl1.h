@@ -31,6 +31,7 @@ public:
 	bool CleanUp();
 
 	void spawnEnemies(int x , int y);
+	void addEnemiesToLvl1();
 	
 public:
 	

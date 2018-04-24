@@ -595,36 +595,42 @@ void ModulePlayer::OnCollision(Collider* collider1, Collider* collider2)
 
 bool ModulePlayer::CleanUp()
 {
-	//freeing textures
-
+	//freeing textures ---------------------
 	if (laserFlashTexture != nullptr)
 		App->textures->Unload(laserFlashTexture);
 	if (powerUpTextures != nullptr)
 		App->textures->Unload(powerUpTextures);
 	if(player != nullptr)
 		App->textures->Unload(player);
-	
-	//deleting collider
+	// --------------------------------------
 
+	//disable dependent modules of player
+	if (App->playerUnit->IsEnabled()) App->playerUnit->Disable();
+	// -------------------------------------
+
+	//deleting collider --------------------
 	if (playerCollider != nullptr)
 	{
 		playerCollider->to_delete = true;
 	}
+	// ------------------------------------
 
-	//if we are on super sayan GOD
+	//if we are on super sayan GOD --------
 	godMode = false;
+	// ------------------------------------
 
-	//unloading SFX
+	//unloading SFX -----------------------
 	App->audio->UnloadAudio("speedDN", SFX);
 	//App->audio->UnloadAudio("speedUP", SFX);
 	App->audio->UnloadAudio("spawn", SFX);
 	App->audio->UnloadAudio("death", SFX);
+	// ------------------------------------
 
-	//deactivate all possible active buffs
+	//deactivate all possible active buffs -
 	activebuff.bombs = false;
 	activebuff.boost = false;
 	activebuff.brake = false;
 	activebuff.laser = false;
-	
+	// ----------------------------------- -
 	return true;
 }
