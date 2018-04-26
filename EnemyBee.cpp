@@ -7,6 +7,7 @@
 
 #include "SDL\include\SDL_timer.h"
 
+
 EnemyBee::EnemyBee(int x, int y, powerUpTypes type, SDL_Texture* thisTexture) : Enemy(x, y)
 {
 
@@ -31,12 +32,12 @@ EnemyBee::EnemyBee(int x, int y, powerUpTypes type, SDL_Texture* thisTexture) : 
 
 	flyRotationRight.PushBack({ 0, 46, 37, 46 });
 	flyRotationRight.PushBack({ 49, 46, 39, 46 });
-	flyRotationRight.speed = 0.2f;
+	flyRotationRight.speed = 0.4f;
 	flyRotationRight.repeat = false;
 
 	//plus fixed direction rects
-	flyRotationRight.PushBack({ 98, 46, 48, 45 });
-	flyRotationRight.PushBack({ 147, 46, 48, 45 });
+	//flyRotationRight.PushBack({ 98, 46, 48, 45 });
+	//flyRotationRight.PushBack({ 147, 46, 48, 45 });
 
 
 	//fly to right ---------------------------
@@ -77,7 +78,7 @@ EnemyBee::EnemyBee(int x, int y, powerUpTypes type, SDL_Texture* thisTexture) : 
 	fposition.x = x;
 	fposition.y = y;
 
-	original_y = y;
+	//original_y = y;
 
 	powerUpType = type;
 	life = 6; //6 points of life original
@@ -88,10 +89,11 @@ EnemyBee::EnemyBee(int x, int y, powerUpTypes type, SDL_Texture* thisTexture) : 
 
 	attackRange = 100;
 	cadence = 1000;
+	shootSpeed = 2.5f;
 
 	start_time = SDL_GetTicks();
 
-	collider = App->collision->AddCollider({ 0, 0, 32, 16 }, COLLIDER_TYPE::COLLIDER_ENEMY, (Module*)App->enemies);
+	collider = App->collision->AddCollider({ 0, 0, 46, 36 }, COLLIDER_TYPE::COLLIDER_ENEMY, (Module*)App->enemies);
 
 }
 
@@ -112,7 +114,7 @@ void EnemyBee::Move()
 
 	//angle += (int)beeOrbitSpeed * (delta_time / 1000);
 
-	tx = (App->player->position.x + 16)  - (position.x + 20);
+	tx = (App->player->position.x + 16) - (position.x + 20);
 	ty = (App->player->position.y + 8) - (position.y + 23);
 	fPoint playerDistance;
 	playerDistance.x = App->player->position.x;
@@ -147,7 +149,7 @@ void EnemyBee::Move()
 	//if player are on left, rotate -
 	//only 1 time per direction closeup
 
-	if (distance < 50 && rotEntryDir ==  true) //if we are very close, adds orbital movement
+	if (distance < 50 && rotEntryDir == true) //if we are very close, adds orbital movement
 	{
 		if (tx > 0) //if bee are aproximating for the right side of the player
 		{
@@ -155,7 +157,7 @@ void EnemyBee::Move()
 			rotateCounterClock = false;
 			angle = 0;
 		}
-		
+
 		else if (tx < 0) //if bee are aproximating for the left side of the player
 		{
 			rotateCounterClock = true;
@@ -164,7 +166,7 @@ void EnemyBee::Move()
 		}
 		if (ty > 0)
 		{
-			angle = 4.71f; //test
+			angle = 4.71f; //test (enter on correct angle direction orbit)
 		}
 		else if (ty < 0)
 		{
@@ -176,8 +178,6 @@ void EnemyBee::Move()
 	else if (distance > 50)
 	{
 		rotEntryDir = true;
-		//lastX = position.x;
-		//lastY = position.y;
 	}
 
 	if (rotateClock)
@@ -186,28 +186,29 @@ void EnemyBee::Move()
 	}
 	else if (rotateCounterClock)
 	{
-	    angle -= (int)beeOrbitSpeed * (delta_time / 1000);
+		angle -= (int)beeOrbitSpeed * (delta_time / 1000);
 	}
 
 	fposition.x += cos(angle) * 0.4f;
 	fposition.y -= sin(angle) * 0.7f;
-	
+
 
 
 	fposition.x += 1; //x compensation for player speed movement (follow camera +1)
 	position.x = fposition.x;
-	position.y = fposition.y; 
+	position.y = fposition.y;
 
-	// ---------------------------------------------------------------------------------
+	// ----------------------------------------------------------------------------------
 
-	//animation logic ------------------------------------------------------------------
-	Animation* current_animation =  animation;
+	// animation logic ------------------------------------------------------------------
+
+	Animation* current_animation = animation;
 	SDL_Rect currentRect;
 	currentRect = current_animation->frames[(int)animation->current_frame];
 
 	if (playerDistance.x > position.x)
 	{
-		flyRotationLeft.current_frame = 0;
+		flyRotationLeft.current_frame = 0; //resets opposite animation
 		//animation = &flyToRight;
 		animation = &flyRotationRight;
 		if (animation->current_frame >= animation->last_frame)
@@ -219,8 +220,8 @@ void EnemyBee::Move()
 	{
 		flyRotationRight.current_frame = 0;
 
-		if(firstEncounter)
-		animation = &flyToLeft;
+		if (firstEncounter)
+			animation = &flyToLeft;
 		else
 		{
 			animation = &flyRotationLeft;
@@ -230,31 +231,31 @@ void EnemyBee::Move()
 
 	}
 
-
 	// ---------------------------------------------------------------------------------
 
+	// shooting ------------------------------------------------------------------------
 
+	float omega = atan2f(ty, tx);
 
-	/*int dirx = App->player->position.x - position.x;
-	int diry = App->player->position.y - position.y;
+	vx = shootSpeed * cos(omega);
+	vy = shootSpeed * sin(omega);
 
-	length = sqrt(dirx*dirx + diry*diry);
-
-	/*dirx /= length; //normalize vector (make 1 unit length)
-	diry /= length;
-	dirx *= 1; //scale to our speed
-	diry *= 1; */
-
-
-	/*now = SDL_GetTicks() - start_time;
+	now = SDL_GetTicks() - start_time;
 
 	if (now >= cadence) attack = true;
 
 	if (attack) {
-		if (abs(distance) < attackRange)
-			App->particles->AddParticle(App->particles->beam, position.x, position.y, COLLIDER_ENEMY_SHOT, { dirx,diry });
+		if (distance < attackRange)
+		{
+			if (current_animation == &flyToLeft || current_animation == &flyRotationLeft)
+				App->particles->AddParticle(App->enemies->beeBullet, position.x, position.y + 18, COLLIDER_ENEMY_SHOT, { (int)vx + 1,(int)vy });
+			else  if (current_animation == &flyToRight || current_animation == &flyRotationRight)
+				App->particles->AddParticle(App->enemies->beeBullet, position.x + 36, position.y + 18, COLLIDER_ENEMY_SHOT, { (int)vx + 1,(int)vy });
+
+		}
 		attack = false;
 		start_time = SDL_GetTicks();
-	}*/
+	}
 
+	// ----------------------------------------------------------------------------------
 }

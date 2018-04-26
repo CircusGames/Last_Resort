@@ -7,6 +7,8 @@
 #include "EnemyOscilatory.h"
 #include "EnemyBee.h"
 
+#include "ModuleParticles.h"
+
 #define MAX_ENEMIES 300
 
 enum ENEMY_TYPES
@@ -52,8 +54,10 @@ public:
 	SDL_Texture* enemy2Texture;
 	SDL_Texture* enemyTankTexture;
 	SDL_Texture* enemyBeeTexture;
+	SDL_Texture* beeBulletTexture;
 	// ----------------------------
-	
+	//ENEMY PARTICLES
+	Particle beeBullet;
 
 private:
 

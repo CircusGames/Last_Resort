@@ -15,10 +15,23 @@
 
 #define SPAWN_MARGIN 15*SCREEN_SIZE
 
+
 ModuleEnemies::ModuleEnemies()
 {
 	for (uint i = 0; i < MAX_ENEMIES; ++i)
 		enemies[i] = nullptr;
+
+	//PARTICLES -------------------------------------------
+	//Enemy Bee  ----
+	beeBullet.anim.PushBack({0,0,5,5});
+	beeBullet.anim.PushBack({12,0,5,5});
+	beeBullet.anim.PushBack({ 24,0,5,5 });
+	beeBullet.anim.PushBack({ 35,0,5,5 });
+	beeBullet.anim.speed = 0.2f;
+	beeBullet.damage = 1;
+	beeBullet.life = 1500;
+	// --------------
+
 }
 
 // Destructor
@@ -28,18 +41,19 @@ ModuleEnemies::~ModuleEnemies()
 
 bool ModuleEnemies::Start()
 {
-	// Create a prototype for each enemy available so we can copy them around
-	//sprites texture pointer is used as "general purpose" texture spritesheet now --------
-	//if you want to add a specific texture to specific enemy, see basic_enemy.cpp
-	//and scenelvl1 start() method.
+	// ENEMY TEXTURES ---------------------------------------------------------------------
 	sprites = App->textures->Load("assets/Graphics/Enemies/Level_1/enemies.png");
-	//
-	//texture to pass in scene, when calls AddEnemy(); method. -----------------------------
 	enemy1Texture = App->textures->Load("assets/Graphics/Enemies/Level_1/enemy1.png");
 	enemy2Texture = App->textures->Load("assets/Graphics/Enemies/Level_1/oscilator.png");
 	enemyTankTexture = App->textures->Load("assets/Graphics/Enemies/Level_1/Tank.png");
 	enemyBeeTexture = App->textures->Load("assets/Graphics/Enemies/Level_1/Bee.png");;
-	//Audio
+	// -------------------------------------------------------------------------------------
+	// ENEMY PARTICLES ---------------------------------------------------------------------
+	// textures ----------
+	beeBulletTexture = App->textures->Load("assets/Graphics/Enemies/Level_1/bee_bullet.png");
+	beeBullet.texture = beeBulletTexture; //link texture to particle
+	// -------------------------------------------------------------------------------------
+	// AUDIO FX ----------------------------------------------------------------------------
 	App->audio->LoadAudio("assets/Audio/SFX/enemies/Enemy_Explosion.wav", "EnemyDeath", SFX);
 
 	return true;
@@ -107,6 +121,7 @@ bool ModuleEnemies::CleanUp()
 	
 	//unloading loaded textures
 
+	App->textures->Unload(beeBulletTexture);
 	App->textures->Unload(enemyBeeTexture);
 	App->textures->Unload(enemyTankTexture);
 	App->textures->Unload(enemy2Texture);

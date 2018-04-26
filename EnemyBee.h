@@ -3,6 +3,7 @@
 
 #include "Enemy.h"
 #include "ModuleTextures.h"
+#include "ModuleParticles.h"
 
 
 class EnemyBee : public Enemy
@@ -54,7 +55,10 @@ private:
 
 	bool firstEncounter = true;
 
-	//int lastX;
+	//shooting ------------------------------------------
+	float vx;
+	float vy;
+	float shootSpeed;
 	//int lastY;
 	// ---------------------------------------------------
 public:
