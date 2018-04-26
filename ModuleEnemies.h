@@ -58,6 +58,8 @@ public:
 	// ----------------------------
 	//ENEMY PARTICLES
 	Particle beeBullet;
+	Particle tankBigShot;
+	Particle tankSmallShot;
 
 private:
 

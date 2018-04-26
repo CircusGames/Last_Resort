@@ -22,7 +22,7 @@ ModuleEnemies::ModuleEnemies()
 		enemies[i] = nullptr;
 
 	//PARTICLES -------------------------------------------
-	//Enemy Bee  ----
+	//Enemy Bee  -----------------------------
 	beeBullet.anim.PushBack({0,0,5,5});
 	beeBullet.anim.PushBack({12,0,5,5});
 	beeBullet.anim.PushBack({ 24,0,5,5 });
@@ -30,8 +30,28 @@ ModuleEnemies::ModuleEnemies()
 	beeBullet.anim.speed = 0.2f;
 	beeBullet.damage = 1;
 	beeBullet.life = 1500;
-	// --------------
+	// ---------------------------------------
 
+	// TANK shot particles --------------------
+	//bigShot Particle ---------
+	tankBigShot.anim.PushBack({ 123,0,13,13 });
+	tankBigShot.anim.PushBack({ 136,0,13,13 });
+	tankBigShot.anim.PushBack({ 149,0,13,13 });
+	tankBigShot.anim.PushBack({ 162,0,13,13 });
+	tankBigShot.anim.speed = 0.3f;
+	tankBigShot.damage = 1;
+	tankBigShot.life = 1500;
+	// --------------------------
+	// small shot particle
+	tankSmallShot.anim.PushBack({175,0,5,5});
+	tankSmallShot.anim.PushBack({180,0,5,5 });
+	tankSmallShot.anim.PushBack({ 185,0,5,5 });
+	tankSmallShot.anim.PushBack({ 190,0,5,5 });
+	tankSmallShot.anim.speed = 0.3f;
+	tankSmallShot.damage = 1;
+	tankSmallShot.life = 1500;
+	// ----------------------------
+	// -----------------------------------------------------
 }
 
 // Destructor
@@ -52,6 +72,9 @@ bool ModuleEnemies::Start()
 	// textures ----------
 	beeBulletTexture = App->textures->Load("assets/Graphics/Enemies/Level_1/bee_bullet.png");
 	beeBullet.texture = beeBulletTexture; //link texture to particle
+	//TANK shot particles
+	tankBigShot.texture = enemyTankTexture;
+	tankSmallShot.texture = enemyTankTexture;
 	// -------------------------------------------------------------------------------------
 	// AUDIO FX ----------------------------------------------------------------------------
 	App->audio->LoadAudio("assets/Audio/SFX/enemies/Enemy_Explosion.wav", "EnemyDeath", SFX);
