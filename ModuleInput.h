@@ -5,6 +5,7 @@
 #include "Globals.h"
 //#include "SDL\include\SDL_scancode.h"
 #include "SDL\include\SDL.h"
+#include "SDL\include\SDL_gamecontroller.h"
 
 #define MAX_KEYS 300
 
@@ -35,6 +36,9 @@ public:
 	KEY_STATE keyboard[MAX_KEYS];
 	//const Uint8 *keyboard = nullptr;
 	SDL_Event Event;
+
+	//gamepad
+	SDL_GameController* gamecontroller; 
 };
 
 #endif // __ModuleInput_H__

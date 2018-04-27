@@ -34,6 +34,7 @@ bool ModuleInput::Init()
 // Called every draw update
 update_status ModuleInput::PreUpdate()
 {
+	// Keyboard input
 	SDL_PumpEvents();
 	
 	const Uint8* keys = SDL_GetKeyboardState(NULL);
@@ -72,8 +73,9 @@ update_status ModuleInput::PreUpdate()
 			App->scene_lvl1->spawnEnemies(Event.button.x, Event.button.y);
 
 		}
-
 	}
+
+	// GamePad input
 
 
 	return update_status::UPDATE_CONTINUE;
