@@ -68,7 +68,7 @@ bool ModuleEnemies::Start()
 	enemy2Texture = App->textures->Load("assets/Graphics/Enemies/Level_1/oscilator.png");
 	enemyTankTexture = App->textures->Load("assets/Graphics/Enemies/Level_1/Tank.png");
 	enemyBeeTexture = App->textures->Load("assets/Graphics/Enemies/Level_1/Bee.png");
-	enemyRedbirdTexture = App->textures->Load("assets\Graphics/Enemies/Level_3/Redbird.png");
+	enemyRedbirdTexture = App->textures->Load("assets/Graphics/Enemies/Level_3/Redbird.png");
 	// -------------------------------------------------------------------------------------
 	// ENEMY PARTICLES ---------------------------------------------------------------------
 	// textures ----------
