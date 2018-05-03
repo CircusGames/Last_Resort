@@ -1045,6 +1045,9 @@ void ModuleSceneLvl1::addEnemiesToLvl1()
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYBEE, 6000, 100, NONE);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYBEE, 4798, 90, NONE);
 
+	//Redbird Level 3 Tests
+	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 400, 50, NONE);
+
 }
 
 //DEBUG MODE: SPAWN ENEMIES

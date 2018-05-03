@@ -9,6 +9,7 @@
 #include "EnemyOscilatory.h"
 #include "EnemyTank.h"
 #include "EnemyBee.h"
+#include "EnemyRedbird.h"
 #include "ModulePowerUp.h"
 #include "ModuleAudio.h"
 
@@ -66,7 +67,8 @@ bool ModuleEnemies::Start()
 	enemy1Texture = App->textures->Load("assets/Graphics/Enemies/Level_1/enemy1.png");
 	enemy2Texture = App->textures->Load("assets/Graphics/Enemies/Level_1/oscilator.png");
 	enemyTankTexture = App->textures->Load("assets/Graphics/Enemies/Level_1/Tank.png");
-	enemyBeeTexture = App->textures->Load("assets/Graphics/Enemies/Level_1/Bee.png");;
+	enemyBeeTexture = App->textures->Load("assets/Graphics/Enemies/Level_1/Bee.png");
+	enemyRedbirdTexture = App->textures->Load("assets\Graphics/Enemies/Level_3/Redbird.png");
 	// -------------------------------------------------------------------------------------
 	// ENEMY PARTICLES ---------------------------------------------------------------------
 	// textures ----------
@@ -149,6 +151,7 @@ bool ModuleEnemies::CleanUp()
 	App->textures->Unload(enemyTankTexture);
 	App->textures->Unload(enemy2Texture);
 	App->textures->Unload(enemy1Texture);
+	App->textures->Unload(enemyRedbirdTexture);
 	App->textures->Unload(sprites);
 	
 	//Unloading loaded audio's
@@ -219,6 +222,9 @@ void ModuleEnemies::SpawnEnemy(EnemyInfo& info)
 			break;
 		case ENEMY_TYPES::ENEMYBEE:
 			enemies[i] = new EnemyBee(info.x, info.y, info.powerUpType, enemyBeeTexture);
+			break;
+		case ENEMY_TYPES::REDBIRD:
+			enemies[i] = new EnemyRedbird(info.x, info.y, info.powerUpType, enemyRedbirdTexture);
 			break;
 		}
 	}
