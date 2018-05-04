@@ -98,6 +98,7 @@
     <ClInclude Include="ModulePlayerUnit.h" />
     <ClInclude Include="ModuleRender.h" />
     <ClInclude Include="ModuleGameTitle.h" />
+    <ClInclude Include="ModuleSceneLvl3.h" />
     <ClInclude Include="ModuleTeamLogo.h" />
     <ClInclude Include="ModuleTextures.h" />
     <ClInclude Include="ModuleUI.h" />
@@ -133,6 +134,7 @@
     <ClCompile Include="ModulePlayerUnit.cpp" />
     <ClCompile Include="ModuleRender.cpp" />
     <ClCompile Include="ModuleGameTitle.cpp" />
+    <ClCompile Include="ModuleSceneLvl3.cpp" />
     <ClCompile Include="ModuleTeamLogo.cpp" />
     <ClCompile Include="ModuleTextures.cpp" />
     <ClCompile Include="ModuleUI.cpp" />

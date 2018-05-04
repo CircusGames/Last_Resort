@@ -4,6 +4,7 @@
 #include "ModuleInput.h"
 #include "ModuleTextures.h"
 #include "ModuleSceneLvl1.h"
+#include "ModuleSceneLvl3.h"
 #include "ModuleReady.h"
 #include "ModuleParticles.h"
 #include "ModulePlayer.h"
@@ -31,6 +32,7 @@ Application::Application()
 	modules[i++] = textures = new ModuleTextures();
 	modules[i++] = teamLogo = new ModuleTeamLogo();
 	modules[i++] = scene_lvl1 = new ModuleSceneLvl1();
+	modules[i++] = scene_lvl3 = new ModuleSceneLvl3();
 	modules[i++] = readyScreen = new ModuleReady();
 	modules[i++] = continueScreen = new ModuleContinue();
 	modules[i++] = gameTitle = new ModuleGameTitle();
@@ -67,7 +69,8 @@ bool Application::Init()
 	teamLogo->Disable();
 	gameTitle->Disable();
 	readyScreen->Disable();
-	//scene_lvl1->Disable();
+	scene_lvl1->Disable();
+	//scene_lvl3->Disable();
 	continueScreen->Disable();
 	gameOverScreen->Disable();
 	//other modules -----
