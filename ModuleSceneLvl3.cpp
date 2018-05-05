@@ -114,6 +114,9 @@ bool ModuleSceneLvl3::Start()
 	//boss background fade values
 	faded = false;
 	total_time = 2500; //fade time
+
+	//add wall colliders to scene
+	AddColliders();
 	
 
 
@@ -256,8 +259,11 @@ void ModuleSceneLvl3::addEnemiesToLvl3()
 
 }
 
-void ModuleSceneLvl3::AddColliders() {
+void ModuleSceneLvl3::AddColliders() 
+{
+
 	App->collision->AddCollider({0, 192, 1256, 33}, COLLIDER_TYPE::COLLIDER_WALL, this);
+
 }
 float ModuleSceneLvl3::GetCurrentCameraPixelPos()
 {
