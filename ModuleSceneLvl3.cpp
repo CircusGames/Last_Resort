@@ -90,10 +90,14 @@ bool ModuleSceneLvl3::Start()
 
 	//starting needed background variables
 	scroll = true;
+	//App->render->camera.x = -30000;
+
 
 	App->audio->LoadAudio("assets/Audio/Music/song_level_3.ogg", "song_lvl3", MUSIC);
 	App->audio->ControlAudio("song_lvl3", MUSIC, FADEIN, -1, 1500.0f);
 
+	
+	
 	return true;
 }
 
@@ -104,6 +108,12 @@ update_status ModuleSceneLvl3::PreUpdate()
 		App->render->camera.x -= 1 * SCREEN_SIZE;
 		App->player->position.x += 1;
 	}
+
+	if ((-App->render->camera.x / SCREEN_SIZE) * 0.5f > 5520 - SCREEN_WIDTH - 26.5f) 
+	{
+		scroll = false;
+	}
+
 
 	return UPDATE_CONTINUE;
 }
