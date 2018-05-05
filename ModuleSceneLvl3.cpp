@@ -52,6 +52,16 @@ ModuleSceneLvl3::ModuleSceneLvl3()
 		bgWaterReflectionsAnim[i].PushBack({ 0,66,256,11 });
 		bgWaterReflectionsAnim[i].speed = 0.14f;
 	}
+
+	//wave caps animation (reflection to water layer)
+	wavesCapAnim.PushBack({0,0,28,14});
+	wavesCapAnim.PushBack({ 30,0,29,14 });
+	wavesCapAnim.PushBack({ 0,14,29,14 });
+	wavesCapAnim.PushBack({ 30,14,29,14 });
+	wavesCapAnim.PushBack({ 0,28,29,14 });
+	wavesCapAnim.PushBack({ 30,28,27,14 });
+	wavesCapAnim.PushBack({ 0,42,26,14 });
+	wavesCapAnim.speed = 0.14f;
 	
 }
 
@@ -88,6 +98,7 @@ bool ModuleSceneLvl3::Start()
 	fgWavesTexture = App->textures->Load("assets/Graphics/Backgrounds/Lvl_3/seaWavesFixed.png");
 	bgWaterReflectionsTexture = App->textures->Load("assets/Graphics/Backgrounds/Lvl_3/seaWaterReflections.png");
 	bossBgTexture = App->textures->Load("assets/Graphics/Backgrounds/Lvl_3/bossBg.png");
+	wavesCapTexture = App->textures->Load("assets/Graphics/Backgrounds/Lvl_3/lvl3WavesCapAnim.png");
 
 	//starting needed background variables
 	scroll = true;
@@ -159,14 +170,20 @@ update_status ModuleSceneLvl3::Update()
 		}
 	}
 
+	//sea water cap (finish the sea water reflections layer) ---------------------------------
+
+	App->render->Blit(wavesCapTexture, 1024 , 177, &wavesCapAnim.GetCurrentFrame(), 0.25f);
 		
 	//sea water reflections
+	
 	for (int i = 0; i < NUMREFLECTIONS; ++i)
 	{
 		App->render->Blit(bgWaterReflectionsTexture, i * 256, 177, &bgWaterReflectionsAnim[i].GetCurrentFrame(), 0.25f);
 	}
 
-	//sea waves animations
+	// ----------------------------------------------------------------------------------------
+
+	//sea waves animations (foreground waves)
 
 	for (int i = 0; i < MAXWAVES; ++i)
 	{
