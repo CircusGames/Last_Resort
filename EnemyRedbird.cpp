@@ -39,14 +39,14 @@ void EnemyRedbird::Move()
 		if (wave > 1.0f)
 			going_up = false;
 		else
-			wave += 0.05f;
+			wave += 0.08f;
 	}
 	else
 	{
 		if (wave < -1.0f)
 			going_up = true;
 		else
-			wave -= 0.05f;
+			wave -= 0.08f;
 	}
 
 	position.y = original_y + int(20.0f * sinf(wave));
