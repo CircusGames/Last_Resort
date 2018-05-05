@@ -37,7 +37,7 @@ public:
 	//void spawnEnemies(int x, int y);
 	void addEnemiesToLvl3();
 
-	float currentCameraPixelPos();
+	float GetCurrentCameraPixelPos();
 
 public:
 
@@ -59,6 +59,7 @@ public:
 	//background logic variables
 	bool scroll = false;
 	stage_zone currentLevelZone = stage_zone::level;
+	float currenCameraPixelPos;
 
 
 	

@@ -90,7 +90,7 @@ bool ModuleSceneLvl3::Start()
 
 	//starting needed background variables
 	scroll = true;
-	//App->render->camera.x = -30000; //camera trick
+	App->render->camera.x = -30000; //camera trick
 
 	//assigns correct current level stage zone
 	currentLevelZone = stage_zone::level;
@@ -113,7 +113,7 @@ update_status ModuleSceneLvl3::PreUpdate()
 
 	
 
-	if ((-App->render->camera.x / SCREEN_SIZE) * 0.5f > 5520 - SCREEN_WIDTH - 26.5f) 
+	if (GetCurrentCameraPixelPos() > 5520 - SCREEN_WIDTH - 26.5f)
 	{
 		scroll = false;
 	}
@@ -179,4 +179,9 @@ bool ModuleSceneLvl3::CleanUp()
 void ModuleSceneLvl3::addEnemiesToLvl3()
 {
 	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 400, 50, NONE);
+}
+
+float ModuleSceneLvl3::GetCurrentCameraPixelPos()
+{
+	return (-App->render->camera.x / SCREEN_SIZE * 0.5f); //respect foreground camera pos
 }
