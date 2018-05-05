@@ -87,6 +87,7 @@ bool ModuleSceneLvl3::Start()
 	fgTexture = App->textures->Load("assets/Graphics/Backgrounds/Lvl_3/foreground_3.png");
 	fgWavesTexture = App->textures->Load("assets/Graphics/Backgrounds/Lvl_3/seaWavesFixed.png");
 	bgWaterReflectionsTexture = App->textures->Load("assets/Graphics/Backgrounds/Lvl_3/seaWaterReflections.png");
+	bossBgTexture = App->textures->Load("assets/Graphics/Backgrounds/Lvl_3/bossBg.png");
 
 	//starting needed background variables
 	scroll = true;
@@ -121,7 +122,7 @@ update_status ModuleSceneLvl3::PreUpdate()
 	//check when player entries boss zone
 	if (GetCurrentCameraPixelPos() > 5520 - SCREEN_WIDTH - 300) //-300 is the zone when boss background appears with fade
 	{
-		scroll = false;
+		bossBackgroundFade();
 	}
 
 
@@ -130,11 +131,14 @@ update_status ModuleSceneLvl3::PreUpdate()
 
 update_status ModuleSceneLvl3::Update()
 {
-	
 
 	// draw --------------------------------------------------------------------------------
 	//jungle background
 	App->render->Blit(bgTexture,0,0,&bgRect, 0.25f);
+
+	//checks if we have to draw boss background
+	//if (currentLevelZone = stage_zone::boss_zone)
+		//App->render->Blit(bgWaterReflectionsTexture, 0, 0, &, 0.0f);
 
 	//sea water reflections
 	for (int i = 0; i < NUMREFLECTIONS; ++i)
@@ -183,12 +187,12 @@ void ModuleSceneLvl3::addEnemiesToLvl3()
 {
 	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 300, 60, NONE);
 	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 300, 100, NONE);
-	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 330, 60, NONE);
-	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 330, 100, NONE);
-	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 360, 60, NONE);
-	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 360, 100, NONE);
-	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 390, 60, NONE);
-	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 390, 100, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 342, 60, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 342, 100, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 372, 60, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 372, 100, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 402, 60, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 402, 100, NONE);
 }
 
 float ModuleSceneLvl3::GetCurrentCameraPixelPos()
@@ -198,5 +202,6 @@ float ModuleSceneLvl3::GetCurrentCameraPixelPos()
 
 void ModuleSceneLvl3::bossBackgroundFade()
 {
+	currentLevelZone = stage_zone::boss_zone;
 
 }
