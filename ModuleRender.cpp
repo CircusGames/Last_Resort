@@ -73,7 +73,8 @@ update_status ModuleRender::Update()
 
 update_status ModuleRender::PostUpdate()
 {
-	//SDL_SetRenderDrawColor(renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
+	SDL_SetRenderDrawColor(renderer, 0, 0, 0, SDL_ALPHA_OPAQUE); // possibly problems with gameTitle and teamlogo
+																 // fades
 	SDL_RenderPresent(renderer);
 	return update_status::UPDATE_CONTINUE;
 }
