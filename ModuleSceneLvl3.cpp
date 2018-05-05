@@ -67,7 +67,7 @@ bool ModuleSceneLvl3::Init()
 
 bool ModuleSceneLvl3::Start()
 {
-	//enable modules -------------------------
+	//enable needed modules -------------------------
 	App->player->Enable();
 	//App->player2->Enable();
 	App->particles->Enable();
@@ -91,13 +91,10 @@ bool ModuleSceneLvl3::Start()
 	//starting needed background variables
 	scroll = true;
 	//App->render->camera.x = -30000;
-
+	//App->render->camera.x = -30000; //camera trick
 
 	App->audio->LoadAudio("assets/Audio/Music/song_level_3.ogg", "song_lvl3", MUSIC);
 	App->audio->ControlAudio("song_lvl3", MUSIC, FADEIN, -1, 1500.0f);
-
-	
-	
 	return true;
 }
 
@@ -106,6 +103,7 @@ update_status ModuleSceneLvl3::PreUpdate()
 	if (scroll)
 	{
 		App->render->camera.x -= 1 * SCREEN_SIZE;
+		//move player position to follow the camera movement
 		App->player->position.x += 1;
 	}
 
@@ -148,6 +146,15 @@ update_status ModuleSceneLvl3::Update()
 
 bool ModuleSceneLvl3::CleanUp()
 {
+	//unload textures ---
+	App->textures->Unload(bgWaterReflectionsTexture);
+	App->textures->Unload(fgWavesTexture);
+	App->textures->Unload(fgTexture);
+	App->textures->Unload(bgTexture);
+
+	//unload audio ---
+	App->audio->UnloadAudio("song_lvl3", MUSIC);
+	//unload modules
 	App->enemies->Disable();
 	App->modulePowerUp->Disable();
 	App->collision->Disable();
@@ -155,7 +162,7 @@ bool ModuleSceneLvl3::CleanUp()
 	App->player->Disable();
 
 
-	App->audio->UnloadAudio("song_lvl3", MUSIC);
+
 	return true;
 }
 
