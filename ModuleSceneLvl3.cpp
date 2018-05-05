@@ -200,6 +200,7 @@ update_status ModuleSceneLvl3::Update()
 bool ModuleSceneLvl3::CleanUp()
 {
 	//unload textures ---
+	App->textures->Unload(wavesCapTexture);
 	App->textures->Unload(bossBgTexture);
 	App->textures->Unload(bgWaterReflectionsTexture);
 	App->textures->Unload(fgWavesTexture);
