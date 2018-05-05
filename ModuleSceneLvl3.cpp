@@ -238,6 +238,9 @@ void ModuleSceneLvl3::addEnemiesToLvl3()
 
 }
 
+void ModuleSceneLvl3::AddColliders() {
+	App->collision->AddCollider({0, 192, 1256, 33}, COLLIDER_TYPE::COLLIDER_WALL, this);
+}
 float ModuleSceneLvl3::GetCurrentCameraPixelPos()
 {
 	return (-App->render->camera.x / SCREEN_SIZE * 0.5f); //respect foreground camera pos
