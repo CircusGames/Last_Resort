@@ -13,6 +13,12 @@
 struct SDL_Texture;
 struct Collider;
 
+enum stage_zone
+{
+	level,
+	boss_zone
+};
+
 class ModuleSceneLvl3 : public Module
 {
 
@@ -30,6 +36,8 @@ public:
 
 	//void spawnEnemies(int x, int y);
 	void addEnemiesToLvl3();
+
+	float GetCurrentCameraPixelPos();
 
 public:
 
@@ -50,6 +58,8 @@ public:
 
 	//background logic variables
 	bool scroll = false;
+	stage_zone currentLevelZone = stage_zone::level;
+	float currenCameraPixelPos;
 
 
 	

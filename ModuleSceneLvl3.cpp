@@ -67,7 +67,7 @@ bool ModuleSceneLvl3::Init()
 
 bool ModuleSceneLvl3::Start()
 {
-	//enable needed modules -------------------------
+	//enable needed modules ------------------
 	App->player->Enable();
 	//App->player2->Enable();
 	App->particles->Enable();
@@ -90,11 +90,15 @@ bool ModuleSceneLvl3::Start()
 
 	//starting needed background variables
 	scroll = true;
-	//App->render->camera.x = -30000;
 	//App->render->camera.x = -30000; //camera trick
 
+	//assigns correct current level stage zone
+	currentLevelZone = stage_zone::level;
+	
+	//load needed audios
 	App->audio->LoadAudio("assets/Audio/Music/song_level_3.ogg", "song_lvl3", MUSIC);
 	App->audio->ControlAudio("song_lvl3", MUSIC, FADEIN, -1, 1500.0f);
+
 	return true;
 }
 
@@ -107,10 +111,15 @@ update_status ModuleSceneLvl3::PreUpdate()
 		App->player->position.x += 1;
 	}
 
-	if ((-App->render->camera.x / SCREEN_SIZE) * 0.5f > 5520 - SCREEN_WIDTH - 26.5f) 
+	
+
+	if (GetCurrentCameraPixelPos() > 5520 - SCREEN_WIDTH - 26.5f)
 	{
 		scroll = false;
 	}
+
+	//check when player entries boss zone
+
 
 
 	return UPDATE_CONTINUE;
@@ -154,6 +163,7 @@ bool ModuleSceneLvl3::CleanUp()
 
 	//unload audio ---
 	App->audio->UnloadAudio("song_lvl3", MUSIC);
+	
 	//unload modules
 	App->enemies->Disable();
 	App->modulePowerUp->Disable();
@@ -176,4 +186,9 @@ void ModuleSceneLvl3::addEnemiesToLvl3()
 	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 360, 100, NONE);
 	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 390, 60, NONE);
 	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 390, 100, NONE);
+}
+
+float ModuleSceneLvl3::GetCurrentCameraPixelPos()
+{
+	return (-App->render->camera.x / SCREEN_SIZE * 0.5f); //respect foreground camera pos
 }
