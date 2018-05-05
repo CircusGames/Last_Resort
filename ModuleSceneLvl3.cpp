@@ -217,7 +217,7 @@ void ModuleSceneLvl3::addEnemiesToLvl3()
 	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 402, 90, NONE);
 	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 432, 35, NONE);
 	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 432, 90, NONE);
-	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 462, 35, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 462, 35, BOMBS);
 	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 462, 90, NONE);
 
 	//Second Wave
@@ -234,7 +234,7 @@ void ModuleSceneLvl3::addEnemiesToLvl3()
 	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 1230, 90, NONE);
 	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 1260, 90, NONE);
 	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 1290, 90, NONE);
-	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 1320, 90, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 1320, 90, BOOST);
 
 }
 
