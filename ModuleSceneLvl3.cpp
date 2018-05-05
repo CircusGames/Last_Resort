@@ -168,5 +168,12 @@ bool ModuleSceneLvl3::CleanUp()
 
 void ModuleSceneLvl3::addEnemiesToLvl3()
 {
-	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 400, 50, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 300, 60, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 300, 100, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 330, 60, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 330, 100, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 360, 60, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 360, 100, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 390, 60, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 390, 100, NONE);
 }
