@@ -207,18 +207,34 @@ bool ModuleSceneLvl3::CleanUp()
 void ModuleSceneLvl3::addEnemiesToLvl3()
 {
 	//First Wave
-	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 300, 30, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 300, 35, NONE);
 	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 300, 90, NONE);
-	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 342, 30, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 342, 35, NONE);
 	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 342, 90, NONE);
-	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 372, 30, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 372, 35, NONE);
 	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 372, 90, NONE);
-	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 402, 30, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 402, 35, NONE);
 	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 402, 90, NONE);
-	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 432, 30, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 432, 35, NONE);
 	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 432, 90, NONE);
-	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 462, 30, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 462, 35, NONE);
 	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 462, 90, NONE);
+
+	//Second Wave
+	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 680, 35, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 710, 35, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 740, 35, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 770, 35, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 800, 35, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 830, 35, NONE);
+
+	//Third Wave
+	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 1170, 90, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 1200, 90, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 1230, 90, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 1260, 90, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 1290, 90, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 1320, 90, NONE);
 
 }
 
