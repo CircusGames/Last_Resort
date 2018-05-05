@@ -67,6 +67,19 @@ bool ModuleSceneLvl3::Init()
 
 bool ModuleSceneLvl3::Start()
 {
+	//enable modules -------------------------
+	App->player->Enable();
+	//App->player2->Enable();
+	App->particles->Enable();
+	App->collision->Enable();
+	App->modulePowerUp->Enable();
+	App->enemies->Enable();
+
+	//adding enemies to Level
+	addEnemiesToLvl3();
+
+	//changes the state of the UI ------------
+	App->moduleUI->UI = gameplay_state::SCENE;
 
 	LOG("Starting level 3");
 
@@ -78,7 +91,9 @@ bool ModuleSceneLvl3::Start()
 	//starting needed background variables
 	scroll = true;
 
-	
+	App->audio->LoadAudio("assets/Audio/Music/song_level_3.ogg", "song_lvl3", MUSIC);
+	App->audio->ControlAudio("song_lvl3", MUSIC, FADEIN, -1, 1500.0f);
+
 	return true;
 }
 
@@ -87,6 +102,7 @@ update_status ModuleSceneLvl3::PreUpdate()
 	if (scroll)
 	{
 		App->render->camera.x -= 1 * SCREEN_SIZE;
+		App->player->position.x += 1;
 	}
 
 	return UPDATE_CONTINUE;
@@ -122,6 +138,18 @@ update_status ModuleSceneLvl3::Update()
 
 bool ModuleSceneLvl3::CleanUp()
 {
+	App->enemies->Disable();
+	App->modulePowerUp->Disable();
+	App->collision->Disable();
+	App->particles->Disable();
+	App->player->Disable();
 
+
+	App->audio->UnloadAudio("song_lvl3", MUSIC);
 	return true;
+}
+
+void ModuleSceneLvl3::addEnemiesToLvl3()
+{
+	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 400, 50, NONE);
 }

@@ -29,7 +29,7 @@ public:
 	bool CleanUp();
 
 	//void spawnEnemies(int x, int y);
-	//void addEnemiesToLvl1();
+	void addEnemiesToLvl3();
 
 public:
 
