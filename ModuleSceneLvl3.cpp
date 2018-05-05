@@ -91,7 +91,7 @@ bool ModuleSceneLvl3::Start()
 
 	//starting needed background variables
 	scroll = true;
-	//App->render->camera.x = -30000; //camera trick
+	//App->render->camera.x = -27000; //camera trick
 
 	//assigns correct current level stage zone
 	currentLevelZone = stage_zone::level;
@@ -99,6 +99,12 @@ bool ModuleSceneLvl3::Start()
 	//load needed audios
 	App->audio->LoadAudio("assets/Audio/Music/song_level_3.ogg", "song_lvl3", MUSIC);
 	App->audio->ControlAudio("song_lvl3", MUSIC, FADEIN, -1, 1500.0f);
+
+	//boss background fade values
+	faded = false;
+	total_time = 2500; //fade time
+	//normalized = 0;
+
 
 	return true;
 }
@@ -119,10 +125,15 @@ update_status ModuleSceneLvl3::PreUpdate()
 		scroll = false;
 	}
 
-	//check when player entries boss zone
-	if (GetCurrentCameraPixelPos() > 5520 - SCREEN_WIDTH - 300) //-300 is the zone when boss background appears with fade
+	if (currentLevelZone == stage_zone::level) // if we entry on boss zone and still not faded the boss background
 	{
-		bossBackgroundFade();
+		//check when player entries boss zone
+		if (GetCurrentCameraPixelPos() > 5520 - SCREEN_WIDTH - 360) //-300 is the zone when boss background appears with fade
+		{
+			start_time = SDL_GetTicks();
+			currentLevelZone = stage_zone::boss_zone; //change level current zone
+		}
+
 	}
 
 
@@ -137,9 +148,18 @@ update_status ModuleSceneLvl3::Update()
 	App->render->Blit(bgTexture,0,0,&bgRect, 0.25f);
 
 	//checks if we have to draw boss background
-	//if (currentLevelZone = stage_zone::boss_zone)
-		//App->render->Blit(bgWaterReflectionsTexture, 0, 0, &, 0.0f);
+	if (currentLevelZone == stage_zone::boss_zone)
+	{
+		//draw background
+		App->render->Blit(bossBgTexture, 0, 0, NULL, 0.0f);
+			
+		if (!faded)
+		{
+			bossBackgroundFade();
+		}
+	}
 
+		
 	//sea water reflections
 	for (int i = 0; i < NUMREFLECTIONS; ++i)
 	{
@@ -163,6 +183,7 @@ update_status ModuleSceneLvl3::Update()
 bool ModuleSceneLvl3::CleanUp()
 {
 	//unload textures ---
+	App->textures->Unload(bossBgTexture);
 	App->textures->Unload(bgWaterReflectionsTexture);
 	App->textures->Unload(fgWavesTexture);
 	App->textures->Unload(fgTexture);
@@ -224,6 +245,21 @@ float ModuleSceneLvl3::GetCurrentCameraPixelPos()
 
 void ModuleSceneLvl3::bossBackgroundFade()
 {
-	currentLevelZone = stage_zone::boss_zone;
+	SDL_Rect bossBgRect = { 0,0,304 * SCREEN_SIZE, 224 * SCREEN_SIZE };
+	
+	//fade
+	if (!faded)
+	{
+		now = SDL_GetTicks() - start_time;
 
+		float normalized = MIN(1.0f, (float)now / (float)total_time);
+		normalized = 1.0f - normalized;
+		//blending alpha
+		SDL_SetRenderDrawBlendMode(App->render->renderer, SDL_BLENDMODE_BLEND);
+		SDL_SetRenderDrawColor(App->render->renderer, 0, 0, 0,(Uint8)(normalized * 255.0f));
+		SDL_RenderFillRect(App->render->renderer, &bossBgRect);
+
+		if (now >= total_time)
+			faded = true;
+	}
 }

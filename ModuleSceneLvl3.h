@@ -66,7 +66,9 @@ public:
 	Uint32 start_time;
 	Uint32 total_time;
 	Uint32 now;
+	//float normalized;
 	// ------------------------------
+	bool faded = false;
 
 
 	
