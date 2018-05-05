@@ -36,6 +36,7 @@ public:
 
 	//void spawnEnemies(int x, int y);
 	void addEnemiesToLvl3();
+	void AddColliders();
 
 	float GetCurrentCameraPixelPos();
 	void bossBackgroundFade();
