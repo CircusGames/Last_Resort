@@ -185,14 +185,20 @@ bool ModuleSceneLvl3::CleanUp()
 
 void ModuleSceneLvl3::addEnemiesToLvl3()
 {
-	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 300, 60, NONE);
-	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 300, 100, NONE);
-	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 342, 60, NONE);
-	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 342, 100, NONE);
-	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 372, 60, NONE);
-	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 372, 100, NONE);
-	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 402, 60, NONE);
-	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 402, 100, NONE);
+	//First Wave
+	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 300, 30, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 300, 90, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 342, 30, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 342, 90, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 372, 30, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 372, 90, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 402, 30, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 402, 90, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 432, 30, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 432, 90, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 462, 30, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 462, 90, NONE);
+
 }
 
 float ModuleSceneLvl3::GetCurrentCameraPixelPos()

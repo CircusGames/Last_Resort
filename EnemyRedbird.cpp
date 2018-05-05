@@ -17,7 +17,7 @@ EnemyRedbird::EnemyRedbird(int x, int y, powerUpTypes type, SDL_Texture* thisTex
 	waveAnim.PushBack({ 130,7,26,18 });
 	waveAnim.PushBack({ 156,0,27,29 });
 	waveAnim.PushBack({ 183,6,26,18 });
-	waveAnim.speed = 0.1f;
+	waveAnim.speed = 0.12f;
 
 	animation = &waveAnim;
 
