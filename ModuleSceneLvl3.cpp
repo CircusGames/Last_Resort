@@ -78,7 +78,7 @@ bool ModuleSceneLvl3::Start()
 	//starting needed background variables
 	scroll = true;
 
-	App->render->camera.x = -30000;
+	//App->render->camera.x = -30000;
 	
 	return true;
 }
