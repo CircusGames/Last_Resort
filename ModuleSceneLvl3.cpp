@@ -90,7 +90,7 @@ bool ModuleSceneLvl3::Start()
 
 	//starting needed background variables
 	scroll = true;
-	App->render->camera.x = -30000; //camera trick
+	//App->render->camera.x = -30000; //camera trick
 
 	//assigns correct current level stage zone
 	currentLevelZone = stage_zone::level;
