@@ -49,6 +49,7 @@ public:
 	SDL_Texture* fgWavesTexture = nullptr;
 	SDL_Texture* bgWaterReflectionsTexture = nullptr;
 	SDL_Texture* bossBgTexture = nullptr;
+	SDL_Texture* wavesCapTexture = nullptr;
 	//SDL_Texture* submarineWavesTexture = nullptr;
 
 	//background needed rects
@@ -58,6 +59,7 @@ public:
 	//background animations
 	Animation bgWaterReflectionsAnim[NUMREFLECTIONS];
 	Animation seaWavesAnim[MAXWAVES];
+	Animation wavesCapAnim;
 
 	// background logic variables ---------------------
 	bool scroll = false;
