@@ -85,6 +85,9 @@ bool ModuleSceneLvl3::Start()
 	App->particles->Enable();
 	App->collision->Enable();
 
+	//assigns correct current level stage zone
+	currentLevelZone = stage_zone::level;
+
 	return true;
 }
 
@@ -97,10 +100,15 @@ update_status ModuleSceneLvl3::PreUpdate()
 		App->player->position.x += 1;
 	}
 
+	
+
 	if ((-App->render->camera.x / SCREEN_SIZE) * 0.5f > 5520 - SCREEN_WIDTH - 26.5f) 
 	{
 		scroll = false;
 	}
+
+	//check when player entries boss zone
+
 
 
 	return UPDATE_CONTINUE;
