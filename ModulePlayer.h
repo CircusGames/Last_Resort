@@ -104,6 +104,8 @@ public:
 
 	bool click = false;
 
+	Module* sceneCallback;
+
 };
 
 #endif

@@ -120,7 +120,12 @@ update_status ModuleGameOver::Update()
 	}*/
 
 	if (App->input->keyboard[SDL_SCANCODE_RETURN] == 1) //&& App->player->lives > 0)
+	{
 		App->fade->FadeToBlack(App->gameOverScreen, (Module*)App->winScreen, 0.8f);
+
+		//when player dies, go to level 1
+		App->player->sceneCallback = (Module*)App->scene_lvl1;
+	}
 
 		
 	return UPDATE_CONTINUE;

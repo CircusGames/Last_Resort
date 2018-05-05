@@ -8,6 +8,8 @@
 
 #include "SDL/include/SDL_timer.h"
 
+#include "ModulePlayer.h"
+
 ModuleReady::ModuleReady()
 {
 	readyRect = { 0, 112, 80, 16 };
@@ -40,7 +42,11 @@ update_status ModuleReady::Update()
 	if (now >= totalTime)
 	{
 		App->readyScreen->Disable();
-		App->scene_lvl1->Enable();
+		if (App->player->sceneCallback != nullptr)
+			App->player->sceneCallback->Enable();
+		else
+			App->scene_lvl1->Enable();
+
 	}
 
 	return UPDATE_CONTINUE;

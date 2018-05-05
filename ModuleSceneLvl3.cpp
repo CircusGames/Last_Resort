@@ -79,6 +79,7 @@ bool ModuleSceneLvl3::Start()
 {
 	//enable needed modules ------------------
 	App->player->Enable();
+	App->player->sceneCallback = this;
 	//App->player2->Enable();
 	App->particles->Enable();
 	App->collision->Enable();
@@ -117,6 +118,9 @@ bool ModuleSceneLvl3::Start()
 
 	//add wall colliders to scene
 	AddColliders();
+
+	//correct camera position
+	App->render->camera.x = 0;
 	
 
 
@@ -219,6 +223,12 @@ bool ModuleSceneLvl3::CleanUp()
 	App->collision->Disable();
 	App->particles->Disable();
 	App->player->Disable();
+
+	//reposition the camera
+	App->render->camera.x = 0;
+
+	//send to moduleUI new stage
+	App->moduleUI->UI = gameplay_state::NO;
 
 
 

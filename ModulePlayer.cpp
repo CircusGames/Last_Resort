@@ -563,11 +563,11 @@ update_status ModulePlayer::Update()
 			{
 				//resets lives counter for next gameLoop
 				lives = 3;
-				App->fade->FadeToBlack((Module*)App->scene_lvl1, (Module*)App->gameOverScreen);
+				App->fade->FadeToBlack(sceneCallback, (Module*)App->gameOverScreen);
 			}
 			else
 			{
-				App->fade->FadeToBlack((Module*)App->scene_lvl1, (Module*)App->continueScreen, 1.0f); 
+				App->fade->FadeToBlack(sceneCallback, (Module*)App->continueScreen, 1.0f); 
 				--lives;
 			}
 		}
