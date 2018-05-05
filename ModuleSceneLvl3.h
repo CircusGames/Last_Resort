@@ -8,6 +8,7 @@
 #include "p2Point.h"
 
 #define MAXWAVES 17
+#define NUMREFLECTIONS 4
 
 struct SDL_Texture;
 struct Collider;
@@ -36,6 +37,7 @@ public:
 	SDL_Texture* bgTexture = nullptr; //background
 	SDL_Texture* fgTexture = nullptr; //foreground(cave)
 	SDL_Texture* fgWavesTexture = nullptr;
+	SDL_Texture* bgWaterReflectionsTexture = nullptr;
 	//SDL_Texture* submarineWavesTexture = nullptr;
 
 	//background needed rects
@@ -43,7 +45,7 @@ public:
 	SDL_Rect fgRect;
 
 	//background animations
-	Animation bgWaterReflectionsAnim;
+	Animation bgWaterReflectionsAnim[NUMREFLECTIONS];
 	Animation seaWavesAnim[MAXWAVES];
 
 	//background logic variables

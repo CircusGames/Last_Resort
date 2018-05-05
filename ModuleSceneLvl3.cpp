@@ -39,6 +39,19 @@ ModuleSceneLvl3::ModuleSceneLvl3()
 		seaWavesAnim[i].PushBack({ 0,266,128,38 });
 		seaWavesAnim[i].speed = 0.125f;
 	}
+
+	//background water reflections
+	for (int i = 0; i < NUMREFLECTIONS; ++i)
+	{
+		bgWaterReflectionsAnim[i].PushBack({0,0,256,11});
+		bgWaterReflectionsAnim[i].PushBack({ 0,11,256,11 });
+		bgWaterReflectionsAnim[i].PushBack({ 0,22,256,11 });
+		bgWaterReflectionsAnim[i].PushBack({ 0,33,256,11 });
+		bgWaterReflectionsAnim[i].PushBack({ 0,44,256,11 });
+		bgWaterReflectionsAnim[i].PushBack({ 0,55,256,11 });
+		bgWaterReflectionsAnim[i].PushBack({ 0,66,256,11 });
+		bgWaterReflectionsAnim[i].speed = 0.14f;
+	}
 	
 }
 
@@ -57,9 +70,10 @@ bool ModuleSceneLvl3::Start()
 
 	LOG("Starting level 3");
 
-	bgTexture = App->textures->Load("assets/Graphics/Backgrounds/Lvl_3/background_3.png");
+	bgTexture = App->textures->Load("assets/Graphics/Backgrounds/Lvl_3/background_3_fixed.png");
 	fgTexture = App->textures->Load("assets/Graphics/Backgrounds/Lvl_3/foreground_3.png");
 	fgWavesTexture = App->textures->Load("assets/Graphics/Backgrounds/Lvl_3/seaWavesFixed.png");
+	bgWaterReflectionsTexture = App->textures->Load("assets/Graphics/Backgrounds/Lvl_3/seaWaterReflections.png");
 
 	//starting needed background variables
 	scroll = true;
@@ -86,6 +100,12 @@ update_status ModuleSceneLvl3::Update()
 	//jungle background
 	App->render->Blit(bgTexture,0,0,&bgRect, 0.25f);
 
+	//sea water reflections
+	for (int i = 0; i < NUMREFLECTIONS; ++i)
+	{
+		App->render->Blit(bgWaterReflectionsTexture, i * 256, 177, &bgWaterReflectionsAnim[i].GetCurrentFrame(), 0.25f);
+	}
+
 	//sea waves animations
 
 	for (int i = 0; i < MAXWAVES; ++i)
@@ -94,7 +114,7 @@ update_status ModuleSceneLvl3::Update()
 	}
 	
 	//cave background
-	App->render->Blit(fgTexture, 2100, 94, &fgRect, 0.50f);
+	App->render->Blit(fgTexture, 2150, 94, &fgRect, 0.50f);
 	
 	
 	return UPDATE_CONTINUE;
