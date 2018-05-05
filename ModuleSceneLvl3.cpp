@@ -78,8 +78,13 @@ bool ModuleSceneLvl3::Start()
 	//starting needed background variables
 	scroll = true;
 
-	//App->render->camera.x = -30000;
+	//App->render->camera.x = -30000; //camera trick
 	
+	//enable needed modules ----
+	App->player->Enable();
+	App->particles->Enable();
+	App->collision->Enable();
+
 	return true;
 }
 
@@ -88,6 +93,8 @@ update_status ModuleSceneLvl3::PreUpdate()
 	if (scroll)
 	{
 		App->render->camera.x -= 1 * SCREEN_SIZE;
+		//move player position to follow the camera movement
+		App->player->position.x += 1;
 	}
 
 	if ((-App->render->camera.x / SCREEN_SIZE) * 0.5f > 5520 - SCREEN_WIDTH - 26.5f) 
@@ -128,7 +135,20 @@ update_status ModuleSceneLvl3::Update()
 }
 
 bool ModuleSceneLvl3::CleanUp()
-{
+{ 
+	//unload textures ---
+	App->textures->Unload(bgWaterReflectionsTexture);
+	App->textures->Unload(fgWavesTexture);
+	App->textures->Unload(fgTexture);
+	App->textures->Unload(bgTexture);
+
+	//unload audio ---
+
+	//unload modules
+	App->collision->Disable();
+	App->particles->Disable();
+	App->player->Disable();
+
 
 	return true;
 }
