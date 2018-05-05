@@ -91,7 +91,7 @@ bool ModuleSceneLvl3::Start()
 
 	//starting needed background variables
 	scroll = true;
-	//App->render->camera.x = -27000; //camera trick
+	App->render->camera.x = -27000; //camera trick
 
 	//assigns correct current level stage zone
 	currentLevelZone = stage_zone::level;
@@ -102,7 +102,7 @@ bool ModuleSceneLvl3::Start()
 
 	//boss background fade values
 	faded = false;
-	total_time = 2000; //fade time
+	total_time = 2500; //fade time
 	//normalized = 0;
 
 
@@ -128,7 +128,7 @@ update_status ModuleSceneLvl3::PreUpdate()
 	if (currentLevelZone == stage_zone::level) // if we entry on boss zone and still not faded the boss background
 	{
 		//check when player entries boss zone
-		if (GetCurrentCameraPixelPos() > 5520 - SCREEN_WIDTH - 600) //-300 is the zone when boss background appears with fade
+		if (GetCurrentCameraPixelPos() > 5520 - SCREEN_WIDTH - 360) //-300 is the zone when boss background appears with fade
 		{
 			start_time = SDL_GetTicks();
 			currentLevelZone = stage_zone::boss_zone; //change level current zone
