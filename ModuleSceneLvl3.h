@@ -38,10 +38,11 @@ public:
 	void addEnemiesToLvl3();
 
 	float GetCurrentCameraPixelPos();
+	void bossBackgroundFade();
 
 public:
 
-	//bg textures---------------------------
+	//bg textures------------------------------------
 	SDL_Texture* bgTexture = nullptr; //background
 	SDL_Texture* fgTexture = nullptr; //foreground(cave)
 	SDL_Texture* fgWavesTexture = nullptr;
@@ -56,10 +57,15 @@ public:
 	Animation bgWaterReflectionsAnim[NUMREFLECTIONS];
 	Animation seaWavesAnim[MAXWAVES];
 
-	//background logic variables
+	//background logic variables --------------------
 	bool scroll = false;
 	stage_zone currentLevelZone = stage_zone::level;
 	float currenCameraPixelPos;
+	// values for boss background fade
+	Uint32 start_time;
+	Uint32 total_time;
+	Uint32 now;
+	// ------------------------------
 
 
 	

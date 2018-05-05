@@ -113,13 +113,16 @@ update_status ModuleSceneLvl3::PreUpdate()
 
 	
 
-	if (GetCurrentCameraPixelPos() > 5520 - SCREEN_WIDTH - 26.5f)
+	if (GetCurrentCameraPixelPos() > 5520 - SCREEN_WIDTH - 26.5f) //-26.5f is the offset
 	{
 		scroll = false;
 	}
 
 	//check when player entries boss zone
-
+	if (GetCurrentCameraPixelPos() > 5520 - SCREEN_WIDTH - 300) //-300 is the zone when boss background appears with fade
+	{
+		scroll = false;
+	}
 
 
 	return UPDATE_CONTINUE;
@@ -184,4 +187,9 @@ void ModuleSceneLvl3::addEnemiesToLvl3()
 float ModuleSceneLvl3::GetCurrentCameraPixelPos()
 {
 	return (-App->render->camera.x / SCREEN_SIZE * 0.5f); //respect foreground camera pos
+}
+
+void ModuleSceneLvl3::bossBackgroundFade()
+{
+
 }
