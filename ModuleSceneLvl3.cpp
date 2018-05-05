@@ -154,6 +154,8 @@ update_status ModuleSceneLvl3::PreUpdate()
 
 	}
 
+	//set colliders to follow correct foreground speed
+	setCollidersToScenePos();
 
 	return UPDATE_CONTINUE;
 }
@@ -271,10 +273,35 @@ void ModuleSceneLvl3::addEnemiesToLvl3()
 
 void ModuleSceneLvl3::AddColliders() 
 {
-
-	App->collision->AddCollider({0, 192, 1256, 33}, COLLIDER_TYPE::COLLIDER_WALL, this);
+	sceneColliders[0] = App->collision->AddCollider({0, 192, 1256, 33}, COLLIDER_TYPE::COLLIDER_WALL, this);
+	sceneColliders[1] = App->collision->AddCollider({ 300, 50, 50, 70 }, COLLIDER_TYPE::COLLIDER_WALL, this); //test
+	sceneColliders[2] = App->collision->AddCollider({ 350, 70, 50, 70 }, COLLIDER_TYPE::COLLIDER_WALL, this); //test
+	sceneColliders[3] = App->collision->AddCollider({0, 20, 50, 70 }, COLLIDER_TYPE::COLLIDER_WALL, this); //test
 
 }
+
+void ModuleSceneLvl3::setCollidersToScenePos()
+{
+	currentCameraPixelPos = GetCurrentCameraPixelPos();
+
+	for (int i = 0; i < MAX_SCENE_COLLIDERS; ++i)
+	{
+		if (sceneColliders[i] == nullptr) continue;
+
+		lastCameraPosX = GetCurrentCameraPixelPos();
+		
+		if (currentCameraPixelPos != lastCameraPosX)
+		{
+			sceneColliders[i]->rect.x += 1;
+			
+		}
+		
+		sceneColliders[i]->SetPos(sceneColliders[i]->rect.x, sceneColliders[i]->rect.y);
+		
+	}
+
+}
+
 float ModuleSceneLvl3::GetCurrentCameraPixelPos()
 {
 	return (-App->render->camera.x / SCREEN_SIZE * 0.5f); //respect foreground camera pos

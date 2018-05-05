@@ -9,6 +9,7 @@
 
 #define MAXWAVES 17
 #define NUMREFLECTIONS 4
+#define MAX_SCENE_COLLIDERS 10
 
 struct SDL_Texture;
 struct Collider;
@@ -37,6 +38,7 @@ public:
 	//void spawnEnemies(int x, int y);
 	void addEnemiesToLvl3();
 	void AddColliders();
+	void setCollidersToScenePos();
 
 	float GetCurrentCameraPixelPos();
 	void bossBackgroundFade();
@@ -64,7 +66,8 @@ public:
 	// background logic variables ---------------------
 	bool scroll = false;
 	stage_zone currentLevelZone = stage_zone::level;
-	float currenCameraPixelPos;
+	//float currenCameraPixelPos;
+	float currentCameraPixelPos;
 	// values for boss background fade ---
 	Uint32 start_time;
 	Uint32 total_time;
@@ -73,6 +76,9 @@ public:
 	bool faded = false;
 	// ------------------------------------------------
 
+	//set colliders scene correct speeds
+	Collider* sceneColliders[MAX_SCENE_COLLIDERS] = { nullptr };
+	int lastCameraPosX;
 
 	
 };
