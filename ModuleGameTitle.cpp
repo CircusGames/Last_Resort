@@ -896,6 +896,9 @@ update_status ModuleGameTitle::Update()
 		else if (current_step == intro_step::time_in_white)
 		{
 			timeInWhite = 500;
+			SDL_SetRenderDrawColor(App->render->renderer, 255, 255, 255, 255);
+			SDL_RenderFillRect(App->render->renderer, NULL);
+
 			if (now >= timeInWhite)
 			{
 				current_step = intro_step::fade_from_white;

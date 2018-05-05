@@ -103,7 +103,7 @@ bool ModuleSceneLvl3::Start()
 	//boss background fade values
 	faded = false;
 	total_time = 2500; //fade time
-	//normalized = 0;
+	
 
 
 	return true;

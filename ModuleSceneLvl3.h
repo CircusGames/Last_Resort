@@ -58,17 +58,17 @@ public:
 	Animation bgWaterReflectionsAnim[NUMREFLECTIONS];
 	Animation seaWavesAnim[MAXWAVES];
 
-	//background logic variables --------------------
+	// background logic variables ---------------------
 	bool scroll = false;
 	stage_zone currentLevelZone = stage_zone::level;
 	float currenCameraPixelPos;
-	// values for boss background fade
+	// values for boss background fade ---
 	Uint32 start_time;
 	Uint32 total_time;
 	Uint32 now;
-	//float normalized;
-	// ------------------------------
+	// -----------------------------------
 	bool faded = false;
+	// ------------------------------------------------
 
 
 	
