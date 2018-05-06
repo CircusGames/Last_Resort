@@ -31,6 +31,15 @@ bool ModuleInput::Init()
 	//controller
 	LOG("Initialzng controller-----------");
 	SDL_Init(SDL_INIT_GAMECONTROLLER);
+
+	for (int i = 0; i < SDL_NumJoysticks(); i++)
+	{
+		if (SDL_IsGameController(i))
+		{
+			controller = SDL_GameControllerOpen(i);
+		}
+
+	}
 	return ret;
 }
 
@@ -109,5 +118,12 @@ bool ModuleInput::CleanUp()
 {
 	LOG("Quitting SDL input event subsystem");
 	SDL_QuitSubSystem(SDL_INIT_EVENTS);
+
+	LOG("Closing controller----");
+	if (controller != NULL)
+		SDL_GameControllerClose(controller);
+
+	controller = nullptr;
+
 	return true;
 }

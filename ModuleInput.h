@@ -38,7 +38,7 @@ public:
 	SDL_Event Event;
 
 	//gamepad
-	//SDL_GameController* gameController; 
+	SDL_GameController* controller = nullptr;
 };
 
 #endif // __ModuleInput_H__
