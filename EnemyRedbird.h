@@ -18,6 +18,7 @@ public:
 	EnemyRedbird(int x, int y, powerUpTypes type, SDL_Texture * thisTexture = nullptr);
 
 	void Move();
+	void Draw();
 
 };
 #endif __ENEMYREDBIRD_H__

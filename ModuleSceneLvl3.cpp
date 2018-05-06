@@ -146,7 +146,7 @@ update_status ModuleSceneLvl3::PreUpdate()
 	if (currentLevelZone == stage_zone::level) // if we entry on boss zone and still not faded the boss background
 	{
 		//check when player entries boss zone
-		if (GetCurrentCameraPixelPos() > 5520 - SCREEN_WIDTH - 360) //-300 is the zone when boss background appears with fade
+		if (GetCurrentCameraPixelPos() > 5520 - SCREEN_WIDTH - 360) //-360 is the zone when boss background appears with fade
 		{
 			start_time = SDL_GetTicks();
 			currentLevelZone = stage_zone::boss_zone; //change level current zone
@@ -274,9 +274,9 @@ void ModuleSceneLvl3::addEnemiesToLvl3()
 void ModuleSceneLvl3::AddColliders() 
 {
 	sceneColliders[0] = App->collision->AddCollider({0, 192, 1256, 33}, COLLIDER_TYPE::COLLIDER_WALL, this);
-	sceneColliders[1] = App->collision->AddCollider({ 300, 50, 50, 70 }, COLLIDER_TYPE::COLLIDER_WALL, this); //test
-	sceneColliders[2] = App->collision->AddCollider({ 350, 70, 50, 70 }, COLLIDER_TYPE::COLLIDER_WALL, this); //test
-	sceneColliders[3] = App->collision->AddCollider({0, 20, 50, 70 }, COLLIDER_TYPE::COLLIDER_WALL, this); //test
+	//sceneColliders[1] = App->collision->AddCollider({ 300, 50, 50, 70 }, COLLIDER_TYPE::COLLIDER_WALL, this); //test
+	//sceneColliders[2] = App->collision->AddCollider({ 350, 70, 50, 70 }, COLLIDER_TYPE::COLLIDER_WALL, this); //test
+	//sceneColliders[3] = App->collision->AddCollider({0, 20, 50, 70 }, COLLIDER_TYPE::COLLIDER_WALL, this); //test
 
 }
 
