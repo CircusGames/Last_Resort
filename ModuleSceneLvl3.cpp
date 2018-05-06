@@ -269,6 +269,15 @@ void ModuleSceneLvl3::addEnemiesToLvl3()
 	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 1290, 90, NONE);
 	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 1320, 90, BOOST);
 
+	//-----------------------------------------------------------
+
+	App->enemies->AddEnemy(ENEMY_TYPES::POWERUP_BEE, 3200, 75, BOOST);
+	App->enemies->AddEnemy(ENEMY_TYPES::POWERUP_BEE, 4900, 75, BOOST);
+	App->enemies->AddEnemy(ENEMY_TYPES::POWERUP_BEE, 5700, 75, BOOST);
+	App->enemies->AddEnemy(ENEMY_TYPES::POWERUP_BEE, 6100, 75, BOOST);
+
+
+
 }
 
 void ModuleSceneLvl3::AddColliders() 

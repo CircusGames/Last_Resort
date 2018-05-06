@@ -106,6 +106,7 @@
     <ClInclude Include="ModuleWindow.h" />
     <ClInclude Include="p2Point.h" />
     <ClInclude Include="Path.h" />
+    <ClInclude Include="EnemyPowerUpBee.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
@@ -113,6 +114,7 @@
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="EnemyBee.cpp" />
     <ClCompile Include="EnemyOscilatory.cpp" />
+    <ClCompile Include="EnemyPowerUpBee.cpp" />
     <ClCompile Include="EnemyRedbird.cpp" />
     <ClCompile Include="EnemyTank.cpp" />
     <ClCompile Include="Globals.cpp" />
