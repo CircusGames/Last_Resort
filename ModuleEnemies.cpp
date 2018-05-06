@@ -12,6 +12,7 @@
 #include "EnemyBee.h"
 #include "EnemyRedbird.h"
 #include "EnemyPowerUpBee.h"
+#include "EnemyProtator.h"
 
 #include "ModulePowerUp.h"
 #include "ModuleAudio.h"
@@ -73,6 +74,7 @@ bool ModuleEnemies::Start()
 	enemyBeeTexture = App->textures->Load("assets/Graphics/Enemies/Level_1/Bee.png");
 	enemyRedbirdTexture = App->textures->Load("assets/Graphics/Enemies/Level_3/Redbird.png");
 	enemyPowerBeeTexture = App->textures->Load("assets/Graphics/Enemies/Level_3/power_bee.png");
+	enemyProtatorTexture = App->textures->Load("assets/Graphics/Enemies/Level_3/protator.png");
 	// -------------------------------------------------------------------------------------
 	// ENEMY PARTICLES ---------------------------------------------------------------------
 	// textures ----------
@@ -233,6 +235,10 @@ void ModuleEnemies::SpawnEnemy(EnemyInfo& info)
 			break;
 		case ENEMY_TYPES::POWERUP_BEE:
 			enemies[i] = new EnemyPowerUpBee(info.x, info.y, info.powerUpType, enemyPowerBeeTexture);
+			break;
+		case ENEMY_TYPES::ENEMYPROTATOR:
+			enemies[i] = new EnemyProtator(info.x, info.y, info.powerUpType, enemyProtatorTexture);
+			break;
 		}
 	}
 }

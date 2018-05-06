@@ -76,6 +76,7 @@
     <ClInclude Include="EnemyBee.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="EnemyOscilatory.h" />
+    <ClInclude Include="EnemyProtator.h" />
     <ClInclude Include="EnemyRedbird.h" />
     <ClInclude Include="EnemyTank.h" />
     <ClInclude Include="Globals.h" />
@@ -115,6 +116,7 @@
     <ClCompile Include="EnemyBee.cpp" />
     <ClCompile Include="EnemyOscilatory.cpp" />
     <ClCompile Include="EnemyPowerUpBee.cpp" />
+    <ClCompile Include="EnemyProtator.cpp" />
     <ClCompile Include="EnemyRedbird.cpp" />
     <ClCompile Include="EnemyTank.cpp" />
     <ClCompile Include="Globals.cpp" />
