@@ -28,6 +28,9 @@ bool ModuleInput::Init()
 		ret = false;
 	}
 
+	//controller
+	LOG("Initialzng controller-----------");
+	SDL_Init(SDL_INIT_GAMECONTROLLER);
 	return ret;
 }
 
@@ -64,14 +67,34 @@ update_status ModuleInput::PreUpdate()
 
 	while (SDL_PollEvent(&Event)) //close window with mouse
 	{
-
 		if (Event.type == SDL_QUIT)
 			return update_status::UPDATE_STOP;
 
 		if (Event.type == SDL_MOUSEBUTTONDOWN)
 		{
 			App->scene_lvl1->spawnEnemies(Event.button.x, Event.button.y);
+		}
 
+		//gamepad
+		else if (Event.type == SDL_CONTROLLERBUTTONDOWN)
+		{
+			if (Event.cbutton.button == SDL_CONTROLLER_BUTTON_A)
+				App->input->keyboard[SDL_SCANCODE_SPACE] = KEY_DOWN;
+
+			else if (Event.cbutton.button == SDL_CONTROLLER_BUTTON_DPAD_UP)
+				App->input->keyboard[SDL_SCANCODE_W] = KEY_DOWN;
+
+			else if (Event.cbutton.button == SDL_CONTROLLER_BUTTON_DPAD_DOWN)
+				App->input->keyboard[SDL_SCANCODE_S] = KEY_DOWN;
+
+			else if (Event.cbutton.button == SDL_CONTROLLER_BUTTON_DPAD_LEFT)
+				App->input->keyboard[SDL_SCANCODE_A] = KEY_DOWN;
+
+			else if (Event.cbutton.button == SDL_CONTROLLER_BUTTON_DPAD_RIGHT)
+				App->input->keyboard[SDL_SCANCODE_D] = KEY_DOWN;
+
+			else if (Event.cbutton.button == SDL_CONTROLLER_BUTTON_RIGHTSHOULDER)
+				App->input->keyboard[SDL_SCANCODE_LSHIFT] = KEY_DOWN;
 		}
 	}
 

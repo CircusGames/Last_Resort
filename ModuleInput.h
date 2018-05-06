@@ -3,6 +3,7 @@
 
 #include "Module.h"
 #include "Globals.h"
+#include "p2Point.h"
 //#include "SDL\include\SDL_scancode.h"
 #include "SDL\include\SDL.h"
 #include "SDL\include\SDL_gamecontroller.h"
@@ -16,7 +17,6 @@ enum KEY_STATE
 	KEY_REPEAT,
 	KEY_UP
 };
-
 
 typedef unsigned char Uint8;
 
@@ -38,7 +38,7 @@ public:
 	SDL_Event Event;
 
 	//gamepad
-	SDL_GameController* gamecontroller; 
+	//SDL_GameController* gameController; 
 };
 
 #endif // __ModuleInput_H__
