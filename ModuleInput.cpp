@@ -49,14 +49,14 @@ bool ModuleInput::Init()
 		{
 			gamePads[i] = SDL_GameControllerOpen(i);
 
-			if (gamePads[i]) 
+			/*if (gamePads[i]) 
 			{
 				break;
 			}
 			else
 			{
 				LOG("Could not open gameController %d %s", i, SDL_GetError());
-			}
+			}*/
 		}
 
 	}
@@ -117,10 +117,28 @@ update_status ModuleInput::PreUpdate()
 			else if (Event.cbutton.button == SDL_CONTROLLER_BUTTON_RIGHTSHOULDER)
 				App->input->keyboard[SDL_SCANCODE_LSHIFT] = KEY_DOWN;
 		}
+
+		//detection at runtime if a gamepad is added or removed
+
+		if (Event.type == SDL_CONTROLLERDEVICEADDED)
+		{
+			if (Event.cdevice.which > MAX_GAMEPADS - 1)
+			{
+				LOG("Add controller failed: Max controllers simultaneously reached");
+				break;
+			}
+
+			else if (SDL_IsGameController(Event.cdevice.which))
+			{
+				gamePads[Event.cdevice.which] = SDL_GameControllerOpen(Event.cdevice.which);
+				LOG("Added controller: %d", Event.cdevice.which);
+			}
+
+		}
 	}
 
 	// GamePads dpad and axis inputs ---------------------------------------------
-	for (int i = 0; i < MAX_GAMEPADS - 1; ++i)
+	for (int i = 0; i < MAX_GAMEPADS; ++i)
 	{
 		if (gamePads[i] != nullptr)
 		{
@@ -130,19 +148,19 @@ update_status ModuleInput::PreUpdate()
 			 gamePadDirections[i].right = SDL_GameControllerGetButton(gamePads[i], SDL_CONTROLLER_BUTTON_DPAD_RIGHT);
 			 gamePadDirections[i].left = SDL_GameControllerGetButton(gamePads[i], SDL_CONTROLLER_BUTTON_DPAD_LEFT);
 			 //axis input directions
-			 gamePadDirections[i].axisX = SDL_GameControllerGetAxis(gamePads[0], SDL_CONTROLLER_AXIS_LEFTX);
-			 gamePadDirections[i].axisY = SDL_GameControllerGetAxis(gamePads[0], SDL_CONTROLLER_AXIS_LEFTY);
+			 gamePadDirections[i].axisX = SDL_GameControllerGetAxis(gamePads[i], SDL_CONTROLLER_AXIS_LEFTX);
+			 gamePadDirections[i].axisY = SDL_GameControllerGetAxis(gamePads[i], SDL_CONTROLLER_AXIS_LEFTY);
 		}
 	}
 	// ----------------------------------------------------------------------------
 
 	// dpad events ---------------------------------------------------------------
-	// player 1
+	// player 1 ----
 	if (gamePadDirections[0].up) keyboard[SDL_SCANCODE_W] = KEY_REPEAT;
 	if (gamePadDirections[0].down) keyboard[SDL_SCANCODE_S] = KEY_REPEAT;
 	if (gamePadDirections[0].right) keyboard[SDL_SCANCODE_D] = KEY_REPEAT;
 	if (gamePadDirections[0].left) keyboard[SDL_SCANCODE_A] = KEY_REPEAT;
-	// player 2
+	// player 2 ----
 
 
 	// ---------------------------------------------------------------------------
@@ -163,7 +181,9 @@ update_status ModuleInput::PreUpdate()
 
 
 	// ------------------------------------------------------------------
-	LOG("AXIS Y: %d", gamePadDirections[0].axisY);
+	//LOG("AXIS Y: %d", gamePadDirections[0].axisY);
+	//LOG("SECOND AXIS Y: %d", gamePadDirections[1].axisY);
+	
 
 
 	return update_status::UPDATE_CONTINUE;
