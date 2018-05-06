@@ -273,11 +273,21 @@ void ModuleSceneLvl3::addEnemiesToLvl3()
 
 void ModuleSceneLvl3::AddColliders() 
 {
-	sceneColliders[0] = App->collision->AddCollider({0, 192, 1256, 33}, COLLIDER_TYPE::COLLIDER_WALL, this);
-	//sceneColliders[1] = App->collision->AddCollider({ 300, 50, 50, 70 }, COLLIDER_TYPE::COLLIDER_WALL, this); //test
-	//sceneColliders[2] = App->collision->AddCollider({ 350, 70, 50, 70 }, COLLIDER_TYPE::COLLIDER_WALL, this); //test
-	//sceneColliders[3] = App->collision->AddCollider({0, 20, 50, 70 }, COLLIDER_TYPE::COLLIDER_WALL, this); //test
-
+	sceneColliders[0] = App->collision->AddCollider({0, 189, 4100, 50}, COLLIDER_TYPE::COLLIDER_WALL, this);
+	sceneColliders[1] = App->collision->AddCollider({ 2169,176,64,50 }, COLLIDER_TYPE::COLLIDER_WALL, this);
+	sceneColliders[2] = App->collision->AddCollider({ 2393,176,64,50 }, COLLIDER_TYPE::COLLIDER_WALL, this);
+	sceneColliders[3] = App->collision->AddCollider({ 2453,139,95,50 }, COLLIDER_TYPE::COLLIDER_WALL, this);
+	sceneColliders[4] = App->collision->AddCollider({ 2548,155,163,50 }, COLLIDER_TYPE::COLLIDER_WALL, this);
+	sceneColliders[5] = App->collision->AddCollider({ 2916,108,64,100 }, COLLIDER_TYPE::COLLIDER_WALL, this);
+	sceneColliders[6] = App->collision->AddCollider({ 2980,123,34,100 }, COLLIDER_TYPE::COLLIDER_WALL, this);
+	sceneColliders[7] = App->collision->AddCollider({ 3010,140,50,50 }, COLLIDER_TYPE::COLLIDER_WALL, this);
+	sceneColliders[8] = App->collision->AddCollider({ 3200,140,20,50 }, COLLIDER_TYPE::COLLIDER_WALL, this);
+	sceneColliders[9] = App->collision->AddCollider({ 3220,123,83,100 }, COLLIDER_TYPE::COLLIDER_WALL, this);
+	sceneColliders[10] = App->collision->AddCollider({ 3376,154,55,50 }, COLLIDER_TYPE::COLLIDER_WALL, this);
+	sceneColliders[11] = App->collision->AddCollider({ 3430,176,32,30 }, COLLIDER_TYPE::COLLIDER_WALL, this);
+	sceneColliders[12] = App->collision->AddCollider({ 3493,108,64,100 }, COLLIDER_TYPE::COLLIDER_WALL, this);
+	sceneColliders[13] = App->collision->AddCollider({ 3557,122,34,100 }, COLLIDER_TYPE::COLLIDER_WALL, this);
+	sceneColliders[14] = App->collision->AddCollider({ 3591,140,49,100 }, COLLIDER_TYPE::COLLIDER_WALL, this);
 }
 
 void ModuleSceneLvl3::setCollidersToScenePos()

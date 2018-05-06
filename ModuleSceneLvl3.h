@@ -9,7 +9,7 @@
 
 #define MAXWAVES 17
 #define NUMREFLECTIONS 4
-#define MAX_SCENE_COLLIDERS 10
+#define MAX_SCENE_COLLIDERS 20
 
 struct SDL_Texture;
 struct Collider;
