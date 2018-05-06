@@ -19,7 +19,8 @@ enum ENEMY_TYPES
 	ENEMYOSCILATORY,
 	REDBIRD,
 	TANK,
-	ENEMYBEE
+	ENEMYBEE,
+	POWERUP_BEE
 };
 
 class Enemy;
@@ -58,6 +59,7 @@ public:
 	SDL_Texture* enemyBeeTexture;
 	SDL_Texture* beeBulletTexture;
 	SDL_Texture* enemyRedbirdTexture;
+	SDL_Texture* enemyPowerBeeTexture;
 	// ----------------------------
 	//ENEMY PARTICLES
 	Particle beeBullet;
