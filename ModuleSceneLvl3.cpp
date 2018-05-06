@@ -269,6 +269,20 @@ void ModuleSceneLvl3::addEnemiesToLvl3()
 	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 1290, 90, NONE);
 	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 1320, 90, BOOST);
 
+	//Last Wave
+	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 8600, 45, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 8630, 45, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 8660, 45, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 8690, 45, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 8720, 45, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 8750, 45, NONE);
+
+	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 9150, 45, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 9180, 45, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 9210, 45, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 9240, 45, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 9270, 45, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 9300, 45, NONE);
 	//-----------------------------------------------------------
 
 	App->enemies->AddEnemy(ENEMY_TYPES::POWERUP_BEE, 3200, 75, BOOST);
@@ -282,7 +296,7 @@ void ModuleSceneLvl3::addEnemiesToLvl3()
 
 void ModuleSceneLvl3::AddColliders() 
 {
-	sceneColliders[0] = App->collision->AddCollider({0, 189, 4100, 50}, COLLIDER_TYPE::COLLIDER_WALL, this);
+	sceneColliders[0] = App->collision->AddCollider({0, 189, 15000, 50}, COLLIDER_TYPE::COLLIDER_WALL, this);
 	sceneColliders[1] = App->collision->AddCollider({ 2169,176,64,50 }, COLLIDER_TYPE::COLLIDER_WALL, this);
 	sceneColliders[2] = App->collision->AddCollider({ 2393,176,64,50 }, COLLIDER_TYPE::COLLIDER_WALL, this);
 	sceneColliders[3] = App->collision->AddCollider({ 2453,139,95,50 }, COLLIDER_TYPE::COLLIDER_WALL, this);
