@@ -14,7 +14,7 @@
     <ProjectGuid>{746CC4C3-787F-4B0E-AA66-E388FE3FF4F6}</ProjectGuid>
     <RootNamespace>SDLGame</RootNamespace>
     <ProjectName>LastResort_v0.5</ProjectName>
-    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -75,6 +75,7 @@
     <ClInclude Include="BasicEnemy.h" />
     <ClInclude Include="EnemyBee.h" />
     <ClInclude Include="Enemy.h" />
+    <ClInclude Include="EnemyMiniTank.h" />
     <ClInclude Include="EnemyOscilatory.h" />
     <ClInclude Include="EnemyProtator.h" />
     <ClInclude Include="EnemyRedbird.h" />
@@ -114,6 +115,7 @@
     <ClCompile Include="BasicEnemy.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="EnemyBee.cpp" />
+    <ClCompile Include="EnemyMiniTank.cpp" />
     <ClCompile Include="EnemyOscilatory.cpp" />
     <ClCompile Include="EnemyPowerUpBee.cpp" />
     <ClCompile Include="EnemyProtator.cpp" />
