@@ -103,7 +103,7 @@ bool ModuleSceneLvl3::Start()
 
 	//starting needed background variables
 	scroll = true;
-	//App->render->camera.x = -27000; //camera trick
+	//App->render->camera.x = -10000; //camera trick
 
 	//assigns correct current level stage zone
 	currentLevelZone = stage_zone::level;
@@ -289,6 +289,20 @@ void ModuleSceneLvl3::addEnemiesToLvl3()
 	App->enemies->AddEnemy(ENEMY_TYPES::POWERUP_BEE, 4900, 75, BOOST);
 	App->enemies->AddEnemy(ENEMY_TYPES::POWERUP_BEE, 5700, 75, BOOST);
 	App->enemies->AddEnemy(ENEMY_TYPES::POWERUP_BEE, 6100, 75, BOOST);
+
+	// ----------------------------------------------------------
+	// Enemy PROTATORS
+
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 400, 185, BOOST);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 4200, 150, BOOST);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 4900, 150, BOOST);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 5700, 150, BOOST);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 6100, 150, BOOST);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 7200, 160, BOOST);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 8900, 160, BOOST);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 9700, 160, BOOST);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 9900, 160, BOOST);
+
 
 
 

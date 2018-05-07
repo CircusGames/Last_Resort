@@ -15,6 +15,7 @@ protected:
 	Animation * animation = nullptr;
 	Collider* collider = nullptr;
 	
+	
 
 public:
 	iPoint position;
@@ -22,6 +23,9 @@ public:
 	int life;
 	uint enemyScore;
 	SDL_Texture* enemyTex = nullptr; //links to enemy spritesheet texture
+	Collider* extraColliders[10] = { nullptr };
+
+	int collisionColliderIndex;
 
 public:
 	Enemy(int x, int y, powerUpTypes type = powerUpTypes::NONE);
@@ -29,12 +33,12 @@ public:
 
 	virtual ~Enemy();
 
-	const Collider* GetCollider() const;
+	virtual const Collider* GetCollider() const;
 
 	virtual void Move() {};
 	//virtual void Draw(SDL_Texture* sprites);
 	virtual void Draw();
-	virtual void OnCollision(Collider* collider);
+	virtual void OnCollision(Collider* collider, Collider* collider2);
 	
 	
 

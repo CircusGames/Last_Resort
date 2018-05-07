@@ -247,9 +247,17 @@ void ModuleEnemies::OnCollision(Collider* c1, Collider* c2)
 {
 	for (uint i = 0; i < MAX_ENEMIES; ++i)
 	{
+		for (int k = 0; k < 10 ; ++k) //10 = extraColliders array max index
+		{
+			if (enemies[i] != nullptr && enemies[i]->extraColliders[k] != nullptr)
+			{
+				if (c1 == enemies[i]->extraColliders[k])
+					enemies[i]->collisionColliderIndex = k;
+			}
+		}
 		if (enemies[i] != nullptr && enemies[i]->GetCollider() == c1)
 		{
-			enemies[i]->OnCollision(c2);
+			enemies[i]->OnCollision(c2, c1);
  			enemies[i]->life -= c2->damage; //particle damage
 
 			if (c2->type == COLLIDER_PLAYER)
