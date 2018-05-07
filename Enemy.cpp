@@ -19,6 +19,12 @@ Enemy::~Enemy()
 		
 		//iPoint position, COLLIDER_TYPE collider_type, powerUpTypes type, iPoint speed)
 		collider->to_delete = true;
+
+		for (int i = 0; i < 10; ++i)
+		{
+			if (extraColliders[i] != nullptr)
+				extraColliders[i]->to_delete = true;
+		}
 		
 		if (life <= 0) //only spawn powerup if the enemy is really death
 		{
