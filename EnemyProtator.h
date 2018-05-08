@@ -63,7 +63,7 @@ public:
 	EnemyProtator(int x, int y, powerUpTypes type, SDL_Texture* thisTexture);
 
 	~EnemyProtator();
-
+	//~Enemy();
 
 	void Move();
 	void Draw();

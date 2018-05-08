@@ -30,6 +30,7 @@ Enemy::~Enemy()
 		{
 			App->modulePowerUp->SpawnPowerUp(position, powerUpType);
 			App->player->playerScore += enemyScore;
+			App->particles->AddParticle(App->particles->explosion, position.x, position.y, COLLIDER_NONE);
 		}
 	}
 	
@@ -59,6 +60,6 @@ void Enemy::Draw()
 
 void Enemy::OnCollision(Collider* collider, Collider* collider2) //receives the collider wich its colliding (player,shot etc)
 {
-	App->particles->AddParticle(App->particles->explosion, position.x, position.y,COLLIDER_NONE);
+	//App->particles->AddParticle(App->particles->explosion, position.x, position.y,COLLIDER_NONE);
 	
 }

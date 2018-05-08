@@ -33,6 +33,8 @@ public:
 
 	virtual ~Enemy();
 
+	//~Enemy();
+
 	virtual const Collider* GetCollider() const;
 
 	virtual void Move() {};

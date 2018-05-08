@@ -390,9 +390,12 @@ EnemyProtator::~EnemyProtator()
 
 		if (life <= 0) //only spawn powerup if the enemy is really death
 		{
-			position.y -= 32;
+			position.y -= 30;
+			position.x += 16;
 			App->modulePowerUp->SpawnPowerUp(position, powerUpType);
 			App->player->playerScore += enemyScore;
+			App->particles->AddParticle(App->particles->explosion, position.x - 8, position.y, COLLIDER_NONE);
+			collider = nullptr; //avoid double enemy destructor heritance
 		}
 	}
 
