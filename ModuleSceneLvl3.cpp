@@ -293,7 +293,10 @@ void ModuleSceneLvl3::addEnemiesToLvl3()
 	// ----------------------------------------------------------
 	// Enemy PROTATORS
 
-	/*App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 400, 185, BOOST);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 400, 185, BOOST);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 500, 185, BOOST);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 600, 185, BOOST);
+
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 4200, 150, BOOST);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 4900, 150, BOOST);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 5700, 150, BOOST);
@@ -301,7 +304,7 @@ void ModuleSceneLvl3::addEnemiesToLvl3()
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 7200, 160, BOOST);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 8900, 160, BOOST);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 9700, 160, BOOST);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 9900, 160, BOOST);*/
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 9900, 160, BOOST);
 
 
 
