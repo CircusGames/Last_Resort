@@ -79,6 +79,7 @@ update_status ModuleCollision::PreUpdate()
 		{
 			delete colliders[i];
 			colliders[i] = nullptr;
+			actualColliders--;
 		}
 	}
 
@@ -196,6 +197,7 @@ Collider* ModuleCollision::AddCollider(SDL_Rect rect, COLLIDER_TYPE type, Module
 		if (colliders[i] == nullptr)
 		{
 			ret = colliders[i] = new Collider(rect, type, callback, damage);
+			actualColliders++;
 			break;
 		}
 	}

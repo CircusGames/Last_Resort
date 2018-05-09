@@ -202,7 +202,9 @@ update_status ModuleSceneLvl3::Update()
 	//cave background
 	App->render->Blit(fgTexture, 2150, 94, &fgRect, 0.50f);
 	
-	
+	//DEBUG actual colliders in scene
+	//LOG("current scene colliders: %d", App->collision->actualColliders);
+
 	return UPDATE_CONTINUE;
 }
 
@@ -293,18 +295,134 @@ void ModuleSceneLvl3::addEnemiesToLvl3()
 	// ----------------------------------------------------------
 	// Enemy PROTATORS
 
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 400, 185, BOOST);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 500, 185, BOOST);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 600, 185, BOOST);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 600, 185, NONE);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 4200, 150, BOOST);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 4900, 150, BOOST);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 5700, 150, BOOST);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 6100, 150, BOOST);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 7200, 160, BOOST);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 8900, 160, BOOST);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 9700, 160, BOOST);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 9900, 160, BOOST);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 4658, 139, NONE); //20
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 4754, 139, NONE);
+
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 4818, 155, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 4854, 155, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 4886, 155, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 4948, 155, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 5010, 155, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 5074, 155, NONE);
+
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 5138, 189, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 5266, 189, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 5298, 189, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 5330, 189, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 5362, 189, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 5394, 189, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 5426, 189, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 5458, 189, NONE);
+
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 5490, 112, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 5522, 112, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 5552, 112, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 5584, 112, NONE);
+
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 5618, 127, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 5650, 127, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 5682, 127, NONE);
+
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 5714, 144, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 5746, 144, NONE);
+
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 5810, 189, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 5842, 189, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 5874, 189, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 5906, 189, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 5938, 189, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 5970, 189, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 6002, 189, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 6034, 189, NONE);
+
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 6130, 128, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 6162, 128, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 6194, 128, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 6226, 128, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 6258, 128, NONE);
+
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 6290, 189, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 6322, 189, NONE);
+
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 6354, 185, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 6386, 185, NONE);
+
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 6418, 155, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 6482, 155, NONE);
+
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 6546, 176, NONE);
+
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 6610, 189, NONE);
+
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 6674, 112, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 6738, 112, NONE);
+
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 6802, 126, NONE);
+
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 6866, 144, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 6906, 144, NONE);
+
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 6994, 189, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 7058, 189, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 7122, 189, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 7186, 189, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 7250, 189, NONE);
+
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 7342, 189, NONE);
+
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 7466, 189, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 7546, 189, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 7626, 189, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 7706, 189, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 7786, 189, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 7866, 189, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 7946, 189, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 8026, 189, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 8106, 189, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 8186, 189, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 8266, 189, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 8346, 189, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 8426, 189, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 8506, 189, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 8586, 189, NONE);
+
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 8652, 189, NONE);
+
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 8734, 189, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 8814, 189, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 8894, 189, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 8974, 189, NONE);
+
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 9038, 189, NONE);
+
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 9116, 189, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 9194, 189, NONE);
+
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 9276, 189, NONE);
+
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 9436, 189, NONE);
+
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 9564, 189, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 9644, 189, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 9804, 189, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 9884, 189, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 9938, 189, NONE);
+
+
+
+
+
+	
+
+
+
+
+
+
+	//App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 5584, 108, NONE);
+
+
+	
 
 
 
@@ -318,16 +436,16 @@ void ModuleSceneLvl3::AddColliders()
 	sceneColliders[2] = App->collision->AddCollider({ 2393,176,64,50 }, COLLIDER_TYPE::COLLIDER_WALL, this);
 	sceneColliders[3] = App->collision->AddCollider({ 2453,139,95,50 }, COLLIDER_TYPE::COLLIDER_WALL, this);
 	sceneColliders[4] = App->collision->AddCollider({ 2548,155,163,50 }, COLLIDER_TYPE::COLLIDER_WALL, this);
-	sceneColliders[5] = App->collision->AddCollider({ 2916,108,64,100 }, COLLIDER_TYPE::COLLIDER_WALL, this);
-	sceneColliders[6] = App->collision->AddCollider({ 2980,123,34,100 }, COLLIDER_TYPE::COLLIDER_WALL, this);
-	sceneColliders[7] = App->collision->AddCollider({ 3010,140,50,50 }, COLLIDER_TYPE::COLLIDER_WALL, this);
+	sceneColliders[5] = App->collision->AddCollider({ 2916,112,64,100 }, COLLIDER_TYPE::COLLIDER_WALL, this);
+	sceneColliders[6] = App->collision->AddCollider({ 2980,127,34,100 }, COLLIDER_TYPE::COLLIDER_WALL, this);
+	sceneColliders[7] = App->collision->AddCollider({ 3010,144,50,50 }, COLLIDER_TYPE::COLLIDER_WALL, this);
 	sceneColliders[8] = App->collision->AddCollider({ 3200,140,20,50 }, COLLIDER_TYPE::COLLIDER_WALL, this);
-	sceneColliders[9] = App->collision->AddCollider({ 3220,123,83,100 }, COLLIDER_TYPE::COLLIDER_WALL, this);
+	sceneColliders[9] = App->collision->AddCollider({ 3220,128,83,100 }, COLLIDER_TYPE::COLLIDER_WALL, this);
 	sceneColliders[10] = App->collision->AddCollider({ 3376,154,55,50 }, COLLIDER_TYPE::COLLIDER_WALL, this);
 	sceneColliders[11] = App->collision->AddCollider({ 3430,176,32,30 }, COLLIDER_TYPE::COLLIDER_WALL, this);
-	sceneColliders[12] = App->collision->AddCollider({ 3493,108,64,100 }, COLLIDER_TYPE::COLLIDER_WALL, this);
-	sceneColliders[13] = App->collision->AddCollider({ 3557,122,34,100 }, COLLIDER_TYPE::COLLIDER_WALL, this);
-	sceneColliders[14] = App->collision->AddCollider({ 3591,140,49,100 }, COLLIDER_TYPE::COLLIDER_WALL, this);
+	sceneColliders[12] = App->collision->AddCollider({ 3493,112,64,100 }, COLLIDER_TYPE::COLLIDER_WALL, this);
+	sceneColliders[13] = App->collision->AddCollider({ 3557,126,34,100 }, COLLIDER_TYPE::COLLIDER_WALL, this);
+	sceneColliders[14] = App->collision->AddCollider({ 3591,144,49,100 }, COLLIDER_TYPE::COLLIDER_WALL, this);
 }
 
 void ModuleSceneLvl3::setCollidersToScenePos()

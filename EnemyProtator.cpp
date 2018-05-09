@@ -82,6 +82,8 @@ EnemyProtator::EnemyProtator(int x, int y, powerUpTypes type, SDL_Texture* thisT
 	propulsion = false;
 	goingDown = false;
 
+	maxVelY = -2.5f;
+
 	grounded = true;
 	rightCollision = false;
 	leftCollision = false;
@@ -131,7 +133,7 @@ void EnemyProtator::Move()
 		velX = (tx / distance)*2.5f;
 		velY = (ty / distance)*2.5f;
 
-		lastVelY = velY;
+		//lastVelY = -2.0f;//velY;
 		aimed = false;
 		ready = true;
 
@@ -152,10 +154,10 @@ void EnemyProtator::Move()
 
 		if (targetPosReached)
 		{
-			fposition.x += velX;
-			if (velY >= -lastVelY)
+			//fposition.x += velX;
+			if (velY >= -maxVelY)//-lastVelY)
 			{
-				velY = -lastVelY;
+				velY = -maxVelY;//-lastVelY;
 			}
 			else
 			{
@@ -164,6 +166,7 @@ void EnemyProtator::Move()
 			}
 
 			fposition.y += velY;
+			fposition.x += velX;
 		}
 		else
 		{

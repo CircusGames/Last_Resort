@@ -1,7 +1,7 @@
 #ifndef __ModuleCollision_H__
 #define __ModuleCollision_H__
 
-#define MAX_COLLIDERS 100 //300
+#define MAX_COLLIDERS 300
 
 #include "Module.h"
 
@@ -52,6 +52,8 @@ public:
 	update_status PreUpdate() override;
 	update_status Update() override;
 	bool CleanUp() override;
+
+	int actualColliders;
 
 	Collider* AddCollider(SDL_Rect rect, COLLIDER_TYPE type, Module* callback = nullptr, Uint32 damage = 0);
 	void DebugDraw();

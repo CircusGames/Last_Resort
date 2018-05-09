@@ -23,6 +23,7 @@ private:
 	float velY;
 	float distance;
 	float lastVelY;
+	float maxVelY;
 	Animation* current_animation;
 
 	iPoint preAimedLocalPos;
