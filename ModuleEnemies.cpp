@@ -67,7 +67,7 @@ ModuleEnemies::~ModuleEnemies()
 bool ModuleEnemies::Start()
 {
 	// ENEMY TEXTURES ---------------------------------------------------------------------
-	sprites = App->textures->Load("assets/Graphics/Enemies/Level_1/enemies.png");
+	//sprites = App->textures->Load("assets/Graphics/Enemies/Level_1/enemies.png");
 	enemy1Texture = App->textures->Load("assets/Graphics/Enemies/Level_1/enemy1.png");
 	enemy2Texture = App->textures->Load("assets/Graphics/Enemies/Level_1/oscilator.png");
 	enemyTankTexture = App->textures->Load("assets/Graphics/Enemies/Level_1/Tank.png");
@@ -159,7 +159,7 @@ bool ModuleEnemies::CleanUp()
 	App->textures->Unload(enemy1Texture);
 	App->textures->Unload(enemyRedbirdTexture);
 	App->textures->Unload(enemyPowerBeeTexture);
-	App->textures->Unload(sprites);
+	//App->textures->Unload(sprites);
 	
 	//Unloading loaded audio's
 
