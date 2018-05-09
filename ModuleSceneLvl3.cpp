@@ -287,6 +287,7 @@ void ModuleSceneLvl3::addEnemiesToLvl3()
 	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 9300, 45, NONE);
 	//-----------------------------------------------------------
 
+	// Enemy POWERUP BEE
 	App->enemies->AddEnemy(ENEMY_TYPES::POWERUP_BEE, 3200, 75, BOOST);
 	App->enemies->AddEnemy(ENEMY_TYPES::POWERUP_BEE, 4900, 75, BOOST);
 	App->enemies->AddEnemy(ENEMY_TYPES::POWERUP_BEE, 5700, 75, BOOST);
@@ -408,6 +409,12 @@ void ModuleSceneLvl3::addEnemiesToLvl3()
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 9884, 189, NONE);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 9938, 189, NONE);
 
+	//------------------------------------------------------------------
+
+	//Enemy BEE
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYBEE, 3600, 80, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYBEE, 4000, 80, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYBEE, 4200, 80, NONE);
 
 
 
