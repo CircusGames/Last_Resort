@@ -298,10 +298,10 @@ void ModuleSceneLvl3::addEnemiesToLvl3()
 	//-----------------------------------------------------------
 
 	// Enemy POWERUP BEE
-	App->enemies->AddEnemy(ENEMY_TYPES::POWERUP_BEE, 3200, 75, BOOST);
-	App->enemies->AddEnemy(ENEMY_TYPES::POWERUP_BEE, 4900, 75, BOOST);
-	App->enemies->AddEnemy(ENEMY_TYPES::POWERUP_BEE, 5700, 75, BOOST);
-	App->enemies->AddEnemy(ENEMY_TYPES::POWERUP_BEE, 6100, 75, BOOST);
+	App->enemies->AddEnemy(ENEMY_TYPES::POWERUP_BEE, 3200, 75, BOOST); //GPOWER
+	App->enemies->AddEnemy(ENEMY_TYPES::POWERUP_BEE, 4900, 75, BOOST); //BOOST
+	App->enemies->AddEnemy(ENEMY_TYPES::POWERUP_BEE, 5700, 75, BOOST); //BOOST
+	App->enemies->AddEnemy(ENEMY_TYPES::POWERUP_BEE, 6100, 75, BOOST); //HPOWER
 
 	// ----------------------------------------------------------
 	// Enemy PROTATORS
@@ -422,9 +422,10 @@ void ModuleSceneLvl3::addEnemiesToLvl3()
 	//------------------------------------------------------------------
 
 	//Enemy BEE
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYBEE, 3600, 80, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYBEE, 3300, 80, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYBEE, 3800, 80, NONE);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYBEE, 4000, 80, NONE);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYBEE, 4200, 80, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYBEE, 7200, 80, NONE);
 
 
 
