@@ -10,7 +10,7 @@
 #include "ModulePlayer.h"
 #include "ModulePlayer2.h"
 #include "ModulePlayerUnit.h"
-#include "ModulePlayer2Unit.h"
+//#include "ModulePlayer2Unit.h"
 
 #include "SDL/include/SDL_timer.h"
 #include "SDL\include\SDL_render.h"
@@ -235,7 +235,7 @@ update_status ModuleContinue::Update()
 		App->fade->FadeToBlack(App->continueScreen, App->gameOverScreen, 0.8f);
 
 
-	if (App->input->keyboard[SDL_SCANCODE_RETURN] == 1 && App->player->lives > 0)
+	if (App->input->keyboard[SDL_SCANCODE_RETURN] == 1 && App->player[0]->lives > 0)
 		App->fade->FadeToBlack(this, (Module*)App->readyScreen, 0.8f);
 
 	return UPDATE_CONTINUE;

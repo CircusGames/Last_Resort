@@ -88,7 +88,6 @@
     <ClInclude Include="ModuleEnemies.h" />
     <ClInclude Include="ModulePowerUp.h" />
     <ClInclude Include="ModulePlayer2.h" />
-    <ClInclude Include="ModulePlayer2Unit.h" />
     <ClInclude Include="ModuleReady.h" />
     <ClInclude Include="ModuleSceneLvl1.h" />
     <ClInclude Include="ModuleCollision.h" />
@@ -109,6 +108,7 @@
     <ClInclude Include="p2Point.h" />
     <ClInclude Include="Path.h" />
     <ClInclude Include="EnemyPowerUpBee.h" />
+    <ClInclude Include="Player.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
@@ -127,7 +127,6 @@
     <ClCompile Include="ModuleContinue.cpp" />
     <ClCompile Include="ModuleEnemies.cpp" />
     <ClCompile Include="ModulePlayer2.cpp" />
-    <ClCompile Include="ModulePlayer2Unit.cpp" />
     <ClCompile Include="ModulePowerUp.cpp" />
     <ClCompile Include="ModuleReady.cpp" />
     <ClCompile Include="ModuleSceneLvl1.cpp" />
@@ -146,6 +145,7 @@
     <ClCompile Include="ModuleUI.cpp" />
     <ClCompile Include="ModuleWin.cpp" />
     <ClCompile Include="ModuleWindow.cpp" />
+    <ClCompile Include="Player.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

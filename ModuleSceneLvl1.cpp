@@ -3,20 +3,22 @@
 #include "ModuleTextures.h"
 #include "ModuleRender.h"
 #include "ModuleSceneLvl1.h"
-#include "ModulePlayer.h"
-#include "ModulePlayer2.h"
+//#include "ModulePlayer.h"
+//#include "ModulePlayer2.h"
 #include "ModuleInput.h"
 #include "ModuleFadeToBlack.h"
 #include "ModuleContinue.h"
 #include "ModuleGameOver.h"
 #include "ModuleAudio.h"
 #include "ModulePlayerUnit.h"
-#include "ModulePlayer2Unit.h"
+//#include "ModulePlayer2Unit.h"
 #include "ModuleParticles.h"
 #include "ModuleCollision.h"
 #include "ModulePowerUp.h"
 #include "ModuleEnemies.h"
 #include "ModuleUI.h"
+
+#include "Player.h"
 
 #define STREET_LIGHTS_A 15
 #define STREET_LIGHTS_B 13
@@ -455,7 +457,7 @@ bool ModuleSceneLvl1::Start()
 	bool ret = true;
 
 	//enable modules -------------------------
-	App->player->Enable();
+	App->player[0]->Enable();
 	//App->player2->Enable();
 	App->particles->Enable();
 	App->collision->Enable();
@@ -536,7 +538,7 @@ update_status ModuleSceneLvl1::PreUpdate()
 	if (scrollX)
 	{
 		//move player position to follow the camera movement
-		App->player->position.x += 1;
+		App->player[0]->position.x += 1;
 		//App->player2->position.x += 1;
 		//camera speed relative to its size
 		App->render->camera.x -= 1 * SCREEN_SIZE;
@@ -895,7 +897,7 @@ bool ModuleSceneLvl1::CleanUp()
 	App->modulePowerUp->Disable();
 	App->collision->Disable();
 	App->particles->Disable();
-	App->player->Disable();
+	App->player[0]->Disable();
 	/*if (App->player2->IsEnabled())
 		App->player2->Disable();*/
 	

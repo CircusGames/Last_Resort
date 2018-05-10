@@ -9,10 +9,11 @@
 #include "ModuleFadeToBlack.h"
 #include "ModuleAudio.h"
 #include "SDL/include/SDL_timer.h"
-#include "ModulePlayer.h"
-#include "ModulePlayer2.h"
+#include "Player.h"
+//#include "ModulePlayer.h"
+//#include "ModulePlayer2.h"
 #include "Module.h"
-#include "ModulePlayer2Unit.h"
+//#include "ModulePlayer2Unit.h"
 
 #include "SDL/include/SDL_render.h"
 
@@ -124,7 +125,7 @@ update_status ModuleGameOver::Update()
 		App->fade->FadeToBlack(App->gameOverScreen, (Module*)App->winScreen, 0.8f);
 
 		//when player dies, go to level 1
-		App->player->sceneCallback = (Module*)App->scene_lvl1;
+		App->player[0]->sceneCallback = (Module*)App->scene_lvl1;
 	}
 
 		

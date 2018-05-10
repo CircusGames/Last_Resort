@@ -4,8 +4,9 @@
 #include "ModuleRender.h"
 #include "ModuleSceneLvl1.h"
 #include "ModuleSceneLvl3.h"
-#include "ModulePlayer.h"
+//#include "ModulePlayer.h"
 //#include "ModulePlayer2.h"
+#include "Player.h"
 #include "ModuleInput.h"
 #include "ModuleFadeToBlack.h"
 #include "ModuleContinue.h"
@@ -78,8 +79,12 @@ bool ModuleSceneLvl3::Init()
 bool ModuleSceneLvl3::Start()
 {
 	//enable needed modules ------------------
-	App->player->Enable();
-	App->player->sceneCallback = this;
+	// player modules -------------------
+	App->player[0]->Enable();
+	App->player[0]->sceneCallback = this;
+	App->player[1]->Enable();
+	App->player[1]->sceneCallback = this;
+	// ----------------------------------
 	//App->player2->Enable();
 	App->particles->Enable();
 	App->collision->Enable();
@@ -133,7 +138,10 @@ update_status ModuleSceneLvl3::PreUpdate()
 	{
 		App->render->camera.x -= 1 * SCREEN_SIZE;
 		//move player position to follow the camera movement
-		App->player->position.x += 1;
+		//if(App->player[0]->IsEnabled)
+		App->player[0]->position.x += 1;
+		if (App->player[1]->IsEnabled())
+			App->player[1]->position.x += 1;
 	}
 
 	
@@ -226,7 +234,9 @@ bool ModuleSceneLvl3::CleanUp()
 	App->modulePowerUp->Disable();
 	App->collision->Disable();
 	App->particles->Disable();
-	App->player->Disable();
+	App->player[0]->Disable();
+	if (App->player[1]->IsEnabled())
+		App->player[1]->Disable();
 
 	//reposition the camera
 	App->render->camera.x = 0;

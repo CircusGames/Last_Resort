@@ -149,8 +149,8 @@ void EnemyTank::Draw()
 	current_animation = &bigTurretAnim;
 	SDL_Rect bigTurretRect; //= current_animation->GetCurrentFrame();
 
-	float vectorX =  bigTurretPosition.x - 14 - App->player->position.x + 16; //16 middle player pos, 14 middle bigturretposx
-	float vectorY = position.y - App->player->position.y;// -tankRect.h - (70) - bigTurretRect.h;
+	float vectorX =  bigTurretPosition.x - 14 - App->player[0]->position.x + 16; //16 middle player pos, 14 middle bigturretposx
+	float vectorY = position.y - App->player[0]->position.y;// -tankRect.h - (70) - bigTurretRect.h;
 
 	omega = atan2f(vectorY, vectorX);// * 180 / 3.14f;
 	

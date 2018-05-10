@@ -9,6 +9,8 @@
 
 #include "ModulePlayerUnit.h"
 
+//#include "Player1.h"
+
 Enemy::Enemy(int x, int y, powerUpTypes type) : position(x, y)
 {}
 
@@ -29,7 +31,7 @@ Enemy::~Enemy()
 		if (life <= 0) //only spawn powerup if the enemy is really death
 		{
 			App->modulePowerUp->SpawnPowerUp(position, powerUpType);
-			App->player->playerScore += enemyScore;
+			App->player[0]->playerScore += enemyScore;
 			App->particles->AddParticle(App->particles->explosion, position.x, position.y, COLLIDER_NONE);
 		}
 	}

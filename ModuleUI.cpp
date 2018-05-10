@@ -7,7 +7,10 @@
 #include "ModuleTextures.h"
 #include "ModuleRender.h"
 #include "ModuleUI.h"
-#include "ModulePlayer.h"
+//#include "ModulePlayer.h"
+
+#include "Player.h"
+
 #include "ModuleWin.h"
 // ---------------------
 #include "ModuleInput.h"
@@ -54,7 +57,7 @@ update_status ModuleUI::Update()
 	
 	//compute the score //provisional...
 	App->winScreen->saveScore(score);
-	score = App->player->playerScore;
+	score = App->player[0]->playerScore;
 
 	for (int i = 0; i < 10; ++i)
 	{
@@ -65,7 +68,7 @@ update_status ModuleUI::Update()
 	if (UI == gameplay_state::SCENE)
 	{
 		//draw lives
-		lives1 = App->player->lives;
+		lives1 = App->player[0]->lives;
 		sprintf_s(score_text, 10, "%7d", lives1);
 		BlitText(32, 24, lastResortBlueFont, "x"); // 136
 		BlitText(0, 24, lastResortBlueFont, score_text); //original pos x 72,y 16

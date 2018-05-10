@@ -10,60 +10,15 @@
 #include "ModuleAudio.h"
 #include "ModuleFadeToBlack.h"
 
+//#include "Player.h"
+
 
 ModulePlayer::ModulePlayer()
 {
-	position.x = 40;
-	position.y = 80;
+	//position.x = 40;
+	//position.y = 80;
 
-	//spawn anim
-	spawnAnim.PushBack({ 0,122,111,1 }); //0,79 
-	spawnAnim.PushBack({ 6,125,105,2 }); //13,80 
-	spawnAnim.PushBack({ 1,127,76,4 }); //12,79 
-	spawnAnim.PushBack({ 0,131,74,8 }); //12,76 
-	spawnAnim.PushBack({ 2,142,62,15 }); //8,72
-	spawnAnim.PushBack({ 2,171,62,15 }); //8,73
-	spawnAnim.PushBack({ 13,193,51,16 }); //16,72
-	spawnAnim.PushBack({ 13,219,51,16 }); //16,72
-	spawnAnim.PushBack({ 64,143,64,16 }); //8,72
-	spawnAnim.PushBack({ 64,164,64,25 }); //8,67
-	spawnAnim.PushBack({ 71,188,57,25 }); //15,67
-	spawnAnim.PushBack({ 72,214,56,25 }); //16,67
-	spawnAnim.PushBack({ 156,143,36,19 }); //36,71
-	spawnAnim.PushBack({ 160,171,32,15 }); //40,73        
-	spawnAnim.speed = 0.25f;
-	spawnAnim.repeat = false;
-
-
-	//movement anim
-	playerAnim.PushBack({ 0,3,32,13 }); //up2 - 0
-	playerAnim.PushBack({ 32,3,32,13 }); //up1 - 1
-	playerAnim.PushBack({ 64,3,32,12 }); //idle - 2
-	playerAnim.PushBack({ 96,3,32,12 }); //down1 - 3
-	playerAnim.PushBack({ 128,4,32,11 }); //down2 - 4
-
-
-	//Player Dying animation
-	playerDyingAnim.PushBack({ 18,20,37,16 });
-	playerDyingAnim.PushBack({ 14,37,41,16 });
-	playerDyingAnim.PushBack({ 9,53,46,17 });
-	playerDyingAnim.PushBack({ 3,70,52,17 });
-	playerDyingAnim.PushBack({ 2,87,53,15 });
-	playerDyingAnim.PushBack({ 0,104,55,16 });
-	playerDyingAnim.PushBack({ 57,21,53,15 });
-	playerDyingAnim.PushBack({ 58,36,52,16 });
-	playerDyingAnim.PushBack({ 55,53,55,17 });
-	playerDyingAnim.PushBack({ 56,70,54,17 });
-	playerDyingAnim.PushBack({ 55,88,55,16 });
-	playerDyingAnim.PushBack({ 57,104,53,17 });
-	playerDyingAnim.PushBack({ 112,21,53,16 });
-	playerDyingAnim.PushBack({ 114,38,51,16 });
-	playerDyingAnim.PushBack({ 118,54,47,15 });
-	playerDyingAnim.PushBack({ 118,70,47,16 });
-	playerDyingAnim.PushBack({ 124,90,41,12 });
-	playerDyingAnim.PushBack({ 128,108,37,10 });
-	playerDyingAnim.speed = 0.3f;
-	playerDyingAnim.repeat = false;
+	//SHARED RECTS
 
 	//beam flash smoke
 	beamSmoke.PushBack({ 128,126,10,9 });
@@ -103,15 +58,7 @@ ModulePlayer::ModulePlayer()
 	laserFlash.speed = 0.25f;
 	laserFlash.repeat = false;
 
-
-
-
-
-
-
 }
-
-
 
 
 ModulePlayer::~ModulePlayer()
@@ -123,14 +70,25 @@ bool ModulePlayer::Start()
 	
 	LOG("Loading player textures");
 	bool ret = true;
-
-	player = App->textures->Load("assets/Graphics/Player/player1_incomplete.png");
-	powerUpTextures = App->textures->Load("assets/Graphics/Player/PowerUps.png");
-	laserFlashTexture = App->textures->Load("assets/Graphics/Player/laserFlash.png");
-	//restart player positions for next time playerModule call
 	
+	// player 1 is always enabled, no check needed -----
+	//App->player[0]->player = App->textures->Load("assets/Graphics/Player/player1_incomplete.png");
+	player = App->textures->Load("assets/Graphics/Player/player1_incomplete.png");
+	playerEffectsTexture = player;//App->textures->Load("assets/Graphics/Player/player1_incomplete.png");
+	//restart player positions for next time playerModule call
 	position.x = 40;
 	position.y = 80;
+
+	if (App->player[1]->IsEnabled()) //
+	{
+		App->player[1]->player = App->textures->Load("assets/Graphics/Player/player2Ship.png");
+		App->player[1]->playerEffectsTexture = App->player[0]->player;
+		App->player[1]->position.x = 40;
+		App->player[1]->position.y = 160;
+	}
+	//player = playerTexture;//App->textures->Load("assets/Graphics/Player/player1_incomplete.png");
+	powerUpTextures = App->textures->Load("assets/Graphics/Player/PowerUps.png");
+	laserFlashTexture = App->textures->Load("assets/Graphics/Player/laserFlash.png");
 	
 	//player collision rect
 	//playerCollider = App->collision->AddCollider({ position.x, position.y, 32, 12 }, COLLIDER_PLAYER,this);
@@ -166,6 +124,8 @@ bool ModulePlayer::Start()
 	//defines times for buffs
 	powerUpTime = 5000; //in ms
 
+	//
+
 	return ret;
 
 
@@ -173,6 +133,9 @@ bool ModulePlayer::Start()
 
 update_status ModulePlayer::PreUpdate()
 {
+	//Assing respective players Inputs
+	checkInput();
+
 	//FUNCTIONALITY POWERUPS, assigns speeds, animations, etc
 	if (player_step == player_state::normal)
 	{
@@ -242,10 +205,10 @@ update_status ModulePlayer::Update()
 	else if (player_step == player_state::normal)
 	{
 		//for now activates playerUnit for testing here
-		if (!App->playerUnit->IsEnabled())
-		{
+		//if (!App->playerUnit->IsEnabled())
+		//{
 			//App->playerUnit->Enable();
-		}
+		//}
 		
 		/*if (powerUpActive == powerUpTypes::BOOST)
 		{
@@ -270,7 +233,7 @@ update_status ModulePlayer::Update()
 
 		//animation logic ---------------------------------------------------------------
 
-		if (App->input->keyboard[SDL_SCANCODE_S] == KEY_STATE::KEY_REPEAT) //while press down
+		if (playerInput.moveDown)//App->input->keyboard[SDL_SCANCODE_S] == KEY_STATE::KEY_REPEAT) //while press down
 		{
 			frameIncrement += ignitionSpeed;
 			if (frameIncrement >= 5)
@@ -284,14 +247,14 @@ update_status ModulePlayer::Update()
 
 		//----ship estabilization check (return to idle when release up or down) ---
 
-		if (App->input->keyboard[SDL_SCANCODE_S] == KEY_STATE::KEY_IDLE && (int)frameIncrement != 2)
+		if (!playerInput.moveDown && (int)frameIncrement != 2)//App->input->keyboard[SDL_SCANCODE_S] == KEY_STATE::KEY_IDLE && (int)frameIncrement != 2)
 		{
 			if ((int)frameIncrement >= 2)
 				frameIncrement -= releaseSpeed;
 
 		}
 
-		if (App->input->keyboard[SDL_SCANCODE_W] == KEY_STATE::KEY_IDLE && (int)frameIncrement != 2)
+		if (!playerInput.moveUp && (int)frameIncrement != 2)//App->input->keyboard[SDL_SCANCODE_W] == KEY_STATE::KEY_IDLE && (int)frameIncrement != 2)
 		{
 			if (frameIncrement < 2)
 				frameIncrement += releaseSpeed;
@@ -299,8 +262,8 @@ update_status ModulePlayer::Update()
 
 		//---------------------------------------------------------------------------
 		//already, double check to imitate original animation behaviour (emulator)
-		if (App->input->keyboard[SDL_SCANCODE_W] == KEY_STATE::KEY_REPEAT &&
-			App->input->keyboard[SDL_SCANCODE_S] == KEY_STATE::KEY_IDLE) //while press up
+		if (playerInput.moveUp &&//App->input->keyboard[SDL_SCANCODE_W] == KEY_STATE::KEY_REPEAT &&
+			!playerInput.moveDown)//App->input->keyboard[SDL_SCANCODE_S] == KEY_STATE::KEY_IDLE) //while press up
 		{
 			frameIncrement -= ignitionSpeed;
 			if (frameIncrement <= 0)
@@ -315,7 +278,7 @@ update_status ModulePlayer::Update()
 
 		//move player position (this section must be code optimized ----------------------
 		//down move position
-		if (App->input->keyboard[SDL_SCANCODE_S] == KEY_STATE::KEY_REPEAT)
+		if (playerInput.moveDown)//App->input->keyboard[SDL_SCANCODE_S] == KEY_STATE::KEY_REPEAT)
 		{
 			playerSpeed += speed;
 			position.y += (int)playerSpeed;
@@ -327,8 +290,8 @@ update_status ModulePlayer::Update()
 		}
 
 		//up move position, checks if not down to imitate original game (emulator) behaviour
-		if (App->input->keyboard[SDL_SCANCODE_W] == KEY_STATE::KEY_REPEAT &&
-			App->input->keyboard[SDL_SCANCODE_S] == KEY_STATE::KEY_IDLE)
+		if (playerInput.moveUp && !playerInput.moveDown)//App->input->keyboard[SDL_SCANCODE_W] == KEY_STATE::KEY_REPEAT &&
+			//App->input->keyboard[SDL_SCANCODE_S] == KEY_STATE::KEY_IDLE)
 		{
 
 			playerSpeed += speed;
@@ -344,8 +307,8 @@ update_status ModulePlayer::Update()
 		//---------------------------------------------------------------------------------
 
 		//right move, doble check for imitate original (emulator) behaviour
-		if (App->input->keyboard[SDL_SCANCODE_D] == KEY_STATE::KEY_REPEAT &&
-			App->input->keyboard[SDL_SCANCODE_A] == KEY_STATE::KEY_IDLE)
+		if (playerInput.moveRight &&//App->input->keyboard[SDL_SCANCODE_D] == KEY_STATE::KEY_REPEAT &&
+			!playerInput.moveLeft)//App->input->keyboard[SDL_SCANCODE_A] == KEY_STATE::KEY_IDLE)
 		{
 			playerSpeed += speed;
 			position.x += (int)playerSpeed;
@@ -363,7 +326,7 @@ update_status ModulePlayer::Update()
 		}
 
 		//left move
-		if (App->input->keyboard[SDL_SCANCODE_A] == KEY_STATE::KEY_REPEAT)
+		if (playerInput.moveLeft)//App->input->keyboard[SDL_SCANCODE_A] == KEY_STATE::KEY_REPEAT)
 		{
 			playerSpeed += speed;
 			position.x -= (int)playerSpeed;
@@ -383,7 +346,7 @@ update_status ModulePlayer::Update()
 
 		//if player press keys of particles emitters
 
-		if (App->input->keyboard[SDL_SCANCODE_SPACE] == KEY_STATE::KEY_DOWN)
+		if (playerInput.shot)//App->input->keyboard[SDL_SCANCODE_SPACE] == KEY_STATE::KEY_DOWN)
 		{
 			LOG("Beam!");
 
@@ -409,14 +372,14 @@ update_status ModulePlayer::Update()
 				beamSmoke.finish = false;
 				shooting = false;
 			}
-			App->render->Blit(player, position.x + 32, position.y - 6, &beamSmoke.GetCurrentFrame());
+			App->render->Blit(playerEffectsTexture, position.x + 32, position.y - 6, &beamSmoke.GetCurrentFrame());
 		}
 		if (shootingLaser)
 		{
 			Animation* currentLaserFlash = &laserFlash;
 			SDL_Rect currentLaserFlashRect = currentLaserFlash->GetCurrentFrame();
 
-			if (App->input->keyboard[SDL_SCANCODE_SPACE] == KEY_DOWN) //force restart animation for new shot
+			if (playerInput.shot)//App->input->keyboard[SDL_SCANCODE_SPACE] == KEY_DOWN) //force restart animation for new shot
 				currentLaserFlash->current_frame = 0;
 
 			if (currentLaserFlash->current_frame >= currentLaserFlash->last_frame) //resets animation cycle
@@ -487,7 +450,8 @@ update_status ModulePlayer::Update()
 			}
 		}
 		//DEBUG: ACTIVATE/DEACTIVATE UNIT, cycle: blue/orange/off
-		if (App->input->keyboard[SDL_SCANCODE_F3] == KEY_DOWN)
+		
+		/*if (App->input->keyboard[SDL_SCANCODE_F3] == KEY_DOWN)
 		{
 			if (!App->playerUnit->IsEnabled())
 			{
@@ -503,7 +467,7 @@ update_status ModulePlayer::Update()
 				App->playerUnit->swapColor(powerUpColor::ORANGE);
 			}
 			
-		}
+		}*/
 		//DEBUG: SPAWN POWERUPS ------------------------------------------------------------------------------
 		if (App->input->keyboard[SDL_SCANCODE_F4] == KEY_DOWN)
 		{
@@ -543,10 +507,10 @@ update_status ModulePlayer::Update()
 	//DRAW PLAYER ---------------------------------------------------------------------------
 	//draw SPAWN ANIMATION --------
 	if (player_step == player_state::spawn)
-	App->render->Blit(player, position.x - pivotsSpawnX[(int)current_animation->current_frame], position.y - (r.h / 2), &r, 1.0f);
+	App->render->Blit(playerEffectsTexture, position.x - pivotsSpawnX[(int)current_animation->current_frame], position.y - (r.h / 2), &r, 1.0f);
 	else if (player_step == player_state::normal)
 	//draw player NORMAL STATE --------------------------------------------------------------
-	App->render->Blit(player, position.x, position.y - (r.h / 2), &r, 1.0f);
+	App->render->Blit(player, position.x , position.y - (r.h / 2), &r, 1.0f);
 	// --------------------------------------------------------------------------------------
 
 	else if (player_step == player_state::died && destroyed)
@@ -559,16 +523,39 @@ update_status ModulePlayer::Update()
 			current_animation->current_frame = 0;
 			current_animation->finish = false;
 			destroyed = false;
-			if (lives <= 1)
+			//if (App->player[1]->IsEnabled() && App->player[1]->lives < 1 || App->player[0]->lives < 1)
+
+			if (lives < 1)
 			{
 				//resets lives counter for next gameLoop
-				lives = 3;
-				App->fade->FadeToBlack(sceneCallback, (Module*)App->gameOverScreen);
+
+				if (this == App->player[0] && !App->player[1]->IsEnabled() || 
+					this == App->player[0] && App->player[1]->IsEnabled() && App->player[1]->lives < 1)
+				{
+					App->fade->FadeToBlack(sceneCallback, (Module*)App->gameOverScreen);
+					lives = 3;
+				}
+				/*if (this == App->player[0] && App->player[1]->IsEnabled() && App->player[1]->lives <= 1)
+				{
+					App->fade->FadeToBlack(sceneCallback, (Module*)App->gameOverScreen);
+					lives = 3;
+				}*/
+				if (this == App->player[1] && App->player[0]->lives < 1)
+				{
+					App->fade->FadeToBlack(sceneCallback, (Module*)App->gameOverScreen);
+					lives = 3;
+				}
+
 			}
 			else
-			{
-				App->fade->FadeToBlack(sceneCallback, (Module*)App->continueScreen, 1.0f); 
-				--lives;
+			{			
+				//--lives;
+				if (this == App->player[0] && !App->player[1]->IsEnabled() ||
+					this == App->player[0] && App->player[1]->IsEnabled() && App->player[1]->player_step == died)
+					App->fade->FadeToBlack(sceneCallback, (Module*)App->continueScreen, 1.0f);
+
+				if (this == App->player[1] && App->player[0]->player_step == died)
+					App->fade->FadeToBlack(sceneCallback, (Module*)App->continueScreen, 1.0f);
 			}
 		}
 
@@ -581,8 +568,11 @@ update_status ModulePlayer::Update()
 void ModulePlayer::OnCollision(Collider* collider1, Collider* collider2)
 {
 		//deactivate player active powerUps
-	if(App->playerUnit->IsEnabled())
-		App->playerUnit->Disable();
+	for (int i = 0; i < 2; ++i)
+	{
+		if (App->playerUnit[i]->IsEnabled())
+			App->playerUnit[i]->Disable();
+	}
 
 		player_step = player_state::died;
 		destroyed = true;
@@ -591,6 +581,12 @@ void ModulePlayer::OnCollision(Collider* collider1, Collider* collider2)
 
 	if (playerCollider != nullptr)
 			this->playerCollider->to_delete = true;
+
+	//decrement lifes
+	if (this == App->player[0]) lives--;
+	if (this == App->player[1]) lives--;
+
+
 }
 
 bool ModulePlayer::CleanUp()
@@ -605,7 +601,8 @@ bool ModulePlayer::CleanUp()
 	// --------------------------------------
 
 	//disable dependent modules of player
-	if (App->playerUnit->IsEnabled()) App->playerUnit->Disable();
+	for (int i = 0; i < 2; ++i)
+		if (App->playerUnit[i]->IsEnabled()) App->playerUnit[i]->Disable();
 	// -------------------------------------
 
 	//deleting collider --------------------

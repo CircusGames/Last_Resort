@@ -114,11 +114,11 @@ void EnemyBee::Move()
 
 	//angle += (int)beeOrbitSpeed * (delta_time / 1000);
 
-	tx = (App->player->position.x + 16) - (position.x + 20);
-	ty = (App->player->position.y + 8) - (position.y + 23);
+	tx = (App->player[0]->position.x + 16) - (position.x + 20);
+	ty = (App->player[0]->position.y + 8) - (position.y + 23);
 	fPoint playerDistance;
-	playerDistance.x = App->player->position.x;
-	playerDistance.y = App->player->position.y;
+	playerDistance.x = App->player[0]->position.x;
+	playerDistance.y = App->player[0]->position.y;
 
 	//get sqrt distance
 	distance = fposition.DistanceTo(playerDistance);

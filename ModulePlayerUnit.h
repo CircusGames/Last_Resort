@@ -33,6 +33,7 @@ public:
 
 	void swapColor(powerUpColor color);
 
+
 public:
 
 	bool alive = false; //prevent
@@ -65,5 +66,7 @@ public:
 	                               {-4,0 }, { -3,2 }, { -2, 3 }, { -1, 4 }, { 1,4 }, { 3,4 }, { 4,3 }, { 5,2 } };
 
 	powerUpColor actualUnitColor;
+
+	int playerIndex; //index for assign unit to player
 };
 #endif // !__MODULEPLAYERUNIT_H__

@@ -40,23 +40,15 @@ bool ModuleInput::Init()
 
 	int maxJoysticks = SDL_NumJoysticks();
 	
-	for (int i = 0; i < maxJoysticks; ++i)//SDL_NumJoysticks(); i++)
+	for (int i = 0; i  < maxJoysticks ; ++i)//SDL_NumJoysticks(); i++)
 	{
 
-		if (i >= MAX_GAMEPADS) break;
+		//if (i > maxJoysticks) break;
 
 		if (SDL_IsGameController(i))
 		{
 			gamePads[i] = SDL_GameControllerOpen(i);
 
-			/*if (gamePads[i]) 
-			{
-				break;
-			}
-			else
-			{
-				LOG("Could not open gameController %d %s", i, SDL_GetError());
-			}*/
 		}
 
 	}
@@ -108,21 +100,11 @@ update_status ModuleInput::PreUpdate()
 			App->scene_lvl1->spawnEnemies(Event.button.x, Event.button.y);
 		}
 
-		//gamepad buttons input
-		if (Event.type == SDL_CONTROLLERBUTTONDOWN)
-		{
-			if (Event.cbutton.button == SDL_CONTROLLER_BUTTON_A)
-				App->input->keyboard[SDL_SCANCODE_SPACE] = KEY_DOWN;
-
-			else if (Event.cbutton.button == SDL_CONTROLLER_BUTTON_RIGHTSHOULDER)
-				App->input->keyboard[SDL_SCANCODE_LSHIFT] = KEY_DOWN;
-		}
-
 		//detection at runtime if a gamepad is added or removed
 
-		if (Event.type == SDL_CONTROLLERDEVICEADDED)
+		/*if (Event.type == SDL_CONTROLLERDEVICEADDED)
 		{
-			if (Event.cdevice.which > MAX_GAMEPADS - 1)
+			if (Event.cdevice.which > MAX_GAMEPADS -1)
 			{
 				LOG("Add controller failed: Max controllers simultaneously reached");
 				break;
@@ -134,7 +116,31 @@ update_status ModuleInput::PreUpdate()
 				LOG("Added controller: %d", Event.cdevice.which);
 			}
 
+		}*/
+
+		//gamepad buttons input
+		if (Event.cbutton.type == SDL_CONTROLLERBUTTONDOWN)
+		{
+			if (Event.cbutton.which == 0)
+			{
+			
+				if (Event.cbutton.button == SDL_CONTROLLER_BUTTON_A)
+					App->input->keyboard[SDL_SCANCODE_SPACE] = KEY_DOWN;
+
+				else if (Event.cbutton.button == SDL_CONTROLLER_BUTTON_RIGHTSHOULDER)
+					App->input->keyboard[SDL_SCANCODE_LSHIFT] = KEY_DOWN;
+			}
+			else //if (Event.cdevice.which == 0)
+			{
+				if (Event.cbutton.button == SDL_CONTROLLER_BUTTON_A)
+					App->input->keyboard[SDL_SCANCODE_RALT] = KEY_DOWN;
+
+				else if (Event.cbutton.button == SDL_CONTROLLER_BUTTON_RIGHTSHOULDER)
+					App->input->keyboard[SDL_SCANCODE_RSHIFT] = KEY_DOWN;
+			}
 		}
+
+		
 	}
 
 	// GamePads dpad and axis inputs ---------------------------------------------
@@ -161,7 +167,10 @@ update_status ModuleInput::PreUpdate()
 	if (gamePadDirections[0].right) keyboard[SDL_SCANCODE_D] = KEY_REPEAT;
 	if (gamePadDirections[0].left) keyboard[SDL_SCANCODE_A] = KEY_REPEAT;
 	// player 2 ----
-
+	if (gamePadDirections[1].up) keyboard[SDL_SCANCODE_UP] = KEY_REPEAT;
+	if (gamePadDirections[1].down) keyboard[SDL_SCANCODE_DOWN] = KEY_REPEAT;
+	if (gamePadDirections[1].right) keyboard[SDL_SCANCODE_RIGHT] = KEY_REPEAT;
+	if (gamePadDirections[1].left) keyboard[SDL_SCANCODE_LEFT] = KEY_REPEAT;
 
 	// ---------------------------------------------------------------------------
 	
@@ -178,7 +187,15 @@ update_status ModuleInput::PreUpdate()
 		keyboard[SDL_SCANCODE_S] = KEY_REPEAT;
 	// ------------------------------------------------------------------
 	// player 2 x axis -------------------------------------------------
-
+	if (gamePadDirections[1].axisX > gamePadDirections[1].deadZone)
+		keyboard[SDL_SCANCODE_RIGHT] = KEY_REPEAT;
+	else if (gamePadDirections[1].axisX < -gamePadDirections[1].deadZone)
+		keyboard[SDL_SCANCODE_LEFT] = KEY_REPEAT;
+	// player 1 y axis -------------------------------------------------
+	if (gamePadDirections[1].axisY < -gamePadDirections[1].deadZone)
+		keyboard[SDL_SCANCODE_UP] = KEY_REPEAT;
+	else if (gamePadDirections[1].axisY > gamePadDirections[1].deadZone)
+		keyboard[SDL_SCANCODE_DOWN] = KEY_REPEAT;
 
 	// ------------------------------------------------------------------
 	//LOG("AXIS Y: %d", gamePadDirections[0].axisY);

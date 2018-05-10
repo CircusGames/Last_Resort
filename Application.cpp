@@ -7,7 +7,10 @@
 #include "ModuleSceneLvl3.h"
 #include "ModuleReady.h"
 #include "ModuleParticles.h"
-#include "ModulePlayer.h"
+//#include "ModulePlayer.h"
+
+#include "Player.h"
+
 //#include "ModulePlayer2.h"
 #include "ModulePlayerUnit.h"
 //#include "ModulePlayer2Unit.h"
@@ -41,9 +44,14 @@ Application::Application()
 	modules[i++] = modulePowerUp = new ModulePowerUp();
 	modules[i++] = enemies = new ModuleEnemies();
 	modules[i++] = particles = new ModuleParticles();
-	modules[i++] = player = new ModulePlayer();
+
+	//modules[i++] = player = new ModulePlayer();
+	modules[i++] = player[0] = new Player();
+	modules[i++] = player[1] = new Player();
+	modules[i++] = playerUnit[0] = new ModulePlayerUnit();
+	modules[i++] = playerUnit[1] = new ModulePlayerUnit();
 	//modules[i++] = player2 = new ModulePlayer2();
-	modules[i++] = playerUnit = new ModulePlayerUnit();
+	//modules[i++] = playerUnit = new ModulePlayerUnit();
 	//modules[i++] = player2Unit = new ModulePlayer2Unit();
 	modules[i++] = collision = new ModuleCollision();
 	modules[i++] = audio = new ModuleAudio();
@@ -74,9 +82,11 @@ bool Application::Init()
 	continueScreen->Disable();
 	gameOverScreen->Disable();
 	//other modules -----
-	player->Disable();
+	player[0]->Disable();
+	player[1]->Disable(); //second player
 	//player2->Disable();
-	playerUnit->Disable();
+	playerUnit[0]->Disable();
+	playerUnit[1]->Disable();
 	//player2Unit->Disable();
 	collision->Disable();
 	particles->Disable();

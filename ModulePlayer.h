@@ -7,6 +7,8 @@
 #include "p2Point.h"
 #include "SDL\include\SDL_events.h"
 
+//#include "Player1.h"
+
 struct SDL_Texture;
 struct Collider;
 struct Mix_Chunk;
@@ -36,15 +38,22 @@ public:
 	ModulePlayer();
 	~ModulePlayer();
 
+	//bool Init();
+
 	bool Start();
+
 	update_status PreUpdate();
 	update_status Update();
 	bool CleanUp(); 
 	void OnCollision(Collider* collider1, Collider* collider2);
 
+	virtual void checkInput() {};
+
 public:
 
 	SDL_Texture* player = nullptr;
+	SDL_Texture* playerEffectsTexture = nullptr;
+
 	Animation idle;
 	
 	iPoint position;
@@ -58,7 +67,7 @@ public:
 	Animation beamSmoke;
 	Animation boostAnim;
 	Animation laserFlash;
-	SDL_Texture* laserFlashTexture;
+	SDL_Texture* laserFlashTexture = nullptr;
 	bool shooting = false;
 	bool shootingLaser = false;
 
@@ -106,6 +115,18 @@ public:
 
 	Module* sceneCallback;
 
+	//public heritance for two players functionality
+	struct playerInput
+	{
+		bool moveLeft = false;
+		bool moveRight = false;
+		bool moveUp = false;
+		bool moveDown = false;
+		bool shot = false;
+		bool lockUnit = false;
+	}playerInput;
+
+	SDL_Texture* playerTexture = nullptr;
 };
 
 #endif

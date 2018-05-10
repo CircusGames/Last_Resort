@@ -72,7 +72,7 @@ EnemyProtator::EnemyProtator(int x, int y, powerUpTypes type, SDL_Texture* thisT
 	extraColliders[1] = rightCollider = App->collision->AddCollider({ 0, 0, 16, 30 }, COLLIDER_TYPE::COLLIDER_ENEMY, (Module*)App->enemies);
 	extraColliders[2] = leftCollider = App->collision->AddCollider({ 0, 0, 16, 30 }, COLLIDER_TYPE::COLLIDER_ENEMY,(Module*)App->enemies);
 	//locked target position
-	//targetPos = App->player->position;
+	//targetPos = App->player[0]->position;
 	
 	//debugWall1 = App->collision->AddCollider({ 0, 200, 50, 300 }, COLLIDER_TYPE::COLLIDER_WALL, (Module*)App->enemies);
 	//debugWall2 = App->collision->AddCollider({ 0, 0, 10, 20 }, COLLIDER_TYPE::COLLIDER_WALL, (Module*)App->enemies);
@@ -111,7 +111,7 @@ void EnemyProtator::Move()
 
 	now = SDL_GetTicks() - start_time;
 
-	if (now > aimTime && !ready && App->player->position.y < position.y - 16)
+	if (now > aimTime && !ready && App->player[0]->position.y < position.y - 16)
 	{
 		aimed = true;
 		start_time = SDL_GetTicks();
@@ -119,13 +119,13 @@ void EnemyProtator::Move()
 
 	
 
-	if (aimed) //&& (position.x - App->player->position.x) < 200)
+	if (aimed) //&& (position.x - App->player[0]->position.x) < 200)
 	{
-		tx = App->player->position.x - position.x;
-		ty = App->player->position.y - position.y ;
+		tx = App->player[0]->position.x - position.x;
+		ty = App->player[0]->position.y - position.y ;
 		fPoint playerDistance;
-		playerDistance.x = App->player->position.x;
-		playerDistance.y = App->player->position.y;
+		playerDistance.x = App->player[0]->position.x;
+		playerDistance.y = App->player[0]->position.y;
 
 		//get sqrt distance
 		distance = fposition.DistanceTo(playerDistance);
@@ -206,14 +206,14 @@ void EnemyProtator::Move()
 	rightCollider->SetPos(position.x + 16, position.y - 32);
 	leftCollider->SetPos(position.x, position.y - 32);
 
-	//debugWall1->SetPos(App->player->position.x - 10, 0);
+	//debugWall1->SetPos(App->player[0]->position.x - 10, 0);
 
 	// shooting ------------------------------------------------------------------------
 
 	if (propulsion)
 	{
-		txShot = App->player->position.x - position.x;
-		tyShot = App->player->position.y - position.y;
+		txShot = App->player[0]->position.x - position.x;
+		tyShot = App->player[0]->position.y - position.y;
 
 		float omega = atan2f(tyShot, txShot);
 
@@ -295,7 +295,7 @@ void EnemyProtator::Draw()
 				if (current_animation->current_frame >= 7.87f)
 				{
 					propulsion = true;
-					targetPos = App->player->position;
+					targetPos = App->player[0]->position;
 					start_shot_time = SDL_GetTicks();
 				}
 
@@ -396,7 +396,7 @@ EnemyProtator::~EnemyProtator()
 			position.y -= 30;
 			position.x += 16;
 			App->modulePowerUp->SpawnPowerUp(position, powerUpType);
-			App->player->playerScore += enemyScore;
+			App->player[0]->playerScore += enemyScore;
 			App->particles->AddParticle(App->particles->explosion, position.x - 8, position.y, COLLIDER_NONE);
 			collider = nullptr; //avoid double enemy destructor heritance
 		}

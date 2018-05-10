@@ -165,6 +165,11 @@ void ModulePowerUp::SpawnPowerUp(iPoint position, powerUpTypes type)
 
 void ModulePowerUp::OnCollision(Collider* c1, Collider* c2)
 {
+	//check what player are picking the powerUp
+	int playerIndex;
+	if (c2->callback == App->player[0]) playerIndex = 0;
+	else playerIndex = 1;
+
 	for (uint i = 0; i < MAX_ACTIVE_POWERUPS; ++i)
 	{
 		// and destroy power up when pick up
@@ -190,18 +195,21 @@ void ModulePowerUp::OnCollision(Collider* c1, Collider* c2)
 					//call the functionality of the bombs powerup
 					//play FX
 				//App->audio->ControlAudio("speedUP", SFX, PLAY);
-				App->player->powerUpActive = powerUpTypes::BOOST;
-				color = App->playerUnit->actualUnitColor; //this not change the color of the unit
+
+					App->player[playerIndex]->powerUpActive = powerUpTypes::BOOST;
+
+
+				color = App->playerUnit[playerIndex]->actualUnitColor; //this not change the color of the unit
 				break;
 			case powerUpTypes::BRAKE:
 				//call the functionality of the bombs powerup
 				App->audio->ControlAudio("speedDN", SFX, PLAY);
-				color = App->playerUnit->actualUnitColor; //this not change the color of the unit
-				App->player->powerUpActive = powerUpTypes::BRAKE;
+				color = App->playerUnit[playerIndex]->actualUnitColor; //this not change the color of the unit
+				App->player[playerIndex]->powerUpActive = powerUpTypes::BRAKE;
 				break;
 			case powerUpTypes::LASER:
 				//call the functionality of the laser powerup
-				App->player->powerUpActive = powerUpTypes::LASER;
+				App->player[playerIndex]->powerUpActive = powerUpTypes::LASER;
 				break;
 			case powerUpTypes::MISSILES:
 
@@ -214,11 +222,12 @@ void ModulePowerUp::OnCollision(Collider* c1, Collider* c2)
 				break;
 			}
 			//always check the color of picked power up, for change the functionality and color of the unit
-			App->playerUnit->swapColor(color); //swap color to the right picked up item
-			if (!App->playerUnit->IsEnabled()) //if the player does not have the unit active, activate and swap color
+			App->playerUnit[playerIndex]->swapColor(color); //swap color to the right picked up item
+			if (!App->playerUnit[playerIndex]->IsEnabled()) //if the player does not have the unit active, activate and swap color
 			{
 				App->audio->ControlAudio("Taking_Unit", SFX, PLAY);
-				App->playerUnit->Enable();
+				App->playerUnit[playerIndex]->playerIndex = playerIndex;
+				App->playerUnit[playerIndex]->Enable();
 			}
 
 			//delete the instanciated powerup
