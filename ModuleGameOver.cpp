@@ -125,7 +125,8 @@ update_status ModuleGameOver::Update()
 		App->fade->FadeToBlack(App->gameOverScreen, (Module*)App->winScreen, 0.8f);
 
 		//when player dies, go to level 1
-		App->player[0]->sceneCallback = (Module*)App->scene_lvl1;
+		App->player[0]->sceneCallback = App->player[0]->sceneCallback;//(Module*)App->scene_lvl1;
+		App->player[0]->lives = 3; //dirty trick
 	}
 
 		

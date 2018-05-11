@@ -6,7 +6,7 @@
 #include "ModuleWin.h"
 #include "ModuleInput.h"
 #include "ModuleFadeToBlack.h"
-//#include "ModulePlayer.h"
+#include "Player.h"
 
 ModuleWin::ModuleWin() 
 {
@@ -26,6 +26,10 @@ bool ModuleWin::Start()
 	
 	//changing gameState
 	App->moduleUI->UI = gameplay_state::WIN;
+
+	//restart player lives
+	App->player[0]->lives = 3;
+	App->player[1]->lives = 3;
 
 	return true;
 }

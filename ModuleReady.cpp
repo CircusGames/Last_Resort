@@ -5,6 +5,7 @@
 #include "ModuleReady.h"
 #include "ModuleGameTitle.h"
 #include "ModuleSceneLvl1.h"
+#include "ModuleSceneLvl3.h"
 
 #include "SDL/include/SDL_timer.h"
 
@@ -35,7 +36,7 @@ bool ModuleReady::Start()
 
 update_status ModuleReady::Update()
 {
-	App->render->Blit(readyTexture, 104, 96, &readyRect);
+	App->render->Blit(readyTexture, 112, 104, &readyRect);
 
 
 
@@ -47,7 +48,7 @@ update_status ModuleReady::Update()
 		if (App->player[0]->sceneCallback != nullptr)
 			App->player[0]->sceneCallback->Enable();
 		else
-			App->scene_lvl1->Enable();
+			App->scene_lvl3->Enable();//App->scene_lvl1->Enable();
 
 	}
 

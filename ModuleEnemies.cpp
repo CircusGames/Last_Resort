@@ -152,6 +152,7 @@ bool ModuleEnemies::CleanUp()
 	
 	//unloading loaded textures
 
+	App->textures->Unload(enemyProtatorTexture);
 	App->textures->Unload(beeBulletTexture);
 	App->textures->Unload(enemyBeeTexture);
 	App->textures->Unload(enemyTankTexture);

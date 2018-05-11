@@ -86,7 +86,7 @@ public:
 
 	int cameraPosition;
 
-	uint lives = 3;
+	int lives = 3;
 	int playerScore = 0;
 	bool destroyed = false;
 

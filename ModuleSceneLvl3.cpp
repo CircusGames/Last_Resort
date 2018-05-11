@@ -82,8 +82,8 @@ bool ModuleSceneLvl3::Start()
 	// player modules -------------------
 	App->player[0]->Enable();
 	App->player[0]->sceneCallback = this;
-	App->player[1]->Enable();
-	App->player[1]->sceneCallback = this;
+	//App->player[1]->Enable();
+	//App->player[1]->sceneCallback = this;
 	// ----------------------------------
 	//App->player2->Enable();
 	App->particles->Enable();
@@ -149,6 +149,8 @@ update_status ModuleSceneLvl3::PreUpdate()
 	if (GetCurrentCameraPixelPos() > 5520 - SCREEN_WIDTH - 26.5f) //-26.5f is the offset
 	{
 		scroll = false;
+
+		App->fade->FadeToBlack(this, (Module*)App->winScreen);
 	}
 
 	if (currentLevelZone == stage_zone::level) // if we entry on boss zone and still not faded the boss background
@@ -164,6 +166,17 @@ update_status ModuleSceneLvl3::PreUpdate()
 
 	//set colliders to follow correct foreground speed
 	setCollidersToScenePos();
+
+	//activate player 2
+
+	if (App->input->keyboard[SDL_SCANCODE_P] == KEY_DOWN && !App->player[1]->IsEnabled())
+	{
+		
+		App->player[1]->Enable();
+		App->player[1]->sceneCallback = this;
+		App->player[1]->position.x = (int)GetCurrentCameraPixelPos() * 2 + 40;
+		
+	}
 
 	return UPDATE_CONTINUE;
 }

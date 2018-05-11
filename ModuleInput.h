@@ -39,10 +39,14 @@ public:
 	SDL_Event Event;
 
 	//gamepad
-	SDL_GameController* gamePads[MAX_GAMEPADS] = { nullptr };
+	//SDL_GameController* gamePads[MAX_GAMEPADS] = { nullptr };
 
-	struct gamepadDirection
+	struct gamepadData
 	{
+		SDL_GameController * gamePadController;
+		//int joystick_index;
+		SDL_JoystickID joyId = -1;
+		bool isConnected = false;
 		bool up = false;
 		bool down = false;
 		bool right = false;
@@ -50,10 +54,12 @@ public:
 		Sint16 axisX;
 		Sint16 axisY;
 		int deadZone = 8000;
+		bool shotPressed = false;
+		bool lockUnitPressed = false;
 
 	};
 
-	gamepadDirection gamePadDirections[MAX_GAMEPADS];
+	gamepadData gamePadControllers[MAX_GAMEPADS];
 };
 
 #endif // __ModuleInput_H__

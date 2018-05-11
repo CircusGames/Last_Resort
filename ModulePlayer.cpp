@@ -598,6 +598,8 @@ bool ModulePlayer::CleanUp()
 		App->textures->Unload(powerUpTextures);
 	if(player != nullptr)
 		App->textures->Unload(player);
+	if (playerEffectsTexture != nullptr)
+		App->textures->Unload(playerEffectsTexture);
 	// --------------------------------------
 
 	//disable dependent modules of player
