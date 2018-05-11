@@ -234,9 +234,9 @@ update_status ModuleInput::PreUpdate()
 	}
 
 	// GamePads dpad and axis inputs ---------------------------------------------
-	for (int i = 0; i < MAX_GAMEPADS; ++i)
+	for (int i = 0; i < SDL_NumJoysticks(); ++i)
 	{
-		if (gamePadControllers[i].gamePadController != nullptr) //&& SDL_GameControllerGetAttached(gamePadControllers[i].gamePadController))
+		if (gamePadControllers[i].gamePadController != nullptr && SDL_GameControllerGetAttached(gamePadControllers[i].gamePadController))
 		//if (gamePadControllers[i].joyId == i)
 
 		{
@@ -307,7 +307,7 @@ bool ModuleInput::CleanUp()
 	SDL_QuitSubSystem(SDL_INIT_EVENTS);
 
 	LOG("Closing controller----");
-	for (int i = 0; i < MAX_GAMEPADS ; ++i)
+	for (int i = 0; i < SDL_NumJoysticks(); ++i)
 	{
 		if (gamePadControllers[i].gamePadController != nullptr)
 			SDL_GameControllerClose(gamePadControllers[i].gamePadController);
