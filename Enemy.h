@@ -2,6 +2,8 @@
 #ifndef __ENEMY_H__
 #define __ENEMY_H__
 
+#define MAX_EXTRA_COLLIDERS 10
+
 //#include "Globals.h"
 #include "p2Point.h"
 #include "Animation.h"
@@ -26,7 +28,7 @@ public:
 	int life;
 	uint enemyScore;
 	SDL_Texture* enemyTex = nullptr; //links to enemy spritesheet texture
-	Collider* extraColliders[10] = { nullptr };
+	Collider* extraColliders[MAX_EXTRA_COLLIDERS] = { nullptr };
 
 	int collisionColliderIndex;
 

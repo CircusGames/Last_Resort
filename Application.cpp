@@ -42,18 +42,18 @@ Application::Application()
 	modules[i++] = gameOverScreen = new ModuleGameOver();
 	modules[i++] = winScreen = new ModuleWin();
 
-	modules[i++] = collision = new ModuleCollision();
-	modules[i++] = particles = new ModuleParticles();
 	modules[i++] = enemies = new ModuleEnemies();
 
 	modules[i++] = modulePowerUp = new ModulePowerUp();
 	
-	//modules[i++] = particles = new ModuleParticles();
 	modules[i++] = player[0] = new Player();
 	modules[i++] = player[1] = new Player();
 	modules[i++] = playerUnit[0] = new ModulePlayerUnit();
 	modules[i++] = playerUnit[1] = new ModulePlayerUnit();
-	//modules[i++] = collision = new ModuleCollision();
+
+	modules[i++] = particles = new ModuleParticles();
+	modules[i++] = collision = new ModuleCollision();
+
 	modules[i++] = audio = new ModuleAudio();
 	modules[i++] = moduleUI = new ModuleUI();
 	modules[i++] = fade = new ModuleFadeToBlack();

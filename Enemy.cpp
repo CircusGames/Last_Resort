@@ -23,7 +23,10 @@ Enemy::~Enemy()
 		for (int i = 0; i < 10; ++i)
 		{
 			if (extraColliders[i] != nullptr)
+			{
 				extraColliders[i]->to_delete = true;
+				extraColliders[i] = nullptr;
+			}
 		}
 		
 		if (life <= 0) //only spawn powerup if the enemy is really death

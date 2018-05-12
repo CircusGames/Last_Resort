@@ -224,7 +224,7 @@ update_status ModuleSceneLvl3::Update()
 	App->render->Blit(fgTexture, 2150, 94, &fgRect, 0.50f);
 	
 	//DEBUG actual colliders in scene
-	//LOG("current scene colliders: %d", App->collision->actualColliders);
+	LOG("current scene colliders: %d", App->collision->actualColliders);
 
 	return UPDATE_CONTINUE;
 }
@@ -243,14 +243,16 @@ bool ModuleSceneLvl3::CleanUp()
 	App->audio->UnloadAudio("song_lvl3", MUSIC);
 	
 	//unload modules
+	//App->collision->Disable();
 	App->enemies->Disable();
 	App->modulePowerUp->Disable();
-	App->collision->Disable();
+	//App->collision->Disable();
 	App->particles->Disable();
 	App->player[0]->Disable();
 	if (App->player[1]->IsEnabled())
 		App->player[1]->Disable();
 
+	App->collision->Disable();
 	//reposition the camera
 	App->render->camera.x = 0;
 

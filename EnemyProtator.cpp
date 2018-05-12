@@ -417,10 +417,13 @@ EnemyProtator::~EnemyProtator()
 	{
 		collider->to_delete = true;
 
-		for (int i = 0; i < 10; ++i)
+		for (int i = 0; i < MAX_EXTRA_COLLIDERS; ++i)
 		{
 			if (extraColliders[i] != nullptr)
+			{
 				extraColliders[i]->to_delete = true;
+				extraColliders[i] = nullptr;
+			}
 		}
 
 		if (life <= 0) //only spawn powerup if the enemy is really death
@@ -430,7 +433,7 @@ EnemyProtator::~EnemyProtator()
 			App->modulePowerUp->SpawnPowerUp(position, powerUpType);
 			App->player[0]->playerScore += enemyScore;
 			App->particles->AddParticle(App->particles->explosion, position.x - 8, position.y, COLLIDER_NONE);
-			collider = nullptr; //avoid double enemy destructor heritance
+			//collider = nullptr; //avoid double enemy destructor heritance
 		}
 	}
 
