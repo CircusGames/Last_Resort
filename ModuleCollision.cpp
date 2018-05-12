@@ -64,6 +64,7 @@ ModuleCollision::ModuleCollision()
 	matrix[COLLIDER_POWER_UP][COLLIDER_POWER_UP] = false;
 	matrix[COLLIDER_POWER_UP][COLLIDER_PLAYER_GOD] = true;
 
+	actualColliders = 0;
 }
 
 // Destructor

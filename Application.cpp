@@ -41,19 +41,19 @@ Application::Application()
 	modules[i++] = gameTitle = new ModuleGameTitle();
 	modules[i++] = gameOverScreen = new ModuleGameOver();
 	modules[i++] = winScreen = new ModuleWin();
-	modules[i++] = modulePowerUp = new ModulePowerUp();
-	modules[i++] = enemies = new ModuleEnemies();
-	modules[i++] = particles = new ModuleParticles();
 
-	//modules[i++] = player = new ModulePlayer();
+	modules[i++] = collision = new ModuleCollision();
+	modules[i++] = particles = new ModuleParticles();
+	modules[i++] = enemies = new ModuleEnemies();
+
+	modules[i++] = modulePowerUp = new ModulePowerUp();
+	
+	//modules[i++] = particles = new ModuleParticles();
 	modules[i++] = player[0] = new Player();
 	modules[i++] = player[1] = new Player();
 	modules[i++] = playerUnit[0] = new ModulePlayerUnit();
 	modules[i++] = playerUnit[1] = new ModulePlayerUnit();
-	//modules[i++] = player2 = new ModulePlayer2();
-	//modules[i++] = playerUnit = new ModulePlayerUnit();
-	//modules[i++] = player2Unit = new ModulePlayer2Unit();
-	modules[i++] = collision = new ModuleCollision();
+	//modules[i++] = collision = new ModuleCollision();
 	modules[i++] = audio = new ModuleAudio();
 	modules[i++] = moduleUI = new ModuleUI();
 	modules[i++] = fade = new ModuleFadeToBlack();
