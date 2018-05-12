@@ -81,12 +81,15 @@ float Enemy::GetNearestPlayerSqrtDistance()
 	fPoint playerDistance;
 	float distanceToNearest;
 
+	player_state playerstate;
+
 	playerDistance.x = App->player[0]->position.x;
 	playerDistance.y = App->player[0]->position.y;
+	playerstate = App->player[0]->player_step;
 
 	distanceToNearest = fposition.DistanceTo(playerDistance);
 
-	if (App->player[1]->IsEnabled() && App->player[1]->player_step != died)
+	if (App->player[1]->IsEnabled() && App->player[1]->player_step != died) //&& playerstate != player_state::died)
 	{
 		float distanceToP2;
 
@@ -95,9 +98,13 @@ float Enemy::GetNearestPlayerSqrtDistance()
 
 		distanceToP2 = fposition.DistanceTo(playerDistance);
 
-		if (distanceToP2 < distanceToNearest && App->player[0]->player_step != died)
+		if (distanceToP2 < distanceToNearest || App->player[0]->player_step == player_state::died)
 		{
-			LOG("Player 2 is enabled and are nearest than P1");
+			if (App->player[0]->player_step == player_state::died)
+				LOG("P2 ENABLED, P1 is death");
+			if (App->player[0]->player_step != player_state::died)
+				LOG("Player 2 is enabled and are nearest than P1");
+
 			LOG("P1 distance: %f, P2 distance: %f", distanceToNearest, distanceToP2);
 
 			distanceToNearest = distanceToP2;
@@ -110,8 +117,10 @@ float Enemy::GetNearestPlayerSqrtDistance()
 			// assign enum nearest player, if we need for getTargetPos function
 			nearestTarget = nearestPlayer::P2;
 
+			//playerstate = App->player[1]->player_step;
+
 		}
-		else //two players are in scene, but p1 is nearest than p2
+		else//if (playerstate == player_state::died);//two players are in scene, but p1 is nearest than p2
 		{
 			LOG("P2 is active, but P1 is nearest than P2");
 			LOG("P1 distance: %f, P2 distance: %f", distanceToNearest, distanceToP2);
@@ -149,7 +158,7 @@ float Enemy::GetDesiredTargetDistance(Module* desiredTarget)
 	float ret;
 	fPoint playerDistance;
 
-	if (desiredTarget == App->player[0])
+	if (desiredTarget == App->player[0] ) //|| App->player[1]->player_step != died)
 	{
 		playerDistance.x = App->player[0]->position.x;
 		playerDistance.y = App->player[0]->position.y;
@@ -159,7 +168,7 @@ float Enemy::GetDesiredTargetDistance(Module* desiredTarget)
 
 		ret = fposition.DistanceTo(playerDistance);
 	}
-	if (desiredTarget == App->player[1])
+	if (desiredTarget == App->player[1] )//|| App->player[0]->player_step != died)
 	{
 		playerDistance.x = App->player[1]->position.x;
 		playerDistance.y = App->player[1]->position.y;
@@ -169,6 +178,7 @@ float Enemy::GetDesiredTargetDistance(Module* desiredTarget)
 
 		ret = fposition.DistanceTo(playerDistance);
 	}
+	
 
 	return ret;
 }

@@ -111,6 +111,8 @@ EnemyProtator::EnemyProtator(int x, int y, powerUpTypes type, SDL_Texture* thisT
 
 	//checkValidPlayerY();
 	desiredPlayerModule = nullptr;
+
+	toAim = true;
 }
 
 void EnemyProtator::Move()
@@ -132,13 +134,13 @@ void EnemyProtator::Move()
 	if (aimed) //&& (position.x - App->player[0]->position.x) < 200)
 	{
 
-		
+		//checkValidPlayerY();
 		/*tx = App->player[0]->position.x - position.x;
 		ty = App->player[0]->position.y - position.y ;
 		fPoint playerDistance;
 		playerDistance.x = App->player[0]->position.x;
 		playerDistance.y = App->player[0]->position.y;*/
-
+		targetPos = checkValidPlayerY();
 		//get sqrt distance
 		if (desiredPlayerModule != nullptr)
 			distance = GetDesiredTargetDistance(desiredPlayerModule); //GetNearestPlayerSqrtDistance(); //fposition.DistanceTo(playerDistance);
@@ -232,18 +234,26 @@ void EnemyProtator::Move()
 		//tyShot = App->player[0]->position.y - position.y;
 
 		//force update for tx, ty
-		GetNearestPlayerSqrtDistance();
+		/*GetNearestPlayerSqrtDistance();
 
 		float omega = atan2f(ty, tx); //tyShot, txShot
 
 		vx = shootSpeed * cos(omega);
-		vy = shootSpeed * sin(omega);
+		vy = shootSpeed * sin(omega);*/
 
 		nowShotTime = SDL_GetTicks() - start_shot_time;
 
 		if (nowShotTime >= cadence) attack = true;
 
 		if (attack) {
+			
+			//force update for tx, ty
+			GetNearestPlayerSqrtDistance();
+
+			float omega = atan2f(ty, tx); //tyShot, txShot
+
+			vx = shootSpeed * cos(omega);
+			vy = shootSpeed * sin(omega);
 
 			App->particles->AddParticle(App->enemies->beeBullet, position.x, position.y - 16, COLLIDER_ENEMY_SHOT, { (int)vx + 1,(int)vy });
 
@@ -316,8 +326,9 @@ void EnemyProtator::Draw()
 					propulsion = true;
 					//targetPos = App->player[0]->position;
 					//targetPos = GetTargetPos();
-					targetPos = checkValidPlayerY();
+					//targetPos = checkValidPlayerY();
 					start_shot_time = SDL_GetTicks();
+					//toAim = true;
 				}
 
 			}
@@ -428,11 +439,12 @@ EnemyProtator::~EnemyProtator()
 iPoint EnemyProtator::checkValidPlayerY()
 {
 	
-	iPoint ret;
+	iPoint ret;// = targetPos;
 	
+	toAim = false;
 
-
-	if (!App->player[1]->IsEnabled() && App->player[0]->position.y < position.y - 16)
+	//if player 2 is disabled and position of player1 is valid and not death return P1 position
+	if (!App->player[1]->IsEnabled() && App->player[0]->position.y < position.y - 16 && App->player[0]->player_step != died)
 	{
 		ret = App->player[0]->position;
 		desiredPlayerModule = App->player[0];
@@ -443,16 +455,36 @@ iPoint EnemyProtator::checkValidPlayerY()
 
 		if (App->player[0]->position.y < position.y - 16 && App->player[1]->position.y > position.y - 16)
 		{
-			ret = App->player[0]->position;
-			desiredPlayerModule = App->player[0];
-			toAim = true;
+			if (App->player[0]->player_step != died)
+			{
+				ret = App->player[0]->position;
+				desiredPlayerModule = App->player[0];
+				toAim = true;
+			}
+			else
+			{
+				ret = GetTargetPos();//App->player[0]->position;
+				desiredPlayerModule = nullptr;
+			}
 		}
 		if (App->player[1]->position.y < position.y - 16 && App->player[0]->position.y > position.y - 16)
 		{
+			if (App->player[1]->player_step != died)
+			{
 			ret = App->player[1]->position;
 			desiredPlayerModule = App->player[1];
 			toAim = true;
+			}
+			else
+			{
+				ret = GetTargetPos();//App->player[0]->position;
+				desiredPlayerModule = nullptr;
+			}
+			//toAim = true;
 		}
+		//else
+			//toAim = false;
+
 		if (App->player[0]->position.y > position.y - 16 && (App->player[1]->position.y > position.y - 16)) //ok
 		{
 			toAim = false;
