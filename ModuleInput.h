@@ -43,7 +43,7 @@ public:
 
 	struct gamepadData
 	{
-		SDL_GameController * gamePadController;
+		SDL_GameController * gamePadController = nullptr;
 		//int joystick_index;
 		SDL_JoystickID joyId = -1;
 		bool isConnected = false;
@@ -51,8 +51,8 @@ public:
 		bool down = false;
 		bool right = false;
 		bool left = false;
-		Sint16 axisX;
-		Sint16 axisY;
+		Sint16 axisX = 0;
+		Sint16 axisY = 0;
 		int deadZone = 8000;
 		bool shotPressed = false;
 		bool lockUnitPressed = false;
