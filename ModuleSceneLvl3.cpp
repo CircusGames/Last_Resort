@@ -434,11 +434,16 @@ void ModuleSceneLvl3::addEnemiesToLvl3()
 
 	//------------------------------------------------------------------
 
-	//Enemy BEE
+	// Enemy BEE
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYBEE, 3300, 80, NONE);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYBEE, 3800, 80, NONE);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYBEE, 4000, 80, NONE);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYBEE, 7200, 80, NONE);
+
+	//--------------------------------------------------------------------
+
+	// Enemy Lamella
+	App->enemies->AddEnemy(ENEMY_TYPES::LAMELLA, 200, 80, NONE);
 
 
 

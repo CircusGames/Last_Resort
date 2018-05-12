@@ -7,6 +7,7 @@
 #include "EnemyOscilatory.h"
 #include "EnemyBee.h"
 #include "EnemyRedbird.h"
+#include "EnemyLamella.h"
 
 #include "ModuleParticles.h"
 
@@ -21,7 +22,8 @@ enum ENEMY_TYPES
 	TANK,
 	ENEMYBEE,
 	POWERUP_BEE,
-	ENEMYPROTATOR
+	ENEMYPROTATOR,
+	LAMELLA
 };
 
 class Enemy;
@@ -62,6 +64,7 @@ public:
 	SDL_Texture* enemyRedbirdTexture;
 	SDL_Texture* enemyPowerBeeTexture;
 	SDL_Texture* enemyProtatorTexture;
+	SDL_Texture* enemyLamellaTexture;
 	// ----------------------------
 	//ENEMY PARTICLES
 	Particle beeBullet;

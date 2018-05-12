@@ -13,6 +13,7 @@
 #include "EnemyRedbird.h"
 #include "EnemyPowerUpBee.h"
 #include "EnemyProtator.h"
+#include "EnemyLamella.h"
 
 #include "ModulePowerUp.h"
 #include "ModuleAudio.h"
@@ -76,6 +77,7 @@ bool ModuleEnemies::Start()
 	enemyRedbirdTexture = App->textures->Load("assets/Graphics/Enemies/Level_3/Redbird.png");
 	enemyPowerBeeTexture = App->textures->Load("assets/Graphics/Enemies/Level_3/power_bee.png");
 	enemyProtatorTexture = App->textures->Load("assets/Graphics/Enemies/Level_3/protator.png");
+	enemyLamellaTexture = App->textures->Load("assets/Graphics/Enemies/Level_3/lamella.png");
 	// -------------------------------------------------------------------------------------
 	// ENEMY PARTICLES ---------------------------------------------------------------------
 	// textures ----------
@@ -161,6 +163,7 @@ bool ModuleEnemies::CleanUp()
 	App->textures->Unload(enemy1Texture);
 	App->textures->Unload(enemyRedbirdTexture);
 	App->textures->Unload(enemyPowerBeeTexture);
+	App->textures->Unload(enemyLamellaTexture);
 	//App->textures->Unload(sprites);
 	
 	//Unloading loaded audio's
@@ -241,6 +244,8 @@ void ModuleEnemies::SpawnEnemy(EnemyInfo& info)
 		case ENEMY_TYPES::ENEMYPROTATOR:
 			enemies[i] = new EnemyProtator(info.x, info.y, info.powerUpType, enemyProtatorTexture);
 			break;
+		case ENEMY_TYPES::LAMELLA:
+			enemies[i] = new EnemyLamella(info.x, info.y, info.powerUpType, enemyLamellaTexture);
 		}
 	}
 }
