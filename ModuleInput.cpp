@@ -180,10 +180,10 @@ update_status ModuleInput::PreUpdate()
 				if (Event.cbutton.button == SDL_CONTROLLER_BUTTON_START)
 					App->input->keyboard[SDL_SCANCODE_RETURN] = KEY_DOWN;
 			
-				gamePadControllers[0].up = SDL_GameControllerGetButton(gamePadControllers[0].gamePadController, SDL_CONTROLLER_BUTTON_DPAD_UP);
+				/*gamePadControllers[0].up = SDL_GameControllerGetButton(gamePadControllers[0].gamePadController, SDL_CONTROLLER_BUTTON_DPAD_UP);
 				gamePadControllers[0].down = SDL_GameControllerGetButton(gamePadControllers[0].gamePadController, SDL_CONTROLLER_BUTTON_DPAD_DOWN);
 				gamePadControllers[0].right = SDL_GameControllerGetButton(gamePadControllers[0].gamePadController, SDL_CONTROLLER_BUTTON_DPAD_RIGHT);
-				gamePadControllers[0].left = SDL_GameControllerGetButton(gamePadControllers[0].gamePadController, SDL_CONTROLLER_BUTTON_DPAD_LEFT);
+				gamePadControllers[0].left = SDL_GameControllerGetButton(gamePadControllers[0].gamePadController, SDL_CONTROLLER_BUTTON_DPAD_LEFT);*/
 			}
 			if (Event.cdevice.which == gamePadControllers[1].joyId)
 			{
@@ -198,10 +198,10 @@ update_status ModuleInput::PreUpdate()
 
 				}
 
-				gamePadControllers[1].up = SDL_GameControllerGetButton(gamePadControllers[1].gamePadController, SDL_CONTROLLER_BUTTON_DPAD_UP);
+				/*gamePadControllers[1].up = SDL_GameControllerGetButton(gamePadControllers[1].gamePadController, SDL_CONTROLLER_BUTTON_DPAD_UP);
 				gamePadControllers[1].down = SDL_GameControllerGetButton(gamePadControllers[1].gamePadController, SDL_CONTROLLER_BUTTON_DPAD_DOWN);
 				gamePadControllers[1].right = SDL_GameControllerGetButton(gamePadControllers[1].gamePadController, SDL_CONTROLLER_BUTTON_DPAD_RIGHT);
-				gamePadControllers[1].left = SDL_GameControllerGetButton(gamePadControllers[1].gamePadController, SDL_CONTROLLER_BUTTON_DPAD_LEFT);
+				gamePadControllers[1].left = SDL_GameControllerGetButton(gamePadControllers[1].gamePadController, SDL_CONTROLLER_BUTTON_DPAD_LEFT);*/
 				
 			}
 		}
@@ -212,20 +212,20 @@ update_status ModuleInput::PreUpdate()
 			{
 				//release directions
 
-				gamePadControllers[0].up = SDL_GameControllerGetButton(gamePadControllers[0].gamePadController, SDL_CONTROLLER_BUTTON_DPAD_UP);
+				/*gamePadControllers[0].up = SDL_GameControllerGetButton(gamePadControllers[0].gamePadController, SDL_CONTROLLER_BUTTON_DPAD_UP);
 				gamePadControllers[0].down = SDL_GameControllerGetButton(gamePadControllers[0].gamePadController, SDL_CONTROLLER_BUTTON_DPAD_DOWN);
 				gamePadControllers[0].right = SDL_GameControllerGetButton(gamePadControllers[0].gamePadController, SDL_CONTROLLER_BUTTON_DPAD_RIGHT);
-				gamePadControllers[0].left = SDL_GameControllerGetButton(gamePadControllers[0].gamePadController, SDL_CONTROLLER_BUTTON_DPAD_LEFT);
+				gamePadControllers[0].left = SDL_GameControllerGetButton(gamePadControllers[0].gamePadController, SDL_CONTROLLER_BUTTON_DPAD_LEFT);*/
 
 			}
 
 			if (Event.cdevice.which == gamePadControllers[1].joyId)
 			{
 
-				gamePadControllers[1].up = SDL_GameControllerGetButton(gamePadControllers[1].gamePadController, SDL_CONTROLLER_BUTTON_DPAD_UP);
+				/*gamePadControllers[1].up = SDL_GameControllerGetButton(gamePadControllers[1].gamePadController, SDL_CONTROLLER_BUTTON_DPAD_UP);
 				gamePadControllers[1].down = SDL_GameControllerGetButton(gamePadControllers[1].gamePadController, SDL_CONTROLLER_BUTTON_DPAD_DOWN);
 				gamePadControllers[1].right = SDL_GameControllerGetButton(gamePadControllers[1].gamePadController, SDL_CONTROLLER_BUTTON_DPAD_RIGHT);
-				gamePadControllers[1].left = SDL_GameControllerGetButton(gamePadControllers[1].gamePadController, SDL_CONTROLLER_BUTTON_DPAD_LEFT);
+				gamePadControllers[1].left = SDL_GameControllerGetButton(gamePadControllers[1].gamePadController, SDL_CONTROLLER_BUTTON_DPAD_LEFT);*/
 
 			}
 	
