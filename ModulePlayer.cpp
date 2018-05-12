@@ -570,7 +570,7 @@ void ModulePlayer::OnCollision(Collider* collider1, Collider* collider2)
 		//deactivate player active powerUps
 	for (int i = 0; i < 2; ++i)
 	{
-		if (App->playerUnit[i]->IsEnabled())
+		if (this == App->player[i] && App->playerUnit[i]->IsEnabled())
 			App->playerUnit[i]->Disable();
 	}
 
@@ -597,7 +597,7 @@ bool ModulePlayer::CleanUp()
 	if (powerUpTextures != nullptr)
 		App->textures->Unload(powerUpTextures);
 	if(player != nullptr)
-		App->textures->Unload(player);
+		App->textures->Unload(this->player);
 	if (playerEffectsTexture != nullptr)
 		App->textures->Unload(playerEffectsTexture);
 	// --------------------------------------

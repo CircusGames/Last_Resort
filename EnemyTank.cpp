@@ -125,6 +125,8 @@ void EnemyTank::Move()
 
 
 	position.x += 1;
+	fposition.x = position.x;
+	fposition.y = position.y;
 
 	/*position = originalPos + path.GetCurrentSpeed(&animation);
 	position2 = originalPos2 + path.GetCurrentSpeed(&animation2);
@@ -132,6 +134,9 @@ void EnemyTank::Move()
 	//when tank appears it remains inmobile until it reaches the left collider, after that it goes 0,5 faster than
 	//the camera speed until it reaches the right side of the screen(no margins) and it follows the camera speed until
 	//it reaches the broken bridge
+
+	float distance = GetNearestPlayerSqrtDistance();
+
 }
 
 void EnemyTank::Draw()

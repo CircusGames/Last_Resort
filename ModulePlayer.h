@@ -7,24 +7,33 @@
 #include "p2Point.h"
 #include "SDL\include\SDL_events.h"
 
+#include "ModulePlayer.h"
 //#include "Player1.h"
 
 struct SDL_Texture;
 struct Collider;
 struct Mix_Chunk;
 
+enum player_state
+{
+	spawn,
+	normal,
+	died
+
+};//player_step = player_state::spawn;
 
 class ModulePlayer : public Module
 {
 public:
 
-	enum player_state
+	player_state player_step = player_state::spawn;
+	/*enum player_state
 	{
 		spawn,
 		normal,
 		died
 
-	} player_step = player_state::spawn;
+	}player_step = player_state::spawn;*/
 
 	/*enum player_powerUps
 	{

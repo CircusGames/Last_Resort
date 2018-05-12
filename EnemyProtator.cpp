@@ -12,6 +12,8 @@
 
 #include "SDL\include\SDL_timer.h"
 
+#include "Player.h"
+
 //#include "Module.h"
 
 EnemyProtator::EnemyProtator(int x, int y, powerUpTypes type, SDL_Texture* thisTexture) : Enemy(x, y)
@@ -104,6 +106,11 @@ EnemyProtator::EnemyProtator(int x, int y, powerUpTypes type, SDL_Texture* thisT
 	//damage values
 	damageAnimTime = 50;
 
+	//substract restriction y variable
+	restrictionY = 16;
+
+	//checkValidPlayerY();
+	desiredPlayerModule = nullptr;
 }
 
 void EnemyProtator::Move()
@@ -111,24 +118,33 @@ void EnemyProtator::Move()
 
 	now = SDL_GetTicks() - start_time;
 
-	if (now > aimTime && !ready && App->player[0]->position.y < position.y - 16)
+	//checks if the player are on valid Y before start aiming cycle
+	
+	checkValidPlayerY();
+
+	if (now > aimTime && !ready && toAim)//(App->player[0]->position.y < position.y - 16 ))
 	{
 		aimed = true;
+		toAim = false;
 		start_time = SDL_GetTicks();
 	}
 
-	
-
 	if (aimed) //&& (position.x - App->player[0]->position.x) < 200)
 	{
-		tx = App->player[0]->position.x - position.x;
+
+		
+		/*tx = App->player[0]->position.x - position.x;
 		ty = App->player[0]->position.y - position.y ;
 		fPoint playerDistance;
 		playerDistance.x = App->player[0]->position.x;
-		playerDistance.y = App->player[0]->position.y;
+		playerDistance.y = App->player[0]->position.y;*/
 
 		//get sqrt distance
-		distance = fposition.DistanceTo(playerDistance);
+		if (desiredPlayerModule != nullptr)
+			distance = GetDesiredTargetDistance(desiredPlayerModule); //GetNearestPlayerSqrtDistance(); //fposition.DistanceTo(playerDistance);
+		else
+			distance = GetNearestPlayerSqrtDistance(); //fposition.DistanceTo(playerDistance);
+
 
 		velX = (tx / distance)*2.5f;
 		velY = (ty / distance)*2.5f;
@@ -212,10 +228,13 @@ void EnemyProtator::Move()
 
 	if (propulsion)
 	{
-		txShot = App->player[0]->position.x - position.x;
-		tyShot = App->player[0]->position.y - position.y;
+		//txShot = App->player[0]->position.x - position.x;
+		//tyShot = App->player[0]->position.y - position.y;
 
-		float omega = atan2f(tyShot, txShot);
+		//force update for tx, ty
+		GetNearestPlayerSqrtDistance();
+
+		float omega = atan2f(ty, tx); //tyShot, txShot
 
 		vx = shootSpeed * cos(omega);
 		vy = shootSpeed * sin(omega);
@@ -295,7 +314,9 @@ void EnemyProtator::Draw()
 				if (current_animation->current_frame >= 7.87f)
 				{
 					propulsion = true;
-					targetPos = App->player[0]->position;
+					//targetPos = App->player[0]->position;
+					//targetPos = GetTargetPos();
+					targetPos = checkValidPlayerY();
 					start_shot_time = SDL_GetTicks();
 				}
 
@@ -401,5 +422,51 @@ EnemyProtator::~EnemyProtator()
 			collider = nullptr; //avoid double enemy destructor heritance
 		}
 	}
+
+}
+
+iPoint EnemyProtator::checkValidPlayerY()
+{
+	
+	iPoint ret;
+	
+
+
+	if (!App->player[1]->IsEnabled() && App->player[0]->position.y < position.y - 16)
+	{
+		ret = App->player[0]->position;
+		desiredPlayerModule = App->player[0];
+		toAim = true;
+	}
+	else if (App->player[1]->IsEnabled()) //&& App->player[1]->player_step != player_state::died)
+	{
+
+		if (App->player[0]->position.y < position.y - 16 && App->player[1]->position.y > position.y - 16)
+		{
+			ret = App->player[0]->position;
+			desiredPlayerModule = App->player[0];
+			toAim = true;
+		}
+		if (App->player[1]->position.y < position.y - 16 && App->player[0]->position.y > position.y - 16)
+		{
+			ret = App->player[1]->position;
+			desiredPlayerModule = App->player[1];
+			toAim = true;
+		}
+		if (App->player[0]->position.y > position.y - 16 && (App->player[1]->position.y > position.y - 16)) //ok
+		{
+			toAim = false;
+		}
+		if (App->player[0]->position.y < position.y - 16 && (App->player[1]->position.y < position.y - 16)) //ok
+		{
+			ret = GetTargetPos();
+			desiredPlayerModule = nullptr;
+			toAim = true;
+		}
+	}
+	else
+		toAim = false;
+
+	return ret;
 
 }

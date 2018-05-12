@@ -6,6 +6,9 @@
 
 #include "Module.h"
 
+//#include "ModulePlayer.h"
+
+
 
 class EnemyProtator : public Enemy
 {
@@ -17,8 +20,8 @@ private:
 	iPoint targetPos;
 	bool targetPosReached;
 	bool aimed;
-	float tx;
-	float ty;
+	//float tx;
+	//float ty;
 	float velX;
 	float velY;
 	float distance;
@@ -59,6 +62,15 @@ private:
 	Uint32 damageAnimTime;
 	float current_frame;
 
+	//
+	int restrictionYvalue;
+	bool restrictionY;
+	iPoint checkValidPlayerY();
+	//iPoint nearestValidPlayerY;
+	int nearestValidPlayerPosition;
+	bool toAim = false;
+	
+
 public:
 
 	EnemyProtator(int x, int y, powerUpTypes type, SDL_Texture* thisTexture);
@@ -77,6 +89,8 @@ public:
 
 	Collider* debugWall1;
 	Collider* debugWall2;
+
+	Module* desiredPlayerModule = nullptr;
 	
 };
 

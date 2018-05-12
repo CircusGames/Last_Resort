@@ -9,8 +9,6 @@
 
 #include "ModulePlayerUnit.h"
 
-//#include "Player1.h"
-
 Enemy::Enemy(int x, int y, powerUpTypes type) : position(x, y)
 {}
 
@@ -64,4 +62,125 @@ void Enemy::OnCollision(Collider* collider, Collider* collider2) //receives the 
 {
 	//App->particles->AddParticle(App->particles->explosion, position.x, position.y,COLLIDER_NONE);
 	
+}
+
+float Enemy::GetNearestPlayerAngle()
+{
+	LOG("getting nearest player angle");
+
+	float omega = 1.0f;
+
+	return omega;
+
+}
+
+float Enemy::GetNearestPlayerSqrtDistance()
+{
+	//LOG("getting nearest player distance");
+
+	fPoint playerDistance;
+	float distanceToNearest;
+
+	playerDistance.x = App->player[0]->position.x;
+	playerDistance.y = App->player[0]->position.y;
+
+	distanceToNearest = fposition.DistanceTo(playerDistance);
+
+	if (App->player[1]->IsEnabled() && App->player[1]->player_step != died)
+	{
+		float distanceToP2;
+
+		playerDistance.x = App->player[1]->position.x;
+		playerDistance.y = App->player[1]->position.y;
+
+		distanceToP2 = fposition.DistanceTo(playerDistance);
+
+		if (distanceToP2 < distanceToNearest && App->player[0]->player_step != died)
+		{
+			LOG("Player 2 is enabled and are nearest than P1");
+			LOG("P1 distance: %f, P2 distance: %f", distanceToNearest, distanceToP2);
+
+			distanceToNearest = distanceToP2;
+
+			// and assign tx,ty
+
+			tx = App->player[1]->position.x - position.x;
+			ty = App->player[1]->position.y - position.y;
+
+			// assign enum nearest player, if we need for getTargetPos function
+			nearestTarget = nearestPlayer::P2;
+
+		}
+		else //two players are in scene, but p1 is nearest than p2
+		{
+			LOG("P2 is active, but P1 is nearest than P2");
+			LOG("P1 distance: %f, P2 distance: %f", distanceToNearest, distanceToP2);
+			
+			//and assign tx,ty
+			tx = App->player[0]->position.x - position.x;
+			ty = App->player[0]->position.y - position.y;
+
+			// assign enum nearest player, if we need for getTargetPos function
+			nearestTarget = nearestPlayer::P1;
+
+		}
+
+	}
+	else //only player1 is active
+	{
+		LOG("Only player1 is enabled, distanceToP1: %f", distanceToNearest);
+		
+		//and assign tx,ty distances and desired module
+		tx = App->player[0]->position.x - position.x;
+		ty = App->player[0]->position.y - position.y;
+		
+		// assign enum nearest player, if we need for getTargetPos function
+		nearestTarget = nearestPlayer::P1;
+	}
+
+	
+	
+	return distanceToNearest;
+
+}
+
+float Enemy::GetDesiredTargetDistance(Module* desiredTarget)
+{
+	float ret;
+	fPoint playerDistance;
+
+	if (desiredTarget == App->player[0])
+	{
+		playerDistance.x = App->player[0]->position.x;
+		playerDistance.y = App->player[0]->position.y;
+
+		tx = App->player[0]->position.x - position.x;
+		ty = App->player[0]->position.y - position.y;
+
+		ret = fposition.DistanceTo(playerDistance);
+	}
+	if (desiredTarget == App->player[1])
+	{
+		playerDistance.x = App->player[1]->position.x;
+		playerDistance.y = App->player[1]->position.y;
+
+		tx = App->player[1]->position.x - position.x;
+		ty = App->player[1]->position.y - position.y;
+
+		ret = fposition.DistanceTo(playerDistance);
+	}
+
+	return ret;
+}
+
+iPoint Enemy::GetTargetPos()
+{
+	iPoint targetPos;
+
+	GetNearestPlayerSqrtDistance();
+
+	if (nearestTarget == nearestPlayer::P1) targetPos = App->player[0]->position;
+	else targetPos = App->player[1]->position;
+
+	return targetPos;
 }

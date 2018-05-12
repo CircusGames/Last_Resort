@@ -7,6 +7,7 @@
 #include "Animation.h"
 
 #include "Player.h"
+#include "ModulePlayer.h"
 
 struct SDL_Texture;
 struct Collider;
@@ -43,6 +44,25 @@ public:
 	//virtual void Draw(SDL_Texture* sprites);
 	virtual void Draw();
 	virtual void OnCollision(Collider* collider, Collider* collider2);
+
+	//utilities
+	virtual float GetNearestPlayerAngle();
+	virtual float GetNearestPlayerSqrtDistance();
+	virtual iPoint GetTargetPos();
+	//bool restrictionY = false;
+	Module* nearestValidPlayer;
+
+	virtual float GetDesiredTargetDistance(Module*);
+
+	//distance needed variables
+	float tx;
+	float ty;
+
+	enum nearestPlayer
+	{
+		P1,
+		P2
+	}nearestTarget;
 	
 	
 
