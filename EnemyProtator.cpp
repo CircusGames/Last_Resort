@@ -165,7 +165,7 @@ void EnemyProtator::Move()
 
 		if (grounded) grounded = false;
 
-		if (position.y - 20 <= targetPos.y)
+		if (position.y - 10 <= targetPos.y) //position - 20
 		{
 			targetPosReached = true;
 		}
@@ -331,7 +331,8 @@ void EnemyProtator::Draw()
 					//targetPos = GetTargetPos();
 					//targetPos = checkValidPlayerY();
 					start_shot_time = SDL_GetTicks();
-					//toAim = true;
+					//start_time = SDL_GetTicks();//checkValidPlayerY();
+					
 				}
 
 			}

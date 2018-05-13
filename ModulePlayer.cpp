@@ -451,23 +451,26 @@ update_status ModulePlayer::Update()
 		}
 		//DEBUG: ACTIVATE/DEACTIVATE UNIT, cycle: blue/orange/off
 		
-		/*if (App->input->keyboard[SDL_SCANCODE_F3] == KEY_DOWN)
+		if (App->input->keyboard[SDL_SCANCODE_F3] == KEY_DOWN)
 		{
-			if (!App->playerUnit->IsEnabled())
+			App->playerUnit[playerIndex]->playerIndex = playerIndex;
+
+			if (!App->playerUnit[playerIndex]->IsEnabled())
 			{
-				App->playerUnit->swapColor(powerUpColor::BLUE);
-				App->playerUnit->Enable();
+				
+				App->playerUnit[playerIndex]->swapColor(powerUpColor::BLUE);
+				App->playerUnit[playerIndex]->Enable();
 			}
-			else if (App->playerUnit->actualUnitColor == powerUpColor::ORANGE)
+			else if (App->playerUnit[playerIndex]->actualUnitColor == powerUpColor::ORANGE)
 			{
-				App->playerUnit->Disable();
+				App->playerUnit[playerIndex]->Disable();
 			}
-			else if (App->playerUnit->actualUnitColor == powerUpColor::BLUE)
+			else if (App->playerUnit[playerIndex]->actualUnitColor == powerUpColor::BLUE)
 			{
-				App->playerUnit->swapColor(powerUpColor::ORANGE);
+				App->playerUnit[playerIndex]->swapColor(powerUpColor::ORANGE);
 			}
 			
-		}*/
+		}
 		//DEBUG: SPAWN POWERUPS ------------------------------------------------------------------------------
 		if (App->input->keyboard[SDL_SCANCODE_F4] == KEY_DOWN)
 		{

@@ -136,6 +136,8 @@ public:
 	}playerInput;
 
 	SDL_Texture* playerTexture = nullptr;
+
+	int playerIndex;
 };
 
 #endif

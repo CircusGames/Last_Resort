@@ -11,6 +11,8 @@ bool Player::Init()
 	// PLAYER 1
 	if (this == App->player[0])
 	{
+		playerIndex = 0;
+
 		//movement animation
 		playerAnim.PushBack({ 0,3,32,13 }); //up2 - 0
 		playerAnim.PushBack({ 32,3,32,13 }); //up1 - 1
@@ -62,6 +64,9 @@ bool Player::Init()
 	}
 	else // player2 rects
 	{
+
+		playerIndex = 1;
+
 		// player 2 animation
 
 		playerAnim.PushBack({ 103,15,32,11 }); //up2 - 0

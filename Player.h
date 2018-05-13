@@ -12,7 +12,5 @@ public:
 	bool Init();
 	void checkInput();
 
-	int playerIndex;
-
 };
 #endif

@@ -224,7 +224,7 @@ update_status ModuleSceneLvl3::Update()
 	App->render->Blit(fgTexture, 2150, 94, &fgRect, 0.50f);
 	
 	//DEBUG actual colliders in scene
-	LOG("current scene colliders: %d", App->collision->actualColliders);
+	//LOG("current scene colliders: %d", App->collision->actualColliders);
 
 	return UPDATE_CONTINUE;
 }
