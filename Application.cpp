@@ -43,6 +43,7 @@ Application::Application()
 	modules[i++] = winScreen = new ModuleWin();
 
 	modules[i++] = enemies = new ModuleEnemies();
+	//modules[i++] = particles = new ModuleParticles();
 
 	modules[i++] = modulePowerUp = new ModulePowerUp();
 	
@@ -75,10 +76,10 @@ bool Application::Init()
 	//disable modulePlayer at init -------
 	//scenes ------------
 	teamLogo->Disable();
-	gameTitle->Disable();
+	//gameTitle->Disable();
 	readyScreen->Disable();
 	scene_lvl1->Disable();
-	//scene_lvl3->Disable();
+	scene_lvl3->Disable();
 	continueScreen->Disable();
 	gameOverScreen->Disable();
 	//other modules -----

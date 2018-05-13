@@ -45,7 +45,7 @@ EnemyPowerUpBee::EnemyPowerUpBee(int x, int y, powerUpTypes type, SDL_Texture* t
 
 void EnemyPowerUpBee::Move()
 {
-	collider->SetPos(position.x, position.y + 7);
+	//collider->SetPos(position.x, position.y + 7);
 
 	if (going_up)
 	{

@@ -219,9 +219,12 @@ void EnemyProtator::Move()
 	position.y = fposition.y;
 
 	//set "ground" collider
+	if (collider != nullptr)
 	collider->SetPos(position.x + 10, position.y - 2);
 	//set laterall colliders
+	if (rightCollider != nullptr)
 	rightCollider->SetPos(position.x + 16, position.y - 32);
+	if (leftCollider != nullptr)
 	leftCollider->SetPos(position.x, position.y - 32);
 
 	//debugWall1->SetPos(App->player[0]->position.x - 10, 0);

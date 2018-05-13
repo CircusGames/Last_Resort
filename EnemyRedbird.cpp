@@ -37,6 +37,7 @@ EnemyRedbird::EnemyRedbird(int x, int y, powerUpTypes type, SDL_Texture* thisTex
 void EnemyRedbird::Move()
 {
 	//update collider pos
+	if (collider != nullptr)
 	collider->SetPos(position.x, position.y + 7);
 
 	if (going_up)
