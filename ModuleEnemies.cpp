@@ -251,7 +251,7 @@ void ModuleEnemies::SpawnEnemy(EnemyInfo& info)
 			enemies[i] = new EnemyLamella(info.x, info.y, info.powerUpType, enemyLamellaTexture);
 			break;
 		case ENEMY_TYPES::MINITANK:
-			enemies[i] = new EnemyLamella(info.x, info.y, info.powerUpType, enemyMiniTankTexture);
+			enemies[i] = new Enemy_MiniTank(info.x, info.y, info.powerUpType, enemyMiniTankTexture);
 			break;
 		}
 	}
