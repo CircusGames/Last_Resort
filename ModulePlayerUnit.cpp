@@ -371,7 +371,7 @@ update_status ModulePlayerUnit::PreUpdate()
 			if (App->player[playerIndex]->playerInput.moveUp &&//App->input->keyboard[SDL_SCANCODE_W] == KEY_STATE::KEY_REPEAT &&
 				App->player[playerIndex]->playerInput.moveLeft)//App->input->keyboard[SDL_SCANCODE_A] == KEY_STATE::KEY_REPEAT)
 			{
-				if (angle < (0.75f * 3.14f) && angle > 0)
+				if (angle < (0.75f * 3.14f) && angle >= 0)
 				{
 					angle -= (int)orbitSpeed * (delta_time / 1000);
 				}
@@ -436,7 +436,9 @@ update_status ModulePlayerUnit::Update()
 		float animationRotationSpeed = 0.9f;
 
 		//if we press up
-		if (App->player[playerIndex]->playerInput.moveDown)//App->input->keyboard[SDL_SCANCODE_S] == KEY_STATE::KEY_REPEAT)
+		if (App->player[playerIndex]->playerInput.moveDown &&
+			!App->player[playerIndex]->playerInput.moveLeft &&
+			!App->player[playerIndex]->playerInput.moveRight)//App->input->keyboard[SDL_SCANCODE_S] == KEY_STATE::KEY_REPEAT)
 		{
 			//index 4 is the unit pointing up and 12 unit pointing down, the two directions to consider on this axis
 			if (frameIncrement > 4 && frameIncrement < 12) //if we are on a superior animation, we go on the short way
@@ -452,7 +454,9 @@ update_status ModulePlayerUnit::Update()
 		}
 		//if we press down
 		if (App->player[playerIndex]->playerInput.moveUp &&//App->input->keyboard[SDL_SCANCODE_W] == KEY_STATE::KEY_REPEAT &&
-			!App->player[playerIndex]->playerInput.moveDown)//App->input->keyboard[SDL_SCANCODE_S] == KEY_STATE::KEY_IDLE) //original game behaviour priority
+			!App->player[playerIndex]->playerInput.moveDown && ////App->input->keyboard[SDL_SCANCODE_S] == KEY_STATE::KEY_IDLE) //original game behaviour priority
+			!App->player[playerIndex]->playerInput.moveLeft &&
+			!App->player[playerIndex]->playerInput.moveRight)
 		{
 			if (frameIncrement > 12 || frameIncrement < 4)
 			{
@@ -467,7 +471,9 @@ update_status ModulePlayerUnit::Update()
 		}
 		//if we press right
 		if (App->player[playerIndex]->playerInput.moveRight &&//App->input->keyboard[SDL_SCANCODE_D] == KEY_STATE::KEY_REPEAT &&
-			!App->player[playerIndex]->playerInput.moveLeft)//App->input->keyboard[SDL_SCANCODE_A] == KEY_STATE::KEY_IDLE) //double check for original game priority
+			!App->player[playerIndex]->playerInput.moveLeft &&//)//App->input->keyboard[SDL_SCANCODE_A] == KEY_STATE::KEY_IDLE) //double check for original game priority
+			!App->player[playerIndex]->playerInput.moveDown &&
+			!App->player[playerIndex]->playerInput.moveUp)
 		{
 			//index 8 pointing left , index 0 pointing right
 			if (frameIncrement > 8) frameIncrement -= animationRotationSpeed;
@@ -475,11 +481,78 @@ update_status ModulePlayerUnit::Update()
 			if ((int)frameIncrement == 8) frameIncrement = 8;
 		}
 		//if we press left
-		if (App->player[playerIndex]->playerInput.moveLeft)//App->input->keyboard[SDL_SCANCODE_A] == KEY_STATE::KEY_REPEAT)
+		if (App->player[playerIndex]->playerInput.moveLeft &&
+			!App->player[playerIndex]->playerInput.moveDown &&
+			!App->player[playerIndex]->playerInput.moveUp)//App->input->keyboard[SDL_SCANCODE_A] == KEY_STATE::KEY_REPEAT)
 		{
 			if (frameIncrement < 8 && frameIncrement > 0) frameIncrement -= animationRotationSpeed;
 			else frameIncrement += animationRotationSpeed;
 			if ((int)frameIncrement >= MAX_ANIMS - 1) frameIncrement = 0;
+		}
+		// ------------------------------------------------------------------------------------------------
+		// diagonal cases ------------------------------
+		// down and left
+		if (App->player[playerIndex]->playerInput.moveLeft &&
+			App->player[playerIndex]->playerInput.moveDown)
+		{
+			if (frameIncrement > 2 && frameIncrement < 10)
+			{
+				frameIncrement -= animationRotationSpeed;
+			}
+			else
+			{
+				frameIncrement += animationRotationSpeed;
+				if ((int)frameIncrement >= MAX_ANIMS - 1) frameIncrement = 0;
+			}
+			if ((int)frameIncrement == 2) frameIncrement = 2;
+		}
+
+		//down and right
+		//down right index = 6 || down left index = 14
+		if (App->player[playerIndex]->playerInput.moveRight &&
+			App->player[playerIndex]->playerInput.moveDown)
+		{
+			if (frameIncrement < 14 && frameIncrement > 6)
+			{
+				frameIncrement -= animationRotationSpeed;
+			}
+			else
+			{
+				
+				frameIncrement += animationRotationSpeed;
+				if ((int)frameIncrement >= MAX_ANIMS - 1) frameIncrement = 0;
+			}
+			if ((int)frameIncrement == 6) frameIncrement = 6;
+		
+		}
+
+		//up and left
+		if (App->player[playerIndex]->playerInput.moveUp &&
+			App->player[playerIndex]->playerInput.moveLeft)
+		{
+			if (frameIncrement < 6 || frameIncrement > 14)
+			{
+				frameIncrement -= animationRotationSpeed;
+				if ((int)frameIncrement <= 0) frameIncrement = MAX_ANIMS - 1;
+			}
+			else
+				frameIncrement += animationRotationSpeed;
+
+			if ((int)frameIncrement == 14) frameIncrement = 14;
+		}
+
+		// up and right
+		if (App->player[playerIndex]->playerInput.moveUp &&
+			App->player[playerIndex]->playerInput.moveRight)
+		{
+			if (frameIncrement < 2 || frameIncrement > 10)
+			{
+				frameIncrement -= animationRotationSpeed;
+				if ((int)frameIncrement <= 0) frameIncrement = MAX_ANIMS - 1;
+			}
+			else
+				frameIncrement += animationRotationSpeed;
+			if ((int)frameIncrement == 10) frameIncrement = 10;
 		}
 		// ------------------------------------------------------------------------------------------------
 
