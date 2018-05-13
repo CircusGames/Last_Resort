@@ -13,6 +13,13 @@
 #include <math.h>
 #include "ModulePowerUp.h"
 
+enum actualState
+{
+	LINKED,
+	FREE
+};
+
+
 class ModulePlayerUnit : public Module
 {
 public:
@@ -68,5 +75,7 @@ public:
 	powerUpColor actualUnitColor;
 
 	int playerIndex; //index for assign unit to player
+
+	actualState this_state = actualState::LINKED; //unit spawns linked to player
 };
 #endif // !__MODULEPLAYERUNIT_H__

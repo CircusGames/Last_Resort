@@ -214,26 +214,29 @@ bool ModulePlayerUnit::Start()
 
 update_status ModulePlayerUnit::PreUpdate()
 {
-	//locks and unlocks unit movement control
-	if (App->player[playerIndex]->playerInput.lockUnit)//App->input->keyboard[SDL_SCANCODE_LSHIFT] == KEY_STATE::KEY_DOWN)
+	if (this_state == actualState::LINKED)
 	{
-		if (unitLocked) 
-		{
-			unitLocked = false;
-			App->audio->ControlAudio("UnitUnlocked", SFX, PLAY);
-		}
-		else 
-		{
-			unitLocked = true;
-			App->audio->ControlAudio("UnitLocked", SFX, PLAY);
-		}
-	}
 
-	//PlayerUnit movement logic and input -----------------------------------------------------------------
+		//locks and unlocks unit movement control
+		if (App->player[playerIndex]->playerInput.lockUnit)//App->input->keyboard[SDL_SCANCODE_LSHIFT] == KEY_STATE::KEY_DOWN)
+		{
+			if (unitLocked)
+			{
+				unitLocked = false;
+				App->audio->ControlAudio("UnitUnlocked", SFX, PLAY);
+			}
+			else
+			{
+				unitLocked = true;
+				App->audio->ControlAudio("UnitLocked", SFX, PLAY);
+			}
+		}
 
-		//angle += orbit_speed * delta_time;
-		//x = center_x + radius * cos(angle);
-		//y = center_y + radius * sin(angle);
+		//PlayerUnit movement logic and input -----------------------------------------------------------------
+
+			//angle += orbit_speed * delta_time;
+			//x = center_x + radius * cos(angle);
+			//y = center_y + radius * sin(angle);
 
 		Uint32 tick_now = SDL_GetTicks();
 		if (tick_now > last_tick)
@@ -246,260 +249,272 @@ update_status ModulePlayerUnit::PreUpdate()
 		//x width unit right and left = 8
 
 	//if the unit is not locked, permits movement calculations
-	if(!unitLocked)
-	{ 
-
-		orbitSpeed = 6.5f;
-
-		//linear moves ----------------------------------------------------------------------------------------
-
-		if ( App->player[playerIndex]->playerInput.moveLeft &&//App->input->keyboard[SDL_SCANCODE_A] == KEY_STATE::KEY_REPEAT &&
-			!App->player[playerIndex]->playerInput.moveDown &&//App->input->keyboard[SDL_SCANCODE_S] == KEY_STATE::KEY_IDLE &&
-			!App->player[playerIndex]->playerInput.moveUp)//App->input->keyboard[SDL_SCANCODE_W] == KEY_STATE::KEY_IDLE) //constrains upper left diagonal case
-		{
-			if (angle >= 3.14f)
-			{
-				angle += (int)orbitSpeed * (delta_time / 1000);
-			}
-			if (angle < 3.14f && angle >= 0) //returns upwards
-			{
-				angle -= (int)orbitSpeed * (delta_time / 1000);
-			}
-		}
-
-		if ( App->player[playerIndex]->playerInput.moveRight &&//App->input->keyboard[SDL_SCANCODE_D] == KEY_STATE::KEY_REPEAT && //if right
-			!App->player[playerIndex]->playerInput.moveLeft &&//App->input->keyboard[SDL_SCANCODE_A] == KEY_STATE::KEY_IDLE &&   //and not left (original opposite direction priority)
-			!App->player[playerIndex]->playerInput.moveUp &&//App->input->keyboard[SDL_SCANCODE_W] == KEY_STATE::KEY_IDLE &&   //and not up (diagonal case)
-			!App->player[playerIndex]->playerInput.moveDown)//App->input->keyboard[SDL_SCANCODE_S] == KEY_STATE::KEY_IDLE)     //and not down right
-		{
-			if (angle > 3.14f && angle < 6.28f)
-			{
-				angle -= (int)orbitSpeed * (delta_time / 1000);
-			}
-			if (angle < 3.14f)
-			{
-				angle += (int)orbitSpeed * (delta_time / 1000);
-			}
-
-		}
-
-		if (angle >= 6.28f) angle = 0;
-		else if (angle < 0) angle = 6.28f; //if we go under 0, full circle
-
-		if ( App->player[playerIndex]->playerInput.moveUp &&//App->input->keyboard[SDL_SCANCODE_W] == KEY_STATE::KEY_REPEAT &&
-			!App->player[playerIndex]->playerInput.moveDown &&//App->input->keyboard[SDL_SCANCODE_S] == KEY_STATE::KEY_IDLE   && //constrains original opposite up and down case
-			!App->player[playerIndex]->playerInput.moveRight &&//App->input->keyboard[SDL_SCANCODE_D] == KEY_STATE::KEY_IDLE   &&
-			!App->player[playerIndex]->playerInput.moveLeft)//App->input->keyboard[SDL_SCANCODE_A] == KEY_STATE::KEY_IDLE)    //constrains upper left diagonal case
+		if (!unitLocked)
 		{
 
-			if (angle < 1.57f && angle >= 0) //|| angle > 4.71f) //separated to avoid clack
-			{
-				angle -= (int)orbitSpeed * (delta_time / 1000);
-			}
-			//force the check to avoid mini Nicolas
-			if (angle < 0) angle = 6.28f; //if we go under 0, full circle
+			orbitSpeed = 6.5f;
 
-			if (angle > 4.71f) //separate check to workaround mini Nicolas
-			{
-				angle -= (int)orbitSpeed * (delta_time / 1000);
-			}
+			//linear moves ----------------------------------------------------------------------------------------
 
-			if (angle >= 1.57f && angle <= 4.71)
+			if (App->player[playerIndex]->playerInput.moveLeft &&//App->input->keyboard[SDL_SCANCODE_A] == KEY_STATE::KEY_REPEAT &&
+				!App->player[playerIndex]->playerInput.moveDown &&//App->input->keyboard[SDL_SCANCODE_S] == KEY_STATE::KEY_IDLE &&
+				!App->player[playerIndex]->playerInput.moveUp)//App->input->keyboard[SDL_SCANCODE_W] == KEY_STATE::KEY_IDLE) //constrains upper left diagonal case
 			{
-				angle += (int)orbitSpeed * (delta_time / 1000);
-			}
-		}
-
-		if ( App->player[playerIndex]->playerInput.moveDown &&//App->input->keyboard[SDL_SCANCODE_S] == KEY_STATE::KEY_REPEAT &&
-			!App->player[playerIndex]->playerInput.moveLeft &&//App->input->keyboard[SDL_SCANCODE_A] == KEY_STATE::KEY_IDLE && //constrains diagonal down and left
-			!App->player[playerIndex]->playerInput.moveRight)//App->input->keyboard[SDL_SCANCODE_D] == KEY_STATE::KEY_IDLE) //constrains diagonal down and right
-		{
-			if (angle > 1.57f && angle < 4.71f)
-			{
-				angle -= (int)orbitSpeed * (delta_time / 1000);
+				if (angle >= 3.14f)
+				{
+					angle += (int)orbitSpeed * (delta_time / 1000);
+				}
+				if (angle < 3.14f && angle >= 0) //returns upwards
+				{
+					angle -= (int)orbitSpeed * (delta_time / 1000);
+				}
 			}
 
-			if (angle < 1.57f && angle >= 0 || angle >= 4.71f)
+			if (App->player[playerIndex]->playerInput.moveRight &&//App->input->keyboard[SDL_SCANCODE_D] == KEY_STATE::KEY_REPEAT && //if right
+				!App->player[playerIndex]->playerInput.moveLeft &&//App->input->keyboard[SDL_SCANCODE_A] == KEY_STATE::KEY_IDLE &&   //and not left (original opposite direction priority)
+				!App->player[playerIndex]->playerInput.moveUp &&//App->input->keyboard[SDL_SCANCODE_W] == KEY_STATE::KEY_IDLE &&   //and not up (diagonal case)
+				!App->player[playerIndex]->playerInput.moveDown)//App->input->keyboard[SDL_SCANCODE_S] == KEY_STATE::KEY_IDLE)     //and not down right
 			{
-				angle += (int)orbitSpeed * (delta_time / 1000);
-			}
-		}
-		// ------------------------------------------------------------------------------------------------
+				if (angle > 3.14f && angle < 6.28f)
+				{
+					angle -= (int)orbitSpeed * (delta_time / 1000);
+				}
+				if (angle < 3.14f)
+				{
+					angle += (int)orbitSpeed * (delta_time / 1000);
+				}
 
-		//diagonal moves ----------------------------------------------------------------------------------
-
-		//down and left case
-		if ( App->player[playerIndex]->playerInput.moveDown &&//App->input->keyboard[SDL_SCANCODE_S] == KEY_STATE::KEY_REPEAT &&
-			App->player[playerIndex]->playerInput.moveLeft)//App->input->keyboard[SDL_SCANCODE_A] == KEY_STATE::KEY_REPEAT)
-		{
-			if (angle > (1.25f * 3.14f) && angle > 0)//4.71f && angle > 0)
-			{
-				angle += (int)orbitSpeed * (delta_time / 1000);
-			}
-			if (angle < 1.57f && angle >= 0 && angle < 1.57f / 2)
-			{
-				angle += (int)orbitSpeed * (delta_time / 1000);
-			}
-			if (angle < (1.25f * 3.14f) && angle > 1.57f / 2)
-			{
-				angle -= (int)orbitSpeed * (delta_time / 1000);
-			}
-		}
-
-		//down and right case
-		if ( App->player[playerIndex]->playerInput.moveDown &&//App->input->keyboard[SDL_SCANCODE_S] == KEY_STATE::KEY_REPEAT &&
-			App->player[playerIndex]->playerInput.moveRight)//App->input->keyboard[SDL_SCANCODE_D] == KEY_STATE::KEY_REPEAT)
-		{
-			if (angle > (1.75f * 3.14f) && angle > 0)
-			{
-				angle += (int)orbitSpeed * (delta_time / 1000);
-			}
-			if (angle < 0.75f * 3.14f) //(3/4*pi) quadrant
-			{
-				angle += (int)orbitSpeed * (delta_time / 1000);
-			}
-			if (angle < (1.75f * 3.14f) && angle >(0.75f * 3.14f))
-			{
-				angle -= (int)orbitSpeed * (delta_time / 1000);
-			}
-		}
-
-		//up and left case
-		if (App->player[playerIndex]->playerInput.moveUp &&//App->input->keyboard[SDL_SCANCODE_W] == KEY_STATE::KEY_REPEAT &&
-			App->player[playerIndex]->playerInput.moveLeft)//App->input->keyboard[SDL_SCANCODE_A] == KEY_STATE::KEY_REPEAT)
-		{
-			if (angle < (0.75f * 3.14f) && angle > 0)
-			{
-				angle -= (int)orbitSpeed * (delta_time / 1000);
 			}
 
-			if (angle >= 6.28f) angle = 0; //force check to avoid Nicolas
+			if (angle >= 6.28f) angle = 0;
 			else if (angle < 0) angle = 6.28f; //if we go under 0, full circle
 
-			if (angle <= 0 || angle >(1.75f * 3.14f)) // 7/4*pi quadrant
+			if (App->player[playerIndex]->playerInput.moveUp &&//App->input->keyboard[SDL_SCANCODE_W] == KEY_STATE::KEY_REPEAT &&
+				!App->player[playerIndex]->playerInput.moveDown &&//App->input->keyboard[SDL_SCANCODE_S] == KEY_STATE::KEY_IDLE   && //constrains original opposite up and down case
+				!App->player[playerIndex]->playerInput.moveRight &&//App->input->keyboard[SDL_SCANCODE_D] == KEY_STATE::KEY_IDLE   &&
+				!App->player[playerIndex]->playerInput.moveLeft)//App->input->keyboard[SDL_SCANCODE_A] == KEY_STATE::KEY_IDLE)    //constrains upper left diagonal case
 			{
-				angle -= (int)orbitSpeed * (delta_time / 1000);
+
+				if (angle < 1.57f && angle >= 0) //|| angle > 4.71f) //separated to avoid clack
+				{
+					angle -= (int)orbitSpeed * (delta_time / 1000);
+				}
+				//force the check to avoid mini Nicolas
+				if (angle < 0) angle = 6.28f; //if we go under 0, full circle
+
+				if (angle > 4.71f) //separate check to workaround mini Nicolas
+				{
+					angle -= (int)orbitSpeed * (delta_time / 1000);
+				}
+
+				if (angle >= 1.57f && angle <= 4.71)
+				{
+					angle += (int)orbitSpeed * (delta_time / 1000);
+				}
 			}
-			if (angle > (0.75f* 3.14f) && angle < (1.75f * 3.14f))
+
+			if (App->player[playerIndex]->playerInput.moveDown &&//App->input->keyboard[SDL_SCANCODE_S] == KEY_STATE::KEY_REPEAT &&
+				!App->player[playerIndex]->playerInput.moveLeft &&//App->input->keyboard[SDL_SCANCODE_A] == KEY_STATE::KEY_IDLE && //constrains diagonal down and left
+				!App->player[playerIndex]->playerInput.moveRight)//App->input->keyboard[SDL_SCANCODE_D] == KEY_STATE::KEY_IDLE) //constrains diagonal down and right
 			{
-				angle += (int)orbitSpeed * (delta_time / 1000);
+				if (angle > 1.57f && angle < 4.71f)
+				{
+					angle -= (int)orbitSpeed * (delta_time / 1000);
+				}
+
+				if (angle < 1.57f && angle >= 0 || angle >= 4.71f)
+				{
+					angle += (int)orbitSpeed * (delta_time / 1000);
+				}
+			}
+			// ------------------------------------------------------------------------------------------------
+
+			//diagonal moves ----------------------------------------------------------------------------------
+
+			//down and left case
+			if (App->player[playerIndex]->playerInput.moveDown &&//App->input->keyboard[SDL_SCANCODE_S] == KEY_STATE::KEY_REPEAT &&
+				App->player[playerIndex]->playerInput.moveLeft)//App->input->keyboard[SDL_SCANCODE_A] == KEY_STATE::KEY_REPEAT)
+			{
+				if (angle > (1.25f * 3.14f) && angle > 0)//4.71f && angle > 0)
+				{
+					angle += (int)orbitSpeed * (delta_time / 1000);
+				}
+				if (angle < 1.57f && angle >= 0 && angle < 1.57f / 2)
+				{
+					angle += (int)orbitSpeed * (delta_time / 1000);
+				}
+				if (angle < (1.25f * 3.14f) && angle > 1.57f / 2)
+				{
+					angle -= (int)orbitSpeed * (delta_time / 1000);
+				}
+			}
+
+			//down and right case
+			if (App->player[playerIndex]->playerInput.moveDown &&//App->input->keyboard[SDL_SCANCODE_S] == KEY_STATE::KEY_REPEAT &&
+				App->player[playerIndex]->playerInput.moveRight)//App->input->keyboard[SDL_SCANCODE_D] == KEY_STATE::KEY_REPEAT)
+			{
+				if (angle > (1.75f * 3.14f) && angle > 0)
+				{
+					angle += (int)orbitSpeed * (delta_time / 1000);
+				}
+				if (angle < 0.75f * 3.14f) //(3/4*pi) quadrant
+				{
+					angle += (int)orbitSpeed * (delta_time / 1000);
+				}
+				if (angle < (1.75f * 3.14f) && angle >(0.75f * 3.14f))
+				{
+					angle -= (int)orbitSpeed * (delta_time / 1000);
+				}
+			}
+
+			//up and left case
+			if (App->player[playerIndex]->playerInput.moveUp &&//App->input->keyboard[SDL_SCANCODE_W] == KEY_STATE::KEY_REPEAT &&
+				App->player[playerIndex]->playerInput.moveLeft)//App->input->keyboard[SDL_SCANCODE_A] == KEY_STATE::KEY_REPEAT)
+			{
+				if (angle < (0.75f * 3.14f) && angle > 0)
+				{
+					angle -= (int)orbitSpeed * (delta_time / 1000);
+				}
+
+				if (angle >= 6.28f) angle = 0; //force check to avoid Nicolas
+				else if (angle < 0) angle = 6.28f; //if we go under 0, full circle
+
+				if (angle <= 0 || angle > (1.75f * 3.14f)) // 7/4*pi quadrant
+				{
+					angle -= (int)orbitSpeed * (delta_time / 1000);
+				}
+				if (angle > (0.75f* 3.14f) && angle < (1.75f * 3.14f))
+				{
+					angle += (int)orbitSpeed * (delta_time / 1000);
+				}
+			}
+
+			//up and right case
+			if (App->player[playerIndex]->playerInput.moveUp &&//App->input->keyboard[SDL_SCANCODE_W] == KEY_STATE::KEY_REPEAT &&
+				App->player[playerIndex]->playerInput.moveRight)//App->input->keyboard[SDL_SCANCODE_D] == KEY_STATE::KEY_REPEAT)
+			{
+				if (angle > (1.75f / 2) && angle < 1.25f * 3.14f)
+				{
+					angle += (int)orbitSpeed * (delta_time / 1000);
+				}
+				if (angle <= (1.75f / 2) && angle > 0)
+				{
+					angle -= (int)orbitSpeed * (delta_time / 1000);
+				}
+				if (angle < 0) angle = 6.28f; //if we go under 0, full circle
+											  //if (angle >= 6.28f) angle = 0; //force check to avoid Nicolas
+				if (angle <= 6.28f && angle > (1.25f * 3.14f))
+				{
+					angle -= (int)orbitSpeed * (delta_time / 1000);
+				}
+
 			}
 		}
 
-		//up and right case
-		if ( App->player[playerIndex]->playerInput.moveUp &&//App->input->keyboard[SDL_SCANCODE_W] == KEY_STATE::KEY_REPEAT &&
-			App->player[playerIndex]->playerInput.moveRight)//App->input->keyboard[SDL_SCANCODE_D] == KEY_STATE::KEY_REPEAT)
-		{
-			if (angle > (1.75f / 2) && angle < 1.25f * 3.14f)
-			{
-				angle += (int)orbitSpeed * (delta_time / 1000);
-			}
-			if (angle <= (1.75f / 2) && angle > 0)
-			{
-				angle -= (int)orbitSpeed * (delta_time / 1000);
-			}
-			if (angle < 0) angle = 6.28f; //if we go under 0, full circle
-										  //if (angle >= 6.28f) angle = 0; //force check to avoid Nicolas
-			if (angle <= 6.28f && angle >(1.25f * 3.14f))
-			{
-				angle -= (int)orbitSpeed * (delta_time / 1000);
-			}
-
-		}
+		// -------------------------------------------------------------------------------------------------
 	}
+	else if (this_state == actualState::FREE)
+	{
+		// call movement calculations
 
-	// -------------------------------------------------------------------------------------------------
-
+	}
 	return UPDATE_CONTINUE;
 }
 
 update_status ModulePlayerUnit::Update()
 {
+	if (this_state == actualState::LINKED)
+	{
+		//animation logic ----------------------------------------------------------------------------------
+		//the ball moves independent of the position of the angle, only consider direction of
+		//pulsations direction (and remember on a temporal value the last pulsation to stuck the animation
+		//to its desired animation position (at module start links to position of spawn (animation index 0)
 
-	//animation logic ----------------------------------------------------------------------------------
-	//the ball moves independent of the position of the angle, only consider direction of
-	//pulsations direction (and remember on a temporal value the last pulsation to stuck the animation
-	//to its desired animation position (at module start links to position of spawn (animation index 0)
-	
-	SDL_Rect unitRect;
-	unitRect = currentUnitAnim->GetCurrentFrame();
+		SDL_Rect unitRect;
+		unitRect = currentUnitAnim->GetCurrentFrame();
 
-	float animationRotationSpeed = 0.9f;
-	
-	//if we press up
-	if (App->player[playerIndex]->playerInput.moveDown)//App->input->keyboard[SDL_SCANCODE_S] == KEY_STATE::KEY_REPEAT)
-	{	
-		//index 4 is the unit pointing up and 12 unit pointing down, the two directions to consider on this axis
-		if (frameIncrement > 4 && frameIncrement < 12) //if we are on a superior animation, we go on the short way
-		{											   //original game behaviour
-			frameIncrement -= animationRotationSpeed; 
+		float animationRotationSpeed = 0.9f;
+
+		//if we press up
+		if (App->player[playerIndex]->playerInput.moveDown)//App->input->keyboard[SDL_SCANCODE_S] == KEY_STATE::KEY_REPEAT)
+		{
+			//index 4 is the unit pointing up and 12 unit pointing down, the two directions to consider on this axis
+			if (frameIncrement > 4 && frameIncrement < 12) //if we are on a superior animation, we go on the short way
+			{											   //original game behaviour
+				frameIncrement -= animationRotationSpeed;
+			}
+			else
+			{	//the short way in some cases MUST consider 0 pos...
+				frameIncrement += animationRotationSpeed;
+				if ((int)frameIncrement >= MAX_ANIMS - 1) frameIncrement = 0;
+			}
+			if ((int)frameIncrement == 4) frameIncrement = 4; //stuck on the correct MAX frame
 		}
-		else
-		{	//the short way in some cases MUST consider 0 pos...
-			frameIncrement += animationRotationSpeed;
+		//if we press down
+		if (App->player[playerIndex]->playerInput.moveUp &&//App->input->keyboard[SDL_SCANCODE_W] == KEY_STATE::KEY_REPEAT &&
+			!App->player[playerIndex]->playerInput.moveDown)//App->input->keyboard[SDL_SCANCODE_S] == KEY_STATE::KEY_IDLE) //original game behaviour priority
+		{
+			if (frameIncrement > 12 || frameIncrement < 4)
+			{
+				frameIncrement -= animationRotationSpeed;
+				if ((int)frameIncrement <= 0) frameIncrement = MAX_ANIMS - 1; //when we reach max anims index
+			}
+			else if (frameIncrement >= 4) //opposite direction
+			{
+				frameIncrement += animationRotationSpeed;
+			}
+			if ((int)frameIncrement == 12) frameIncrement = 12; //stuck on the correct MAX frame
+		}
+		//if we press right
+		if (App->player[playerIndex]->playerInput.moveRight &&//App->input->keyboard[SDL_SCANCODE_D] == KEY_STATE::KEY_REPEAT &&
+			!App->player[playerIndex]->playerInput.moveLeft)//App->input->keyboard[SDL_SCANCODE_A] == KEY_STATE::KEY_IDLE) //double check for original game priority
+		{
+			//index 8 pointing left , index 0 pointing right
+			if (frameIncrement > 8) frameIncrement -= animationRotationSpeed;
+			else frameIncrement += animationRotationSpeed;
+			if ((int)frameIncrement == 8) frameIncrement = 8;
+		}
+		//if we press left
+		if (App->player[playerIndex]->playerInput.moveLeft)//App->input->keyboard[SDL_SCANCODE_A] == KEY_STATE::KEY_REPEAT)
+		{
+			if (frameIncrement < 8 && frameIncrement > 0) frameIncrement -= animationRotationSpeed;
+			else frameIncrement += animationRotationSpeed;
 			if ((int)frameIncrement >= MAX_ANIMS - 1) frameIncrement = 0;
 		}
-		if ((int)frameIncrement == 4) frameIncrement = 4; //stuck on the correct MAX frame
-	}
-	//if we press down
-	if ( App->player[playerIndex]->playerInput.moveUp &&//App->input->keyboard[SDL_SCANCODE_W] == KEY_STATE::KEY_REPEAT &&
-		!App->player[playerIndex]->playerInput.moveDown)//App->input->keyboard[SDL_SCANCODE_S] == KEY_STATE::KEY_IDLE) //original game behaviour priority
-	{
-		if (frameIncrement > 12 || frameIncrement < 4) 
-		{					   
-			frameIncrement -= animationRotationSpeed;
-			if ((int)frameIncrement <= 0) frameIncrement = MAX_ANIMS - 1; //when we reach max anims index
-		}
-		else if(frameIncrement >= 4) //opposite direction
+		// ------------------------------------------------------------------------------------------------
+
+		// Basic shooting ---------------------------------------------------------------------------------
+
+		if (App->player[playerIndex]->playerInput.shot)//App->input->keyboard[SDL_SCANCODE_SPACE] == KEY_DOWN)
 		{
-			frameIncrement += animationRotationSpeed;
+			App->particles->AddParticle(App->particles->unitBasicShot, playerPos.x, playerPos.y, COLLIDER_PLAYER_SHOT, shotVectorSpeed[(int)frameIncrement]);
 		}
-		if ((int)frameIncrement == 12) frameIncrement = 12; //stuck on the correct MAX frame
+
+
+
+		//draw the unit -----------------------------------------------------------------------------------
+
+		currentUnitAnim = &playerUnitAnim[(int)frameIncrement]; //prepares the correct draw 
+
+		currentUnitAnim->current_frame = lastFrame; //recovery last animation frame and continues the flow
+		unitRect = currentUnitAnim->GetCurrentFrame();
+		lastFrame = currentUnitAnim->current_frame; //and stores the new "last frame"
+
+		playerPos.x = (App->player[playerIndex]->position.x + 9) + cos(angle) * 31.5f;//orginal distance // 9
+		playerPos.y = (App->player[playerIndex]->position.y - 7) - sin(angle) * 32;//24; // 7
+
+		App->render->Blit(graphics,
+			playerPos.x - pivotArrayPositionsX[(int)frameIncrement],
+			playerPos.y - pivotArrayPositionsY[(int)frameIncrement],
+			&unitRect);
+
+		// ------------------------------------------------------------------------------------------------
 	}
-	//if we press right
-	if ( App->player[playerIndex]->playerInput.moveRight &&//App->input->keyboard[SDL_SCANCODE_D] == KEY_STATE::KEY_REPEAT &&
-		!App->player[playerIndex]->playerInput.moveLeft)//App->input->keyboard[SDL_SCANCODE_A] == KEY_STATE::KEY_IDLE) //double check for original game priority
+	else if (this_state == actualState::FREE)
 	{
-		//index 8 pointing left , index 0 pointing right
-		if (frameIncrement > 8) frameIncrement -= animationRotationSpeed;
-		else frameIncrement += animationRotationSpeed;
-		if ((int)frameIncrement == 8) frameIncrement = 8;
+		// call animations function
+
 	}
-	//if we press left
-	if (App->player[playerIndex]->playerInput.moveLeft)//App->input->keyboard[SDL_SCANCODE_A] == KEY_STATE::KEY_REPEAT)
-	{
-		if (frameIncrement < 8 && frameIncrement > 0) frameIncrement -= animationRotationSpeed;
-		else frameIncrement += animationRotationSpeed;
-		if ((int)frameIncrement >= MAX_ANIMS - 1) frameIncrement = 0;
-	}
-	// ------------------------------------------------------------------------------------------------
-	
-	// Basic shooting ---------------------------------------------------------------------------------
-
-	if (App->player[playerIndex]->playerInput.shot)//App->input->keyboard[SDL_SCANCODE_SPACE] == KEY_DOWN)
-	{
-			App->particles->AddParticle(App->particles->unitBasicShot, playerPos.x, playerPos.y, COLLIDER_PLAYER_SHOT,shotVectorSpeed[(int)frameIncrement]);
-	}
-
-
-
-	//draw the unit -----------------------------------------------------------------------------------
-
-	currentUnitAnim = &playerUnitAnim[(int)frameIncrement]; //prepares the correct draw 
-	
-	currentUnitAnim->current_frame = lastFrame; //recovery last animation frame and continues the flow
-	unitRect = currentUnitAnim->GetCurrentFrame();
-	lastFrame = currentUnitAnim->current_frame; //and stores the new "last frame"
-
-	playerPos.x = (App->player[playerIndex]->position.x + 9) + cos(angle) * 31.5f;//orginal distance // 9
-	playerPos.y = (App->player[playerIndex]->position.y - 7) - sin(angle) * 32;//24; // 7
-	
-	App->render->Blit(graphics,
-		playerPos.x - pivotArrayPositionsX[(int)frameIncrement],
-		playerPos.y - pivotArrayPositionsY[(int)frameIncrement],
-		&unitRect);
-
-	// ------------------------------------------------------------------------------------------------
 	return UPDATE_CONTINUE;
 }
 
