@@ -156,17 +156,17 @@ bool ModuleEnemies::CleanUp()
 	LOG("Freeing all enemies");
 	
 	//unloading loaded textures
-
+	//inverse order
+	App->textures->Unload(enemyMiniTankTexture);
+	App->textures->Unload(enemyLamellaTexture);
 	App->textures->Unload(enemyProtatorTexture);
+	App->textures->Unload(enemyPowerBeeTexture);
 	App->textures->Unload(beeBulletTexture);
 	App->textures->Unload(enemyBeeTexture);
 	App->textures->Unload(enemyTankTexture);
 	App->textures->Unload(enemy2Texture);
 	App->textures->Unload(enemy1Texture);
 	App->textures->Unload(enemyRedbirdTexture);
-	App->textures->Unload(enemyPowerBeeTexture);
-	App->textures->Unload(enemyLamellaTexture);
-	App->textures->Unload(enemyMiniTankTexture);
 	//App->textures->Unload(sprites);
 	
 	//Unloading loaded audio's

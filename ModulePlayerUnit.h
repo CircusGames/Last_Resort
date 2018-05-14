@@ -16,7 +16,9 @@
 enum actualState
 {
 	LINKED,
-	FREE
+	FREE,
+	RETURN,
+	POSITIONING
 };
 
 
@@ -77,5 +79,49 @@ public:
 	int playerIndex; //index for assign unit to player
 
 	actualState this_state = actualState::LINKED; //unit spawns linked to player
+
+	// throwing variables ------------
+	float charge = 0;
+
+	void boomerangShot(float charge);
+
+	SDL_Texture* chargeGraphics = nullptr;
+	Animation chargingAnim;
+	Animation freeAnim;
+
+	int chargePivotsX[15] = { 18, 16, 16, 14, 14, 16, 16, 15, 15, 14, 14, 23, 23, 21, 21 };
+	int chargePivotsY[15] = { 18, 16, 16, 14, 14, 16, 16, 15, 15, 13, 13, 23, 23, 21, 21 };
+
+	float vx = 0.0f;
+	float vy = 0.0f;
+	float posX = 0.0f;
+	float posY = 0.0f;
+	float unitBoomerangSpeed = 4.5f;
+	float positioningSpeed = 2.5f;
+	float increaseVectorX = 0;
+	float increaseVectorY = 0;
+
+	int throwPivots[8] = { 2,3,4,3,2,1,0,1 };
+
+	//time calculations
+
+	Uint32 start_boomerang_time;
+	Uint32 now;
+	Uint32 max_boomerang_time = 1000;
+
+	//trail animation
+	Animation trailsAnim[4];
+	Uint32 next_trail_time = 150;
+	Uint32 now_trail_time;
+	Uint32 start_next_trail_time;
+	int trailsCounter = 0;
+	float trailsDistance[2];
+	fPoint trailsPosition[2];
+
+	//Particle trailsParticles[4];
+
+	//Particle* ptrTrailParticle;
+
+
 };
 #endif // !__MODULEPLAYERUNIT_H__

@@ -134,6 +134,7 @@ void Player::checkInput()
 		playerInput.moveDown = App->input->keyboard[SDL_SCANCODE_S] == KEY_REPEAT;
 		playerInput.lockUnit = App->input->keyboard[SDL_SCANCODE_LSHIFT] == KEY_DOWN;
 		playerInput.shot = App->input->keyboard[SDL_SCANCODE_SPACE] == KEY_DOWN;
+		playerInput.chargedShot = App->input->keyboard[SDL_SCANCODE_SPACE] == KEY_REPEAT;
 	}
 	if (this == App->player[1])
 	{
@@ -143,5 +144,6 @@ void Player::checkInput()
 		playerInput.moveDown = App->input->keyboard[SDL_SCANCODE_DOWN] == KEY_REPEAT;
 		playerInput.lockUnit = App->input->keyboard[SDL_SCANCODE_RSHIFT] == KEY_DOWN;
 		playerInput.shot = App->input->keyboard[SDL_SCANCODE_RALT] == KEY_DOWN;
+		playerInput.chargedShot = App->input->keyboard[SDL_SCANCODE_RALT] == KEY_REPEAT;
 	}
 }

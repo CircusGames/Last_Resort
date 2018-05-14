@@ -9,6 +9,8 @@
 #include "ModulePowerUp.h"
 #include "ModuleAudio.h"
 
+#include "SDL\include\SDL_timer.h"
+
 #define UNITANIMSPEED 0.25f
 
 ModulePlayerUnit::ModulePlayerUnit()
@@ -176,6 +178,73 @@ ModulePlayerUnit::ModulePlayerUnit()
 	playerUnitAnim[0].PushBack({ 0,0 , 22,16 });
 	playerUnitAnim[0].speed = UNITANIMSPEED;
 
+	//charging and free animation
+	freeAnim.PushBack({ 0, 0, 22, 22 });
+	freeAnim.PushBack({ 22, 0, 24, 24 });
+	freeAnim.PushBack({ 46, 0, 26, 26 });
+	freeAnim.PushBack({ 72, 0, 24, 24 });
+	freeAnim.PushBack({ 96, 0, 22, 22 });
+	freeAnim.PushBack({ 118, 0, 20, 20 });
+	freeAnim.PushBack({ 138, 0, 18, 18 });
+	freeAnim.PushBack({ 156, 0, 20, 20 });
+	freeAnim.speed = 0.33f;
+	// ----
+	//chargingAnim.PushBack({ 0, 0, 22, 22 });
+	chargingAnim.PushBack({ 184, 86, 36, 36 });
+	chargingAnim.PushBack({ 152, 86, 32, 32 });
+	chargingAnim.PushBack({ 120, 86, 32, 32 });
+	chargingAnim.PushBack({ 92, 86, 28, 28 });
+	chargingAnim.PushBack({ 64, 86, 28, 28 });
+	chargingAnim.PushBack({ 32, 86, 32, 32 });
+	chargingAnim.PushBack({ 0, 86, 32, 32 });
+	chargingAnim.PushBack({ 220, 41, 30, 30 });
+	chargingAnim.PushBack({ 190, 41, 30, 30 });
+	chargingAnim.PushBack({ 162, 41, 28, 27 });
+	chargingAnim.PushBack({ 134, 41, 28, 27 });
+	chargingAnim.PushBack({ 88, 41, 46, 45 });
+	chargingAnim.PushBack({ 42, 41, 46, 45 });
+	chargingAnim.PushBack({ 0, 41, 42, 41 });
+	chargingAnim.PushBack({ 176,  0, 42, 41 });
+	chargingAnim.speed = 0.5f;
+	
+	// trails particles
+
+	/*trailsParticles[0].anim.PushBack({ 220,86,24,24 });
+	trailsParticles[0].anim.PushBack({ 220,86,-24,24 });
+	trailsParticles[0].anim.PushBack({ 220,86,24,-24 });
+	trailsParticles[0].anim.PushBack({ 220,86,-24,-24 });
+
+	trailsParticles[0].anim.PushBack({ 92,122,23,24 });
+	trailsParticles[0].anim.PushBack({ 92,122,-23,24 });
+	trailsParticles[0].anim.PushBack({ 92,122,23,-24 });
+	trailsParticles[0].anim.PushBack({ 92,122,-23,-24 });
+	trailsParticles[0].anim.speed = 0.03f;*/
+	//trailsParticles[0].speed = 0.01f;
+
+	trailsAnim[0].PushBack({ 220,86,24,24 });
+	trailsAnim[0].PushBack({ 220,86,-24,24 });
+	trailsAnim[0].PushBack({ 220,86,24,-24 });
+	trailsAnim[0].PushBack({ 220,86,-24,-24 });
+
+	trailsAnim[0].PushBack({ 92,122,23,24 });
+	trailsAnim[0].PushBack({ 92,122,-23,24 });
+	trailsAnim[0].PushBack({ 92,122,23,-24 });
+	trailsAnim[0].PushBack({ 92,122,-23,-24 });
+	trailsAnim[0].speed = 0.03f;
+
+	trailsAnim[1].PushBack({ 220,86,24,24 });
+	trailsAnim[1].PushBack({ 220,86,-24,24 });
+	trailsAnim[1].PushBack({ 220,86,24,-24 });
+	trailsAnim[1].PushBack({ 220,86,-24,-24 });
+
+	trailsAnim[1].PushBack({ 92,122,23,24 });
+	trailsAnim[1].PushBack({ 92,122,-23,24 });
+	trailsAnim[1].PushBack({ 92,122,23,-24 });
+	trailsAnim[1].PushBack({ 92,122,-23,-24 });
+	trailsAnim[1].speed = 0.03f;
+	
+
+
 }
 
 ModulePlayerUnit::~ModulePlayerUnit() {}
@@ -206,7 +275,8 @@ bool ModulePlayerUnit::Start()
 
 	unitLocked = false; //locks or unlocks circular movement
 
-	//check what player pertaints this unit
+	//trails particles linked texture
+	//trailsParticles[0].texture = chargeGraphics;
 	
 
 	return true;
@@ -214,11 +284,11 @@ bool ModulePlayerUnit::Start()
 
 update_status ModulePlayerUnit::PreUpdate()
 {
-	if (this_state == actualState::LINKED)
+	if (this_state == actualState::LINKED || this_state == actualState::POSITIONING)
 	{
 
 		//locks and unlocks unit movement control
-		if (App->player[playerIndex]->playerInput.lockUnit)//App->input->keyboard[SDL_SCANCODE_LSHIFT] == KEY_STATE::KEY_DOWN)
+		if (App->player[playerIndex]->playerInput.lockUnit && this_state != actualState::POSITIONING)//App->input->keyboard[SDL_SCANCODE_LSHIFT] == KEY_STATE::KEY_DOWN)
 		{
 			if (unitLocked)
 			{
@@ -416,15 +486,87 @@ update_status ModulePlayerUnit::PreUpdate()
 	else if (this_state == actualState::FREE)
 	{
 		// call movement calculations
+		posX += vx + 1;
+		posY -= vy;
+		playerPos.x = posX;
+		playerPos.y = posY;
+
+		//time
+		now = SDL_GetTicks() - start_boomerang_time;
+
+		if (now >= max_boomerang_time)
+		{
+			this_state = actualState::RETURN;
+			LOG("Returning");
+		}
 
 	}
+	else if (this_state == actualState::RETURN)
+	{
+		int tx = (App->player[playerIndex]->position.x + 9) - (playerPos.x);
+		int ty = (App->player[playerIndex]->position.y - 4) - (playerPos.y);
+		
+		fPoint playerDistance;
+		playerDistance.x = App->player[playerIndex]->position.x;
+		playerDistance.y = App->player[playerIndex]->position.y;
+
+		fPoint thisPosition;
+		thisPosition.x = playerPos.x;
+		thisPosition.y = playerPos.y;
+
+		//get sqrt distance
+		float distance = thisPosition.DistanceTo(playerDistance);
+
+		float velX = (tx / distance)*unitBoomerangSpeed;
+		float velY = (ty / distance)*unitBoomerangSpeed;
+
+		playerPos.x += velX + 1;
+		playerPos.y += velY;
+
+		if (distance <= 20)
+			this_state = actualState::POSITIONING;
+
+	}
+	else if (this_state == actualState::POSITIONING)
+	{
+		//float positioningSpeed = 0.07f;
+		//playerPos.x += positioningSpeed;
+		//playerPos.y += positioningSpeed;
+	}
+
 	return UPDATE_CONTINUE;
 }
 
 update_status ModulePlayerUnit::Update()
 {
-	if (this_state == actualState::LINKED)
+
+	if (this_state == actualState::LINKED || this_state == actualState::POSITIONING)
 	{
+		// update unit position before printing anything on Linked step
+
+		if (this_state != actualState::POSITIONING)
+		{
+			playerPos.x = (App->player[playerIndex]->position.x + 9) + cos(angle) * 31.5f;//orginal distance // 9
+			playerPos.y = (App->player[playerIndex]->position.y - 7) - sin(angle) * 32;//24; // 7
+		}
+		else
+		{
+			
+			increaseVectorX += positioningSpeed;
+			increaseVectorY += positioningSpeed;
+
+			playerPos.x = (App->player[playerIndex]->position.x + 9) + cos(angle) * increaseVectorX;//orginal distance // 9
+			playerPos.y = (App->player[playerIndex]->position.y - 7) - sin(angle) * increaseVectorY;//24; // 7
+
+			if (increaseVectorX >= 31.5f || increaseVectorY >= 32)
+			{
+				this_state = actualState::LINKED;
+				increaseVectorX = 0;
+				increaseVectorY = 0;
+			}
+		}
+		
+
 		//animation logic ----------------------------------------------------------------------------------
 		//the ball moves independent of the position of the angle, only consider direction of
 		//pulsations direction (and remember on a temporal value the last pulsation to stuck the animation
@@ -563,6 +705,34 @@ update_status ModulePlayerUnit::Update()
 			App->particles->AddParticle(App->particles->unitBasicShot, playerPos.x, playerPos.y, COLLIDER_PLAYER_SHOT, shotVectorSpeed[(int)frameIncrement]);
 		}
 
+		// charged shot ------------------------------------------------------------------------------------
+
+		if (App->player[playerIndex]->playerInput.chargedShot && this_state == actualState::LINKED)
+		{
+   			charge += 0.07f;
+			LOG("charging shot: %f", charge);
+			if (charge >= 0.4f) // if charge is superior a minimum threshold
+			{
+				SDL_Rect chargeRect = chargingAnim.GetCurrentFrame();
+				App->render->Blit(chargeGraphics, 
+				playerPos.x + 7 - chargePivotsX[(int)chargingAnim.current_frame],
+				playerPos.y + 7 - chargePivotsY[(int)chargingAnim.current_frame],
+				&chargeRect);
+			}
+		}
+		else
+		{
+			if (charge >= 0.4f)
+			{
+				if (charge >= 10.0f) charge = 10;
+				LOG("throwing unit");
+				boomerangShot(charge);
+				
+			}
+			charge = 0;
+		}
+			
+
 
 
 		//draw the unit -----------------------------------------------------------------------------------
@@ -573,8 +743,8 @@ update_status ModulePlayerUnit::Update()
 		unitRect = currentUnitAnim->GetCurrentFrame();
 		lastFrame = currentUnitAnim->current_frame; //and stores the new "last frame"
 
-		playerPos.x = (App->player[playerIndex]->position.x + 9) + cos(angle) * 31.5f;//orginal distance // 9
-		playerPos.y = (App->player[playerIndex]->position.y - 7) - sin(angle) * 32;//24; // 7
+		//playerPos.x = (App->player[playerIndex]->position.x + 9) + cos(angle) * 31.5f;//orginal distance // 9
+		//playerPos.y = (App->player[playerIndex]->position.y - 7) - sin(angle) * 32;//24; // 7
 
 		App->render->Blit(graphics,
 			playerPos.x - pivotArrayPositionsX[(int)frameIncrement],
@@ -583,12 +753,78 @@ update_status ModulePlayerUnit::Update()
 
 		// ------------------------------------------------------------------------------------------------
 	}
-	else if (this_state == actualState::FREE)
+	else if (this_state == actualState::FREE || this_state == actualState::RETURN)
 	{
 		// call animations function
 
+		SDL_Rect throwRect = freeAnim.GetCurrentFrame();
+		App->render->Blit(chargeGraphics,
+			playerPos.x - 2 - throwPivots[(int)freeAnim.current_frame],
+			playerPos.y - 2 - throwPivots[(int)freeAnim.current_frame],
+			&throwRect);
+
+		//ptrTrailParticle->position.x = playerPos.x;
+		//ptrTrailParticle->position.y = playerPos.y + 20;
+
+		now_trail_time = SDL_GetTicks() - start_next_trail_time;
+
+		if (now_trail_time >= next_trail_time && trailsCounter <= 2)
+		{
+			trailsCounter++;
+			start_next_trail_time = SDL_GetTicks();
+		}
+
+		/*for (int i = 0; i < trailsCounter; ++i)
+		{
+			int tx = (App->player[playerIndex]->position.x + 9) - (playerPos.x);
+			int ty = (App->player[playerIndex]->position.y - 4) - (playerPos.y);
+
+			fPoint thisPosition;
+			thisPosition.x = playerPos.x;
+			thisPosition.y = playerPos.y;
+
+			trailsPosition[i].x = thisPosition.x;
+			trailsPosition[i].y = thisPosition.y;
+
+			
+
+			//get sqrt distance
+			trailsDistance[i] = thisPosition.DistanceTo(trailsPosition[i]);
+
+			float velX = (tx / trailsDistance[i])*unitBoomerangSpeed;
+			float velY = (ty / trailsDistance[i])*unitBoomerangSpeed;
+
+			thisPosition.x += velX + 1;
+			thisPosition.y += velY;
+
+			App->render->Blit(chargeGraphics,trailsPosition[i].x,trailsPosition[i].y, &trailsAnim[i].GetCurrentFrame());
+		}*/
+		
+		
+
 	}
 	return UPDATE_CONTINUE;
+}
+
+void ModulePlayerUnit::boomerangShot(float charge)
+{
+	LOG("Throwing the unit charge: %f", charge);
+	
+	this_state = actualState::FREE;
+
+	vx = unitBoomerangSpeed * cos(angle);
+	vy = unitBoomerangSpeed * sin(angle);
+
+	posX = playerPos.x;
+	posY = playerPos.y;
+
+	start_boomerang_time = SDL_GetTicks();
+	start_next_trail_time = SDL_GetTicks();
+
+	//instantiate trail particles
+
+	//ptrTrailParticle = &App->particles->AddParticle(trailsParticles[0], playerPos.x , playerPos.y , COLLIDER_NONE, { 0,0 }, 50);
+
 }
 
 bool ModulePlayerUnit::CleanUp()
@@ -596,6 +832,8 @@ bool ModulePlayerUnit::CleanUp()
 	//unload textures
 	if (graphics != nullptr)
 		App->textures->Unload(graphics);
+	if(chargeGraphics != nullptr)
+		App->textures->Unload(chargeGraphics);
 	//unload audio
 	App->audio->UnloadAudio("UnitLocked", SFX);
 	App->audio->UnloadAudio("UnitUnlocked", SFX);
@@ -617,11 +855,13 @@ void ModulePlayerUnit::swapColor(powerUpColor color) //loads and swaps color
 	if (color == powerUpColor::ORANGE)
 	{
 		graphics = App->textures->Load("assets/Graphics/Player/OrangeUnit.png");
+		chargeGraphics = App->textures->Load("assets/Graphics/Player/orangeUnitMoveAndTrail.png");
 		actualUnitColor = color;
 	}
 	else if (color == powerUpColor::BLUE)
 	{
 		graphics = App->textures->Load("assets/Graphics/Player/blueUnit.png");
+		chargeGraphics = App->textures->Load("assets/Graphics/Player/blueUnitMoveAndTrail.png");
 		actualUnitColor = color;
 	}
 	

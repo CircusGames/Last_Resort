@@ -133,6 +133,7 @@ public:
 		bool moveDown = false;
 		bool shot = false;
 		bool lockUnit = false;
+		bool chargedShot = false;
 	}playerInput;
 
 	SDL_Texture* playerTexture = nullptr;

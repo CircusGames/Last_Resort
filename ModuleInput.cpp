@@ -307,6 +307,8 @@ bool ModuleInput::CleanUp()
 	SDL_QuitSubSystem(SDL_INIT_EVENTS);
 
 	LOG("Closing controller----");
+	SDL_QuitSubSystem(SDL_INIT_GAMECONTROLLER);
+
 	for (int i = 0; i < SDL_NumJoysticks(); ++i)
 	{
 		if (gamePadControllers[i].gamePadController != nullptr)
