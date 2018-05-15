@@ -10,16 +10,53 @@ EnemyLamella::EnemyLamella(int x, int y, powerUpTypes type, SDL_Texture* thisTex
 	// correct texture link
 	enemyTex = thisTexture; 
 
-	// spawn &  move animation
-	for (int i = 0; i < 6; i++)
+	distance = GetNearestPlayerSqrtDistance();
+	if (distance > position.x)
 	{
-		for (int j = 0; j < 6; j++)
+
+		for (i = 0; i < 6; i++) // columns
 		{
-			spawnAnim.PushBack({ 40 * j, i*40, 40, 40 });
+			for (j = 0; j < 6; j++) // rows
+			{
+				spawnAnim.PushBack({ 40 * j, 40 * i, 40, 40 });
+
+				if (i > 4 && j > 1)
+					break;
+			}
+		}
+
+		for (i = 2; i < 6; i++)
+		{
+			moveAnim.PushBack({ 40 * i, 240, 40, 40 });
 		}
 	}
+
+	else
+	{
+		for (i = 0; i < 6; i++) // columns
+		{
+			for (j = 0; j < 6; j++) // rows
+			{
+				spawnAnim.PushBack({ 40 * j, 40 * i, -40, 40 });
+
+				if (i > 4 && j > 1)
+					break;
+			}
+		}
+
+		for (i = 2; i < 5; i++)
+		{
+			moveAnim.PushBack({ 40 * i, 240, -40, 40 });
+		}
+	}
+	
+	
 	spawnAnim.speed = 0.5f;
-	//animation = &spawnAnim; // links first animation
+	spawnAnim.repeat = false;
+
+	moveAnim.speed = 0.3f;
+
+	currentAnimation = &spawnAnim;
 
 	originalPos.x = x;
 	originalPos.y = y;
@@ -28,33 +65,26 @@ EnemyLamella::EnemyLamella(int x, int y, powerUpTypes type, SDL_Texture* thisTex
 	enemyScore = 200; // random
 	powerUpType = type;
 
-	collider = App->collision->AddCollider({ 0, 14, 26, 18 }, COLLIDER_TYPE::COLLIDER_ENEMY, (Module*)App->enemies);
+	collider = App->collision->AddCollider({ 0, 0, 15, 9 }, COLLIDER_TYPE::COLLIDER_ENEMY, (Module*)App->enemies);
 }
 
 void EnemyLamella::Move()
 {
-	/*collider->SetPos(position.x, position.y + 7);
-
-	if (going_up)
+	if (spawnAnim.finish)
 	{
-		if (wave > 1.0f)
-			going_up = false;
-		else
-			wave += 0.08f;
+		animation = &moveAnim;
+		position.x += 1;
+
+		if (aimed)
+			distance = GetNearestPlayerSqrtDistance();
 	}
+
 	else
-	{
-		if (wave < -1.0f)
-			going_up = true;
-		else
-			wave -= 0.08f;
-	}
-
-	position.y = original_y + int(20.0f * sinf(wave));*/
-	position.x += 1;
+		position.x += 1;
 }
 
 void EnemyLamella::Draw()
 {
-	App->render->Blit(enemyTex, position.x, position.y, &spawnAnim.GetCurrentFrame());
+	lamellaRect = currentAnimation->GetCurrentFrame();
+	App->render->Blit(enemyTex, position.x, position.y, &lamellaRect);
 }

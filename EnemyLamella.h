@@ -8,15 +8,21 @@ class EnemyLamella : public Enemy
 {
 private:
 
-	float wave = -1.0f;
-	bool going_up = true;
-	int original_y = 0;
+	int i, j;
+	bool aimed = true;
+	bool spawn = true;
+	float distance; // nearest player
+
+	SDL_Rect lamellaRect;
 
 	Animation spawnAnim;
 	Animation moveAnim;
+	Animation despawnAnim;
+	Animation* currentAnimation;
 
 	iPoint originalPos;
 	iPoint finalPos;
+
 
 public:
 
