@@ -2,6 +2,7 @@
 #define __MODULEPLAYERUNIT_H__
 
 #define MAX_ANIMS 16
+#define NUM_TRAILS 4
 
 #include "Module.h"
 #include "Animation.h"
@@ -96,7 +97,7 @@ public:
 	float vy = 0.0f;
 	float posX = 0.0f;
 	float posY = 0.0f;
-	float unitBoomerangSpeed = 4.5f;
+	float unitBoomerangSpeed = 7.5f;//4.5f;
 	float positioningSpeed = 2.5f;
 	float increaseVectorX = 0;
 	float increaseVectorY = 0;
@@ -122,7 +123,7 @@ public:
 
 	struct trailsInfo
 	{
-		Animation* anim;
+		Animation anim;
 		iPoint initialPos;
 		iPoint currentPos;
 		iPoint targetPos;
@@ -131,11 +132,16 @@ public:
 		float maxDistance;
 		float tx;
 		float ty;
+		float velX;
+		float velY;
+		float speed;
 		int pivotsX[8];
 		int pivotsY[8];
+		float tPosX;
+		float tPosY;
 	};
 
-	trailsInfo trailsData[4];
+	trailsInfo trailsData[NUM_TRAILS];
 
 
 };
