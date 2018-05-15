@@ -222,7 +222,7 @@ ModulePlayerUnit::ModulePlayerUnit()
 	//trailsParticles[0].speed = 0.01f;
 
 	
-	trailsData[0].anim->PushBack({ 220,86,24,24 });
+	/*trailsData[0].anim->PushBack({ 220,86,24,24 });
 	trailsData[0].anim->PushBack({ 220,86,-24,24 });
 	trailsData[0].anim->PushBack({ 220,86,24,-24 });
 	trailsData[0].anim->PushBack({ 220,86,-24,-24 });
@@ -242,7 +242,7 @@ ModulePlayerUnit::ModulePlayerUnit()
 	trailsData[1].anim->PushBack({ 92,122,-23,24 });
 	trailsData[1].anim->PushBack({ 92,122,23,-24 });
 	trailsData[1].anim->PushBack({ 92,122,-23,-24 });
-	trailsData[1].anim->speed = 0.03f;
+	trailsData[1].anim->speed = 0.03f;*/
 	
 
 
