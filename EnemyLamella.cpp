@@ -65,15 +65,21 @@ EnemyLamella::EnemyLamella(int x, int y, powerUpTypes type, SDL_Texture* thisTex
 	enemyScore = 200; // random
 	powerUpType = type;
 
-	collider = App->collision->AddCollider({ 0, 0, 15, 9 }, COLLIDER_TYPE::COLLIDER_ENEMY, (Module*)App->enemies);
+	
 }
 
 void EnemyLamella::Move()
 {
+	if(collider != nullptr)
+		collider->SetPos(position.x,position.y);
+
 	if (spawnAnim.finish)
 	{
 		animation = &moveAnim;
 		position.x += 1;
+
+		if(collider == nullptr)
+			collider = App->collision->AddCollider({ 0, 0, 30, 30 }, COLLIDER_TYPE::COLLIDER_ENEMY, (Module*)App->enemies);
 
 		if (aimed)
 			distance = GetNearestPlayerSqrtDistance();
@@ -85,6 +91,8 @@ void EnemyLamella::Move()
 
 void EnemyLamella::Draw()
 {
+
 	lamellaRect = currentAnimation->GetCurrentFrame();
 	App->render->Blit(enemyTex, position.x, position.y, &lamellaRect);
+
 }
