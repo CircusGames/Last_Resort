@@ -135,6 +135,7 @@ void Player::checkInput()
 		playerInput.lockUnit = App->input->keyboard[SDL_SCANCODE_LSHIFT] == KEY_DOWN;
 		playerInput.shot = App->input->keyboard[SDL_SCANCODE_SPACE] == KEY_DOWN;
 		playerInput.chargedShot = App->input->keyboard[SDL_SCANCODE_SPACE] == KEY_REPEAT;
+		playerInput.chargedShotGamepad = App->input->gamePadControllers[0].shotPressed;
 	}
 	if (this == App->player[1])
 	{
@@ -145,5 +146,6 @@ void Player::checkInput()
 		playerInput.lockUnit = App->input->keyboard[SDL_SCANCODE_RSHIFT] == KEY_DOWN;
 		playerInput.shot = App->input->keyboard[SDL_SCANCODE_RALT] == KEY_DOWN;
 		playerInput.chargedShot = App->input->keyboard[SDL_SCANCODE_RALT] == KEY_REPEAT;
+		playerInput.chargedShotGamepad = App->input->gamePadControllers[1].shotPressed;
 	}
 }

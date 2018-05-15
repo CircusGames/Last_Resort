@@ -312,8 +312,8 @@ bool ModulePlayerUnit::Start()
 
 	unitLocked = false; //locks or unlocks circular movement
 
-	//trails particles linked texture
-	//trailsParticles[0].texture = chargeGraphics;
+	//re assign needed values to position 0 when start/ re start
+
 	
 
 	return true;
@@ -582,14 +582,14 @@ update_status ModulePlayerUnit::PreUpdate()
 
 		if (this_state == actualState::POSITIONING)
 		{
-			targetDistance = 0;
+			targetDistance = 10;
 			destinationPosition.x = App->player[playerIndex]->position.x; //+ 16; // 16 half player width
 			destinationPosition.y = App->player[playerIndex]->position.y; // -8; //
 
-			if (trailsData[0].distance <= 10 && !trailsData[0].returned)
+			if (trailsData[0].distance <= 10 && trailsData[0].print)
 			{
-				numTrailsPrint--;
-				trailsData[0].returned = true;
+				//numTrailsPrint--;
+				trailsData[0].print = false;
 			}
 		}
 		else
@@ -607,7 +607,7 @@ update_status ModulePlayerUnit::PreUpdate()
 			trailsData[0].velX = (trailsData[0].tx / trailsData[0].distance * trailsData[0].speed);
 			trailsData[0].velY = (trailsData[0].ty / trailsData[0].distance * trailsData[0].speed);
 
-			trailsData[0].tPosX = trailsData[0].velX + 1;
+			trailsData[0].tPosX = trailsData[0].velX + 1;// + 1;
 			trailsData[0].tPosY = trailsData[0].velY;
 
 			trailsData[0].currentPos.x += trailsData[0].tPosX;
@@ -627,10 +627,9 @@ update_status ModulePlayerUnit::PreUpdate()
 
 			trailsData[i].distance = trailsData[i].currentPos.DistanceTo(trailsData[i - 1].currentPos);
 
-			if (trailsData[i].distance <= 10 && !trailsData[i].returned && this_state == actualState::POSITIONING)
+			if (trailsData[i].distance <= targetDistance && this_state == actualState::POSITIONING && trailsData[i].print)
 			{
-				numTrailsPrint--;
-				trailsData[i].returned = true;
+				trailsData[i].print = false;
 			}
 
 			if (trailsData[i].distance >= targetDistance)
@@ -686,7 +685,7 @@ update_status ModulePlayerUnit::Update()
 
 				//and re assign trails bools
 				for (int i = 0; i < NUM_TRAILS; ++i)
-					trailsData[i].returned = false;
+					trailsData[i].print = true;
 			}
 		}
 		
@@ -831,11 +830,11 @@ update_status ModulePlayerUnit::Update()
 
 		// charged shot ------------------------------------------------------------------------------------
 
-		if (App->player[playerIndex]->playerInput.chargedShot && this_state == actualState::LINKED)
+		if (App->player[playerIndex]->playerInput.chargedShot || App->player[playerIndex]->playerInput.chargedShotGamepad && this_state == actualState::LINKED)
 		{
    			charge += 0.07f;
 			LOG("charging shot: %f", charge);
-			if (charge >= 0.4f) // if charge is superior a minimum threshold
+			if (charge >= 0.7f) // if charge is superior a minimum threshold
 			{
 				SDL_Rect chargeRect = chargingAnim.GetCurrentFrame();
 				App->render->Blit(chargeGraphics, 
@@ -846,7 +845,7 @@ update_status ModulePlayerUnit::Update()
 		}
 		else
 		{
-			if (charge >= 0.4f)
+			if (charge >= 0.7f)
 			{
 				if (charge >= 10.0f) charge = 10;
 				LOG("throwing unit");
@@ -892,15 +891,17 @@ update_status ModulePlayerUnit::Update()
 
 	if (this_state != actualState::LINKED)
 	{
-		for (int i = numTrailsPrint; i >= 0; --i)
-		//for (int i = 0; i < numTrailsPrint; ++i)
+		//for (int i = numTrailsPrint -1; i >= 0; --i)
+		for (int i = 0; i < NUM_TRAILS ; ++i)
 		{
-			Animation* current_trailAnim;
-			current_trailAnim = &trailsData[i].anim;
-			SDL_Rect trailRect = current_trailAnim->GetCurrentFrame();
+			if (trailsData[i].print)
+			{
+				Animation* current_trailAnim;
+				current_trailAnim = &trailsData[i].anim;
+				SDL_Rect trailRect = current_trailAnim->GetCurrentFrame();
 
-			App->render->Blit(chargeGraphics, trailsData[i].currentPos.x + 6 - (abs(trailRect.w) / 2), trailsData[i].currentPos.y + 7 - (abs(trailRect.h) / 2), &trailRect);
-
+				App->render->Blit(chargeGraphics, trailsData[i].currentPos.x + 6 - (abs(trailRect.w) / 2), trailsData[i].currentPos.y + 7 - (abs(trailRect.h) / 2), &trailRect);
+			}
 		}
 	}
 	
@@ -922,11 +923,7 @@ void ModulePlayerUnit::boomerangShot(float charge)
 	start_boomerang_time = SDL_GetTicks();
 	start_next_trail_time = SDL_GetTicks();
 
-	numTrailsPrint = 4;
-
-	//links first trail to unit position
-	//trailsData[0].targetPos.x = playerPos.x;
-	//trailsData[0].targetPos.y = playerPos.y;
+	// initialize trails
 
 	for (int i = 0; i < NUM_TRAILS; ++i) //assigns initial positions
 	{

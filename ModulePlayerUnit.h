@@ -129,18 +129,19 @@ public:
 		iPoint currentPos;
 		iPoint targetPos;
 		float distance;
-		iPoint minDistance;
-		float maxDistance;
+		//iPoint minDistance;
+		//float maxDistance;
 		float tx;
 		float ty;
 		float velX;
 		float velY;
 		float speed;
-		int pivotsX[8];
-		int pivotsY[8];
+		//int pivotsX[8];
+		//int pivotsY[8];
 		float tPosX;
 		float tPosY;
-		bool returned = false;
+		//bool returned = false;
+		bool print = true;
 	};
 
 	trailsInfo trailsData[NUM_TRAILS];
