@@ -221,27 +221,28 @@ ModulePlayerUnit::ModulePlayerUnit()
 	trailsParticles[0].anim.speed = 0.03f;*/
 	//trailsParticles[0].speed = 0.01f;
 
-	trailsAnim[0].PushBack({ 220,86,24,24 });
-	trailsAnim[0].PushBack({ 220,86,-24,24 });
-	trailsAnim[0].PushBack({ 220,86,24,-24 });
-	trailsAnim[0].PushBack({ 220,86,-24,-24 });
+	
+	trailsData[0].anim->PushBack({ 220,86,24,24 });
+	trailsData[0].anim->PushBack({ 220,86,-24,24 });
+	trailsData[0].anim->PushBack({ 220,86,24,-24 });
+	trailsData[0].anim->PushBack({ 220,86,-24,-24 });
 
-	trailsAnim[0].PushBack({ 92,122,23,24 });
-	trailsAnim[0].PushBack({ 92,122,-23,24 });
-	trailsAnim[0].PushBack({ 92,122,23,-24 });
-	trailsAnim[0].PushBack({ 92,122,-23,-24 });
-	trailsAnim[0].speed = 0.03f;
+	trailsData[0].anim->PushBack({ 92,122,23,24 });
+	trailsData[0].anim->PushBack({ 92,122,-23,24 });
+	trailsData[0].anim->PushBack({ 92,122,23,-24 });
+	trailsData[0].anim->PushBack({ 92,122,-23,-24 });
+	trailsData[0].anim->speed = 0.03f;
 
-	trailsAnim[1].PushBack({ 220,86,24,24 });
-	trailsAnim[1].PushBack({ 220,86,-24,24 });
-	trailsAnim[1].PushBack({ 220,86,24,-24 });
-	trailsAnim[1].PushBack({ 220,86,-24,-24 });
+	trailsData[1].anim->PushBack({ 220,86,24,24 });
+	trailsData[1].anim->PushBack({ 220,86,-24,24 });
+	trailsData[1].anim->PushBack({ 220,86,24,-24 });
+	trailsData[1].anim->PushBack({ 220,86,-24,-24 });
 
-	trailsAnim[1].PushBack({ 92,122,23,24 });
-	trailsAnim[1].PushBack({ 92,122,-23,24 });
-	trailsAnim[1].PushBack({ 92,122,23,-24 });
-	trailsAnim[1].PushBack({ 92,122,-23,-24 });
-	trailsAnim[1].speed = 0.03f;
+	trailsData[1].anim->PushBack({ 92,122,23,24 });
+	trailsData[1].anim->PushBack({ 92,122,-23,24 });
+	trailsData[1].anim->PushBack({ 92,122,23,-24 });
+	trailsData[1].anim->PushBack({ 92,122,-23,-24 });
+	trailsData[1].anim->speed = 0.03f;
 	
 
 
@@ -821,9 +822,10 @@ void ModulePlayerUnit::boomerangShot(float charge)
 	start_boomerang_time = SDL_GetTicks();
 	start_next_trail_time = SDL_GetTicks();
 
-	//instantiate trail particles
-
-	//ptrTrailParticle = &App->particles->AddParticle(trailsParticles[0], playerPos.x , playerPos.y , COLLIDER_NONE, { 0,0 }, 50);
+	for (int i = 0; i < 2; ++i)
+	{
+		trailsData[i].initialPos = 
+	}
 
 }
 

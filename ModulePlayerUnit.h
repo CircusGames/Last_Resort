@@ -118,9 +118,24 @@ public:
 	float trailsDistance[2];
 	fPoint trailsPosition[2];
 
-	//Particle trailsParticles[4];
+	//
 
-	//Particle* ptrTrailParticle;
+	struct trailsInfo
+	{
+		Animation* anim;
+		iPoint initialPos;
+		iPoint currentPos;
+		iPoint targetPos;
+		float distance;
+		iPoint minDistance;
+		float maxDistance;
+		float tx;
+		float ty;
+		int pivotsX[8];
+		int pivotsY[8];
+	};
+
+	trailsInfo trailsData[4];
 
 
 };
