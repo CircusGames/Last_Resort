@@ -824,7 +824,7 @@ void ModulePlayerUnit::boomerangShot(float charge)
 
 	for (int i = 0; i < 2; ++i)
 	{
-		trailsData[i].initialPos = 
+		//trailsData[i].initialPos = 
 	}
 
 }
