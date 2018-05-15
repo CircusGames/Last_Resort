@@ -119,6 +119,7 @@ public:
 	float trailsDistance[2];
 	fPoint trailsPosition[2];
 
+	int numTrailsPrint;
 	//
 
 	struct trailsInfo
@@ -139,6 +140,7 @@ public:
 		int pivotsY[8];
 		float tPosX;
 		float tPosY;
+		bool returned = false;
 	};
 
 	trailsInfo trailsData[NUM_TRAILS];
