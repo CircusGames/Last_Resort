@@ -960,8 +960,17 @@ bool ModulePlayerUnit::CleanUp()
 	//unload audio
 	App->audio->UnloadAudio("UnitLocked", SFX);
 	App->audio->UnloadAudio("UnitUnlocked", SFX);
-	return true;
 
+	//returning values to unit throwing and trails
+
+	if (this_state != actualState::LINKED)
+	{
+		this_state = actualState::LINKED;
+
+		for (int i = 0; i < NUM_TRAILS; ++i)
+			trailsData[i].print = true;
+	}
+	
 	return true;
 }
 
