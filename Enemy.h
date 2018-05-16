@@ -76,6 +76,10 @@ public:
 	Uint32 now_unit_damage_time;
 	Uint32 cadence_unit_damage_time = 1000;
 	bool readyToRumble = true; //if the enemy is ready to already taken the unit damage
+
+	//receive damage bool to know if the enemy has to reproduce damage animation frames
+
+	bool receiveDamage = false;
 };
 
 #endif // __ENEMY_H__

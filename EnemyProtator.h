@@ -56,7 +56,7 @@ private:
 	int tyShot;
 	// ------------------------
 	// receiving damage values
-	bool receiveDamage;
+	//bool receiveDamage;
 	Uint32 start_damage_time;
 	Uint32 nowDamagetime;
 	Uint32 damageAnimTime;
