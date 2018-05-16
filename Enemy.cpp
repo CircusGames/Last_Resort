@@ -67,6 +67,20 @@ void Enemy::OnCollision(Collider* collider, Collider* collider2) //receives the 
 	
 }
 
+void Enemy::OnCollisionUnit(Collider* c2, Collider* c1) //receives the collider wich its colliding (player,shot etc)
+{
+	//App->particles->AddParticle(App->particles->explosion, position.x, position.y,COLLIDER_NONE);
+	if (readyToRumble == true) readyToRumble = false;
+	else
+	{
+		now_unit_damage_time = SDL_GetTicks() - start_unit_damage_time;
+		
+		if (now_unit_damage_time >= cadence_unit_damage_time)
+			readyToRumble = true;
+	}
+
+}
+
 float Enemy::GetNearestPlayerAngle()
 {
 	LOG("getting nearest player angle");

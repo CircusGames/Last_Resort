@@ -695,6 +695,13 @@ update_status ModulePlayerUnit::Update()
 				//and re assign trails bools
 				for (int i = 0; i < NUM_TRAILS; ++i)
 					trailsData[i].print = true;
+
+				//and reassign correct damage to colliders
+				unitDamage = 1;
+				upCollider->damage = unitDamage;
+				downCollider->damage = unitDamage;
+				rightCollider->damage = unitDamage;
+				leftCollider->damage = unitDamage;
 			}
 		}
 		
@@ -941,6 +948,14 @@ void ModulePlayerUnit::boomerangShot(float charge)
 	start_boomerang_time = SDL_GetTicks();
 	start_next_trail_time = SDL_GetTicks();
 
+	// assigns the charge amount to damage
+	unitDamage = charge; //meh
+	//assigns the unitDamage to colliders too...
+	upCollider->damage = unitDamage;
+	downCollider->damage = unitDamage;
+	rightCollider->damage = unitDamage;
+	leftCollider->damage = unitDamage;
+
 	// initialize trails
 
 	for (int i = 0; i < NUM_TRAILS; ++i) //assigns initial positions
@@ -989,6 +1004,9 @@ bool ModulePlayerUnit::CleanUp()
 			trailsData[i].print = true;
 	}
 	
+	// re assign unit damage, to avoid some circunstances
+	unitDamage = 1;
+
 	return true;
 }
 

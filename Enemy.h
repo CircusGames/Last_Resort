@@ -46,6 +46,7 @@ public:
 	//virtual void Draw(SDL_Texture* sprites);
 	virtual void Draw();
 	virtual void OnCollision(Collider* collider, Collider* collider2);
+	virtual void OnCollisionUnit(Collider* c2, Collider* c1);
 
 	//utilities
 	virtual float GetNearestPlayerAngle();
@@ -69,6 +70,12 @@ public:
 	
 
 	powerUpTypes powerUpType;
+
+	// timers for unit cadence collisions
+	Uint32 start_unit_damage_time;
+	Uint32 now_unit_damage_time;
+	Uint32 cadence_unit_damage_time = 1000;
+	bool readyToRumble = true; //if the enemy is ready to already taken the unit damage
 };
 
 #endif // __ENEMY_H__

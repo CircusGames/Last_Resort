@@ -18,6 +18,8 @@
 
 #include "ModulePowerUp.h"
 #include "ModuleAudio.h"
+
+#include "ModulePlayerUnit.h"
 //#include "Player.h"
 
 
@@ -269,7 +271,7 @@ void ModuleEnemies::OnCollision(Collider* c1, Collider* c2)
 					enemies[i]->collisionColliderIndex = k;
 			}
 		}
-		if (enemies[i] != nullptr && enemies[i]->GetCollider() == c1)
+		if (enemies[i] != nullptr && enemies[i]->GetCollider() == c1 && c2->type != COLLIDER_UNIT)
 		{
 			enemies[i]->OnCollision(c2, c1);
  			enemies[i]->life -= c2->damage; //particle damage
@@ -286,5 +288,27 @@ void ModuleEnemies::OnCollision(Collider* c1, Collider* c2)
 				break;
 			}
 		}
+		// if collision pertains to unit
+		else if (enemies[i] != nullptr && enemies[i]->GetCollider() == c1 && c2->type == COLLIDER_UNIT)
+		{
+			if (enemies[i]->readyToRumble)
+			{
+				enemies[i]->start_unit_damage_time = SDL_GetTicks();
+				enemies[i]->life -= c2->damage; //receive unit damage respect the actual unit damage
+				
+			}
+
+			enemies[i]->OnCollisionUnit(c2, c1);
+
+			if (enemies[i]->life <= 0)
+			{
+				App->audio->ControlAudio("EnemyDeath", SFX, PLAY);
+
+				delete enemies[i];
+				enemies[i] = nullptr;
+				break;
+			}
+		}
+
 	}
 }
