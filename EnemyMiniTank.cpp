@@ -17,10 +17,16 @@ Enemy_MiniTank::Enemy_MiniTank(int x, int y, powerUpTypes type, SDL_Texture* thi
 	path.PushBack({ 1.1f, 0.0f }, 130, &move);
 	path.PushBack({ 0.5f, 0.0f }, 30, &move2);
 	path.PushBack({ 1.1f, 0.0f }, 10, &move);
+	path.PushBack({ -0.1f, 0.0f }, 10, &move);
+	path.PushBack({ 1.1f, 0.0f }, 10, &move);
 	path.PushBack({ -0.1f, 0.0f }, 140, &move);
+	path.PushBack({ 1.1f, 0.0f }, 10, &move);
+	path.PushBack({ -0.1f, 0.0f }, 10, &move);
 	path.PushBack({ 1.1f, 0.0f }, 70, &move);
 	path.PushBack({ 0.5f, 0.0f }, 30, &move2);
 	path.PushBack({ 1.1f, 0.0f }, 65, &move);
+	path.PushBack({ -0.1f, 0.0f }, 10, &move);
+	path.PushBack({ 1.1f, 0.0f }, 10, &move);
 	path.PushBack({ -0.1f, 0.0f }, 100, &move);
 	path.PushBack({ 0.5f, 0.0f }, 30, &move2);
 
