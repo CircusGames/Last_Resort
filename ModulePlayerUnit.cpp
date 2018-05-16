@@ -207,42 +207,78 @@ ModulePlayerUnit::ModulePlayerUnit()
 	chargingAnim.PushBack({ 176,  0, 42, 41 });
 	chargingAnim.speed = 0.5f;
 	
-	// trails particles
+	// trails animations ----------------------------
+	// trail 1
+	trailsData[0].anim.PushBack({ 0,124,24,24 });
+	trailsData[0].anim.PushBack({ 0,0,0,0 });
+	trailsData[0].anim.PushBack({ 25,124,24,23 });
+	trailsData[0].anim.PushBack({ 0,0,0,0 });
+	trailsData[0].anim.PushBack({ 50,124,24,24 });
+	trailsData[0].anim.PushBack({ 0,0,0,0 });
+	trailsData[0].anim.PushBack({ 75,124,-23,-24 });
+	trailsData[0].anim.PushBack({ 0,0,0,0 });
+	trailsData[0].anim.PushBack({ 0,124,-24,-24 });
+	trailsData[0].anim.PushBack({ 0,0,0,0 });
+	trailsData[0].anim.PushBack({ 25,124,-24,-23 });
+	trailsData[0].anim.PushBack({ 0,0,0,0 });
+	trailsData[0].anim.PushBack({ 50,124,-24,-24 });
+	trailsData[0].anim.PushBack({ 0,0,0,0 });
+	trailsData[0].anim.PushBack({ 75,124,23,24 });
+	trailsData[0].anim.speed = 0.5f;
 
-	/*trailsParticles[0].anim.PushBack({ 220,86,24,24 });
-	trailsParticles[0].anim.PushBack({ 220,86,-24,24 });
-	trailsParticles[0].anim.PushBack({ 220,86,24,-24 });
-	trailsParticles[0].anim.PushBack({ 220,86,-24,-24 });
+	// trail 2
+	trailsData[1].anim.PushBack({ 0,150,28,26 });
+	trailsData[1].anim.PushBack({ 0,0,0,0 });
+	trailsData[1].anim.PushBack({ 29,150,28,28 });
+	trailsData[1].anim.PushBack({ 0,0,0,0 });
+	trailsData[1].anim.PushBack({ 59,150,26,28 });
+	trailsData[1].anim.PushBack({ 0,0,0,0 });
+	trailsData[1].anim.PushBack({ 86,150,-28,-28 });
+	trailsData[1].anim.PushBack({ 0,0,0,0 });
+	trailsData[1].anim.PushBack({ 0,150,-28,-26 });
+	trailsData[1].anim.PushBack({ 0,0,0,0 });
+	trailsData[1].anim.PushBack({ 29,150,-28,-28 });
+	trailsData[1].anim.PushBack({ 0,0,0,0 });
+	trailsData[1].anim.PushBack({ 59,150,-26,-28 });
+	trailsData[1].anim.PushBack({ 0,0,0,0 });
+	trailsData[1].anim.PushBack({ 86,150,28,28 });
+	trailsData[1].anim.speed = 0.5f;
 
-	trailsParticles[0].anim.PushBack({ 92,122,23,24 });
-	trailsParticles[0].anim.PushBack({ 92,122,-23,24 });
-	trailsParticles[0].anim.PushBack({ 92,122,23,-24 });
-	trailsParticles[0].anim.PushBack({ 92,122,-23,-24 });
-	trailsParticles[0].anim.speed = 0.03f;*/
-	//trailsParticles[0].speed = 0.01f;
+	// trail 3
+	trailsData[2].anim.PushBack({ 0,181,32,30 });
+	trailsData[2].anim.PushBack({ 0,0,0,0 });
+	trailsData[2].anim.PushBack({ 33,181,32,32 });
+	trailsData[2].anim.PushBack({ 0,0,0,0 });
+	trailsData[2].anim.PushBack({ 66,181,30,32 });
+	trailsData[2].anim.PushBack({ 0,0,0,0 });
+	trailsData[2].anim.PushBack({ 97,181,32,32 });
+	trailsData[2].anim.PushBack({ 0,0,0,0 });
+	trailsData[2].anim.PushBack({ 0,181,-32,-30 });
+	trailsData[2].anim.PushBack({ 0,0,0,0 });
+	trailsData[2].anim.PushBack({ 33,181,-32,-32 });
+	trailsData[2].anim.PushBack({ 0,0,0,0 });
+	trailsData[2].anim.PushBack({ 66,181,-30,-32 });
+	trailsData[2].anim.PushBack({ 0,0,0,0 });
+	trailsData[2].anim.PushBack({ 97,181,-32,-32 });
+	trailsData[2].anim.speed = 0.5f;
 
-	
-	/*trailsData[0].anim->PushBack({ 220,86,24,24 });
-	trailsData[0].anim->PushBack({ 220,86,-24,24 });
-	trailsData[0].anim->PushBack({ 220,86,24,-24 });
-	trailsData[0].anim->PushBack({ 220,86,-24,-24 });
-
-	trailsData[0].anim->PushBack({ 92,122,23,24 });
-	trailsData[0].anim->PushBack({ 92,122,-23,24 });
-	trailsData[0].anim->PushBack({ 92,122,23,-24 });
-	trailsData[0].anim->PushBack({ 92,122,-23,-24 });
-	trailsData[0].anim->speed = 0.03f;
-
-	trailsData[1].anim->PushBack({ 220,86,24,24 });
-	trailsData[1].anim->PushBack({ 220,86,-24,24 });
-	trailsData[1].anim->PushBack({ 220,86,24,-24 });
-	trailsData[1].anim->PushBack({ 220,86,-24,-24 });
-
-	trailsData[1].anim->PushBack({ 92,122,23,24 });
-	trailsData[1].anim->PushBack({ 92,122,-23,24 });
-	trailsData[1].anim->PushBack({ 92,122,23,-24 });
-	trailsData[1].anim->PushBack({ 92,122,-23,-24 });
-	trailsData[1].anim->speed = 0.03f;*/
+	// trail 4
+	trailsData[3].anim.PushBack({ 0,216,32,32 });
+	trailsData[3].anim.PushBack({ 0,0,0,0 });
+	trailsData[3].anim.PushBack({ 33,216,28,32 });
+	trailsData[3].anim.PushBack({ 0,0,0,0 });
+	trailsData[3].anim.PushBack({ 64,216,32,32 });
+	trailsData[3].anim.PushBack({ 0,0,0,0 });
+	trailsData[3].anim.PushBack({ 98,216,32,28 });
+	trailsData[3].anim.PushBack({ 0,0,0,0 });
+	trailsData[3].anim.PushBack({ 0,216,-32,-32 });
+	trailsData[3].anim.PushBack({ 0,0,0,0 });
+	trailsData[3].anim.PushBack({ 33,216,-28,-32 });
+	trailsData[3].anim.PushBack({ 0,0,0,0 });
+	trailsData[3].anim.PushBack({ 64,216,-32,-32 });
+	trailsData[3].anim.PushBack({ 0,0,0,0 });
+	trailsData[3].anim.PushBack({ 98,216,-32,-28 });
+	trailsData[3].anim.speed = 0.5f;
 	
 
 
@@ -276,8 +312,8 @@ bool ModulePlayerUnit::Start()
 
 	unitLocked = false; //locks or unlocks circular movement
 
-	//trails particles linked texture
-	//trailsParticles[0].texture = chargeGraphics;
+	//re assign needed values to position 0 when start/ re start
+
 	
 
 	return true;
@@ -528,12 +564,94 @@ update_status ModulePlayerUnit::PreUpdate()
 			this_state = actualState::POSITIONING;
 
 	}
-	else if (this_state == actualState::POSITIONING)
+
+	// trails movement calculations  ---------------------------------------------------
+	if (this_state != actualState::LINKED)
 	{
-		//float positioningSpeed = 0.07f;
-		//playerPos.x += positioningSpeed;
-		//playerPos.y += positioningSpeed;
+
+		// positions -----
+		//first trail: linked to unit, manage it different
+
+		trailsData[0].targetPos.x = playerPos.x;
+		trailsData[0].targetPos.y = playerPos.y;
+
+		trailsData[0].distance = trailsData[0].currentPos.DistanceTo(trailsData[0].targetPos);
+
+		int targetDistance = 0;
+		iPoint destinationPosition = { 0,0 };
+
+		if (this_state == actualState::POSITIONING)
+		{
+			targetDistance = 10;
+			destinationPosition.x = App->player[playerIndex]->position.x; //+ 16; // 16 half player width
+			destinationPosition.y = App->player[playerIndex]->position.y; // -8; //
+
+			if (trailsData[0].distance <= 10 && trailsData[0].print)
+			{
+				//numTrailsPrint--;
+				trailsData[0].print = false;
+			}
+		}
+		else
+		{
+			targetDistance = 20;
+			destinationPosition.x = playerPos.x;
+			destinationPosition.y = playerPos.y;
+		}
+
+		if (trailsData[0].distance >= targetDistance)
+		{
+			trailsData[0].tx = destinationPosition.x - trailsData[0].currentPos.x;
+			trailsData[0].ty = destinationPosition.y - trailsData[0].currentPos.y;
+
+			trailsData[0].velX = (trailsData[0].tx / trailsData[0].distance * trailsData[0].speed);
+			trailsData[0].velY = (trailsData[0].ty / trailsData[0].distance * trailsData[0].speed);
+
+			trailsData[0].tPosX = trailsData[0].velX + 1;// + 1;
+			trailsData[0].tPosY = trailsData[0].velY;
+
+			trailsData[0].currentPos.x += trailsData[0].tPosX;
+			trailsData[0].currentPos.y += trailsData[0].tPosY;
+
+		}
+
+
+		//rest of trails, linked to its anterior trail
+
+		for (int i = 1; i < NUM_TRAILS; ++i) //links each trail position to its anterior trail
+		{
+			trailsData[i].targetPos = trailsData[i - 1].currentPos;
+
+			//trailsData[i].currentPos.x += 1; //compensate player default speed x
+			
+
+			trailsData[i].distance = trailsData[i].currentPos.DistanceTo(trailsData[i - 1].currentPos);
+
+			if (trailsData[i].distance <= targetDistance && this_state == actualState::POSITIONING && trailsData[i].print)
+			{
+				trailsData[i].print = false;
+			}
+
+			if (trailsData[i].distance >= targetDistance)
+			{
+				trailsData[i].tx = trailsData[i - 1].currentPos.x - trailsData[i].currentPos.x;
+				trailsData[i].ty = trailsData[i - 1].currentPos.y - trailsData[i].currentPos.y;
+
+				trailsData[i].velX = (trailsData[i].tx / trailsData[i].distance * trailsData[i].speed);
+				trailsData[i].velY = (trailsData[i].ty / trailsData[i].distance * trailsData[i].speed);
+
+				trailsData[i].tPosX = trailsData[i].velX + 1;
+				trailsData[i].tPosY = trailsData[i].velY;
+
+				trailsData[i].currentPos.x += trailsData[i].tPosX;
+				trailsData[i].currentPos.y += trailsData[i].tPosY;
+
+			}
+			
+		}
+
 	}
+	
 
 	return UPDATE_CONTINUE;
 }
@@ -564,6 +682,10 @@ update_status ModulePlayerUnit::Update()
 				this_state = actualState::LINKED;
 				increaseVectorX = 0;
 				increaseVectorY = 0;
+
+				//and re assign trails bools
+				for (int i = 0; i < NUM_TRAILS; ++i)
+					trailsData[i].print = true;
 			}
 		}
 		
@@ -708,11 +830,11 @@ update_status ModulePlayerUnit::Update()
 
 		// charged shot ------------------------------------------------------------------------------------
 
-		if (App->player[playerIndex]->playerInput.chargedShot && this_state == actualState::LINKED)
+		if (App->player[playerIndex]->playerInput.chargedShot || App->player[playerIndex]->playerInput.chargedShotGamepad && this_state == actualState::LINKED)
 		{
    			charge += 0.07f;
 			LOG("charging shot: %f", charge);
-			if (charge >= 0.4f) // if charge is superior a minimum threshold
+			if (charge >= 0.7f) // if charge is superior a minimum threshold
 			{
 				SDL_Rect chargeRect = chargingAnim.GetCurrentFrame();
 				App->render->Blit(chargeGraphics, 
@@ -723,7 +845,7 @@ update_status ModulePlayerUnit::Update()
 		}
 		else
 		{
-			if (charge >= 0.4f)
+			if (charge >= 0.7f)
 			{
 				if (charge >= 10.0f) charge = 10;
 				LOG("throwing unit");
@@ -756,54 +878,33 @@ update_status ModulePlayerUnit::Update()
 	}
 	else if (this_state == actualState::FREE || this_state == actualState::RETURN)
 	{
-		// call animations function
+		// call animations function // draw unit
 
 		SDL_Rect throwRect = freeAnim.GetCurrentFrame();
 		App->render->Blit(chargeGraphics,
 			playerPos.x - 2 - throwPivots[(int)freeAnim.current_frame],
 			playerPos.y - 2 - throwPivots[(int)freeAnim.current_frame],
 			&throwRect);
-
-		//ptrTrailParticle->position.x = playerPos.x;
-		//ptrTrailParticle->position.y = playerPos.y + 20;
-
-		now_trail_time = SDL_GetTicks() - start_next_trail_time;
-
-		if (now_trail_time >= next_trail_time && trailsCounter <= 2)
-		{
-			trailsCounter++;
-			start_next_trail_time = SDL_GetTicks();
-		}
-
-		/*for (int i = 0; i < trailsCounter; ++i)
-		{
-			int tx = (App->player[playerIndex]->position.x + 9) - (playerPos.x);
-			int ty = (App->player[playerIndex]->position.y - 4) - (playerPos.y);
-
-			fPoint thisPosition;
-			thisPosition.x = playerPos.x;
-			thisPosition.y = playerPos.y;
-
-			trailsPosition[i].x = thisPosition.x;
-			trailsPosition[i].y = thisPosition.y;
-
-			
-
-			//get sqrt distance
-			trailsDistance[i] = thisPosition.DistanceTo(trailsPosition[i]);
-
-			float velX = (tx / trailsDistance[i])*unitBoomerangSpeed;
-			float velY = (ty / trailsDistance[i])*unitBoomerangSpeed;
-
-			thisPosition.x += velX + 1;
-			thisPosition.y += velY;
-
-			App->render->Blit(chargeGraphics,trailsPosition[i].x,trailsPosition[i].y, &trailsAnim[i].GetCurrentFrame());
-		}*/
-		
-		
-
 	}
+
+	// draw unit trails
+
+	if (this_state != actualState::LINKED)
+	{
+		//for (int i = numTrailsPrint -1; i >= 0; --i)
+		for (int i = 0; i < NUM_TRAILS ; ++i)
+		{
+			if (trailsData[i].print)
+			{
+				Animation* current_trailAnim;
+				current_trailAnim = &trailsData[i].anim;
+				SDL_Rect trailRect = current_trailAnim->GetCurrentFrame();
+
+				App->render->Blit(chargeGraphics, trailsData[i].currentPos.x + 6 - (abs(trailRect.w) / 2), trailsData[i].currentPos.y + 7 - (abs(trailRect.h) / 2), &trailRect);
+			}
+		}
+	}
+	
 	return UPDATE_CONTINUE;
 }
 
@@ -822,10 +923,30 @@ void ModulePlayerUnit::boomerangShot(float charge)
 	start_boomerang_time = SDL_GetTicks();
 	start_next_trail_time = SDL_GetTicks();
 
-	for (int i = 0; i < 2; ++i)
+	// initialize trails
+
+	for (int i = 0; i < NUM_TRAILS; ++i) //assigns initial positions
 	{
-		//trailsData[i].initialPos = 
+
+		trailsData[i].tx = App->player[playerIndex]->position.x - playerPos.x;
+		trailsData[i].ty = App->player[playerIndex]->position.y - playerPos.y;
+
+		trailsData[i].tx *= 0.3f; // "substract" vector position to positioning first position
+		trailsData[i].ty *= 0.3f;
+
+		trailsData[i].currentPos.x = trailsData[i].tx + playerPos.x;
+		trailsData[i].currentPos.y = trailsData[i].ty + playerPos.y;
+
+		// assigns initial pos to returning to start point
+		trailsData[i].initialPos = trailsData[i].currentPos;
+
+		//assigns speeds
+		trailsData[i].speed = unitBoomerangSpeed;
+
 	}
+
+	
+	
 
 }
 
@@ -839,8 +960,17 @@ bool ModulePlayerUnit::CleanUp()
 	//unload audio
 	App->audio->UnloadAudio("UnitLocked", SFX);
 	App->audio->UnloadAudio("UnitUnlocked", SFX);
-	return true;
 
+	//returning values to unit throwing and trails
+
+	if (this_state != actualState::LINKED)
+	{
+		this_state = actualState::LINKED;
+
+		for (int i = 0; i < NUM_TRAILS; ++i)
+			trailsData[i].print = true;
+	}
+	
 	return true;
 }
 
@@ -851,6 +981,11 @@ void ModulePlayerUnit::swapColor(powerUpColor color) //loads and swaps color
 	{
 		App->textures->Unload(graphics);
 		graphics = nullptr;
+	}
+	if (chargeGraphics != nullptr)
+	{
+		App->textures->Unload(chargeGraphics);
+		chargeGraphics = nullptr;
 	}
 
 	LOG("Swaping Unit Colors and functionality");

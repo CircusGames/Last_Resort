@@ -439,6 +439,9 @@ EnemyProtator::~EnemyProtator()
 			App->particles->AddParticle(App->particles->explosion, position.x - 8, position.y, COLLIDER_NONE);
 			//collider = nullptr; //avoid double enemy destructor heritance
 		}
+
+		//delete this->enemyTex;
+		//enemyTex = nullptr;
 	}
 
 }

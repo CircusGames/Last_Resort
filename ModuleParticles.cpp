@@ -121,6 +121,11 @@ bool ModuleParticles::CleanUp()
 	App->textures->Unload(unitBasicShotTexture);
 	App->textures->Unload(graphics);
 
+	//restoring pointers
+	beam.texture = nullptr;
+	unitBasicShot.texture = nullptr;
+	laser.texture = nullptr;
+
 	//removing active particles
 	for (uint i = 0; i < MAX_ACTIVE_PARTICLES; ++i)
 	{
@@ -151,8 +156,9 @@ update_status ModuleParticles::Update()
 
 		if (p->Update() == false)
 		{
-				delete p;
-				active[i] = nullptr;
+			//p->texture = nullptr;
+			delete p;
+			active[i] = nullptr;
 			
 		}
 		else if (SDL_GetTicks() >= p->born)
@@ -208,6 +214,7 @@ void ModuleParticles::OnCollision(Collider* c1, Collider* c2)
 		{
 			//AddParticle(explosion, active[i]->position.x, active[i]->position.y);
 
+			//active[i]->texture = nullptr;
 			delete active[i];
 			active[i] = nullptr;
 			break;

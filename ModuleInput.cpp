@@ -248,6 +248,7 @@ update_status ModuleInput::PreUpdate()
 			 //axis input directions
 			 gamePadControllers[i].axisX = SDL_GameControllerGetAxis(gamePadControllers[i].gamePadController, SDL_CONTROLLER_AXIS_LEFTX);
 			 gamePadControllers[i].axisY = SDL_GameControllerGetAxis(gamePadControllers[i].gamePadController, SDL_CONTROLLER_AXIS_LEFTY);
+			 gamePadControllers[i].shotPressed = SDL_GameControllerGetButton(gamePadControllers[i].gamePadController, SDL_CONTROLLER_BUTTON_A);
 
 		}
 	}

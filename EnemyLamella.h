@@ -10,7 +10,7 @@ private:
 
 	int i, j;
 	bool aimed = true;
-	bool spawn = true;
+	bool finalPos = false;
 	float distance; // nearest player
 
 	SDL_Rect lamellaRect;
@@ -21,8 +21,6 @@ private:
 	Animation* currentAnimation;
 
 	iPoint originalPos;
-	iPoint finalPos;
-
 
 public:
 
