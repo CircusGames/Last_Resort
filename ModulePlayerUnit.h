@@ -146,6 +146,12 @@ public:
 
 	trailsInfo trailsData[NUM_TRAILS];
 
+	Collider* upCollider = nullptr;
+	Collider* downCollider = nullptr;
+	Collider* rightCollider = nullptr;
+	Collider* leftCollider = nullptr;
+
+	int unitDamage = 1;
 
 };
 #endif // !__MODULEPLAYERUNIT_H__

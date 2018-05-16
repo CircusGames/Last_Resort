@@ -314,6 +314,14 @@ bool ModulePlayerUnit::Start()
 
 	//re assign needed values to position 0 when start/ re start
 
+	//add unit colliders
+
+	upCollider = App->collision->AddCollider({0,0,6,8},COLLIDER_UNIT, this, unitDamage);
+	downCollider = App->collision->AddCollider({ 0,0,6,8 }, COLLIDER_UNIT, this, unitDamage);
+	rightCollider = App->collision->AddCollider({ 0,0,8,6 }, COLLIDER_UNIT, this, unitDamage);
+	leftCollider = App->collision->AddCollider({ 0,0,8,6 }, COLLIDER_UNIT, this, unitDamage);
+
+
 	
 
 	return true;
@@ -321,6 +329,7 @@ bool ModulePlayerUnit::Start()
 
 update_status ModulePlayerUnit::PreUpdate()
 {
+
 	if (this_state == actualState::LINKED || this_state == actualState::POSITIONING)
 	{
 
@@ -903,6 +912,15 @@ update_status ModulePlayerUnit::Update()
 				App->render->Blit(chargeGraphics, trailsData[i].currentPos.x + 6 - (abs(trailRect.w) / 2), trailsData[i].currentPos.y + 7 - (abs(trailRect.h) / 2), &trailRect);
 			}
 		}
+	}
+
+	// always update the colliders position
+	if (upCollider != nullptr && downCollider != nullptr && rightCollider != nullptr && leftCollider != nullptr)
+	{
+		upCollider->SetPos(playerPos.x + 4, playerPos.y - 1);
+		downCollider->SetPos(playerPos.x + 4, playerPos.y + 7);
+		rightCollider->SetPos(playerPos.x + 7, playerPos.y + 4);
+		leftCollider->SetPos(playerPos.x - 1, playerPos.y + 4);
 	}
 	
 	return UPDATE_CONTINUE;
