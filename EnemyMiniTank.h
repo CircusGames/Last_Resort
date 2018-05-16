@@ -10,7 +10,8 @@ class Enemy_MiniTank : public Enemy
 private:
 	Path path;
 	iPoint original_pos;
-	Animation move;
+	Animation move, move2;
+	Animation * shootanimation;
 
 public:
 
