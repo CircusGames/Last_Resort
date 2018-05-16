@@ -295,7 +295,7 @@ void ModuleEnemies::OnCollision(Collider* c1, Collider* c2)
 			{
 				enemies[i]->start_unit_damage_time = SDL_GetTicks();
 
-				//if the unit can destroy the enemy at once, return state
+				//if the unit can't destroy the enemy at once, return state
 				if (enemies[i]->life > c2->damage)
 				{
 					if (c2->callback == App->playerUnit[0] && App->playerUnit[0]->this_state == actualState::FREE) 
