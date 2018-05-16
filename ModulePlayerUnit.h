@@ -39,9 +39,12 @@ public:
 	bool Start();
 	update_status PreUpdate();
 	update_status Update();
+	update_status PostUpdate();
 	bool CleanUp();
 
 	void swapColor(powerUpColor color);
+
+	void OnCollision(Collider* c1, Collider* c2);
 
 
 public:
@@ -104,14 +107,18 @@ public:
 
 	int throwPivots[8] = { 2,3,4,3,2,1,0,1 };
 
+	// to store positions when unit is returning or to invert direction when blue unit collides
+	float velX;
+	float velY;
+
 	//time calculations
 
 	Uint32 start_boomerang_time;
 	Uint32 now;
-	Uint32 max_boomerang_time = 1000;
+	Uint32 max_boomerang_time = 1500;
 
 	//trail animation
-	Animation trailsAnim[4];
+	/*Animation trailsAnim[4];
 	Uint32 next_trail_time = 150;
 	Uint32 now_trail_time;
 	Uint32 start_next_trail_time;
@@ -119,7 +126,7 @@ public:
 	float trailsDistance[2];
 	fPoint trailsPosition[2];
 
-	int numTrailsPrint;
+	int numTrailsPrint;*/
 	//
 
 	struct trailsInfo
@@ -150,8 +157,27 @@ public:
 	Collider* downCollider = nullptr;
 	Collider* rightCollider = nullptr;
 	Collider* leftCollider = nullptr;
+	Collider* centerCollider = nullptr;
+
+	Collider* unitColliders[4] = { nullptr };
 
 	int unitDamage = 1;
 
+	struct collisionBools
+	{
+		bool upCollision = false;
+		bool downCollision = false;
+		bool rightCollision = false;
+		bool leftCollision = false;
+		
+	}collisionStates;
+
+	// collision delay timer
+	Uint32 start_collision_time;
+	Uint32 now_collision_time;
+	Uint32 delay_collision_timer = 0;
+
+	//
+	bool collisioned = false;
 };
 #endif // !__MODULEPLAYERUNIT_H__

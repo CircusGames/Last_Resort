@@ -316,11 +316,11 @@ bool ModulePlayerUnit::Start()
 
 	//add unit colliders
 
-	upCollider = App->collision->AddCollider({0,0,6,8},COLLIDER_UNIT, this, unitDamage);
-	downCollider = App->collision->AddCollider({ 0,0,6,8 }, COLLIDER_UNIT, this, unitDamage);
-	rightCollider = App->collision->AddCollider({ 0,0,8,6 }, COLLIDER_UNIT, this, unitDamage);
-	leftCollider = App->collision->AddCollider({ 0,0,8,6 }, COLLIDER_UNIT, this, unitDamage);
-
+	unitColliders[0] = upCollider = App->collision->AddCollider({0,0,1,1},COLLIDER_UNIT, this, unitDamage); // 0,0,6,8
+	unitColliders[1] = downCollider = App->collision->AddCollider({ 0,0,1,1 }, COLLIDER_UNIT, this, unitDamage);
+	unitColliders[2] = rightCollider = App->collision->AddCollider({ 0,0,1,1 }, COLLIDER_UNIT, this, unitDamage); // 0,0,5,6
+	unitColliders[3] = leftCollider = App->collision->AddCollider({ 0,0,1,1 }, COLLIDER_UNIT, this, unitDamage);
+	centerCollider = App->collision->AddCollider({ 0,0,12,12}, COLLIDER_UNIT, this, unitDamage);
 
 	
 
@@ -329,6 +329,7 @@ bool ModulePlayerUnit::Start()
 
 update_status ModulePlayerUnit::PreUpdate()
 {
+	collisioned = false;
 
 	if (this_state == actualState::LINKED || this_state == actualState::POSITIONING)
 	{
@@ -364,7 +365,7 @@ update_status ModulePlayerUnit::PreUpdate()
 		//y height ball distante to player pos up and down = 18
 		//x width unit right and left = 8
 
-	//if the unit is not locked, permits movement calculations
+		//if the unit is not locked, permits movement calculations
 		if (!unitLocked)
 		{
 
@@ -532,8 +533,10 @@ update_status ModulePlayerUnit::PreUpdate()
 	else if (this_state == actualState::FREE)
 	{
 		// call movement calculations
+
 		posX += vx + 1;
 		posY -= vy;
+
 		playerPos.x = posX;
 		playerPos.y = posY;
 
@@ -549,6 +552,12 @@ update_status ModulePlayerUnit::PreUpdate()
 	}
 	else if (this_state == actualState::RETURN)
 	{
+		// check collider states and turn off all for next throw
+	    if (collisionStates.downCollision) collisionStates.downCollision = false;
+		if (collisionStates.upCollision) collisionStates.upCollision = false;
+		if (collisionStates.rightCollision) collisionStates.rightCollision = false;
+		if (collisionStates.leftCollision) collisionStates.leftCollision = false;
+
 		int tx = (App->player[playerIndex]->position.x + 9) - (playerPos.x);
 		int ty = (App->player[playerIndex]->position.y - 4) - (playerPos.y);
 		
@@ -563,8 +572,8 @@ update_status ModulePlayerUnit::PreUpdate()
 		//get sqrt distance
 		float distance = thisPosition.DistanceTo(playerDistance);
 
-		float velX = (tx / distance)*unitBoomerangSpeed;
-		float velY = (ty / distance)*unitBoomerangSpeed;
+		velX = (tx / distance)*unitBoomerangSpeed;
+		velY = (ty / distance)*unitBoomerangSpeed;
 
 		playerPos.x += velX + 1;
 		playerPos.y += velY;
@@ -702,6 +711,7 @@ update_status ModulePlayerUnit::Update()
 				downCollider->damage = unitDamage;
 				rightCollider->damage = unitDamage;
 				leftCollider->damage = unitDamage;
+				centerCollider->damage = unitDamage;
 			}
 		}
 		
@@ -924,11 +934,18 @@ update_status ModulePlayerUnit::Update()
 	// always update the colliders position
 	if (upCollider != nullptr && downCollider != nullptr && rightCollider != nullptr && leftCollider != nullptr)
 	{
-		upCollider->SetPos(playerPos.x + 4, playerPos.y - 1);
-		downCollider->SetPos(playerPos.x + 4, playerPos.y + 7);
-		rightCollider->SetPos(playerPos.x + 7, playerPos.y + 4);
-		leftCollider->SetPos(playerPos.x - 1, playerPos.y + 4);
+		//upCollider->SetPos(playerPos.x + 4, playerPos.y - 1); // 4,-1
+		//downCollider->SetPos(playerPos.x + 4, playerPos.y + 14); // 4, 7
+		//rightCollider->SetPos(playerPos.x + 14, playerPos.y + 4);
+		//leftCollider->SetPos(playerPos.x - 1, playerPos.y + 4);
+		upCollider->SetPos(playerPos.x + 6, playerPos.y - 1); // 4,-1
+		downCollider->SetPos(playerPos.x + 6, playerPos.y + 14); // 4, 7
+		rightCollider->SetPos(playerPos.x + 14, playerPos.y + 6);
+		leftCollider->SetPos(playerPos.x - 1, playerPos.y + 6);
+		centerCollider->SetPos(playerPos.x + 1 , playerPos.y + 1);
 	}
+
+	//collisioned = false;
 	
 	return UPDATE_CONTINUE;
 }
@@ -946,7 +963,7 @@ void ModulePlayerUnit::boomerangShot(float charge)
 	posY = playerPos.y;
 
 	start_boomerang_time = SDL_GetTicks();
-	start_next_trail_time = SDL_GetTicks();
+	//start_next_trail_time = SDL_GetTicks();
 
 	// assigns the charge amount to damage
 	unitDamage = charge; //meh
@@ -955,6 +972,7 @@ void ModulePlayerUnit::boomerangShot(float charge)
 	downCollider->damage = unitDamage;
 	rightCollider->damage = unitDamage;
 	leftCollider->damage = unitDamage;
+	centerCollider->damage = unitDamage;
 
 	// initialize trails
 
@@ -1039,4 +1057,104 @@ void ModulePlayerUnit::swapColor(powerUpColor color) //loads and swaps color
 	}
 	
 
+}
+
+void ModulePlayerUnit::OnCollision(Collider* c1, Collider* c2)
+{
+	//LOG("Colliding");
+	if (c2->type == COLLIDER_WALL && c1 != centerCollider)
+		LOG("Colliding WALL");
+
+	now_collision_time = SDL_GetTicks() - start_collision_time;
+
+	if (this_state == actualState::FREE && c2->type == COLLIDER_WALL && !collisioned &&
+		now_collision_time >= delay_collision_timer && c1 != centerCollider)
+	{
+		//collisioned = true;
+		start_collision_time = SDL_GetTicks();
+
+		//for (int i = 0; i < 1; ++i)
+		//{
+			if (c1 == upCollider && !collisionStates.upCollision && !collisioned)
+			{
+				collisionStates.upCollision = true;
+				// force the rest of conditions to false, to avoid certain situations
+				collisionStates.downCollision = false;
+				collisionStates.rightCollision = false;
+				collisionStates.leftCollision = false;
+				// updates unit position
+				posY = c2->rect.y + c2->rect.h + 16;//vy * 3;
+				playerPos.y = posY;
+				// inverts the actual velocity
+				vy = -vy;
+				collisioned = true;
+				//break;
+			}
+			if (c1 == downCollider && !collisionStates.downCollision && !collisioned)
+			{
+
+				collisionStates.downCollision = true;
+				// and force to false the rest of conditions
+				collisionStates.upCollision = false;
+				collisionStates.rightCollision = false;
+				collisionStates.leftCollision = false;
+				// updates temporal float position where we assign the velocity to avoid false collisions
+				// idk, but not work strictly correct..
+				posY = c2->rect.y - 16;//- 12;//+ vy * 3; // works fine with 3 multiplier, only detects one collision
+				playerPos.y = posY;
+				// updates the inverted velocity respect collision vector
+				vy = -vy;
+				collisioned = true;
+				//break;
+			}
+			if (c1 == rightCollider && !collisionStates.rightCollision && !collisioned)
+			{
+				collisionStates.rightCollision = true;
+				// force the rest of collisions to avoid problems
+				collisionStates.downCollision = false;
+				collisionStates.upCollision = false;
+				collisionStates.leftCollision = false;
+				// updates unit position to avoid false collisions
+				posX = c2->rect.x - 16;//vx * 3;//50;//vx * 3;
+				playerPos.x = posX;
+				// invert velocity vector
+				vx = -vx;
+				collisioned = true;
+				//break;
+			}
+			if (c1 == leftCollider && !collisionStates.leftCollision && !collisioned)
+			{
+				collisionStates.leftCollision = true;
+				// force the rest of collisions to avoid problems
+				collisionStates.downCollision = false;
+				collisionStates.upCollision = false;
+				collisionStates.rightCollision = false;
+				// updates unit position to avoid false collisions
+				posX = c2->rect.x + c2->rect.w + 16;//+ 40;//+ vx * 3; //- vx * 3;
+				playerPos.x = posX;
+				// invert velocity vector
+				vx = -vx;
+				collisioned = true;
+				//break;
+			}
+		//}
+		
+	}
+
+
+}
+
+update_status ModulePlayerUnit::PostUpdate()
+{
+
+	/*if (this_state == actualState::FREE)
+	{
+		// re assign positions to avoid false collisions
+		playerPos.x = posX;
+		playerPos.y = posY;
+	}*/
+
+	//collisioned = false;
+
+	return UPDATE_CONTINUE;
 }

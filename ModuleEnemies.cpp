@@ -294,8 +294,17 @@ void ModuleEnemies::OnCollision(Collider* c1, Collider* c2)
 			if (enemies[i]->readyToRumble)
 			{
 				enemies[i]->start_unit_damage_time = SDL_GetTicks();
-				enemies[i]->life -= c2->damage; //receive unit damage respect the actual unit damage
-				
+
+				//if the unit can destroy the enemy at once, return state
+				if (enemies[i]->life > c2->damage)
+				{
+					if (c2->callback == App->playerUnit[0] && App->playerUnit[0]->this_state == actualState::FREE) 
+						App->playerUnit[0]->this_state = actualState::RETURN;
+					if (c2->callback == App->playerUnit[1] && App->playerUnit[0]->this_state == actualState::FREE) 
+						App->playerUnit[1]->this_state = actualState::RETURN;
+				}
+
+				enemies[i]->life -= c2->damage; //receive unit damage respect the actual unit damage (charged or not amount)
 			}
 
 			enemies[i]->OnCollisionUnit(c2, c1);

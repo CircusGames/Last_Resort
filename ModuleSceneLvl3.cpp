@@ -127,6 +127,10 @@ bool ModuleSceneLvl3::Start()
 	//correct camera position
 	App->render->camera.x = 0;
 	
+	// debug colliders
+
+	debugColRight = App->collision->AddCollider({300,0, 20, 300},COLLIDER_WALL, this);
+	debugColLeft = App->collision->AddCollider({ -15,0, 20, 300 }, COLLIDER_WALL, this);
 
 
 	return true;
@@ -166,6 +170,11 @@ update_status ModuleSceneLvl3::PreUpdate()
 
 	//set colliders to follow correct foreground speed
 	setCollidersToScenePos();
+
+	// update position of debug walls colliders to test bouncing functionalities
+
+	debugColRight->SetPos(debugColRight->rect.x +1, 0);
+	debugColLeft->SetPos(debugColLeft->rect.x + 1, 0);
 
 	//activate player 2
 
@@ -231,6 +240,9 @@ update_status ModuleSceneLvl3::Update()
 
 bool ModuleSceneLvl3::CleanUp()
 {
+	// unload scene colliders
+
+
 	//unload textures ---
 	App->textures->Unload(wavesCapTexture);
 	App->textures->Unload(bossBgTexture);
@@ -489,6 +501,10 @@ void ModuleSceneLvl3::AddColliders()
 	sceneColliders[12] = App->collision->AddCollider({ 3493,112,64,100 }, COLLIDER_TYPE::COLLIDER_WALL, this);
 	sceneColliders[13] = App->collision->AddCollider({ 3557,126,34,100 }, COLLIDER_TYPE::COLLIDER_WALL, this);
 	sceneColliders[14] = App->collision->AddCollider({ 3591,144,49,100 }, COLLIDER_TYPE::COLLIDER_WALL, this);
+
+	// testing unit bouncing functionality
+
+	sceneColliders[15] = App->collision->AddCollider({ 0,-15,15000,20 }, COLLIDER_TYPE::COLLIDER_WALL, this);
 }
 
 void ModuleSceneLvl3::setCollidersToScenePos()

@@ -80,7 +80,9 @@ public:
 	Collider* sceneColliders[MAX_SCENE_COLLIDERS] = { nullptr };
 	int lastCameraPosX;
 
-	
+	// debug colliders
+	Collider* debugColRight = nullptr;
+	Collider* debugColLeft = nullptr;
 };
 
 #endif //! _MODULESCENELVL3_H__
