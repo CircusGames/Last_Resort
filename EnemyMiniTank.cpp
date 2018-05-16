@@ -36,6 +36,8 @@ Enemy_MiniTank::Enemy_MiniTank(int x, int y, powerUpTypes type, SDL_Texture* thi
 
 	original_pos.x = x;
 	original_pos.y = y;
+
+	life = 1;
 }
 
 void Enemy_MiniTank::Move()
