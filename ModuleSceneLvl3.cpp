@@ -451,9 +451,9 @@ void ModuleSceneLvl3::addEnemiesToLvl3()
 	//Enemy MiniTank
 	App->enemies->AddEnemy(ENEMY_TYPES::MINITANK, 4346, 141, NONE);
 
-	App->enemies->AddEnemy(ENEMY_TYPES::MINITANK, 5300, 141, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::MINITANK, 5305, 141, NONE);
 
-	App->enemies->AddEnemy(ENEMY_TYPES::MINITANK, 7342, 141, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::MINITANK, 7147, 141, NONE);
 
 	
 
