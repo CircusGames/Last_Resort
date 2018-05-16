@@ -11,57 +11,105 @@ EnemyLamella::EnemyLamella(int x, int y, powerUpTypes type, SDL_Texture* thisTex
 	enemyTex = thisTexture; 
 
 	distance = GetNearestPlayerSqrtDistance();
+
 	if (distance > position.x)
 	{
-
+		//spawn animation
 		for (i = 0; i < 6; i++) // columns
 		{
 			for (j = 0; j < 6; j++) // rows
 			{
 				spawnAnim.PushBack({ 40 * j, 40 * i, 40, 40 });
 
-				if (i > 4 && j > 1)
+				if (i == 5 && j == 1)
 					break;
 			}
 		}
 
-		for (i = 2; i < 6; i++)
+		//movement animation
+		for (i = 2; i < 5; i++)
 		{
-			moveAnim.PushBack({ 40 * i, 240, 40, 40 });
+			moveAnim.PushBack({ 40 * i, 200, 40, 40 });
+		}
+
+		//despawn animation
+		for (i = 5; i >= 0; i--) // columns
+		{
+			if (i == 5)
+			{
+				for (j = 1; j >= 0; j--) // rows
+				{
+					despawnAnim.PushBack({ 40 * j, 40 * i, 40, 40 });
+				}
+			}
+
+			else
+			{
+				for (j = 5; j >= 0; j--) // rows
+				{
+					despawnAnim.PushBack({ 40 * j, 40 * i, 40, 40 });
+				}
+			}
 		}
 	}
 
 	else
 	{
+		//spawn animation
 		for (i = 0; i < 6; i++) // columns
 		{
 			for (j = 0; j < 6; j++) // rows
 			{
 				spawnAnim.PushBack({ 40 * j, 40 * i, -40, 40 });
 
-				if (i > 4 && j > 1)
+				if (i == 5 && j == 1)
 					break;
 			}
 		}
 
+		//movement animation
 		for (i = 2; i < 5; i++)
 		{
-			moveAnim.PushBack({ 40 * i, 240, -40, 40 });
+			moveAnim.PushBack({ 40 * i, 200, -40, 40 });
+		}
+
+		//despawn animation
+		for (i = 5; i >= 0; i--) // columns
+		{
+			if (i == 5)
+			{
+				for (j = 1; j >= 0; j--) // rows
+				{
+					despawnAnim.PushBack({ 40 * j, 40 * i, -40, 40 });
+				}
+			}
+
+			else
+			{
+				for (j = 5; j >= 0; j--) // rows
+				{
+					despawnAnim.PushBack({ 40 * j, 40 * i, -40, 40 });
+				}
+			}
 		}
 	}
 	
 	
-	spawnAnim.speed = 0.5f;
+	spawnAnim.speed = 0.3f;
 	spawnAnim.repeat = false;
 
-	moveAnim.speed = 0.3f;
+	moveAnim.speed = 0.15f;
+	moveAnim.repeat = false;
+
+	despawnAnim.speed = 0.3f;
+	despawnAnim.repeat = false;
 
 	currentAnimation = &spawnAnim;
 
 	originalPos.x = x;
 	originalPos.y = y;
 
-	life = 3; //random
+	life = 0; //random
 	enemyScore = 200; // random
 	powerUpType = type;
 
@@ -75,15 +123,29 @@ void EnemyLamella::Move()
 
 	if (spawnAnim.finish)
 	{
-		animation = &moveAnim;
-		position.x += 1;
+		currentAnimation = &moveAnim;
+		if (moveAnim.finish)
+		{
+			currentAnimation = &despawnAnim;
+			life = 0;
+		}
+			
 
 		if(collider == nullptr)
 			collider = App->collision->AddCollider({ 0, 0, 30, 30 }, COLLIDER_TYPE::COLLIDER_ENEMY, (Module*)App->enemies);
 
 		if (aimed)
+		{
 			distance = GetNearestPlayerSqrtDistance();
+		}
+
+		if (despawnAnim.finish)
+		{
+			life = 0;
+		}
 	}
+
+	
 
 	else
 		position.x += 1;
