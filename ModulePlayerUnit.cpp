@@ -982,6 +982,11 @@ void ModulePlayerUnit::swapColor(powerUpColor color) //loads and swaps color
 		App->textures->Unload(graphics);
 		graphics = nullptr;
 	}
+	if (chargeGraphics != nullptr)
+	{
+		App->textures->Unload(chargeGraphics);
+		chargeGraphics = nullptr;
+	}
 
 	LOG("Swaping Unit Colors and functionality");
 	if (color == powerUpColor::ORANGE)
