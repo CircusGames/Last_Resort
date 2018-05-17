@@ -8,20 +8,22 @@ ROADMAP CG - Last Resort 0.5 to 1.0
 	- Enemy "powerUpBee". (fast enemy implementation).
 	- Add to level 3 scene enemy bee.
 
-0.7 - Enemy submarine: all logic, animations, textures, fx. (including all particles, and minions).
+0.7 - Finish modulePlayerUnit functionality (boomerang (color dependent), animation diagonals, missing audio fx).
+	- Player 2 functionality: adapt all necessary modules to contemplate player 2 perfectly. (powerUps, etc, except UI)
 	- Enemy "protator"(include all animations, fx, all relative to).
-	- ModulePowerUps: try to finish laser, and add missiles powerUp.
-    - Enemy Mini Tank: all logic, animations, path, fx, particles.
-
-0.8 - MidBoss "protator parent" (include all animations, fx, all relative to).
+	
+	
+0.8 - Enemy submarine: all logic, animations, textures, fx. (including all particles, and minions).
+	- Enemy Mini Tank: all logic, animations, path, fx, particles.
+	- Enemy MidBoss "protator parent" (include all animations, fx, all relative to).
 	- Enemy "lamella" (spawn animation and movement logic, all functionality).
 
-0.9 - Finish modulePlayerUnit functionality (boomerang (color dependent), animation diagonals, missing audio fx).
-	- Player 2 functionality: adapt all necessary modules to contemplate player 2 perfectly. (powerUps, UI, ...)
-	
-1.0 - Final boss.
+0.9 - ModulePowerUps: try to finish laser, and add missiles powerUp.
 	- Polish moduleUI: try to fix and recode the necessary to make it very functional.
+	
+1.0 - Enemy Final boss.
 	- Polish everything we need.
+	- Extras
 	
 
 Extras: if we have time:
@@ -32,4 +34,3 @@ Extras: if we have time:
 		- Enemy ironClaw.
 		- Final boss.
 		- Intro cinematic (when we go from press start screen to level 1 scene).
-		
