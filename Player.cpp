@@ -76,20 +76,19 @@ bool Player::Init()
 		playerAnim.PushBack({ 104,35,32,12 }); //down2 - 4
 
 		//spawn anim rects
-		spawnAnim.PushBack({ 0,122,111,1 }); //0,79 
-		spawnAnim.PushBack({ 6,125,105,2 }); //13,80 
-		spawnAnim.PushBack({ 1,127,76,4 }); //12,79 
-		spawnAnim.PushBack({ 0,131,74,8 }); //12,76 
-		spawnAnim.PushBack({ 2,142,62,15 }); //8,72
-		spawnAnim.PushBack({ 2,171,62,15 }); //8,73
-		spawnAnim.PushBack({ 13,193,51,16 }); //16,72
-		spawnAnim.PushBack({ 13,219,51,16 }); //16,72
-		spawnAnim.PushBack({ 64,143,64,16 }); //8,72
-		spawnAnim.PushBack({ 64,164,64,25 }); //8,67
-		spawnAnim.PushBack({ 71,188,57,25 }); //15,67
-		spawnAnim.PushBack({ 72,214,56,25 }); //16,67
-		spawnAnim.PushBack({ 156,143,36,19 }); //36,71
-		spawnAnim.PushBack({ 160,171,32,15 }); //40,73        
+		spawnAnim.PushBack({ 293,114,36,11 }); //0,79 
+		spawnAnim.PushBack({ 334,114,70,12 }); //13,80 
+		spawnAnim.PushBack({ 417,112,76,4 }); //12,79 
+		spawnAnim.PushBack({ 293,136,54,8 }); //12,76 
+		spawnAnim.PushBack({ 364,132,62,15 }); //8,72
+		spawnAnim.PushBack({ 437,133,51,16 }); //8,73
+		spawnAnim.PushBack({ 290,166,64,16 }); //16,72
+		spawnAnim.PushBack({ 364,159,64,25 }); //16,72
+		spawnAnim.PushBack({ 440,158,57,25 }); //8,72
+		spawnAnim.PushBack({ 292,198,56,25 }); //8,67
+		spawnAnim.PushBack({ 360,202,36,19 }); //15,67
+		spawnAnim.PushBack({ 411,204,31,16 }); //16,67
+		spawnAnim.PushBack({ 463,205,32,11 }); //36,71    
 		spawnAnim.speed = 0.25f;
 		spawnAnim.repeat = false;
 
