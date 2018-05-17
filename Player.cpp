@@ -88,7 +88,6 @@ bool Player::Init()
 		spawnAnim.PushBack({ 292,198,56,25 }); //8,67
 		spawnAnim.PushBack({ 360,202,36,19 }); //15,67
 		spawnAnim.PushBack({ 411,204,31,16 }); //16,67
-		spawnAnim.PushBack({ 463,205,32,11 }); //36,71    
 		spawnAnim.speed = 0.25f;
 		spawnAnim.repeat = false;
 

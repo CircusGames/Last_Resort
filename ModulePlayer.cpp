@@ -82,7 +82,7 @@ bool ModulePlayer::Start()
 	if (App->player[1]->IsEnabled()) //
 	{
 		App->player[1]->player = App->textures->Load("assets/Graphics/Player/player2Ship.png");
-		App->player[1]->playerEffectsTexture = App->player[0]->player;
+		App->player[1]->playerEffectsTexture = App->player[1]->player;
 		App->player[1]->position.x = 40;
 		App->player[1]->position.y = 160;
 	}
