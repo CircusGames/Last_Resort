@@ -13,17 +13,18 @@ ROADMAP CG - Last Resort 0.5 to 1.0
 	- Enemy "protator"(include all animations, fx, all relative to).
 	
 	
-0.8 - Enemy submarine: all logic, animations, textures, fx. (including all particles, and minions).
+0.8 - Enemy submarine(with minions): all logic, animations, textures, fx. (including all particles, and minions).
 	- Enemy Mini Tank: all logic, animations, path, fx, particles.
 	- Enemy MidBoss "protator parent" (include all animations, fx, all relative to).
 	- Enemy "lamella" (spawn animation and movement logic, all functionality).
 
 0.9 - ModulePowerUps: try to finish laser, and add missiles powerUp.
 	- Polish moduleUI: try to fix and recode the necessary to make it very functional.
+	- ModuleWin (moduleUI dependent): recode and adapt the necessary to show correct ranking scores.
 	
-1.0 - Enemy Final boss.
+1.0 - Enemy Final boss (with minions).
 	- Polish everything we need.
-	- Extras
+	- Extras ->
 	
 
 Extras: if we have time:
