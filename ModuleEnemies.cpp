@@ -298,9 +298,9 @@ void ModuleEnemies::OnCollision(Collider* c1, Collider* c2)
 				//if the unit can't destroy the enemy at once, return state
 				if (enemies[i]->life > c2->damage)
 				{
-					if (c2->callback == App->playerUnit[0] && App->playerUnit[0]->this_state == actualState::FREE) 
+					if (c2->callback == App->playerUnit[0] && App->playerUnit[0]->this_state != actualState::LINKED) 
 						App->playerUnit[0]->this_state = actualState::RETURN;
-					if (c2->callback == App->playerUnit[1] && App->playerUnit[0]->this_state == actualState::FREE) 
+					if (c2->callback == App->playerUnit[1] && App->playerUnit[0]->this_state != actualState::LINKED) 
 						App->playerUnit[1]->this_state = actualState::RETURN;
 				}
 
