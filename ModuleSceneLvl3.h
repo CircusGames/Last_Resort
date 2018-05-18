@@ -84,6 +84,7 @@ public:
 	Collider* debugColRight = nullptr;
 	Collider* debugColLeft = nullptr;
 	Collider* debugColCenter = nullptr;
+	Collider* debugColumn = nullptr;
 };
 
 #endif //! _MODULESCENELVL3_H__

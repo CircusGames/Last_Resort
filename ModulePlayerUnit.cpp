@@ -1291,6 +1291,7 @@ void ModulePlayerUnit::grinding()
 			if (playerPos.x > colliderToGrind->rect.x + colliderToGrind->rect.w / 2)
 			{
 				collisionStates.rightCollision = false;
+				//collisionStates.leftCollision = false;
 			}
 			break;
 
@@ -1313,6 +1314,14 @@ void ModulePlayerUnit::grinding()
 			grindingPosIncrementY += grindingSpeed;
 			playerPos.x += scrollSpeed;
 			playerPos.y = grindingPosIncrementY;
+
+			if (playerPos.y > colliderToGrind->rect.y + 1)// colliderToGrind->rect.h  - colliderToGrind->rect.h + 1)
+			{
+				//collisionStates.rightCollision = false;
+				//collisionStates.leftCollision = false;
+				collisionStates.downCollision = false;
+			}
+
 
 			break;
 		}

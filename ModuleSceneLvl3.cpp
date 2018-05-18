@@ -129,10 +129,11 @@ bool ModuleSceneLvl3::Start()
 	
 	// debug colliders
 
-	//debugColRight = App->collision->AddCollider({300,0, 20, 300},COLLIDER_WALL, this);
-	//debugColLeft = App->collision->AddCollider({ -15,0, 20, 300 }, COLLIDER_WALL, this);
-	//debugColCenter = App->collision->AddCollider({ 0, 0, 50, 150 }, COLLIDER_WALL, this); //left column
+	/*debugColRight = App->collision->AddCollider({300,0, 20, 300},COLLIDER_WALL, this);
+	debugColLeft = App->collision->AddCollider({ -15,0, 20, 300 }, COLLIDER_WALL, this);
+	debugColCenter = App->collision->AddCollider({ 0, 0, 50, 150 }, COLLIDER_WALL, this); //left column
 	//debugColCenter = App->collision->AddCollider({ 0, 0, 50, 150 }, COLLIDER_WALL, this); // right column
+	debugColumn = App->collision->AddCollider({ 0, 0, 50, 150 }, COLLIDER_WALL, this); //left column*/
 
 	return true;
 }
@@ -177,7 +178,9 @@ update_status ModuleSceneLvl3::PreUpdate()
 	//debugColRight->SetPos(debugColRight->rect.x +1, 0);
 	//debugColLeft->SetPos(debugColLeft->rect.x + 1, 0);
 	//debugColCenter->SetPos(debugColLeft->rect.x + 40, 180);//150, 60); // 280
-	//debugColCenter->SetPos(debugColLeft->rect.x + 280, 60);//150, 60); // 280
+	//debugColCenter->SetPos(debugColLeft->rect.x + 280, 60);//-40);//150, 60); // 280
+	//debugColCenter->SetPos(debugColLeft->rect.x + 100, 180);//150, 60); // 280
+	//debugColumn->SetPos(debugColLeft->rect.x + 200, 150);
 
 	//activate player 2
 
