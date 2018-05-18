@@ -320,7 +320,7 @@ bool ModulePlayerUnit::Start()
 	unitColliders[1] = downCollider = App->collision->AddCollider({ 0,0,1,1 }, COLLIDER_UNIT, this, unitDamage);
 	unitColliders[2] = rightCollider = App->collision->AddCollider({ 0,0,1,1 }, COLLIDER_UNIT, this, unitDamage); // 0,0,5,6
 	unitColliders[3] = leftCollider = App->collision->AddCollider({ 0,0,1,1 }, COLLIDER_UNIT, this, unitDamage);
-	centerCollider = App->collision->AddCollider({ 0,0,12,12}, COLLIDER_UNIT, this, unitDamage);
+	unitColliders[4] = centerCollider = App->collision->AddCollider({ 0,0,12,12}, COLLIDER_UNIT, this, unitDamage);
 
 	
 
@@ -530,7 +530,7 @@ update_status ModulePlayerUnit::PreUpdate()
 
 		// -------------------------------------------------------------------------------------------------
 	}
-	else if (this_state == actualState::FREE)
+	else if (this_state == actualState::FREE && this_state != actualState::GRINDING) // only on unit blue
 	{
 		// call movement calculations
 
@@ -549,6 +549,25 @@ update_status ModulePlayerUnit::PreUpdate()
 			LOG("Returning");
 		}
 
+	}
+	else if (this_state == actualState::GRINDING) // only on unit Orange
+	{
+		//time
+		now = SDL_GetTicks() - start_boomerang_time;
+
+		if (now >= max_boomerang_time)
+		{
+			this_state = actualState::RETURN;
+
+			// reset grinding states
+			//grinding_state = grindingState::NO_GRIND;
+			//first_grinding_state = grindingState::NO_GRIND;
+			LOG("Returning");
+		}
+		else
+		 grinding();
+
+		
 	}
 	else if (this_state == actualState::RETURN)
 	{
@@ -712,6 +731,13 @@ update_status ModulePlayerUnit::Update()
 				rightCollider->damage = unitDamage;
 				leftCollider->damage = unitDamage;
 				centerCollider->damage = unitDamage;
+
+				// reset grinding states
+				grinding_state = grindingState::NO_GRIND;
+				first_grinding_state = grindingState::NO_GRIND;
+
+				// resets grindingSpeed
+				grindingSpeed = fabs(grindingSpeed);
 			}
 		}
 		
@@ -902,7 +928,7 @@ update_status ModulePlayerUnit::Update()
 
 		// ------------------------------------------------------------------------------------------------
 	}
-	else if (this_state == actualState::FREE || this_state == actualState::RETURN)
+	else if (this_state == actualState::FREE || this_state == actualState::GRINDING || this_state == actualState::RETURN)
 	{
 		// call animations function // draw unit
 
@@ -1025,6 +1051,18 @@ bool ModulePlayerUnit::CleanUp()
 	// re assign unit damage, to avoid some circunstances
 	unitDamage = 1;
 
+	// deleting colliders
+	
+	for (int i = 0; i < 5; ++i)
+	{
+		if (unitColliders[i] != nullptr)
+		{
+			unitColliders[i]->to_delete = true;
+			unitColliders[i] = nullptr;
+		}
+	}
+
+
 	return true;
 }
 
@@ -1062,19 +1100,22 @@ void ModulePlayerUnit::swapColor(powerUpColor color) //loads and swaps color
 void ModulePlayerUnit::OnCollision(Collider* c1, Collider* c2)
 {
 	//LOG("Colliding");
-	if (c2->type == COLLIDER_WALL && c1 != centerCollider)
-		LOG("Colliding WALL");
+	//if (c2->type == COLLIDER_WALL && c1 != centerCollider)
+		//LOG("Colliding WALL");
 
 	now_collision_time = SDL_GetTicks() - start_collision_time;
+	
+	if(actualUnitColor != powerUpColor::ORANGE )
+	{ 
 
-	if (this_state == actualState::FREE && c2->type == COLLIDER_WALL && !collisioned &&
-		now_collision_time >= delay_collision_timer && c1 != centerCollider)
-	{
-		//collisioned = true;
-		start_collision_time = SDL_GetTicks();
+		if (this_state == actualState::FREE && c2->type == COLLIDER_WALL && !collisioned &&
+			now_collision_time >= delay_collision_timer && c1 != centerCollider)
+		{
+			//collisioned = true;
+			start_collision_time = SDL_GetTicks();
 
-		//for (int i = 0; i < 1; ++i)
-		//{
+			//for (int i = 0; i < 1; ++i)
+			//{
 			if (c1 == upCollider && !collisionStates.upCollision && !collisioned)
 			{
 				collisionStates.upCollision = true;
@@ -1137,10 +1178,200 @@ void ModulePlayerUnit::OnCollision(Collider* c1, Collider* c2)
 				collisioned = true;
 				//break;
 			}
-		//}
+		
+		}
 		
 	}
+	else if (c2->type == COLLIDER_WALL && (this_state == actualState::FREE || this_state == actualState::GRINDING) )// && !collisioned) //check first impact direction
+	{
+		if (this_state == actualState::FREE)
+			this_state = actualState::GRINDING;
 
+		// updates unit position incrementer
+
+		grindingPosIncrementX = playerPos.x;
+		grindingPosIncrementY = playerPos.y;
+
+
+		if (c1 == upCollider && !collisionStates.upCollision) //colliderToGrind != c2)
+		{
+			collisionStates.upCollision = true;
+			collisionStates.downCollision = false;
+			
+			playerPos.y = c2->rect.y + c2->rect.h; //+ 1;
+
+			colliderToGrind = c2;
+
+			grinding_state = grindingState::UP;
+
+			LOG("grinding on up");
+		}
+		if (c1 == downCollider && !collisionStates.downCollision)
+		{
+			collisionStates.downCollision = true;
+			collisionStates.upCollision = false;
+			
+			playerPos.y = c2->rect.y - 14;
+			
+			colliderToGrind = c2;
+			
+			grinding_state = grindingState::DOWN;
+
+			LOG("grinding on down");
+		}
+		if (c1 == rightCollider && !collisionStates.rightCollision)
+		{
+			collisionStates.rightCollision = true;
+			collisionStates.leftCollision = false;
+
+			playerPos.x = c2->rect.x - 14;
+
+			colliderToGrind = c2;
+
+			grinding_state = grindingState::RIGHT;
+
+			LOG("grinding on right");
+		}
+		if (c1 == leftCollider && !collisionStates.leftCollision)
+		{
+			collisionStates.leftCollision = true;
+			collisionStates.rightCollision = false;
+
+			playerPos.x = c2->rect.x + c2->rect.w; //+ 1;
+
+			colliderToGrind = c2;
+
+			grinding_state = grindingState::LEFT;
+
+			LOG("grinding on left");
+		}
+
+		if (first_grinding_state == grindingState::NO_GRIND)
+		{
+			first_grinding_state = grinding_state;
+
+			if (first_grinding_state == grindingState::UP) grindingSpeed = -grindingSpeed;
+			if (first_grinding_state == grindingState::DOWN) grindingSpeed = fabs(grindingSpeed);
+			if (first_grinding_state == grindingState::RIGHT) grindingSpeed = -grindingSpeed;
+			if (first_grinding_state == grindingState::LEFT) grindingSpeed = fabs(grindingSpeed);
+		}
+		
+	}
+}
+
+void ModulePlayerUnit::grinding()
+{
+	//if (playerPos.y > colliderToGrind->rect.y - 10) grinding_state = DOWN;
+
+	if (first_grinding_state == DOWN || first_grinding_state == LEFT)
+	{
+		switch (grinding_state)
+		{
+		case UP:
+
+			grindingPosIncrementX -= grindingSpeed;
+
+			playerPos.x += scrollSpeed;
+			playerPos.x = grindingPosIncrementX;
+			break;
+
+		case DOWN:
+			grindingPosIncrementX += grindingSpeed;
+			playerPos.x = grindingPosIncrementX;
+
+			if (playerPos.x - 1 > colliderToGrind->rect.x + colliderToGrind->rect.w)
+			{
+				//playerPos.y = colliderToGrind->rect.y;
+				collisionStates.leftCollision = false;
+				collisionStates.downCollision = false;
+				grinding_state = LEFT;
+			}
+
+			//protection run out, on the middle of collider deactivate previous collision
+			if (playerPos.x > colliderToGrind->rect.x + colliderToGrind->rect.w / 2)
+			{
+				collisionStates.rightCollision = false;
+			}
+			break;
+
+		case RIGHT:
+
+			//collisionStates.downCollision = false;
+			grindingPosIncrementY -= grindingSpeed;
+			playerPos.x += scrollSpeed;
+			playerPos.y = grindingPosIncrementY;
+
+			if (playerPos.y + 14 < colliderToGrind->rect.y)
+			{
+				collisionStates.downCollision = false;
+				grinding_state = DOWN;
+			}
+			break;
+
+		case LEFT:
+
+			grindingPosIncrementY += grindingSpeed;
+			playerPos.x += scrollSpeed;
+			playerPos.y = grindingPosIncrementY;
+
+			break;
+		}
+	}
+	else
+	{
+		switch (grinding_state)
+		{
+		case UP:
+
+			grindingPosIncrementX -= grindingSpeed;
+
+			playerPos.x += scrollSpeed;
+			playerPos.x = grindingPosIncrementX;
+			break;
+
+		case DOWN:
+
+			grindingPosIncrementX += grindingSpeed;
+			playerPos.x = grindingPosIncrementX;
+
+			if (playerPos.x - 14 < colliderToGrind->rect.x)
+			{
+				//playerPos.y = colliderToGrind->rect.y;
+				
+				collisionStates.rightCollision = false;
+				collisionStates.downCollision = false;
+				grinding_state = RIGHT;
+			}
+
+			if (playerPos.x < colliderToGrind->rect.x + colliderToGrind->rect.w / 2)
+			{
+				collisionStates.leftCollision = false;
+			}
+			break;
+
+		case RIGHT:
+
+			//collisionStates.downCollision = false;
+			grindingPosIncrementY -= grindingSpeed;
+			playerPos.x += scrollSpeed;
+			playerPos.y = grindingPosIncrementY;
+			break;
+
+		case LEFT:
+
+			grindingPosIncrementY += grindingSpeed;
+			playerPos.x += scrollSpeed;
+			playerPos.y = grindingPosIncrementY;
+
+			if (playerPos.y + 14 < colliderToGrind->rect.y)
+			{
+
+				collisionStates.downCollision = false;
+				grinding_state = DOWN;
+			}
+			break;
+		}
+	}
 
 }
 

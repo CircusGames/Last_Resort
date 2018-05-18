@@ -18,10 +18,19 @@ enum actualState
 {
 	LINKED,
 	FREE,
+	GRINDING,
 	RETURN,
 	POSITIONING
 };
 
+enum grindingState
+{
+	NO_GRIND,
+	UP,
+	DOWN,
+	RIGHT,
+	LEFT
+};
 
 class ModulePlayerUnit : public Module
 {
@@ -115,7 +124,7 @@ public:
 
 	Uint32 start_boomerang_time;
 	Uint32 now;
-	Uint32 max_boomerang_time = 1500;
+	Uint32 max_boomerang_time = 1500;//1500;
 
 	//trail animation
 	/*Animation trailsAnim[4];
@@ -159,7 +168,7 @@ public:
 	Collider* leftCollider = nullptr;
 	Collider* centerCollider = nullptr;
 
-	Collider* unitColliders[4] = { nullptr };
+	Collider* unitColliders[5] = { nullptr };
 
 	int unitDamage = 1;
 
@@ -179,5 +188,19 @@ public:
 
 	//
 	bool collisioned = false;
+
+	float grindingSpeed = 5.5f;//3.5f;
+	float grindingPosIncrementX;
+	float grindingPosIncrementY;
+
+	Collider* colliderToGrind = nullptr;
+
+	grindingState grinding_state = grindingState::NO_GRIND;
+	grindingState first_grinding_state = grindingState::NO_GRIND;
+
+	void grinding();
+
+	int scrollSpeed = 1; //var to update the actual scrolling speed of scene, and compensation
+
 };
 #endif // !__MODULEPLAYERUNIT_H__
