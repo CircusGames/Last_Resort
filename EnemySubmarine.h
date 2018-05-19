@@ -10,6 +10,8 @@ class EnemySubmarine : public Enemy
 private:
 
 //
+	SDL_Rect submarineBodyRect;
+	SDL_Rect submarineBodyDamageRect;
 
 public:
 

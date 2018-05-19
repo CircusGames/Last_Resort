@@ -3,11 +3,12 @@
 #include "ModuleCollision.h"
 #include "ModuleParticles.h"
 #include "ModuleRender.h"
-#include "ModulePowerUp.h"
+//#include "ModulePowerUp.h"
 //#include "ModuleAudio.h"
 //#include "Globals.h"
 
 #include "ModulePlayerUnit.h"
+//#include "ModuleEnemies.h"
 
 Enemy::Enemy(int x, int y, powerUpTypes type) : position(x, y)
 {}

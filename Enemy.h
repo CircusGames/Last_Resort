@@ -9,6 +9,7 @@
 #include "Animation.h"
 
 #include "Player.h"
+
 //#include "ModulePlayer.h"
 
 struct SDL_Texture;
@@ -20,7 +21,6 @@ protected:
 	Animation * animation = nullptr;
 	Collider* collider = nullptr;
 	
-	
 
 public:
 	iPoint position;
@@ -29,6 +29,8 @@ public:
 	uint enemyScore;
 	SDL_Texture* enemyTex = nullptr; //links to enemy spritesheet texture
 	Collider* extraColliders[MAX_EXTRA_COLLIDERS] = { nullptr };
+
+	enum ENEMY_TYPES enemyType; // = ENEMY_TYPES::NO_TYPE; // to despawn moduleEnemies check
 
 	int collisionColliderIndex;
 
@@ -80,6 +82,7 @@ public:
 	//receive damage bool to know if the enemy has to reproduce damage animation frames
 
 	bool receiveDamage = false;
+
 };
 
 #endif // __ENEMY_H__

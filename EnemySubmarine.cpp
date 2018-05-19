@@ -15,9 +15,16 @@
 
 EnemySubmarine::EnemySubmarine(int x, int y, powerUpTypes type, SDL_Texture* thisTexture) : Enemy(x, y)
 {
+	// assigns type to despawn check of moduleEnemies
+	enemyType = ENEMY_TYPES::SUBMARINE;
 	//links the correct spritesheet texture ----
 	enemyTex = thisTexture;
 	// -----------------------------------------
+	// enemy parts / animations
+	submarineBodyRect = { 0,0,456,112 };
+	submarineBodyDamageRect = {0,138,456,112};
+
+
 	
 	//animation = &nameAnim; //links animation
 	
@@ -39,6 +46,8 @@ void EnemySubmarine::Move()
 {
 
 
+
+	position.x += 1;
 }
 
 void EnemySubmarine::Draw()
@@ -62,6 +71,7 @@ void EnemySubmarine::Draw()
 	}*/
 
 
+	App->render->Blit(enemyTex, position.x,0, &submarineBodyRect);
 
 }
 

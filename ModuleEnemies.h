@@ -9,8 +9,12 @@
 #include "EnemyRedbird.h"
 #include "EnemyLamella.h"
 #include "EnemyMiniTank.h"
+#include "EnemySubmarine.h"
 
 #include "ModuleParticles.h"
+
+//#include "Enemy.h"
+
 
 #define MAX_ENEMIES 300
 
@@ -25,10 +29,11 @@ enum ENEMY_TYPES
 	POWERUP_BEE,
 	ENEMYPROTATOR,
 	LAMELLA,
-	MINITANK
+	MINITANK,
+	SUBMARINE
 };
 
-class Enemy;
+//class Enemy;
 //struct SDL_Texture;
 
 struct EnemyInfo
@@ -68,6 +73,7 @@ public:
 	SDL_Texture* enemyProtatorTexture;
 	SDL_Texture* enemyLamellaTexture;
 	SDL_Texture* enemyMiniTankTexture;
+	SDL_Texture* enemySubmarineTexture;
 	// ----------------------------
 	//ENEMY PARTICLES
 	Particle beeBullet;

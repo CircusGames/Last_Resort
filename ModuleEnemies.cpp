@@ -5,7 +5,7 @@
 #include "ModuleParticles.h"
 #include "ModuleTextures.h"
 
-#include "Enemy.h"
+//#include "Enemy.h"
 #include "BasicEnemy.h"
 #include "EnemyOscilatory.h"
 #include "EnemyTank.h"
@@ -82,6 +82,7 @@ bool ModuleEnemies::Start()
 	enemyProtatorTexture = App->textures->Load("assets/Graphics/Enemies/Level_3/protator.png");
 	enemyLamellaTexture = App->textures->Load("assets/Graphics/Enemies/Level_3/lamella.png");
 	enemyMiniTankTexture = App->textures->Load("assets/Graphics/Enemies/Level_3/MiniTank.png");
+	enemySubmarineTexture = App->textures->Load("assets/Graphics/Enemies/Level_3/submarine.png");
 	// -------------------------------------------------------------------------------------
 	// ENEMY PARTICLES ---------------------------------------------------------------------
 	// textures ----------
@@ -137,7 +138,7 @@ update_status ModuleEnemies::PostUpdate()
 	// check camera position to decide what to spawn
 	for (uint i = 0; i < MAX_ENEMIES; ++i)
 	{
-		if (enemies[i] != nullptr)
+		if (enemies[i] != nullptr && enemies[i]->enemyType != ENEMY_TYPES::SUBMARINE)
 		{
 			//if (enemies[i]->position.x * SCREEN_SIZE < (App->render->camera.x) - SPAWN_MARGIN)
 			if(enemies[i]->position.x < (abs(App->render->camera.x) / SCREEN_SIZE) - 100)
@@ -159,6 +160,7 @@ bool ModuleEnemies::CleanUp()
 	
 	//unloading loaded textures
 	//inverse order
+	App->textures->Unload(enemySubmarineTexture);
 	App->textures->Unload(enemyMiniTankTexture);
 	App->textures->Unload(enemyLamellaTexture);
 	App->textures->Unload(enemyProtatorTexture);
@@ -254,6 +256,9 @@ void ModuleEnemies::SpawnEnemy(EnemyInfo& info)
 			break;
 		case ENEMY_TYPES::MINITANK:
 			enemies[i] = new Enemy_MiniTank(info.x, info.y, info.powerUpType, enemyMiniTankTexture);
+			break;
+		case ENEMY_TYPES::SUBMARINE:
+			enemies[i] = new EnemySubmarine(info.x, info.y, info.powerUpType, enemySubmarineTexture);
 			break;
 		}
 	}

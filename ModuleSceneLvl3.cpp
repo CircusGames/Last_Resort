@@ -484,7 +484,7 @@ void ModuleSceneLvl3::addEnemiesToLvl3()
 
 
 	
-
+	App->enemies->AddEnemy(ENEMY_TYPES::SUBMARINE, 0, 141, NONE);
 
 
 

@@ -9,7 +9,7 @@
 //#include "ModulePlayer.h"
 #include "ModuleCollision.h"
 #include "ModulePowerUp.h"
-#include "ModuleEnemies.h"
+//#include "ModuleEnemies.h"
 
 #include "ModulePlayerUnit.h"
 
