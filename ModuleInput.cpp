@@ -4,6 +4,7 @@
 #include "SDL/include/SDL.h"
 
 #include "ModuleSceneLvl1.h" //for now scene lv1 spawn enemies debug mode
+#include "ModuleCollision.h"
 
 ModuleInput::ModuleInput() : Module()
 {
@@ -111,13 +112,19 @@ update_status ModuleInput::PreUpdate()
 
 	//keyboard = SDL_GetKeyboardState(NULL);
 
-	if(keyboard[SDL_SCANCODE_ESCAPE])
+	if (keyboard[SDL_SCANCODE_ESCAPE])
+	{
+		App->collision->exitGameLoop = true;
 		return update_status::UPDATE_STOP;
+	}
 
 	while (SDL_PollEvent(&Event)) //close window with mouse
 	{
 		if (Event.type == SDL_QUIT)
+		{
+			App->collision->exitGameLoop = true;
 			return update_status::UPDATE_STOP;
+		}
 
 		if (Event.type == SDL_MOUSEBUTTONDOWN)
 		{

@@ -194,16 +194,21 @@ void ModuleCollision::DebugDraw()
 // Called before quitting
 bool ModuleCollision::CleanUp()
 {
-	LOG("Freeing all colliders");
-
-	for (uint i = 0; i < MAX_COLLIDERS; ++i)
+	if (!exitGameLoop) // to avoid general cleanup order when exits the game
 	{
-		if (colliders[i] != nullptr)
+		LOG("Freeing all colliders");
+
+		for (uint i = 0; i < MAX_COLLIDERS; ++i)
 		{
-			delete colliders[i];
-			colliders[i] = nullptr;
+			if (colliders[i] != nullptr)
+			{
+				delete colliders[i];
+				colliders[i] = nullptr;
+			}
 		}
 	}
+	else
+		exitGameLoop = false;
 
 	return true;
 }

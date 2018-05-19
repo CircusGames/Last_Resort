@@ -131,5 +131,7 @@ bool Application::CleanUp()
 	for(int i = NUM_MODULES - 1; i >= 0 && ret == true; --i)
 		ret = modules[i]->CleanUp();
 
+	App->collision->CleanUp(); // individual cleanup when all modules are cleanedUp when exits gameLoop
+
 	return ret;
 }

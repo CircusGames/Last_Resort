@@ -59,6 +59,8 @@ public:
 	Collider* AddCollider(SDL_Rect rect, COLLIDER_TYPE type, Module* callback = nullptr, Uint32 damage = 0);
 	void DebugDraw();
 
+	bool exitGameLoop = false;
+
 private:
 
 	Collider * colliders[MAX_COLLIDERS];
