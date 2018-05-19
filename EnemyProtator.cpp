@@ -437,7 +437,7 @@ EnemyProtator::~EnemyProtator()
 			App->modulePowerUp->SpawnPowerUp(position, powerUpType);
 			App->player[0]->playerScore += enemyScore;
 			App->particles->AddParticle(App->particles->explosion, position.x - 8, position.y, COLLIDER_NONE);
-			//collider = nullptr; //avoid double enemy destructor heritance
+			collider = nullptr; //avoid double enemy destructor heritance
 		}
 
 		//delete this->enemyTex;

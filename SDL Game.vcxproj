@@ -80,6 +80,7 @@
     <ClInclude Include="EnemyOscilatory.h" />
     <ClInclude Include="EnemyProtator.h" />
     <ClInclude Include="EnemyRedbird.h" />
+    <ClInclude Include="EnemySubmarine.h" />
     <ClInclude Include="EnemyTank.h" />
     <ClInclude Include="Globals.h" />
     <ClInclude Include="MemLeaks.h" />
@@ -122,6 +123,7 @@
     <ClCompile Include="EnemyPowerUpBee.cpp" />
     <ClCompile Include="EnemyProtator.cpp" />
     <ClCompile Include="EnemyRedbird.cpp" />
+    <ClCompile Include="EnemySubmarine.cpp" />
     <ClCompile Include="EnemyTank.cpp" />
     <ClCompile Include="Globals.cpp" />
     <ClCompile Include="Main.cpp" />

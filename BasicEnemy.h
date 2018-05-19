@@ -1,5 +1,5 @@
-#ifndef __ENEMY_BROWN_COOKIE_H__
-#define __ENEMY_BROWN_COOKIE_H__
+#ifndef __BASICENEMY_H__
+#define __BASICENEMY_H__
 
 #include "Enemy.h"
 #include "ModuleTextures.h"
