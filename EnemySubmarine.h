@@ -5,6 +5,9 @@
 #include "ModuleTextures.h"
 #include "Module.h"
 
+#define NUM_DESTROYABLE_PARTS 5
+#define NUM_NONDESTROYABLE_PARTS 10
+
 class EnemySubmarine : public Enemy
 {
 private:
@@ -12,6 +15,17 @@ private:
 //
 	SDL_Rect submarineBodyRect;
 	SDL_Rect submarineBodyDamageRect;
+	Animation destroyedParts[NUM_DESTROYABLE_PARTS];
+	//SDL_Rect nonDestroyedParts[NUM_NONDESTROYABLE_PARTS];
+
+	struct Destroyable
+	{
+		Collider* collider = nullptr;
+		SDL_Rect rect;
+		int life = 1;
+		iPoint position;
+		bool destroyed = false;
+	};
 
 public:
 
@@ -29,6 +43,11 @@ public:
 	//Collider* leftCollider;
 
 	Module* desiredPlayerModule = nullptr;
+
+	int positionPartsX[NUM_DESTROYABLE_PARTS] = {16, 128, 168, 208, 288};
+	int positionPartsY[NUM_DESTROYABLE_PARTS] = {84, 80, 65, 19, 56};
+
+	Destroyable nonDestroyedParts[NUM_NONDESTROYABLE_PARTS];
 
 };
 

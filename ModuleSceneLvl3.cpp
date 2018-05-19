@@ -115,7 +115,7 @@ bool ModuleSceneLvl3::Start()
 	
 	//load needed audios
 	App->audio->LoadAudio("assets/Audio/Music/song_level_3.ogg", "song_lvl3", MUSIC);
-	App->audio->ControlAudio("song_lvl3", MUSIC, FADEIN, -1, 1500.0f);
+	//App->audio->ControlAudio("song_lvl3", MUSIC, FADEIN, -1, 1500.0f);
 
 	//boss background fade values
 	faded = false;
@@ -285,7 +285,7 @@ bool ModuleSceneLvl3::CleanUp()
 void ModuleSceneLvl3::addEnemiesToLvl3()
 {
 	//First Wave
-	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 300, 35, NONE);
+	/*App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 300, 35, NONE);
 	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 300, 90, NONE);
 	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 342, 35, NONE);
 	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 342, 90, NONE);
@@ -334,7 +334,7 @@ void ModuleSceneLvl3::addEnemiesToLvl3()
 	App->enemies->AddEnemy(ENEMY_TYPES::POWERUP_BEE, 3200, 75, BOOST); //GPOWER
 	App->enemies->AddEnemy(ENEMY_TYPES::POWERUP_BEE, 4900, 75, BOOST); //BOOST
 	App->enemies->AddEnemy(ENEMY_TYPES::POWERUP_BEE, 5700, 75, BOOST); //BOOST
-	App->enemies->AddEnemy(ENEMY_TYPES::POWERUP_BEE, 6100, 75, BOOST); //HPOWER
+	App->enemies->AddEnemy(ENEMY_TYPES::POWERUP_BEE, 6100, 75, BOOST); //HPOWER*/
 
 	// ----------------------------------------------------------
 	// Enemy PROTATORS
@@ -484,7 +484,7 @@ void ModuleSceneLvl3::addEnemiesToLvl3()
 
 
 	
-	App->enemies->AddEnemy(ENEMY_TYPES::SUBMARINE, 0, 141, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::SUBMARINE, 0, 60, NONE);
 
 
 
