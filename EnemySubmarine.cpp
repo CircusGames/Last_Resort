@@ -151,7 +151,7 @@ EnemySubmarine::EnemySubmarine(int x, int y, powerUpTypes type, SDL_Texture* thi
 	ejectionHatch.anim[DAMAGE_ANIM].repeat = false;
 	ejectionHatch.position = { 196, 16 };
 	ejectionHatch.collider = extraColliders[9] = App->collision->AddCollider({0,0, 60,32}, COLLIDER_ENEMY, (Module*)App->enemies);
-	ejectionHatch.life = 5;
+	ejectionHatch.life = 20;
 	// missiles platforms launchers anim
 	missileLauncherAnim[0][NORMAL_ANIM].PushBack({ 459,66,64,32 });
 	missileLauncherAnim[0][NORMAL_ANIM].PushBack({ 524,66,64,32 });

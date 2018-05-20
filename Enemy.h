@@ -76,7 +76,7 @@ public:
 	// timers for unit cadence collisions
 	Uint32 start_unit_damage_time;
 	Uint32 now_unit_damage_time;
-	Uint32 cadence_unit_damage_time = 500;
+	Uint32 cadence_unit_damage_time = 100;
 	bool readyToRumble = true; //if the enemy is ready to already taken the unit damage
 
 	//receive damage bool to know if the enemy has to reproduce damage animation frames
