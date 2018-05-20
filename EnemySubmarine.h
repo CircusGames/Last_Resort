@@ -6,7 +6,7 @@
 #include "Module.h"
 
 #define NUM_DESTROYABLE_PARTS 5
-#define NUM_NONDESTROYED_PARTS 9
+#define NUM_NONDESTROYED_PARTS 8
 
 class EnemySubmarine : public Enemy
 {
@@ -60,15 +60,20 @@ private:
 		float current_frame;
 		bool readyToTakeDamage = true;
 		bool readyToEject = true;
+		SDL_Rect rect;
 	};
 
-	// timers ----
+	// gameplay timers ----------------------
 	// ejectable enemy
 	Uint32 start_ejectable_time;
 	Uint32 now_ejectable_time;
 	Uint32 ejectable_cadence_timer = 2000;
 	// ---
-
+	// missile launching
+	Uint32 start_missiles_time;
+	Uint32 now_missiles_time;
+	Uint32 missiles_cadence_timer = 1000;
+	// --------------------------------------
 
 public:
 
@@ -92,6 +97,7 @@ public:
 
 	DestroyableStatic nonDestroyedParts[NUM_NONDESTROYED_PARTS];
 	DestroyableAnimated ejectionHatch;
+	DestroyableAnimated missileLauncher;
 };
 
 #endif // __ENEMYPROTATOR__H__

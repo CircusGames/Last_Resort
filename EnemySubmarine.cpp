@@ -53,21 +53,21 @@ EnemySubmarine::EnemySubmarine(int x, int y, powerUpTypes type, SDL_Texture* thi
 	//nonDestroyedParts[5].position = { 196, 16 };
 	//nonDestroyedParts[5].life = 10;
 	// part7  (missile launcher part middle position static frame)
-	nonDestroyedParts[5].normalRect = { 459,66,64,32 };
-	nonDestroyedParts[5].takenDamageRect = { 459,99,64,32 };
-	nonDestroyedParts[5].position = { 208, 48 };
+	//nonDestroyedParts[5].normalRect = { 459,66,64,32 };
+	//nonDestroyedParts[5].takenDamageRect = { 459,99,64,32 };
+	//nonDestroyedParts[5].position = { 208, 48 };
 	// part8
-	nonDestroyedParts[6].normalRect = { 288,112,24,8 };
-	nonDestroyedParts[6].takenDamageRect = { 288,250,24,8 };
-	nonDestroyedParts[6].position = { 288, 56 };
+	nonDestroyedParts[5].normalRect = { 288,112,24,8 };
+	nonDestroyedParts[5].takenDamageRect = { 288,250,24,8 };
+	nonDestroyedParts[5].position = { 288, 56 };
 	// part9
-	nonDestroyedParts[7].normalRect = { 304,121,32,16 };
-	nonDestroyedParts[7].takenDamageRect = { 304,259,32,16 };
-	nonDestroyedParts[7].position = { 304, 64 };
+	nonDestroyedParts[6].normalRect = { 304,121,32,16 };
+	nonDestroyedParts[6].takenDamageRect = { 304,259,32,16 };
+	nonDestroyedParts[6].position = { 304, 64 };
 	// part9
-	nonDestroyedParts[8].normalRect = { 336,112,32,16 };
-	nonDestroyedParts[8].takenDamageRect = { 336,250,32,16 };
-	nonDestroyedParts[8].position = { 336, 72 };
+	nonDestroyedParts[7].normalRect = { 336,112,32,16 };
+	nonDestroyedParts[7].takenDamageRect = { 336,250,32,16 };
+	nonDestroyedParts[7].position = { 336, 72 };
 	// add colliders to each part
 	for (int i = 0; i < NUM_NONDESTROYED_PARTS; ++i)
 	{
@@ -128,7 +128,7 @@ EnemySubmarine::EnemySubmarine(int x, int y, powerUpTypes type, SDL_Texture* thi
 	destroyedParts[4].speed = 0.125f;
 	// ------------------------------------------------
 
-	// destroyable parts animations ( enemy ejection hatch and missile platforms launchers)
+	// destroyable parts animations ( enemy ejection hatch and missile platforms launchers) -------------------------------
 	// ejection hatch anim
 	ejectionHatch.anim[NORMAL_ANIM].PushBack({ 457, 0, 60 ,32 });
 	ejectionHatch.anim[NORMAL_ANIM].PushBack({ 520, 0, 60 ,32 });
@@ -139,7 +139,7 @@ EnemySubmarine::EnemySubmarine(int x, int y, powerUpTypes type, SDL_Texture* thi
 	ejectionHatch.anim[NORMAL_ANIM].PushBack({ 457, 0, 60 ,32 }); // initial frame
 	ejectionHatch.anim[NORMAL_ANIM].speed = 0.125f;
 	ejectionHatch.anim[NORMAL_ANIM].repeat = false;
-	
+	// ---
 	ejectionHatch.anim[DAMAGE_ANIM].PushBack({ 457, 33, 60, 32 });
 	ejectionHatch.anim[DAMAGE_ANIM].PushBack({ 520, 33, 60, 32 });
 	ejectionHatch.anim[DAMAGE_ANIM].PushBack({ 588, 33, 60, 32 });
@@ -153,44 +153,49 @@ EnemySubmarine::EnemySubmarine(int x, int y, powerUpTypes type, SDL_Texture* thi
 	ejectionHatch.collider = extraColliders[9] = App->collision->AddCollider({0,0, 60,32}, COLLIDER_ENEMY, (Module*)App->enemies);
 	ejectionHatch.life = 20;
 	// missiles platforms launchers anim
-	missileLauncherAnim[0][NORMAL_ANIM].PushBack({ 459,66,64,32 });
-	missileLauncherAnim[0][NORMAL_ANIM].PushBack({ 524,66,64,32 });
-	missileLauncherAnim[0][NORMAL_ANIM].PushBack({ 589,66,64,32 });
-	missileLauncherAnim[0][NORMAL_ANIM].PushBack({ 654,66,64,32 }); // max open
-	missileLauncherAnim[0][NORMAL_ANIM].PushBack({ 589,66,64,32 }); // returning to 0 pos
-	missileLauncherAnim[0][NORMAL_ANIM].PushBack({ 524,66,64,32 });
-	missileLauncherAnim[0][NORMAL_ANIM].PushBack({ 459,66,64,32 });
-	missileLauncherAnim[0][NORMAL_ANIM].speed = 0.125f;
-	missileLauncherAnim[0][DAMAGE_ANIM].PushBack({ 459,99,64,32 });
-	missileLauncherAnim[0][DAMAGE_ANIM].PushBack({ 524,99,64,32 });
-	missileLauncherAnim[0][DAMAGE_ANIM].PushBack({ 589,99,64,32 });
-	missileLauncherAnim[0][DAMAGE_ANIM].PushBack({ 654,99,64,32 }); // max open
-	missileLauncherAnim[0][DAMAGE_ANIM].PushBack({ 589,99,64,32 });
-	missileLauncherAnim[0][DAMAGE_ANIM].PushBack({ 524,99,64,32 });
-	missileLauncherAnim[0][DAMAGE_ANIM].PushBack({ 459,99,64,32 }); // initial pos
-	missileLauncherAnim[0][DAMAGE_ANIM].speed = 0.125f;
+	missileLauncher.anim[NORMAL_ANIM].PushBack({ 459,66,64,32 });
+	missileLauncher.anim[NORMAL_ANIM].PushBack({ 524,66,64,32 });
+	missileLauncher.anim[NORMAL_ANIM].PushBack({ 589,66,64,32 });
+	missileLauncher.anim[NORMAL_ANIM].PushBack({ 654,66,64,32 }); // max open
+	missileLauncher.anim[NORMAL_ANIM].PushBack({ 589,66,64,32 }); // returning to 0 pos
+	missileLauncher.anim[NORMAL_ANIM].PushBack({ 524,66,64,32 });
+	missileLauncher.anim[NORMAL_ANIM].PushBack({ 459,66,64,32 });
+	missileLauncher.anim[NORMAL_ANIM].speed = 0.125f;
+	missileLauncher.anim[NORMAL_ANIM].repeat = false;
+	// ---
+	missileLauncher.anim[DAMAGE_ANIM].PushBack({ 459,99,64,32 });
+	missileLauncher.anim[DAMAGE_ANIM].PushBack({ 524,99,64,32 });
+	missileLauncher.anim[DAMAGE_ANIM].PushBack({ 589,99,64,32 });
+	missileLauncher.anim[DAMAGE_ANIM].PushBack({ 654,99,64,32 }); // max open
+	missileLauncher.anim[DAMAGE_ANIM].PushBack({ 589,99,64,32 });
+	missileLauncher.anim[DAMAGE_ANIM].PushBack({ 524,99,64,32 });
+	missileLauncher.anim[DAMAGE_ANIM].PushBack({ 459,99,64,32 }); // initial pos
+	missileLauncher.anim[DAMAGE_ANIM].speed = 0.125f;
+	missileLauncher.anim[DAMAGE_ANIM].repeat = false;
+	missileLauncher.position = { 208, 48 };
 
-
+	// ------------------------------------------------------------------------------------------------------------------
 	
 	//animation = &nameAnim; //links animation
 	
 	// enemy data ----
 	powerUpType = type;
-	life = 40; // total core submarine life ( testing value, needs to be counted )
+	life = 140; // total core submarine life ( testing value, needs to be counted )
 	enemyScore = 1200;
 	// ---------------
 	//fposition.x = x;
 	//fposition.y = y;
 
 	// body colliders (only damage the player/s)
-	fullBodyColliders[0] =  App->collision->AddCollider({0,100,168,20},COLLIDER_ENEMY, (Module*)App->enemies);
-	fullBodyColliders[1] =  App->collision->AddCollider({ 0,100,24,39 }, COLLIDER_ENEMY, (Module*)App->enemies);
+	fullBodyColliders[0] = extraColliders[10] = App->collision->AddCollider({0,100,168,20},COLLIDER_ENEMY, (Module*)App->enemies);
+	fullBodyColliders[1] = extraColliders[11] = App->collision->AddCollider({ 0,100,24,39 }, COLLIDER_ENEMY, (Module*)App->enemies);
 
-	coreCollider = extraColliders[10] = App->collision->AddCollider({ 0,0,48,24 }, COLLIDER_ENEMY, (Module*)App->enemies);
+	coreCollider = extraColliders[12] = App->collision->AddCollider({ 0,0,48,24 }, COLLIDER_ENEMY, (Module*)App->enemies);
 
 
-	// timers
+	// gameplay timers (testing block of code on constructor for the moment)
 	start_ejectable_time = SDL_GetTicks();
+	start_missiles_time = SDL_GetTicks();
 
 
 
@@ -243,9 +248,40 @@ void EnemySubmarine::Draw()
 		}
 	}
 
-	// draw animated parts (ejectable hatch can be destroyed, but missile launchers not
+	
+	
 
-	// ejectable enemy timer and animation -------------------------------
+
+	// BODY and ALL PARTS damage sprite swap timer  ---------------------------------------------------------------------
+	
+	nowDamagetime = SDL_GetTicks() - start_damage_time;
+
+	if (nowDamagetime > damageAnimTime)
+	{
+		receiveDamage = false;
+		// deactivate missiles launchers damage too
+		missileLauncher.takenDamage = false;
+	}
+
+	//if we are taken damage, print only the full body and the alive destroyable parts damage sprite --
+	if (receiveDamage)
+	{
+		App->render->Blit(enemyTex, position.x, position.y, &submarineBodyDamageRect); // full body without destroyable parts
+
+		for (int i = 0; i < NUM_NONDESTROYED_PARTS; ++i) // destroyable alive parts
+		{
+			if (!nonDestroyedParts[i].destroyed)
+				App->render->Blit(enemyTex, position.x + nonDestroyedParts[i].position.x, 
+					nonDestroyedParts[i].position.y + position.y, &nonDestroyedParts[i].takenDamageRect);
+		}
+
+		// missile launchers
+		missileLauncher.takenDamage = true;
+	}
+
+	// draw animated parts (ejectable hatch can be destroyed, but missile launchers not ------------------
+
+	// ejectable enemy timer and animation --------------------------------------------
 
 	if (!ejectionHatch.destroyed)
 	{
@@ -269,11 +305,7 @@ void EnemySubmarine::Draw()
 			ejectionHatch.current_animation->current_frame = ejectionHatch.current_frame;
 		}
 
-		
-		
-		SDL_Rect ejectionRect;
-		
-
+		// ejectable timer ----
 		now_ejectable_time = SDL_GetTicks() - start_ejectable_time;
 		if (now_ejectable_time > ejectable_cadence_timer && ejectionHatch.readyToEject)
 		{
@@ -281,14 +313,16 @@ void EnemySubmarine::Draw()
 			LOG("throwing enemy");
 			ejectionHatch.readyToEject = false;
 		}
+		// ------
 
 		if (!ejectionHatch.throwEnemy)
 		{
-			ejectionRect = ejectionHatch.current_animation->frames[0];
+			//ejectionRect = ejectionHatch.current_animation->frames[0];
+			ejectionHatch.rect = ejectionHatch.current_animation->frames[0];
 		}
 		else
 		{
-			ejectionRect = ejectionHatch.current_animation->GetCurrentFrame();
+			ejectionHatch.rect = ejectionHatch.current_animation->GetCurrentFrame();
 			if (ejectionHatch.current_animation->finish)
 			{
 				ejectionHatch.throwEnemy = false;
@@ -308,34 +342,68 @@ void EnemySubmarine::Draw()
 
 		ejectionHatch.current_frame = ejectionHatch.current_animation->current_frame;
 
-		App->render->Blit(enemyTex, position.x + ejectionHatch.position.x, position.y + ejectionHatch.position.y, &ejectionRect);
-		
+		App->render->Blit(enemyTex, position.x + ejectionHatch.position.x, position.y + ejectionHatch.position.y, &ejectionHatch.rect);
+
+	}
+	// ---------------------------------------------------------------------
+
+	// ------------------------------------------------------------------------------------------------------------------ 
+
+	// missile launchers
+
+	if (!missileLauncher.destroyed)
+	{
+		now_missiles_time = SDL_GetTicks() - start_missiles_time;
+		if (now_missiles_time > missiles_cadence_timer && missileLauncher.readyToEject)
+		{
+			missileLauncher.throwEnemy = true;
+			LOG("throwing enemy MISSILES");
+			missileLauncher.readyToEject = false;
+		}
+
+		// swap damage/normal sprites
+		if (!missileLauncher.takenDamage)
+		{
+			missileLauncher.current_animation = &missileLauncher.anim[NORMAL_ANIM];
+			missileLauncher.current_animation->current_frame = missileLauncher.current_frame;
+
+		}
+		else
+		{
+			missileLauncher.current_animation = &missileLauncher.anim[DAMAGE_ANIM];
+			missileLauncher.current_animation->current_frame = missileLauncher.current_frame;
+		}
+
+		if (!missileLauncher.throwEnemy)
+		{
+			missileLauncher.rect = missileLauncher.current_animation->frames[0];
+		}
+		else
+		{
+			missileLauncher.rect = missileLauncher.current_animation->GetCurrentFrame();
+			if (missileLauncher.current_animation->finish)
+			{
+				missileLauncher.throwEnemy = false;
+				LOG("stop MISSILES enemy launching");
+				start_missiles_time = SDL_GetTicks();
+				//ejectionHatch.current_animation->current_frame = 0;
+				//ejectionHatch.current_animation->finish = false;
+				missileLauncher.readyToEject = true;
+
+				// reset damage and normal anim
+				missileLauncher.anim[NORMAL_ANIM].current_frame = 0;
+				missileLauncher.anim[NORMAL_ANIM].finish = false;
+				missileLauncher.anim[DAMAGE_ANIM].current_frame = 0;
+				missileLauncher.anim[DAMAGE_ANIM].finish = false;
+			}
+		}
+
+		missileLauncher.current_frame = missileLauncher.current_animation->current_frame;
+
+		App->render->Blit(enemyTex, position.x + missileLauncher.position.x, position.y + missileLauncher.position.y, &missileLauncher.rect);
 	}
 
 	// -----------------------------------------------------------------------------------------------
-
-
-	// damage sprite swap timer  ---------------------------------------------------------------------
-	
-	nowDamagetime = SDL_GetTicks() - start_damage_time;
-
-	if (nowDamagetime > damageAnimTime)
-	{
-		receiveDamage = false;
-	}
-
-	//if we are taken damage, print only the full body and the alive destroyable parts damage sprite --
-	if (receiveDamage)
-	{
-		App->render->Blit(enemyTex, position.x, position.y, &submarineBodyDamageRect); // full body without destroyable parts
-
-		for (int i = 0; i < NUM_NONDESTROYED_PARTS; ++i) // destroyable alive parts
-		{
-			if (!nonDestroyedParts[i].destroyed)
-				App->render->Blit(enemyTex, position.x + nonDestroyedParts[i].position.x, 
-					nonDestroyedParts[i].position.y + position.y, &nonDestroyedParts[i].takenDamageRect);
-		}
-	}
 
 
 	// -----------------------------------------------------------------------------------------------
@@ -343,7 +411,7 @@ void EnemySubmarine::Draw()
 
 void EnemySubmarine::OnCollision(Collider* collider, Collider* collider2)
 {
-	// taken damage, submarine only takes damage and plays damage animation when the core is reached/damaged
+	// taken damage, submarine BODY and ALL PARTS only takes damage and plays damage animation when the core is reached/damaged
 	if (collider2 == coreCollider && !receiveDamage)
 	{
 		receiveDamage = true;
