@@ -33,10 +33,10 @@ ModuleEnemies::ModuleEnemies()
 
 	//PARTICLES -------------------------------------------
 	//Enemy Bee  -----------------------------
-	beeBullet.anim.PushBack({0,0,5,5});
-	beeBullet.anim.PushBack({12,0,5,5});
-	beeBullet.anim.PushBack({ 24,0,5,5 });
-	beeBullet.anim.PushBack({ 35,0,5,5 });
+	beeBullet.anim.PushBack({1,0,5,5});
+	beeBullet.anim.PushBack({13,0,5,5});
+	beeBullet.anim.PushBack({ 25,0,5,5 });
+	beeBullet.anim.PushBack({ 36,0,5,5 });
 	beeBullet.anim.speed = 0.2f;
 	beeBullet.damage = 1;
 	beeBullet.life = 1500;

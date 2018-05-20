@@ -281,14 +281,43 @@ void EnemySubmarine::Move()
 	// TURRETS movement and shooting logic
 
 	goTurretsGo(); // angle calculations and animation desired frames
-	//goTurretsAttack();
+	goTurretsAttack();
+}
+
+void EnemySubmarine::goTurretsAttack()
+{
+	
+
+	for (int i = 0; i < NUM_TURRETS; ++i)
+	{
+		// speed vector
+		float vx = 3 * cos(submarineTurrets[i].angle); // shot speed * cos/sin angle
+		float vy = 3 * sin(submarineTurrets[i].angle);
+
+		submarineTurrets[i].now_shot_time = SDL_GetTicks() - submarineTurrets[i].start_shot_time;
+		
+		if (submarineTurrets[i].now_shot_time > submarineTurrets[i].shot_cadence_timer) submarineTurrets[i].shot = true;
+
+		if (submarineTurrets[i].shot)
+		{
+			if (submarineTurrets[i].distance < 120) // distance check
+			{
+				LOG("TURRET %d SHOOT", i + 1);
+				submarineTurrets[i].shot = false;
+				submarineTurrets[i].start_shot_time = SDL_GetTicks();
+
+				// instantiate bullet particle
+				App->particles->AddParticle(App->enemies->beeBullet, position.x + submarineTurrets[i].position.x + 3, 
+					position.y + submarineTurrets[i].position.y - 10, COLLIDER_ENEMY_SHOT, { (int)-vx + 1,(int)-vy });
+			}
+		}
+		
+	}
+
 }
 
 void EnemySubmarine::goTurretsGo()
 {
-
-	// search nearest player
-
 
 	//float distance = GetNearestPlayerSqrtDistance();
 	float tx = NULL;
@@ -319,6 +348,8 @@ void EnemySubmarine::goTurretsGo()
 
 			submarineTurrets[i].angle = atan2(ty, tx);
 		}
+
+		// animation desired frames between angle and nearest player position ----
 
 		float AlphaCentaury = submarineTurrets[i].angle;
 
@@ -358,6 +389,7 @@ void EnemySubmarine::goTurretsGo()
 		{
 			submarineTurrets[i].current_frame = 8;
 		}
+		// -------------------------------------------------------------------------
 	}
 }
 

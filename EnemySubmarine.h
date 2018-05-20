@@ -76,16 +76,16 @@ private:
 		bool shot = false;
 		bool takenDamage = false;
 		int life = 5;
-		// timers ---
-		// shooting
+		// timers --------
+		// shooting --
 		Uint32 start_shot_time;
 		Uint32 now_shot_time;
-		Uint32 shot_cadence_timer = 1000;
-		// damage
+		Uint32 shot_cadence_timer = 2000;
+		// damage --
 		Uint32 start_damage_time;
 		Uint32 now_damage_time;
 		Uint32 damage_anim_time = 50;
-		// ----------
+		// ---------------
 		float angle;
 		float distance;
 
@@ -114,6 +114,7 @@ public:
 	void OnCollision(Collider* collider, Collider* collider2);
 
 	void goTurretsGo();
+	void goTurretsAttack();
 
 	const Collider* EnemySubmarine::GetCollider() const;
 
