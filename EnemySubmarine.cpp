@@ -17,6 +17,8 @@
 
 EnemySubmarine::EnemySubmarine(int x, int y, powerUpTypes type, SDL_Texture* thisTexture) : Enemy(x, y)
 {
+	int k = 0; // for extracolliders assignements
+
 	// assigns type to despawn check of moduleEnemies
 	enemyType = ENEMY_TYPES::SUBMARINE;
 	//links the correct spritesheet texture ----
@@ -71,7 +73,7 @@ EnemySubmarine::EnemySubmarine(int x, int y, powerUpTypes type, SDL_Texture* thi
 	// add colliders to each part
 	for (int i = 0; i < NUM_NONDESTROYED_PARTS; ++i)
 	{
-		// one part its colliders is a bit little on height
+		// one part its collider is a bit little on height
 		if (i == 6) nonDestroyedParts[i].collider = extraColliders[i] = App->collision->AddCollider({0,0,32,12}, COLLIDER_ENEMY, (Module*)App->enemies);
 
 		if (nonDestroyedParts[i].collider == nullptr)
@@ -191,9 +193,23 @@ EnemySubmarine::EnemySubmarine(int x, int y, powerUpTypes type, SDL_Texture* thi
 		submarineTurrets[i].anim[NORMAL_ANIM].PushBack({ 360,316,14,11 });
 		submarineTurrets[i].anim[NORMAL_ANIM].PushBack({ 375,316,15,11 });
 		submarineTurrets[i].anim[NORMAL_ANIM].speed = 0.125f;
+		// ---
+		submarineTurrets[i].anim[DAMAGE_ANIM].PushBack({ 254,302,15,11 });
+		submarineTurrets[i].anim[DAMAGE_ANIM].PushBack({ 270,302,14,11 });
+		submarineTurrets[i].anim[DAMAGE_ANIM].PushBack({ 285,302,14,11 });
+		submarineTurrets[i].anim[DAMAGE_ANIM].PushBack({ 300,302,14,12 });
+		submarineTurrets[i].anim[DAMAGE_ANIM].PushBack({ 315,302,14,13 });
+		submarineTurrets[i].anim[DAMAGE_ANIM].PushBack({ 330,302,14,12 });
+		submarineTurrets[i].anim[DAMAGE_ANIM].PushBack({ 345,302,14,11 });
+		submarineTurrets[i].anim[DAMAGE_ANIM].PushBack({ 360,302,14,11 });
+		submarineTurrets[i].anim[DAMAGE_ANIM].PushBack({ 375,302,15,11 });
+		submarineTurrets[i].anim[DAMAGE_ANIM].speed = 0.125f;
 		submarineTurrets[i].position = position + submarineTurretsPositions[i];
-	}
 
+		// add colliders
+		submarineTurrets[i].collider = extraColliders[i+13] = App->collision->AddCollider({ 0, 0, 14, 11 }, COLLIDER_ENEMY, (Module*)App->enemies);
+	}
+	// ------------------------------------------------------------------------------------------------------------------
 	
 	//animation = &nameAnim; //links animation
 	
@@ -229,6 +245,8 @@ void EnemySubmarine::Move()
 {
 	// movement calculations before colliders update positions --
 	position.x += 1;
+	fposition.x = position.x;
+	fposition.y = position.y;
 	// ----------------------------------------------------------
 
 	// update colliders positions ---------------------------------------------------------------------
@@ -237,23 +255,97 @@ void EnemySubmarine::Move()
 	{
 		if (extraColliders[i] != nullptr)
 		{
-			if (i == 6) 
+			if (i == 6)
 				extraColliders[i]->SetPos(position.x + nonDestroyedParts[i].position.x, position.y + 72);
 			else
-			extraColliders[i]->SetPos(position.x + nonDestroyedParts[i].position.x, position.y + nonDestroyedParts[i].position.y);
+				extraColliders[i]->SetPos(position.x + nonDestroyedParts[i].position.x, position.y + nonDestroyedParts[i].position.y);
 		}
 	}
 	// ---
-	fullBodyColliders[0]->SetPos(position.x , position.y + 84);
+	// fullbody colliders
+	fullBodyColliders[0]->SetPos(position.x, position.y + 84);
 	fullBodyColliders[1]->SetPos(position.x + 168, position.y + 64);
-
+	// ---
+	// CORE collider 
 	coreCollider->SetPos(position.x + 208, position.y + 24);
-
-	if(ejectionHatch.collider != nullptr)
+	// ejectionHatch collider
+	if (ejectionHatch.collider != nullptr)
 		ejectionHatch.collider->SetPos(position.x + ejectionHatch.position.x, position.y + ejectionHatch.position.y);
 	
-	// ----------------------------------------------------------------------------------------------
+	// turrets collider
+	for (int i = 0; i < NUM_TURRETS; ++i)
+		if (submarineTurrets[i].collider != nullptr)
+			submarineTurrets[i].collider->SetPos(position.x + submarineTurrets[i].position.x, position.y + submarineTurrets[i].position.y - 11 );
 	
+	// ----------------------------------------------------------------------------------------------
+	// TURRETS movement and shooting logic
+
+	goTurretsGo(); // angle calculations and animation desired frames
+	//goTurretsAttack();
+}
+
+void EnemySubmarine::goTurretsGo()
+{
+
+	float distance = GetNearestPlayerSqrtDistance();
+	float tx = NULL;
+	float ty = NULL;
+
+	for (int i = 0; i < NUM_TURRETS; ++i) // assigns animation frame
+	{
+		if (nearestTarget == nearestPlayer::P1)
+		{
+			tx = (position.x + submarineTurrets[i].position.x) - App->player[0]->position.x - 12;
+			ty = (position.y + submarineTurrets[i].position.y) - App->player[0]->position.y + 6 ;
+
+			submarineTurrets[i].angle = atan2f(ty, tx);
+
+			//LOG("angle: %f", submarineTurrets[i].angle);
+		}
+		else if (nearestTarget == nearestPlayer::P2)
+		{
+			submarineTurrets[i].angle = atan2(ty, tx);
+		}
+
+		float AlphaCentaury = submarineTurrets[i].angle;
+
+		if (AlphaCentaury < 0 || AlphaCentaury < 0.39f)
+		{
+			submarineTurrets[i].current_frame = 0;
+		}
+		if (AlphaCentaury > 0.39f && AlphaCentaury < 0.785f)
+		{
+			submarineTurrets[i].current_frame = 1;
+		}
+		if (AlphaCentaury > 0.785f && AlphaCentaury < 1.18f)
+		{
+			submarineTurrets[i].current_frame = 2;
+		}
+		if (AlphaCentaury > 1.18f && AlphaCentaury < 1.57f)
+		{
+			submarineTurrets[i].current_frame = 3;
+		}
+		if (AlphaCentaury > 1.57f && AlphaCentaury < 1.96f)
+		{
+			submarineTurrets[i].current_frame = 4;
+		}
+		if (AlphaCentaury > 1.96f && AlphaCentaury < 2.35f)
+		{
+			submarineTurrets[i].current_frame = 5;
+		}
+		if (AlphaCentaury > 2.35f && AlphaCentaury < 2.74f)
+		{
+			submarineTurrets[i].current_frame = 6;
+		}
+		if (AlphaCentaury > 2.74f && AlphaCentaury < 3.13f)
+		{
+			submarineTurrets[i].current_frame = 7;
+		}
+		if (AlphaCentaury > 3.13f && AlphaCentaury && AlphaCentaury < 3.52f)
+		{
+			submarineTurrets[i].current_frame = 8;
+		}
+	}
 }
 
 void EnemySubmarine::Draw()
@@ -264,10 +356,34 @@ void EnemySubmarine::Draw()
 	//
 	for (int i = 0; i < NUM_TURRETS; ++i)
 	{
-		submarineTurrets[i].rect = submarineTurrets[i].anim->GetCurrentFrame();
+		if (!submarineTurrets[i].destroyed)
+		{
+			// damage timer
+			submarineTurrets[i].now_damage_time = SDL_GetTicks() - submarineTurrets[i].start_damage_time;
+			if (submarineTurrets[i].now_damage_time > submarineTurrets[i].damage_anim_time)
+			{
+				submarineTurrets[i].takenDamage = false;
+			}
 
-		App->render->Blit(enemyTex, position.x + submarineTurrets[i].position.x,
-			position.y + submarineTurrets[i].position.y - submarineTurrets[i].rect.h, &submarineTurrets[i].rect);
+			// swap damage/normal sprites
+			if (!submarineTurrets[i].takenDamage)
+			{
+				submarineTurrets[i].current_animation = &submarineTurrets[i].anim[NORMAL_ANIM];
+				submarineTurrets[i].current_animation->current_frame = submarineTurrets[i].current_frame;
+
+			}
+			else
+			{
+				submarineTurrets[i].current_animation = &submarineTurrets[i].anim[DAMAGE_ANIM];
+				submarineTurrets[i].current_animation->current_frame = submarineTurrets[i].current_frame;
+			}
+
+			// finally draw!
+			submarineTurrets[i].rect = submarineTurrets[i].current_animation->GetCurrentFrame();
+
+			App->render->Blit(enemyTex, position.x + submarineTurrets[i].position.x,
+				position.y + submarineTurrets[i].position.y - submarineTurrets[i].rect.h, &submarineTurrets[i].rect);
+		}
 	}
 
 	// ----------------------------------------------------------------------------------------------
@@ -456,6 +572,29 @@ void EnemySubmarine::OnCollision(Collider* collider, Collider* collider2)
 		receiveDamage = true;
 		start_damage_time = SDL_GetTicks();
 		life -= collider->damage; // substract the damage taken by the damage amount of particle/collider associated to core life
+	}
+
+	// taken damage for TURRETS
+	for (int i = 0; i < NUM_TURRETS; ++i)
+	{
+		if (collider2 == submarineTurrets[i].collider)
+		{
+			if (readyToRumble && collider->type == COLLIDER_UNIT) // collisions logic for unit orbit
+			{
+				LOG("TURRET %d RECEIVING DAMAGE", i + 1);
+
+				submarineTurrets[i].takenDamage = true;
+				submarineTurrets[i].start_damage_time = SDL_GetTicks();
+				submarineTurrets[i].life -= collider->damage;
+			}
+			else if (collider->type != COLLIDER_UNIT)
+			{
+				submarineTurrets[i].takenDamage = true;
+				submarineTurrets[i].life -= collider->damage;
+				submarineTurrets[i].start_damage_time = SDL_GetTicks();
+			}
+
+		}
 	}
 
 	// taken damage for ejection hatch

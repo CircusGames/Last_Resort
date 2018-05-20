@@ -118,12 +118,12 @@ float Enemy::GetNearestPlayerSqrtDistance()
 
 		if (distanceToP2 < distanceToNearest || App->player[0]->player_step == player_state::died)
 		{
-			if (App->player[0]->player_step == player_state::died)
+			/*if (App->player[0]->player_step == player_state::died)
 				LOG("P2 ENABLED, P1 is death");
 			if (App->player[0]->player_step != player_state::died)
 				LOG("Player 2 is enabled and are nearest than P1");
 
-			LOG("P1 distance: %f, P2 distance: %f", distanceToNearest, distanceToP2);
+			LOG("P1 distance: %f, P2 distance: %f", distanceToNearest, distanceToP2);*/
 
 			distanceToNearest = distanceToP2;
 
@@ -140,8 +140,8 @@ float Enemy::GetNearestPlayerSqrtDistance()
 		}
 		else//if (playerstate == player_state::died);//two players are in scene, but p1 is nearest than p2
 		{
-			LOG("P2 is active, but P1 is nearest than P2");
-			LOG("P1 distance: %f, P2 distance: %f", distanceToNearest, distanceToP2);
+			//LOG("P2 is active, but P1 is nearest than P2");
+			//LOG("P1 distance: %f, P2 distance: %f", distanceToNearest, distanceToP2);
 			
 			//and assign tx,ty
 			tx = App->player[0]->position.x - position.x;
@@ -155,7 +155,7 @@ float Enemy::GetNearestPlayerSqrtDistance()
 	}
 	else //only player1 is active
 	{
-		LOG("Only player1 is enabled, distanceToP1: %f", distanceToNearest);
+		//LOG("Only player1 is enabled, distanceToP1: %f", distanceToNearest);
 		
 		//and assign tx,ty distances and desired module
 		tx = App->player[0]->position.x - position.x;

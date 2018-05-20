@@ -49,7 +49,7 @@ private:
 	{
 		Collider* collider = nullptr;
 		Animation anim[2]; // normal and taken damage
-		Animation* current_animation;
+		Animation* current_animation = nullptr;
 		iPoint position;
 		bool destroyed = false;
 		bool throwEnemy = false;
@@ -68,18 +68,24 @@ private:
 	{
 		Collider* collider;
 		Animation anim[2]; // normal and taken damage
-		Animation* current_animation; // to swap damage/normal sprites on runtime
-		SDL_Rect rect;				  // ""   ""
+		Animation* current_animation = nullptr; // to swap damage/normal sprites on runtime
+		float current_frame;
+		SDL_Rect rect;
 		iPoint position;
 		bool destroyed = false;
 		bool shot = false;
 		bool takenDamage = false;
 		int life = 5;
-		// timers
+		// timers ---
+		// shooting
 		Uint32 start_shot_time;
 		Uint32 now_shot_time;
 		Uint32 shot_cadence_timer = 1000;
-		// -----
+		// damage
+		Uint32 start_damage_time;
+		Uint32 now_damage_time;
+		Uint32 damage_anim_time = 50;
+		// ----------
 		float angle;
 		float distance;
 
@@ -106,6 +112,8 @@ public:
 	void Move();
 	void Draw();
 	void OnCollision(Collider* collider, Collider* collider2);
+
+	void goTurretsGo();
 
 	const Collider* EnemySubmarine::GetCollider() const;
 
