@@ -7,6 +7,7 @@
 
 #define NUM_DESTROYABLE_PARTS 5
 #define NUM_NONDESTROYED_PARTS 8
+#define NUM_TURRETS 8
 
 class EnemySubmarine : public Enemy
 {
@@ -63,6 +64,27 @@ private:
 		SDL_Rect rect;
 	};
 
+	struct turrets
+	{
+		Collider* collider;
+		Animation anim[2]; // normal and taken damage
+		Animation* current_animation; // to swap damage/normal sprites on runtime
+		SDL_Rect rect;				  // ""   ""
+		iPoint position;
+		bool destroyed = false;
+		bool shot = false;
+		bool takenDamage = false;
+		int life = 5;
+		// timers
+		Uint32 start_shot_time;
+		Uint32 now_shot_time;
+		Uint32 shot_cadence_timer = 1000;
+		// -----
+		float angle;
+		float distance;
+
+	};
+
 	// gameplay timers ----------------------
 	// ejectable enemy
 	Uint32 start_ejectable_time;
@@ -72,7 +94,7 @@ private:
 	// missile launching
 	Uint32 start_missiles_time;
 	Uint32 now_missiles_time;
-	Uint32 missiles_cadence_timer = 1000;
+	Uint32 missiles_cadence_timer = 500;
 	// --------------------------------------
 
 public:
@@ -98,6 +120,8 @@ public:
 	DestroyableStatic nonDestroyedParts[NUM_NONDESTROYED_PARTS];
 	DestroyableAnimated ejectionHatch;
 	DestroyableAnimated missileLauncher;
+	turrets submarineTurrets[NUM_TURRETS];
+	iPoint submarineTurretsPositions[NUM_TURRETS] = { {33,28}, {65,28}, {97,28}, {145,20}, {177, 4}, {289, -4}, {321, 12}, {353,12} };
 };
 
 #endif // __ENEMYPROTATOR__H__

@@ -71,6 +71,9 @@ EnemySubmarine::EnemySubmarine(int x, int y, powerUpTypes type, SDL_Texture* thi
 	// add colliders to each part
 	for (int i = 0; i < NUM_NONDESTROYED_PARTS; ++i)
 	{
+		// one part its colliders is a bit little on height
+		if (i == 6) nonDestroyedParts[i].collider = extraColliders[i] = App->collision->AddCollider({0,0,32,12}, COLLIDER_ENEMY, (Module*)App->enemies);
+
 		if (nonDestroyedParts[i].collider == nullptr)
 			nonDestroyedParts[i].collider = extraColliders[i] = App->collision->AddCollider(nonDestroyedParts[i].normalRect, COLLIDER_ENEMY, (Module*)App->enemies);
 	}
@@ -151,7 +154,7 @@ EnemySubmarine::EnemySubmarine(int x, int y, powerUpTypes type, SDL_Texture* thi
 	ejectionHatch.anim[DAMAGE_ANIM].repeat = false;
 	ejectionHatch.position = { 196, 16 };
 	ejectionHatch.collider = extraColliders[9] = App->collision->AddCollider({0,0, 60,32}, COLLIDER_ENEMY, (Module*)App->enemies);
-	ejectionHatch.life = 20;
+	ejectionHatch.life = 40;
 	// missiles platforms launchers anim
 	missileLauncher.anim[NORMAL_ANIM].PushBack({ 459,66,64,32 });
 	missileLauncher.anim[NORMAL_ANIM].PushBack({ 524,66,64,32 });
@@ -175,20 +178,38 @@ EnemySubmarine::EnemySubmarine(int x, int y, powerUpTypes type, SDL_Texture* thi
 	missileLauncher.position = { 208, 48 };
 
 	// ------------------------------------------------------------------------------------------------------------------
+	// SUBMARINE TURRETS
+	for (int i = 0; i < NUM_TURRETS; ++i)
+	{
+		submarineTurrets[i].anim[NORMAL_ANIM].PushBack({ 254,316,15,11 });
+		submarineTurrets[i].anim[NORMAL_ANIM].PushBack({ 270,316,14,11 });
+		submarineTurrets[i].anim[NORMAL_ANIM].PushBack({ 285,316,14,11 });
+		submarineTurrets[i].anim[NORMAL_ANIM].PushBack({ 300,316,14,12 });
+		submarineTurrets[i].anim[NORMAL_ANIM].PushBack({ 315,316,14,13 });
+		submarineTurrets[i].anim[NORMAL_ANIM].PushBack({ 330,316,14,12 });
+		submarineTurrets[i].anim[NORMAL_ANIM].PushBack({ 345,316,14,11 });
+		submarineTurrets[i].anim[NORMAL_ANIM].PushBack({ 360,316,14,11 });
+		submarineTurrets[i].anim[NORMAL_ANIM].PushBack({ 375,316,15,11 });
+		submarineTurrets[i].anim[NORMAL_ANIM].speed = 0.125f;
+		submarineTurrets[i].position = position + submarineTurretsPositions[i];
+	}
+
 	
 	//animation = &nameAnim; //links animation
 	
 	// enemy data ----
 	powerUpType = type;
 	life = 140; // total core submarine life ( testing value, needs to be counted )
-	enemyScore = 1200;
+	enemyScore = 12000;
 	// ---------------
 	//fposition.x = x;
 	//fposition.y = y;
 
 	// body colliders (only damage the player/s)
-	fullBodyColliders[0] = extraColliders[10] = App->collision->AddCollider({0,100,168,20},COLLIDER_ENEMY, (Module*)App->enemies);
-	fullBodyColliders[1] = extraColliders[11] = App->collision->AddCollider({ 0,100,24,39 }, COLLIDER_ENEMY, (Module*)App->enemies);
+	// full submarine base // 0,100,168,20
+	fullBodyColliders[0] = extraColliders[10] = App->collision->AddCollider({0,100,456,20},COLLIDER_ENEMY, (Module*)App->enemies);
+	// details
+	fullBodyColliders[1] = extraColliders[11] = App->collision->AddCollider({ 0,100,24,20 }, COLLIDER_ENEMY, (Module*)App->enemies);
 
 	coreCollider = extraColliders[12] = App->collision->AddCollider({ 0,0,48,24 }, COLLIDER_ENEMY, (Module*)App->enemies);
 
@@ -199,31 +220,57 @@ EnemySubmarine::EnemySubmarine(int x, int y, powerUpTypes type, SDL_Texture* thi
 
 
 
-	//position.x = -150;
+	//position.x = -160;
+	//position.x = 10;
+	//position.y = 100;
 }
 
 void EnemySubmarine::Move()
 {
-	// update colliders positions
+	// movement calculations before colliders update positions --
+	position.x += 1;
+	// ----------------------------------------------------------
+
+	// update colliders positions ---------------------------------------------------------------------
+
 	for (int i = 0; i < NUM_NONDESTROYED_PARTS; ++i)
 	{
 		if (extraColliders[i] != nullptr)
+		{
+			if (i == 6) 
+				extraColliders[i]->SetPos(position.x + nonDestroyedParts[i].position.x, position.y + 72);
+			else
 			extraColliders[i]->SetPos(position.x + nonDestroyedParts[i].position.x, position.y + nonDestroyedParts[i].position.y);
+		}
 	}
-
-	fullBodyColliders[0]->SetPos(position.x, position.y + 84);
+	// ---
+	fullBodyColliders[0]->SetPos(position.x , position.y + 84);
 	fullBodyColliders[1]->SetPos(position.x + 168, position.y + 64);
 
 	coreCollider->SetPos(position.x + 208, position.y + 24);
 
 	if(ejectionHatch.collider != nullptr)
 		ejectionHatch.collider->SetPos(position.x + ejectionHatch.position.x, position.y + ejectionHatch.position.y);
-
-	position.x += 1;
+	
+	// ----------------------------------------------------------------------------------------------
+	
 }
 
 void EnemySubmarine::Draw()
 {
+
+	// ----------------------------------------------------------------------------------------------
+	// SUBMARINE TURRETS DRAW
+	//
+	for (int i = 0; i < NUM_TURRETS; ++i)
+	{
+		submarineTurrets[i].rect = submarineTurrets[i].anim->GetCurrentFrame();
+
+		App->render->Blit(enemyTex, position.x + submarineTurrets[i].position.x,
+			position.y + submarineTurrets[i].position.y - submarineTurrets[i].rect.h, &submarineTurrets[i].rect);
+	}
+
+	// ----------------------------------------------------------------------------------------------
 
 	// draw full body without any destroyable part --------------------------------------------------
 	App->render->Blit(enemyTex, position.x, position.y, &submarineBodyRect);
@@ -247,10 +294,6 @@ void EnemySubmarine::Draw()
 				position.y + nonDestroyedParts[i].position.y, &nonDestroyedParts[i].normalRect);
 		}
 	}
-
-	
-	
-
 
 	// BODY and ALL PARTS damage sprite swap timer  ---------------------------------------------------------------------
 	
@@ -279,7 +322,9 @@ void EnemySubmarine::Draw()
 		missileLauncher.takenDamage = true;
 	}
 
-	// draw animated parts (ejectable hatch can be destroyed, but missile launchers not ------------------
+	// -------------------------------------------------------------------------------------------------------------------
+
+	// draw animated parts (ejectable hatch can be destroyed, but missile launchers not ----------------------------------
 
 	// ejectable enemy timer and animation --------------------------------------------
 
@@ -317,7 +362,6 @@ void EnemySubmarine::Draw()
 
 		if (!ejectionHatch.throwEnemy)
 		{
-			//ejectionRect = ejectionHatch.current_animation->frames[0];
 			ejectionHatch.rect = ejectionHatch.current_animation->frames[0];
 		}
 		else
@@ -328,8 +372,6 @@ void EnemySubmarine::Draw()
 				ejectionHatch.throwEnemy = false;
 				LOG("stop enemy launching");
 				start_ejectable_time = SDL_GetTicks();
-				//ejectionHatch.current_animation->current_frame = 0;
-				//ejectionHatch.current_animation->finish = false;
 				ejectionHatch.readyToEject = true;
 
 				// reset damage and normal anim
@@ -386,8 +428,6 @@ void EnemySubmarine::Draw()
 				missileLauncher.throwEnemy = false;
 				LOG("stop MISSILES enemy launching");
 				start_missiles_time = SDL_GetTicks();
-				//ejectionHatch.current_animation->current_frame = 0;
-				//ejectionHatch.current_animation->finish = false;
 				missileLauncher.readyToEject = true;
 
 				// reset damage and normal anim
@@ -403,8 +443,7 @@ void EnemySubmarine::Draw()
 		App->render->Blit(enemyTex, position.x + missileLauncher.position.x, position.y + missileLauncher.position.y, &missileLauncher.rect);
 	}
 
-	// -----------------------------------------------------------------------------------------------
-
+	
 
 	// -----------------------------------------------------------------------------------------------
 }
