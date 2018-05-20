@@ -268,7 +268,7 @@ void ModuleEnemies::OnCollision(Collider* c1, Collider* c2)
 {
 	for (uint i = 0; i < MAX_ENEMIES; ++i)
 	{
-		for (int k = 0; k < 10 ; ++k) //10 = extraColliders array max index
+		for (int k = 0; k < MAX_EXTRA_COLLIDERS ; ++k) //10 = extraColliders array max index
 		{
 			if (enemies[i] != nullptr && enemies[i]->extraColliders[k] != nullptr)
 			{
@@ -279,11 +279,13 @@ void ModuleEnemies::OnCollision(Collider* c1, Collider* c2)
 		if (enemies[i] != nullptr && enemies[i]->GetCollider() == c1 && c2->type != COLLIDER_UNIT)
 		{
 			enemies[i]->OnCollision(c2, c1);
- 			enemies[i]->life -= c2->damage; //particle damage
+
+			if (enemies[i]->enemyType != SUBMARINE)
+ 				enemies[i]->life -= c2->damage; //particle damage
 
 			if (c2->type == COLLIDER_PLAYER)
 				--enemies[i]->life; //by default, player collider substract 1 to enemy life
-
+			
  			if (enemies[i]->life <= 0)
 			{
 				App->audio->ControlAudio("EnemyDeath", SFX, PLAY);
@@ -309,9 +311,13 @@ void ModuleEnemies::OnCollision(Collider* c1, Collider* c2)
 						App->playerUnit[1]->this_state = actualState::RETURN;
 				}
 
+				if(enemies[i]->enemyType != SUBMARINE)
 				enemies[i]->life -= c2->damage; //receive unit damage respect the actual unit damage (charged or not amount)
 			}
 
+			if (enemies[i]->enemyType == SUBMARINE)
+				enemies[i]->OnCollision(c2, c1);
+			
 			enemies[i]->OnCollisionUnit(c2, c1);
 
 			if (enemies[i]->life <= 0)

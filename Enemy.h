@@ -2,7 +2,7 @@
 #ifndef __ENEMY_H__
 #define __ENEMY_H__
 
-#define MAX_EXTRA_COLLIDERS 10
+#define MAX_EXTRA_COLLIDERS 16
 
 //#include "Globals.h"
 #include "p2Point.h"
