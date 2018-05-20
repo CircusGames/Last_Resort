@@ -30,7 +30,7 @@ Application::Application()
 {
 	int i = 0;
 	modules[i++] = window = new ModuleWindow();
-	modules[i++] = render = new ModuleRender();
+	//modules[i++] = render = new ModuleRender();
 	modules[i++] = input = new ModuleInput();
 	modules[i++] = textures = new ModuleTextures();
 	modules[i++] = teamLogo = new ModuleTeamLogo();
@@ -58,6 +58,7 @@ Application::Application()
 	modules[i++] = audio = new ModuleAudio();
 	modules[i++] = moduleUI = new ModuleUI();
 	modules[i++] = fade = new ModuleFadeToBlack();
+	modules[i++] = render = new ModuleRender();
 	
 
 }	

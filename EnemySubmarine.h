@@ -4,6 +4,7 @@
 #include "Enemy.h"
 #include "ModuleTextures.h"
 #include "Module.h"
+#include "Path.h"
 
 #define NUM_DESTROYABLE_PARTS 5
 #define NUM_NONDESTROYED_PARTS 8
@@ -131,6 +132,11 @@ public:
 	DestroyableAnimated missileLauncher;
 	turrets submarineTurrets[NUM_TURRETS];
 	iPoint submarineTurretsPositions[NUM_TURRETS] = { {33,28}, {65,28}, {97,28}, {145,20}, {177, 4}, {289, -4}, {321, 12}, {353,12} };
+
+	Path submarinePath;
+
+	iPoint original_pos;
+
 };
 
 #endif // __ENEMYPROTATOR__H__

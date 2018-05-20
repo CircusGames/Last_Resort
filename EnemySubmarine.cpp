@@ -236,15 +236,47 @@ EnemySubmarine::EnemySubmarine(int x, int y, powerUpTypes type, SDL_Texture* thi
 
 
 
-	position.x = -160;
+	//position.x = -160;
 	//position.x = 10;
-	position.y = 100;
+	//position.y = 100;
+
+	// original positions 
+
+	original_pos.x = -72;
+	original_pos.y = 192;
+
+	// SUBMARINE PATH
+	submarinePath.PushBack({1,0},272); // wait //300
+	submarinePath.PushBack({ 1, -0.5f }, 221); // mid up
+	submarinePath.PushBack({ 1, 0 }, 272); // wait // 280
+	submarinePath.PushBack({ 1, 0.5f }, 221); // mid down
+	submarinePath.PushBack({ -10, 0 }, 7); // top left fast underwater move
+	submarinePath.PushBack({ 1, 0 }, 272); // wait
+	submarinePath.PushBack({ 1, -0.5f }, 221); // top left up
+	submarinePath.PushBack({ 1,0 }, 272); // wait
+	submarinePath.PushBack({ 1, 0.5f }, 221); // top left down
+	submarinePath.PushBack({ 10.8f, 0 }, 16); // top right fast underwater move
+	submarinePath.PushBack({ 1, 0 }, 272); // wait
+	submarinePath.PushBack({ 1, -0.5f }, 221); // top right up
+	submarinePath.PushBack({ 1, 0 }, 272); // wait
+	submarinePath.PushBack({ 1, 0.5f }, 221); // top right down
+	submarinePath.PushBack({ -10.0f, 0 }, 9); // return to mid position fast travel move
+	submarinePath.PushBack({ 1, 0 }, 272); // wait
+	submarinePath.PushBack({ 1, -0.5f }, 221); // mid up
+	submarinePath.PushBack({ 1, 0 }, 80); // final wait a little then leftDown
+	submarinePath.PushBack({ 0.50f, 0.25f }, 420); // final goodbye
+	submarinePath.loop = false;
+
+
+
+
 }
 
 void EnemySubmarine::Move()
 {
 	// movement calculations before colliders update positions --
-	position.x += 1;
+	//position.x += 1;
+	position = original_pos + submarinePath.GetCurrentSpeed();
 	fposition.x = position.x;
 	fposition.y = position.y;
 	// ----------------------------------------------------------
@@ -614,133 +646,136 @@ void EnemySubmarine::Draw()
 
 void EnemySubmarine::OnCollision(Collider* collider, Collider* collider2)
 {
-	// taken damage, submarine BODY and ALL PARTS only takes damage and plays damage animation when the core is reached/damaged
-	if (collider2 == coreCollider && !receiveDamage)
+	if (collider->type != COLLIDER_WALL)
 	{
-		receiveDamage = true;
-		start_damage_time = SDL_GetTicks();
-		life -= collider->damage; // substract the damage taken by the damage amount of particle/collider associated to core life
-	}
-
-	// taken damage for TURRETS
-	for (int i = 0; i < NUM_TURRETS; ++i)
-	{
-		if (collider2 == submarineTurrets[i].collider)
+		// taken damage, submarine BODY and ALL PARTS only takes damage and plays damage animation when the core is reached/damaged
+		if (collider2 == coreCollider && !receiveDamage)
 		{
-			if (readyToRumble && collider->type == COLLIDER_UNIT) // collisions logic for unit orbit
+			receiveDamage = true;
+			start_damage_time = SDL_GetTicks();
+			life -= collider->damage; // substract the damage taken by the damage amount of particle/collider associated to core life
+		}
+
+		// taken damage for TURRETS
+		for (int i = 0; i < NUM_TURRETS; ++i)
+		{
+			if (collider2 == submarineTurrets[i].collider)
 			{
-				LOG("TURRET %d RECEIVING DAMAGE", i + 1);
+				if (readyToRumble && collider->type == COLLIDER_UNIT) // collisions logic for unit orbit
+				{
+					LOG("TURRET %d RECEIVING DAMAGE", i + 1);
 
-				submarineTurrets[i].takenDamage = true;
-				submarineTurrets[i].start_damage_time = SDL_GetTicks();
-				submarineTurrets[i].life -= collider->damage;
+					submarineTurrets[i].takenDamage = true;
+					submarineTurrets[i].start_damage_time = SDL_GetTicks();
+					submarineTurrets[i].life -= collider->damage;
+				}
+				else if (collider->type != COLLIDER_UNIT)
+				{
+					submarineTurrets[i].takenDamage = true;
+					submarineTurrets[i].life -= collider->damage;
+					submarineTurrets[i].start_damage_time = SDL_GetTicks();
+				}
+
+				if (submarineTurrets[i].life <= 0)
+				{
+					submarineTurrets[i].destroyed = true;
+					submarineTurrets[i].collider->to_delete = true;
+					submarineTurrets[i].collider = nullptr;
+					extraColliders[i + 13] = nullptr; // 9 is the extraCollider associated with the ejection hatch collider
+
+												 // play audio fx
+					App->audio->ControlAudio("EnemyDeath", SFX, PLAY);
+					// instantiate explosion particle
+					App->particles->AddParticle(App->particles->explosion, position.x + submarineTurrets[i].position.x,
+						position.y + submarineTurrets[i].position.y, COLLIDER_NONE);
+
+				}
+				else
+				{
+					// instantiate bullet impact particle 
+				}
+
+
+
 			}
-			else if (collider->type != COLLIDER_UNIT)
-			{
-				submarineTurrets[i].takenDamage = true;
-				submarineTurrets[i].life -= collider->damage;
-				submarineTurrets[i].start_damage_time = SDL_GetTicks();
-			}
-
-			if (submarineTurrets[i].life <= 0)
-			{
-				submarineTurrets[i].destroyed = true;
-				submarineTurrets[i].collider->to_delete = true;
-				submarineTurrets[i].collider = nullptr;
-				extraColliders[i+13] = nullptr; // 9 is the extraCollider associated with the ejection hatch collider
-
-											 // play audio fx
-				App->audio->ControlAudio("EnemyDeath", SFX, PLAY);
-				// instantiate explosion particle
-				App->particles->AddParticle(App->particles->explosion, position.x + submarineTurrets[i].position.x,
-					position.y + submarineTurrets[i].position.y, COLLIDER_NONE);
-
-			}
-			else
-			{
-				// instantiate bullet impact particle 
-			}
-
-
-
-		}
-	}
-
-	// taken damage for ejection hatch
-	if (collider2 == ejectionHatch.collider)//nonDestroyedParts[5].collider)
-	{
-		
-		
-		LOG("ejectionHatch damaged");
-
-		if (readyToRumble && collider->type == COLLIDER_UNIT) // if the collider is the Unit and is ready to already take damage of it
-		{
-			ejectionHatch.life -= collider->damage; // substract collider unit charged/normal damage
-			ejectionHatch.takenDamage = true;
-			ejectionHatch.start_damage_time = SDL_GetTicks();
-
-		}
-		else if (collider->type != COLLIDER_UNIT)
-		{
-			ejectionHatch.life -= collider->damage;
-			ejectionHatch.takenDamage = true;
-			ejectionHatch.start_damage_time = SDL_GetTicks();
 		}
 
-		if (ejectionHatch.life <= 0)
+		// taken damage for ejection hatch
+		if (collider2 == ejectionHatch.collider)//nonDestroyedParts[5].collider)
 		{
-			ejectionHatch.destroyed = true;
-			ejectionHatch.collider->to_delete = true;
-			ejectionHatch.collider = nullptr;
-			extraColliders[9] = nullptr; // 9 is the extraCollider associated with the ejection hatch collider
 
-			// play audio fx
-			App->audio->ControlAudio("EnemyDeath", SFX, PLAY);
-			// instantiate explosion particle
-			App->particles->AddParticle(App->particles->explosion, position.x + ejectionHatch.position.x + 60 / 2,
-				position.y + ejectionHatch.position.y, COLLIDER_NONE);
 
-		}
-		else
-		{
-			// instantiate bullet impact particle 
-		}
-	}
+			LOG("ejectionHatch damaged");
 
-	// STATIC DESTROYABLE PARTS ----------------------------------------------------------------------------------------------------------
-	// substract life to each static part
-	for (int i = 0; i < NUM_NONDESTROYED_PARTS ; ++i)
-	{
-		//if (extraColliders[i] == nullptr) 
-			//continue;
-
-		if (collider2 == nonDestroyedParts[i].collider) // destroyable static parts
-		{
 			if (readyToRumble && collider->type == COLLIDER_UNIT) // if the collider is the Unit and is ready to already take damage of it
-				nonDestroyedParts[i].life -= collider->damage; // substract collider unit charged/normal damage
-			else if (collider->type != COLLIDER_UNIT)
-				nonDestroyedParts[i].life -= collider->damage;
-
-			if (nonDestroyedParts[i].life <= 0)
 			{
-				nonDestroyedParts[i].destroyed = true;
-				extraColliders[i]->to_delete = true;
-				extraColliders[i] = nullptr;
-				nonDestroyedParts[i].collider = nullptr;
+				ejectionHatch.life -= collider->damage; // substract collider unit charged/normal damage
+				ejectionHatch.takenDamage = true;
+				ejectionHatch.start_damage_time = SDL_GetTicks();
+
+			}
+			else if (collider->type != COLLIDER_UNIT)
+			{
+				ejectionHatch.life -= collider->damage;
+				ejectionHatch.takenDamage = true;
+				ejectionHatch.start_damage_time = SDL_GetTicks();
+			}
+
+			if (ejectionHatch.life <= 0)
+			{
+				ejectionHatch.destroyed = true;
+				ejectionHatch.collider->to_delete = true;
+				ejectionHatch.collider = nullptr;
+				extraColliders[9] = nullptr; // 9 is the extraCollider associated with the ejection hatch collider
 
 				// play audio fx
 				App->audio->ControlAudio("EnemyDeath", SFX, PLAY);
 				// instantiate explosion particle
-				App->particles->AddParticle(App->particles->explosion, position.x + nonDestroyedParts[i].position.x + nonDestroyedParts[i].normalRect.w / 2, 
-					position.y + nonDestroyedParts[i].position.y, COLLIDER_NONE);
+				App->particles->AddParticle(App->particles->explosion, position.x + ejectionHatch.position.x + 60 / 2,
+					position.y + ejectionHatch.position.y, COLLIDER_NONE);
 
 			}
 			else
 			{
 				// instantiate bullet impact particle 
 			}
+		}
 
-		
+		// STATIC DESTROYABLE PARTS ----------------------------------------------------------------------------------------------------------
+		// substract life to each static part
+		for (int i = 0; i < NUM_NONDESTROYED_PARTS; ++i)
+		{
+			//if (extraColliders[i] == nullptr) 
+				//continue;
+
+			if (collider2 == nonDestroyedParts[i].collider) // destroyable static parts
+			{
+				if (readyToRumble && collider->type == COLLIDER_UNIT) // if the collider is the Unit and is ready to already take damage of it
+					nonDestroyedParts[i].life -= collider->damage; // substract collider unit charged/normal damage
+				else if (collider->type != COLLIDER_UNIT)
+					nonDestroyedParts[i].life -= collider->damage;
+
+				if (nonDestroyedParts[i].life <= 0)
+				{
+					nonDestroyedParts[i].destroyed = true;
+					extraColliders[i]->to_delete = true;
+					extraColliders[i] = nullptr;
+					nonDestroyedParts[i].collider = nullptr;
+
+					// play audio fx
+					App->audio->ControlAudio("EnemyDeath", SFX, PLAY);
+					// instantiate explosion particle
+					App->particles->AddParticle(App->particles->explosion, position.x + nonDestroyedParts[i].position.x + nonDestroyedParts[i].normalRect.w / 2,
+						position.y + nonDestroyedParts[i].position.y, COLLIDER_NONE);
+
+				}
+				else
+				{
+					// instantiate bullet impact particle 
+				}
+
+
+			}
 		}
 	}
 }
