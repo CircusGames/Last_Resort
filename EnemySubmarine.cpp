@@ -290,25 +290,28 @@ void EnemySubmarine::goTurretsAttack()
 
 	for (int i = 0; i < NUM_TURRETS; ++i)
 	{
-		// speed vector
-		float vx = 3 * cos(submarineTurrets[i].angle); // shot speed * cos/sin angle
-		float vy = 3 * sin(submarineTurrets[i].angle);
-
-		submarineTurrets[i].now_shot_time = SDL_GetTicks() - submarineTurrets[i].start_shot_time;
-		
-		if (submarineTurrets[i].now_shot_time > submarineTurrets[i].shot_cadence_timer) submarineTurrets[i].shot = true;
-
-		if (submarineTurrets[i].shot)
+		if (!submarineTurrets[i].destroyed)
 		{
-			if (submarineTurrets[i].distance < 120) // distance check
-			{
-				LOG("TURRET %d SHOOT", i + 1);
-				submarineTurrets[i].shot = false;
-				submarineTurrets[i].start_shot_time = SDL_GetTicks();
+			// speed vector
+			float vx = 3 * cos(submarineTurrets[i].angle); // shot speed * cos/sin angle
+			float vy = 3 * sin(submarineTurrets[i].angle);
 
-				// instantiate bullet particle
-				App->particles->AddParticle(App->enemies->beeBullet, position.x + submarineTurrets[i].position.x + 3, 
-					position.y + submarineTurrets[i].position.y - 10, COLLIDER_ENEMY_SHOT, { (int)-vx + 1,(int)-vy });
+			submarineTurrets[i].now_shot_time = SDL_GetTicks() - submarineTurrets[i].start_shot_time;
+
+			if (submarineTurrets[i].now_shot_time > submarineTurrets[i].shot_cadence_timer) submarineTurrets[i].shot = true;
+
+			if (submarineTurrets[i].shot)
+			{
+				if (submarineTurrets[i].distance < 160) // distance check
+				{
+					LOG("TURRET %d SHOOT", i + 1);
+					submarineTurrets[i].shot = false;
+					submarineTurrets[i].start_shot_time = SDL_GetTicks();
+
+					// instantiate bullet particle
+					App->particles->AddParticle(App->enemies->beeBullet, position.x + submarineTurrets[i].position.x + 3,
+						position.y + submarineTurrets[i].position.y - 10, COLLIDER_ENEMY_SHOT, { (int)-vx + 1,(int)-vy });
+				}
 			}
 		}
 		
@@ -638,6 +641,27 @@ void EnemySubmarine::OnCollision(Collider* collider, Collider* collider2)
 				submarineTurrets[i].life -= collider->damage;
 				submarineTurrets[i].start_damage_time = SDL_GetTicks();
 			}
+
+			if (submarineTurrets[i].life <= 0)
+			{
+				submarineTurrets[i].destroyed = true;
+				submarineTurrets[i].collider->to_delete = true;
+				submarineTurrets[i].collider = nullptr;
+				extraColliders[i+13] = nullptr; // 9 is the extraCollider associated with the ejection hatch collider
+
+											 // play audio fx
+				App->audio->ControlAudio("EnemyDeath", SFX, PLAY);
+				// instantiate explosion particle
+				App->particles->AddParticle(App->particles->explosion, position.x + submarineTurrets[i].position.x,
+					position.y + submarineTurrets[i].position.y, COLLIDER_NONE);
+
+			}
+			else
+			{
+				// instantiate bullet impact particle 
+			}
+
+
 
 		}
 	}
