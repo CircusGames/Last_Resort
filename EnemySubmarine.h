@@ -89,12 +89,12 @@ private:
 	// ejectable enemy
 	Uint32 start_ejectable_time;
 	Uint32 now_ejectable_time;
-	Uint32 ejectable_cadence_timer = 2000;
+	Uint32 ejectable_cadence_timer = 4200;
 	// ---
 	// missile launching
 	Uint32 start_missiles_time;
 	Uint32 now_missiles_time;
-	Uint32 missiles_cadence_timer = 500;
+	Uint32 missiles_cadence_timer = 5500;
 	// --------------------------------------
 
 public:
