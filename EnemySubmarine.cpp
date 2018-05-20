@@ -53,21 +53,21 @@ EnemySubmarine::EnemySubmarine(int x, int y, powerUpTypes type, SDL_Texture* thi
 	//nonDestroyedParts[5].position = { 196, 16 };
 	//nonDestroyedParts[5].life = 10;
 	// part7  (missile launcher part middle position static frame)
-	nonDestroyedParts[6].normalRect = { 459,66,64,32 };
-	nonDestroyedParts[6].takenDamageRect = { 459,99,64,32 };
-	nonDestroyedParts[6].position = { 208, 48 };
+	nonDestroyedParts[5].normalRect = { 459,66,64,32 };
+	nonDestroyedParts[5].takenDamageRect = { 459,99,64,32 };
+	nonDestroyedParts[5].position = { 208, 48 };
 	// part8
-	nonDestroyedParts[7].normalRect = { 288,112,24,8 };
-	nonDestroyedParts[7].takenDamageRect = { 288,250,24,8 };
-	nonDestroyedParts[7].position = { 288, 56 };
+	nonDestroyedParts[6].normalRect = { 288,112,24,8 };
+	nonDestroyedParts[6].takenDamageRect = { 288,250,24,8 };
+	nonDestroyedParts[6].position = { 288, 56 };
 	// part9
-	nonDestroyedParts[8].normalRect = { 304,121,32,16 };
-	nonDestroyedParts[8].takenDamageRect = { 304,259,32,16 };
-	nonDestroyedParts[8].position = { 304, 64 };
+	nonDestroyedParts[7].normalRect = { 304,121,32,16 };
+	nonDestroyedParts[7].takenDamageRect = { 304,259,32,16 };
+	nonDestroyedParts[7].position = { 304, 64 };
 	// part9
-	nonDestroyedParts[9].normalRect = { 336,112,32,16 };
-	nonDestroyedParts[9].takenDamageRect = { 336,250,32,16 };
-	nonDestroyedParts[9].position = { 336, 72 };
+	nonDestroyedParts[8].normalRect = { 336,112,32,16 };
+	nonDestroyedParts[8].takenDamageRect = { 336,250,32,16 };
+	nonDestroyedParts[8].position = { 336, 72 };
 	// add colliders to each part
 	for (int i = 0; i < NUM_NONDESTROYED_PARTS; ++i)
 	{
@@ -139,6 +139,7 @@ EnemySubmarine::EnemySubmarine(int x, int y, powerUpTypes type, SDL_Texture* thi
 	ejectionHatch.anim[NORMAL_ANIM].PushBack({ 457, 0, 60 ,32 }); // initial frame
 	ejectionHatch.anim[NORMAL_ANIM].speed = 0.125f;
 	ejectionHatch.anim[NORMAL_ANIM].repeat = false;
+	
 	ejectionHatch.anim[DAMAGE_ANIM].PushBack({ 457, 33, 60, 32 });
 	ejectionHatch.anim[DAMAGE_ANIM].PushBack({ 520, 33, 60, 32 });
 	ejectionHatch.anim[DAMAGE_ANIM].PushBack({ 588, 33, 60, 32 });
@@ -149,7 +150,7 @@ EnemySubmarine::EnemySubmarine(int x, int y, powerUpTypes type, SDL_Texture* thi
 	ejectionHatch.anim[DAMAGE_ANIM].speed = 0.125f;
 	ejectionHatch.anim[DAMAGE_ANIM].repeat = false;
 	ejectionHatch.position = { 196, 16 };
-	ejectionHatch.collider = extraColliders[13] = App->collision->AddCollider({0,0, 60,32}, COLLIDER_ENEMY, (Module*)App->enemies);
+	ejectionHatch.collider = extraColliders[9] = App->collision->AddCollider({0,0, 60,32}, COLLIDER_ENEMY, (Module*)App->enemies);
 	ejectionHatch.life = 5;
 	// missiles platforms launchers anim
 	missileLauncherAnim[0][NORMAL_ANIM].PushBack({ 459,66,64,32 });
@@ -181,11 +182,11 @@ EnemySubmarine::EnemySubmarine(int x, int y, powerUpTypes type, SDL_Texture* thi
 	//fposition.x = x;
 	//fposition.y = y;
 
-	// body colliders
-	fullBodyColliders[0] = extraColliders[10] = App->collision->AddCollider({0,100,168,20},COLLIDER_ENEMY, (Module*)App->enemies);
-	fullBodyColliders[1] = extraColliders[11] = App->collision->AddCollider({ 0,100,24,39 }, COLLIDER_ENEMY, (Module*)App->enemies);
+	// body colliders (only damage the player/s)
+	fullBodyColliders[0] =  App->collision->AddCollider({0,100,168,20},COLLIDER_ENEMY, (Module*)App->enemies);
+	fullBodyColliders[1] =  App->collision->AddCollider({ 0,100,24,39 }, COLLIDER_ENEMY, (Module*)App->enemies);
 
-	coreCollider = extraColliders[12] = App->collision->AddCollider({ 0,0,48,24 }, COLLIDER_ENEMY, (Module*)App->enemies);
+	coreCollider = extraColliders[10] = App->collision->AddCollider({ 0,0,48,24 }, COLLIDER_ENEMY, (Module*)App->enemies);
 
 
 	// timers
@@ -235,7 +236,7 @@ void EnemySubmarine::Draw()
 		if (!nonDestroyedParts[i].destroyed)
 		{
 			// checks if the current part is the animated one and are in animated cycle ( only ejection hatch, missiles launcher is not relevant)
-			if (i == 5 && ejectionHatch.throwEnemy) continue; // ignore the draw
+			//if (i == 5 && ejectionHatch.throwEnemy) continue; // ignore the draw
 
 			App->render->Blit(enemyTex, position.x + nonDestroyedParts[i].position.x,
 				position.y + nonDestroyedParts[i].position.y, &nonDestroyedParts[i].normalRect);
@@ -248,67 +249,70 @@ void EnemySubmarine::Draw()
 
 	if (!ejectionHatch.destroyed)
 	{
-		//Animation* current_hatch_anim;
-		SDL_Rect current_hatch_rect;
-
-		// ejectable enemy timer ----------------------------------------------
-		now_ejectable_time = SDL_GetTicks() - start_ejectable_time;
-		if (now_ejectable_time >= ejectable_cadence_timer)
-		{
-			ejectionHatch.throwEnemy = true;
-		}
-		// -------------------------------------------------------------------
-		// taken damage timer ----
-
-		if (ejectionHatch.takenDamage)
-		{
-			ejectionHatch.current_frame = ejectionHatch.current_animation->current_frame;
-			ejectionHatch.current_animation = &ejectionHatch.anim[DAMAGE_ANIM];
-			ejectionHatch.anim->current_frame = ejectionHatch.current_frame;
-			ejectionHatch.takenDamage = false;
-			ejectionHatch.start_damage_time = SDL_GetTicks();
-			LOG("changing anim to damage anim");
-
-		}
-
+		// damage timer
 		ejectionHatch.now_damage_time = SDL_GetTicks() - ejectionHatch.start_damage_time;
-
-		if (ejectionHatch.now_damage_time >= ejectionHatch.damage_anim_time)
+		if (ejectionHatch.now_damage_time > ejectionHatch.damage_anim_time)
 		{
-			ejectionHatch.current_frame = ejectionHatch.anim->current_frame;
- 			ejectionHatch.current_animation = &ejectionHatch.anim[NORMAL_ANIM];
-			ejectionHatch.current_animation->current_frame = ejectionHatch.current_frame;
-			LOG("changing anim to NORMAL anim");
+			ejectionHatch.takenDamage = false;
 		}
-		// -------------------------------------------------------------------
 
-		if (ejectionHatch.throwEnemy)
+		// swap damage/normal sprites
+		if (!ejectionHatch.takenDamage)
 		{
-			//current_hatch_rect = ejectionHatch.anim[NORMAL_ANIM].GetCurrentFrame();
-			current_hatch_rect = ejectionHatch.anim->GetCurrentFrame();
-			
-			if (ejectionHatch.anim->finish)
-			{
-				ejectionHatch.throwEnemy = false;
-				//ejectionHatch.anim[NORMAL_ANIM].current_frame = 0;
-				//ejectionHatch.anim[NORMAL_ANIM].finish = false;
-				ejectionHatch.anim->current_frame = 0;
-				ejectionHatch.anim->finish = false;
-				start_ejectable_time = SDL_GetTicks();
-			}
+			ejectionHatch.current_animation = &ejectionHatch.anim[NORMAL_ANIM];
+			ejectionHatch.current_animation->current_frame = ejectionHatch.current_frame;
+
 		}
 		else
 		{
-			current_hatch_rect = ejectionHatch.anim[NORMAL_ANIM].frames[0];
+			ejectionHatch.current_animation = &ejectionHatch.anim[DAMAGE_ANIM];
+			ejectionHatch.current_animation->current_frame = ejectionHatch.current_frame;
 		}
 
-		App->render->Blit(enemyTex, position.x + ejectionHatch.position.x,
-			position.y + ejectionHatch.position.y, &current_hatch_rect);
+		
+		
+		SDL_Rect ejectionRect;
+		
 
+		now_ejectable_time = SDL_GetTicks() - start_ejectable_time;
+		if (now_ejectable_time > ejectable_cadence_timer && ejectionHatch.readyToEject)
+		{
+			ejectionHatch.throwEnemy = true;
+			LOG("throwing enemy");
+			ejectionHatch.readyToEject = false;
+		}
+
+		if (!ejectionHatch.throwEnemy)
+		{
+			ejectionRect = ejectionHatch.current_animation->frames[0];
+		}
+		else
+		{
+			ejectionRect = ejectionHatch.current_animation->GetCurrentFrame();
+			if (ejectionHatch.current_animation->finish)
+			{
+				ejectionHatch.throwEnemy = false;
+				LOG("stop enemy launching");
+				start_ejectable_time = SDL_GetTicks();
+				//ejectionHatch.current_animation->current_frame = 0;
+				//ejectionHatch.current_animation->finish = false;
+				ejectionHatch.readyToEject = true;
+
+				// reset damage and normal anim
+				ejectionHatch.anim[NORMAL_ANIM].current_frame = 0;
+				ejectionHatch.anim[NORMAL_ANIM].finish = false;
+				ejectionHatch.anim[DAMAGE_ANIM].current_frame = 0;
+				ejectionHatch.anim[DAMAGE_ANIM].finish = false;
+			}
+		}
+
+		ejectionHatch.current_frame = ejectionHatch.current_animation->current_frame;
+
+		App->render->Blit(enemyTex, position.x + ejectionHatch.position.x, position.y + ejectionHatch.position.y, &ejectionRect);
 		
 	}
 
-
+	// -----------------------------------------------------------------------------------------------
 
 
 	// damage sprite swap timer  ---------------------------------------------------------------------
@@ -350,16 +354,50 @@ void EnemySubmarine::OnCollision(Collider* collider, Collider* collider2)
 	// taken damage for ejection hatch
 	if (collider2 == ejectionHatch.collider)//nonDestroyedParts[5].collider)
 	{
-		ejectionHatch.takenDamage = true;
-		ejectionHatch.start_damage_time = SDL_GetTicks();
+		
 		
 		LOG("ejectionHatch damaged");
+
+		if (readyToRumble && collider->type == COLLIDER_UNIT) // if the collider is the Unit and is ready to already take damage of it
+		{
+			ejectionHatch.life -= collider->damage; // substract collider unit charged/normal damage
+			ejectionHatch.takenDamage = true;
+			ejectionHatch.start_damage_time = SDL_GetTicks();
+
+		}
+		else if (collider->type != COLLIDER_UNIT)
+		{
+			ejectionHatch.life -= collider->damage;
+			ejectionHatch.takenDamage = true;
+			ejectionHatch.start_damage_time = SDL_GetTicks();
+		}
+
+		if (ejectionHatch.life <= 0)
+		{
+			ejectionHatch.destroyed = true;
+			ejectionHatch.collider->to_delete = true;
+			ejectionHatch.collider = nullptr;
+			extraColliders[9] = nullptr; // 9 is the extraCollider associated with the ejection hatch collider
+
+			// play audio fx
+			App->audio->ControlAudio("EnemyDeath", SFX, PLAY);
+			// instantiate explosion particle
+			App->particles->AddParticle(App->particles->explosion, position.x + ejectionHatch.position.x + 60 / 2,
+				position.y + ejectionHatch.position.y, COLLIDER_NONE);
+
+		}
+		else
+		{
+			// instantiate bullet impact particle 
+		}
 	}
 
-	// substract life to each part
-	for (int i = 0; i < MAX_EXTRA_COLLIDERS; ++i)
+	// STATIC DESTROYABLE PARTS ----------------------------------------------------------------------------------------------------------
+	// substract life to each static part
+	for (int i = 0; i < NUM_NONDESTROYED_PARTS ; ++i)
 	{
-		if (extraColliders[i] == nullptr) continue;
+		//if (extraColliders[i] == nullptr) 
+			//continue;
 
 		if (collider2 == nonDestroyedParts[i].collider) // destroyable static parts
 		{
@@ -387,28 +425,7 @@ void EnemySubmarine::OnCollision(Collider* collider, Collider* collider2)
 				// instantiate bullet impact particle 
 			}
 
-			if (collider2 == ejectionHatch.collider) // destroyable ejection hatch
-			{
-				if (readyToRumble && collider->type == COLLIDER_UNIT) // if the collider is the Unit and is ready to already take damage of it
-					ejectionHatch.life -= collider->damage; // substract collider unit charged/normal damage
-				else if (collider->type != COLLIDER_UNIT)
-					ejectionHatch.life -= collider->damage;
-
-				if (ejectionHatch.life <= 0)
-				{
-					ejectionHatch.destroyed = true;
-					extraColliders[13]->to_delete = true;
-					extraColliders[13] = nullptr;
-					ejectionHatch.collider = nullptr;
-
-					// play audio fx
-					App->audio->ControlAudio("EnemyDeath", SFX, PLAY);
-					// instantiate explosions particles
-					App->particles->AddParticle(App->particles->explosion, position.x + ejectionHatch.position.x + 60 / 2,
-						position.y + ejectionHatch.position.y, COLLIDER_NONE);
-
-				}
-			}
+		
 		}
 	}
 }
@@ -439,13 +456,22 @@ EnemySubmarine::~EnemySubmarine()
 		//enemyTex = nullptr;
 	}
 
-	for (int i = 0; i < MAX_EXTRA_COLLIDERS; ++i)
+	for (int i = 0; i < MAX_EXTRA_COLLIDERS; ++i) // delete extra colliders
 	{
 		if (extraColliders[i] != nullptr)
 		{
 			extraColliders[i]->to_delete = true;
 			extraColliders[i] = nullptr;
 		}
+	}
+	for (int i = 0; i < 2; ++i) // delete full body colliders
+	{
+		if (fullBodyColliders[i] != nullptr)
+		{
+			fullBodyColliders[i]->to_delete = true;
+			fullBodyColliders[i] = nullptr;
+		}
+
 	}
 
 }

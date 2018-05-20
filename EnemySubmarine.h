@@ -6,7 +6,7 @@
 #include "Module.h"
 
 #define NUM_DESTROYABLE_PARTS 5
-#define NUM_NONDESTROYED_PARTS 10
+#define NUM_NONDESTROYED_PARTS 9
 
 class EnemySubmarine : public Enemy
 {
@@ -56,8 +56,10 @@ private:
 		bool takenDamage = false;
 		Uint32 start_damage_time;
 		Uint32 now_damage_time;
-		Uint32 damage_anim_time = 1500;
+		Uint32 damage_anim_time = 50;
 		float current_frame;
+		bool readyToTakeDamage = true;
+		bool readyToEject = true;
 	};
 
 	// timers ----
