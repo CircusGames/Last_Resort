@@ -52,7 +52,7 @@ public:
 
 	//utilities
 	virtual float GetNearestPlayerAngle();
-	virtual float GetNearestPlayerSqrtDistance();
+	virtual float GetNearestPlayerSqrtDistance(fPoint sourcePosition = { NULL, NULL });
 	virtual iPoint GetTargetPos();
 	//bool restrictionY = false;
 	Module* nearestValidPlayer;

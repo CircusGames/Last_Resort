@@ -92,7 +92,7 @@ float Enemy::GetNearestPlayerAngle()
 
 }
 
-float Enemy::GetNearestPlayerSqrtDistance()
+float Enemy::GetNearestPlayerSqrtDistance(fPoint sourcePosition)
 {
 	//LOG("getting nearest player distance");
 
@@ -105,7 +105,12 @@ float Enemy::GetNearestPlayerSqrtDistance()
 	playerDistance.y = App->player[0]->position.y;
 	playerstate = App->player[0]->player_step;
 
-	distanceToNearest = fposition.DistanceTo(playerDistance);
+	if (sourcePosition.x != NULL && sourcePosition.y != NULL) // if we receive the source position to calculate
+	{
+		distanceToNearest = sourcePosition.DistanceTo(playerDistance);
+	}
+	else
+		distanceToNearest = fposition.DistanceTo(playerDistance);
 
 	if (App->player[1]->IsEnabled() && App->player[1]->player_step != died) //&& playerstate != player_state::died)
 	{
@@ -114,7 +119,12 @@ float Enemy::GetNearestPlayerSqrtDistance()
 		playerDistance.x = App->player[1]->position.x;
 		playerDistance.y = App->player[1]->position.y;
 
-		distanceToP2 = fposition.DistanceTo(playerDistance);
+		if (sourcePosition.x != NULL && sourcePosition.y != NULL)
+		{
+			distanceToP2 = sourcePosition.DistanceTo(playerDistance);
+		}
+		else
+			distanceToP2 = fposition.DistanceTo(playerDistance);
 
 		if (distanceToP2 < distanceToNearest || App->player[0]->player_step == player_state::died)
 		{

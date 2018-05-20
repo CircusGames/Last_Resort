@@ -236,9 +236,9 @@ EnemySubmarine::EnemySubmarine(int x, int y, powerUpTypes type, SDL_Texture* thi
 
 
 
-	//position.x = -160;
+	position.x = -160;
 	//position.x = 10;
-	//position.y = 100;
+	position.y = 100;
 }
 
 void EnemySubmarine::Move()
@@ -287,12 +287,22 @@ void EnemySubmarine::Move()
 void EnemySubmarine::goTurretsGo()
 {
 
-	float distance = GetNearestPlayerSqrtDistance();
+	// search nearest player
+
+
+	//float distance = GetNearestPlayerSqrtDistance();
 	float tx = NULL;
 	float ty = NULL;
 
+	fPoint fPos;
+
 	for (int i = 0; i < NUM_TURRETS; ++i) // assigns animation frame
 	{
+		fPos.x = position.x + submarineTurrets[i].position.x;
+		fPos.y = position.y + submarineTurrets[i].position.y;
+
+		submarineTurrets[i].distance = GetNearestPlayerSqrtDistance(fPos);
+
 		if (nearestTarget == nearestPlayer::P1)
 		{
 			tx = (position.x + submarineTurrets[i].position.x) - App->player[0]->position.x - 12;
@@ -304,6 +314,9 @@ void EnemySubmarine::goTurretsGo()
 		}
 		else if (nearestTarget == nearestPlayer::P2)
 		{
+			tx = (position.x + submarineTurrets[i].position.x) - App->player[1]->position.x - 12;
+			ty = (position.y + submarineTurrets[i].position.y) - App->player[1]->position.y + 6;
+
 			submarineTurrets[i].angle = atan2(ty, tx);
 		}
 
