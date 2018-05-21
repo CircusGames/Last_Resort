@@ -79,6 +79,7 @@
     <ClInclude Include="EnemyLamella.h" />
     <ClInclude Include="EnemyMiniTank.h" />
     <ClInclude Include="EnemyOscilatory.h" />
+    <ClInclude Include="EnemyPilot.h" />
     <ClInclude Include="EnemyProtator.h" />
     <ClInclude Include="EnemyRedbird.h" />
     <ClInclude Include="EnemySubmarine.h" />
@@ -122,6 +123,7 @@
     <ClCompile Include="EnemyLamella.cpp" />
     <ClCompile Include="EnemyMiniTank.cpp" />
     <ClCompile Include="EnemyOscilatory.cpp" />
+    <ClCompile Include="EnemyPilot.cpp" />
     <ClCompile Include="EnemyPowerUpBee.cpp" />
     <ClCompile Include="EnemyProtator.cpp" />
     <ClCompile Include="EnemyRedbird.cpp" />

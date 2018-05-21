@@ -115,6 +115,9 @@
     <ClCompile Include="EnemyDiver.cpp">
       <Filter>Modules\Enemies</Filter>
     </ClCompile>
+    <ClCompile Include="EnemyPilot.cpp">
+      <Filter>Modules\Enemies</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h">
@@ -241,6 +244,9 @@
       <Filter>Modules\Enemies</Filter>
     </ClInclude>
     <ClInclude Include="EnemyDiver.h">
+      <Filter>Modules\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyPilot.h">
       <Filter>Modules\Enemies</Filter>
     </ClInclude>
   </ItemGroup>
