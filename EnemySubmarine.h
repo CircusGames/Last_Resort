@@ -149,6 +149,8 @@ public:
 	subWaves submarineWaves[NUM_WAVES];
 
 	iPoint submarineWavesOriginalPos;
+	Path sWavesUp;
+	Path sWavesDown;
 
 };
 

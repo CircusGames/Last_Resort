@@ -152,6 +152,13 @@ update_status ModuleEnemies::PostUpdate()
 				enemies[i] = nullptr;
 			}
 		}
+
+		if (enemies[i] != nullptr && enemies[i]->killMe)
+		{
+			LOG("the wish of one enemy is death");
+			delete enemies[i];
+			enemies[i] = nullptr;
+		}
 	}
 
 	return UPDATE_CONTINUE;
@@ -344,3 +351,17 @@ void ModuleEnemies::OnCollision(Collider* c1, Collider* c2)
 
 	}
 }
+
+/*void ModuleEnemies::pleaseKillMe(Enemy* thisEnemy)
+{
+	for (int i = 0; i < MAX_ENEMIES; ++i)
+	{
+		if (enemies[i] == thisEnemy)
+		{
+			thisEnemy->~Enemy();
+			delete enemies[i];
+			enemies[i] = nullptr;
+			break;
+		}
+	}
+}*/
