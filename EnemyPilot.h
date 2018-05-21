@@ -18,6 +18,7 @@ public:
 
 	void Move();
 	void Draw();
+	void Suicide();
 };
 
 #endif // __ENEMY__H__

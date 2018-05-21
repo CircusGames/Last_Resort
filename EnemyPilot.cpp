@@ -47,3 +47,9 @@ void EnemyPilot::Draw() {
 	SDL_Rect PilotRect = current_animation->GetCurrentFrame();
 	App->render->Blit(enemyTex, position.x, position.y, &PilotRect);
 }
+
+void EnemyPilot::Suicide() {
+	if (position.y >= SCREEN_SIZE*SCREEN_HEIGHT) {
+		killMe = true;
+	}
+}
