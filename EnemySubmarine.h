@@ -120,11 +120,6 @@ public:
 
 	const Collider* EnemySubmarine::GetCollider() const;
 
-	//Collider* rightCollider;
-	//Collider* leftCollider;
-
-	Module* desiredPlayerModule = nullptr;
-
 	int positionPartsX[NUM_DESTROYABLE_PARTS] = {16, 128, 168, 208, 288};
 	int positionPartsY[NUM_DESTROYABLE_PARTS] = {84, 80, 65, 19, 56};
 
