@@ -12,7 +12,14 @@ EnemyLamella::EnemyLamella(int x, int y, powerUpTypes type, SDL_Texture* thisTex
 
 	distance = GetNearestPlayerSqrtDistance();
 
-	if (distance > position.x)
+	//starting pivot
+	if (nearestTarget == P1)
+		pivot = App->player[0]->position.x;
+
+	else if (nearestTarget == P2)
+		pivot = App->player[1]->position.x;
+
+	if (pivot < position.x)
 	{
 		//spawn animation
 		for (i = 0; i < 6; i++) // columns
@@ -53,7 +60,7 @@ EnemyLamella::EnemyLamella(int x, int y, powerUpTypes type, SDL_Texture* thisTex
 		}
 	}
 
-	else
+	else if (pivot > position.x)
 	{
 		//spawn animation
 		for (i = 0; i < 6; i++) // columns

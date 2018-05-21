@@ -9,15 +9,19 @@ class EnemyLamella : public Enemy
 private:
 
 	int i, j;
+
 	bool aimed = true;
 	bool finalPos = false;
-	float distance; // nearest player
+
+	float pivot;
+	float distance;
 
 	SDL_Rect lamellaRect;
 
 	Animation spawnAnim;
 	Animation moveAnim;
 	Animation despawnAnim;
+
 	Animation* currentAnimation;
 
 	iPoint originalPos;
