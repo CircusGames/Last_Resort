@@ -55,10 +55,11 @@ Application::Application()
 	modules[i++] = particles = new ModuleParticles();
 	modules[i++] = collision = new ModuleCollision();
 
+	modules[i++] = render = new ModuleRender();
 	modules[i++] = audio = new ModuleAudio();
 	modules[i++] = moduleUI = new ModuleUI();
 	modules[i++] = fade = new ModuleFadeToBlack();
-	modules[i++] = render = new ModuleRender();
+	
 	
 
 }	

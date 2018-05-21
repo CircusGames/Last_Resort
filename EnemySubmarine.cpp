@@ -24,21 +24,33 @@ EnemySubmarine::EnemySubmarine(int x, int y, powerUpTypes type, SDL_Texture* thi
 
 	// "scene" animations --------
 	// submarine apparition
-	for (int i = 0; i < 7; ++i)
+	int q = 0;
+	for (int i = NUM_WAVES - 1; i >= 0; --i)
 	{
-		submarineWaves[i].anim.PushBack({ 0,0,48,16 });
-		submarineWaves[i].anim.PushBack({ 0,16,48,8 });
-		submarineWaves[i].anim.PushBack({ 0,24,46,12 });
-		submarineWaves[i].anim.PushBack({ 0,36,48,12 });
-		submarineWaves[i].anim.PushBack({ 0,48,48,8 });
-		submarineWaves[i].anim.PushBack({ 0,56,48,13 });
-		submarineWaves[i].anim.PushBack({ 0,69,48,16 });
 		submarineWaves[i].anim.PushBack({ 0,85,47,16 });
+		submarineWaves[i].anim.PushBack({ 0,69,48,16 });
+		submarineWaves[i].anim.PushBack({ 0,56,48,13 });
+		submarineWaves[i].anim.PushBack({ 0,48,48,8 });
+		submarineWaves[i].anim.PushBack({ 0,36,48,12 });
+		submarineWaves[i].anim.PushBack({ 0,24,46,12 });
+		submarineWaves[i].anim.PushBack({ 0,16,48,8 });
+		submarineWaves[i].anim.PushBack({ 0,0,48,16 });
 		submarineWaves[i].anim.speed = 0.25f;
+		submarineWaves[i].anim.current_frame = q++;
 	}
 
-	submarineWaves[0].position = {0, 100};
-	submarineWaves[1].position = { 0,100 };
+	submarineWaves[0].position = {-20, 100};
+	submarineWaves[1].position = { 12,100 };
+	submarineWaves[2].position = { 44,100 };
+	submarineWaves[3].position = { 76,100 };
+	submarineWaves[4].position = { 108,100 };
+	submarineWaves[5].position = { 140,100 };
+	submarineWaves[6].position = { 172,100 };
+	submarineWaves[7].position = { 204,100 };
+	submarineWaves[8].position = { 236,100 };
+	submarineWaves[9].position = { 268,100 };
+
+	submarineWavesOriginalPos = position;
 
 	// assigns type to despawn check of moduleEnemies
 	enemyType = ENEMY_TYPES::SUBMARINE;
@@ -295,6 +307,12 @@ EnemySubmarine::EnemySubmarine(int x, int y, powerUpTypes type, SDL_Texture* thi
 
 void EnemySubmarine::Move()
 {
+	// move submarine waves to follow scroll speed
+	for (int i = 0; i < 10; ++i)
+	{
+		submarineWaves[i].position.x += 1;
+	}
+
 	// movement calculations before colliders update positions --
 	//position.x += 1;
 	position = original_pos + submarinePath.GetCurrentSpeed();
@@ -664,10 +682,14 @@ void EnemySubmarine::Draw()
 
 	// -----------------------------------------------------------------------------------------------
 	// draw submarine waves apparition
-	SDL_Rect submarineWavesRect = submarineWavesAnim[0].GetCurrentFrame();
 
-	App->render->Blit(submarineWavesTexture, position.x + 10, position.y - submarineWavesRect.h, &submarineWavesRect);
+	for (int i = NUM_WAVES; i >= 0; --i)
+	{
+		SDL_Rect submarineWavesRect = submarineWaves[i].anim.GetCurrentFrame();
 
+		App->render->Blit(submarineWavesTexture, submarineWaves[i].position.x, submarineWaves[i].position.y - submarineWavesRect.h, &submarineWavesRect);
+
+	}
 
 }
 

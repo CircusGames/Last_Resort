@@ -41,7 +41,7 @@ void EnemyPilot::Move()
 	position = original_pos + path.GetCurrentSpeed(&animation);
 }
 
-void Draw() {
+void EnemyPilot::Draw() {
 	Animation* current_animation;
 	current_animation = &die;
 	SDL_Rect PilotRect = current_animation->GetCurrentFrame();

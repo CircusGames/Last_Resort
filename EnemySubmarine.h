@@ -9,6 +9,7 @@
 #define NUM_DESTROYABLE_PARTS 5
 #define NUM_NONDESTROYED_PARTS 8
 #define NUM_TURRETS 8
+#define NUM_WAVES 10
 
 class EnemySubmarine : public Enemy
 {
@@ -145,7 +146,9 @@ public:
 		iPoint position;
 	};
 	
-	subWaves submarineWaves[7];
+	subWaves submarineWaves[NUM_WAVES];
+
+	iPoint submarineWavesOriginalPos;
 
 };
 
