@@ -144,13 +144,12 @@ public:
 	{
 		Animation anim;
 		iPoint position;
+		iPoint originalPos;
+		Path up;
+		Path down;
 	};
 	
 	subWaves submarineWaves[NUM_WAVES];
-
-	iPoint submarineWavesOriginalPos;
-	Path sWavesUp;
-	Path sWavesDown;
 
 };
 

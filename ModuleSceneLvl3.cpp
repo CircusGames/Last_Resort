@@ -248,7 +248,7 @@ update_status ModuleSceneLvl3::PostUpdate()
 {
 	for (int i = 0; i < MAXWAVES; ++i)
 	{
-		//App->render->Blit(fgWavesTexture, i * 128, 186, &seaWavesAnim[i].GetCurrentFrame(), 0.50f);
+		App->render->Blit(fgWavesTexture, i * 128, 186, &seaWavesAnim[i].GetCurrentFrame(), 0.50f);
 	}
 
 	return UPDATE_CONTINUE;

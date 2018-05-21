@@ -22,7 +22,7 @@ EnemySubmarine::EnemySubmarine(int x, int y, powerUpTypes type, SDL_Texture* thi
 	submarineWavesTexture = App->textures->Load("assets/Graphics/Enemies/Level_3/submarineWaves.png");
 
 
-	// "scene" animations --------
+	// "scene" animations -------------------------------------------
 	// submarine apparition
 	int q = 0;
 	for (int i = NUM_WAVES - 1; i >= 0; --i)
@@ -50,7 +50,13 @@ EnemySubmarine::EnemySubmarine(int x, int y, powerUpTypes type, SDL_Texture* thi
 	submarineWaves[8].position = { 236,100 };
 	submarineWaves[9].position = { 268,100 };
 
-	submarineWavesOriginalPos = position;
+	for (int i = 0; i < NUM_WAVES; ++i)
+	{
+		submarineWaves[i].originalPos.x = submarineWaves[i].position.x;
+		submarineWaves[i].originalPos.y = 210;
+	}
+
+	// ---------------------------------------------------------------
 
 	// assigns type to despawn check of moduleEnemies
 	enemyType = ENEMY_TYPES::SUBMARINE;
@@ -301,18 +307,58 @@ EnemySubmarine::EnemySubmarine(int x, int y, powerUpTypes type, SDL_Texture* thi
 	submarinePath.loop = false;
 
 	// SUBMARINE WAVES PATH
-	sWavesUp.PushBack({1, -0.5}, 20);
-
-
+	for (int i = 0; i < NUM_WAVES; ++i)
+	{
+		submarineWaves[i].up.PushBack({ 1, 0 }, 272); // first wait
+		//
+		submarineWaves[i].up.PushBack({ 1, -0.5 }, 44); // up
+		submarineWaves[i].up.PushBack({ 1, 0 }, 179);// wait
+		submarineWaves[i].up.PushBack({ 1, 0.5 }, 44);// down
+		submarineWaves[i].up.PushBack({ 1, 0 }, 210);// wait
+		submarineWaves[i].up.PushBack({ 1, -0.5 }, 44); // up
+		submarineWaves[i].up.PushBack({ 1, 0 }, 179);// wait
+		submarineWaves[i].up.PushBack({ 1, 0.5 }, 44);// down
+		submarineWaves[i].up.PushBack({ 1, 0 }, 240);// wait
+		submarineWaves[i].up.PushBack({ 1, -0.5 }, 44); // up
+		submarineWaves[i].up.PushBack({ 1, 0 }, 179);// wait
+		submarineWaves[i].up.PushBack({ 1, 0.5 }, 44);// down
+		submarineWaves[i].up.PushBack({ 1, 0 }, 221);// wait
+		submarineWaves[i].up.PushBack({ 1, -0.5 }, 44); // up
+		submarineWaves[i].up.PushBack({ 1, 0 }, 179);// wait
+		submarineWaves[i].up.PushBack({ 1, 0.5 }, 44);// down
+		submarineWaves[i].up.PushBack({ 1, 0 }, 240);// wait
+		submarineWaves[i].up.PushBack({ 1, -0.5 }, 44); // up
+		submarineWaves[i].up.PushBack({ 1, 0 }, 179);// wait
+		submarineWaves[i].up.PushBack({ 1, 0.5 }, 44);// down
+		submarineWaves[i].up.PushBack({ 1, 0 }, 221);// wait
+		submarineWaves[i].up.PushBack({ 1, -0.5 }, 44); // up
+		submarineWaves[i].up.PushBack({ 1, 0 }, 179);// wait
+		submarineWaves[i].up.PushBack({ 1, 0.5 }, 44);// down
+		submarineWaves[i].up.PushBack({ 1, 0 }, 240);// wait
+		submarineWaves[i].up.PushBack({ 1, -0.5 }, 44); // up
+		//
+		submarineWaves[i].up.PushBack({ 1, 0 }, 179);// wait last submarine up
+		submarineWaves[i].up.PushBack({ 1, 0.5 }, 44);// down
+		//
+		submarineWaves[i].up.PushBack({ 1, 0 }, 36); // last wait
+		// original game doesnt up the waves on last goodbye
+		// up a little to simulate slow inmersion
+		submarineWaves[i].up.PushBack({ 1, -0.5 }, 36); // up
+		// last waves mov
+		submarineWaves[i].up.PushBack({ 0.5 , 0 }, 300);// wait
+		submarineWaves[i].up.PushBack({ 0.5, 0.5 }, 44);// down
+		submarineWaves[i].up.loop = false;
+	}
 
 }
 
 void EnemySubmarine::Move()
 {
 	// move submarine waves to follow scroll speed
-	for (int i = 0; i < 10; ++i)
+	for (int i = 0; i < NUM_WAVES; ++i)
 	{
-		submarineWaves[i].position = submarineWavesOriginalPos + sWavesUp.GetCurrentSpeed();//.x += 1;
+		submarineWaves[i].position = submarineWaves[i].originalPos + submarineWaves[i].up.GetCurrentSpeed();//.x += 1;
+		//submarineWaves[0].position.x += 1;
 	}
 
 	// movement calculations before colliders update positions --
@@ -579,7 +625,6 @@ void EnemySubmarine::Draw()
 		{
 			ejectionHatch.current_animation = &ejectionHatch.anim[NORMAL_ANIM];
 			ejectionHatch.current_animation->current_frame = ejectionHatch.current_frame;
-
 		}
 		else
 		{
