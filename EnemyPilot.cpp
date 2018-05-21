@@ -39,17 +39,24 @@ EnemyPilot::EnemyPilot(int x, int y, powerUpTypes type, SDL_Texture* thisTexture
 void EnemyPilot::Move()
 {
 	position = original_pos + path.GetCurrentSpeed(&animation);
+
+	if (position.y >= SCREEN_SIZE * SCREEN_HEIGHT) {
+		killMe = true;
+	}
+
 }
 
 void EnemyPilot::Draw() {
+
 	Animation* current_animation;
 	current_animation = &die;
 	SDL_Rect PilotRect = current_animation->GetCurrentFrame();
 	App->render->Blit(enemyTex, position.x, position.y, &PilotRect);
+
 }
 
-void EnemyPilot::Suicide() {
+/*void EnemyPilot::Suicide() {
 	if (position.y >= SCREEN_SIZE*SCREEN_HEIGHT) {
 		killMe = true;
 	}
-}
+}*/
