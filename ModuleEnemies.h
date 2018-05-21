@@ -84,7 +84,6 @@ public:
 	Particle beeBullet;
 	Particle tankBigShot;
 	Particle tankSmallShot;
-
 private:
 
 	void SpawnEnemy(EnemyInfo& info);// , powerUpTypes powerUpType = powerUpTypes::NONE, SDL_Texture* texture = nullptr);

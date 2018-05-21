@@ -16,10 +16,9 @@ public:
 
 	EnemyPilot(int x, int y, powerUpTypes type, SDL_Texture* thisTexture);
 
-
 	void Move();
-
-
+	void Draw();
 };
 
 #endif // __ENEMY__H__
+

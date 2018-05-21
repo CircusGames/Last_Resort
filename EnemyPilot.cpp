@@ -3,6 +3,7 @@
 #include "ModuleCollision.h"
 #include "ModuleEnemies.h"
 #include "Path.h"
+#include "ModuleRender.h"
 
 EnemyPilot::EnemyPilot(int x, int y, powerUpTypes type, SDL_Texture* thisTexture) : Enemy(x, y)
 {
@@ -23,16 +24,14 @@ EnemyPilot::EnemyPilot(int x, int y, powerUpTypes type, SDL_Texture* thisTexture
 	animation = &die; //links animation
 	//Path
 
-	path.PushBack({ 0.5f, 1.0f }, 20, &die);
-	path.PushBack({ 0.5f, 0.5f }, 5, &die);
-	path.PushBack({ 0.5f, 0.2f }, 5, &die);
-	path.PushBack({ 0.5f, 0.0f }, 5, &die);
-	path.PushBack({ 0.5f, -0.2f }, 5, &die);
+	path.PushBack({ 0.5f, -1.0f }, 0, &die);
 	path.PushBack({ 0.5f, -0.5f }, 5, &die);
-	path.PushBack({ 0.5f, -1.0f }, 20, &die);
+	path.PushBack({ 0.5f, -0.2f }, 5, &die);
+	path.PushBack({ 0.5f, 0.0f }, 5, &die);
+	path.PushBack({ 0.5f, 0.2f }, 5, &die);
+	path.PushBack({ 0.5f, 0.5f }, 5, &die);
+	path.PushBack({ 0.5f, 1.0f }, 1000, &die);
 
-	
-	collider = App->collision->AddCollider({ 0, 0, 15, 16 }, COLLIDER_TYPE::COLLIDER_ENEMY, (Module*)App->enemies);
 	original_pos.x = x;
 	original_pos.y = y;
 }
@@ -42,3 +41,9 @@ void EnemyPilot::Move()
 	position = original_pos + path.GetCurrentSpeed(&animation);
 }
 
+void Draw() {
+	Animation* current_animation;
+	current_animation = &die;
+	SDL_Rect PilotRect = current_animation->GetCurrentFrame();
+	App->render->Blit(enemyTex, position.x, position.y, &PilotRect);
+}

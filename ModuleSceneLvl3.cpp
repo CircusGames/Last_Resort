@@ -500,7 +500,7 @@ void ModuleSceneLvl3::addEnemiesToLvl3()
 	
 	App->enemies->AddEnemy(ENEMY_TYPES::SUBMARINE, 0, 60, NONE);
 
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPILOT, 500, 60, NONE);
+	//App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPILOT, 500, 60, NONE);
 
 
 
