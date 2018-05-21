@@ -34,6 +34,8 @@ public:
 
 	int collisionColliderIndex;
 
+	bool killMe = false;
+
 public:
 	Enemy(int x, int y, powerUpTypes type = powerUpTypes::NONE);
 	

@@ -300,6 +300,8 @@ EnemySubmarine::EnemySubmarine(int x, int y, powerUpTypes type, SDL_Texture* thi
 	submarinePath.PushBack({ 0.50f, 0.25f }, 420); // final goodbye
 	submarinePath.loop = false;
 
+	// SUBMARINE WAVES PATH
+	sWavesUp.PushBack({1, -0.5}, 20);
 
 
 
@@ -310,7 +312,7 @@ void EnemySubmarine::Move()
 	// move submarine waves to follow scroll speed
 	for (int i = 0; i < 10; ++i)
 	{
-		submarineWaves[i].position.x += 1;
+		submarineWaves[i].position = submarineWavesOriginalPos + sWavesUp.GetCurrentSpeed();//.x += 1;
 	}
 
 	// movement calculations before colliders update positions --
