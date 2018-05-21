@@ -59,7 +59,7 @@ void ModuleAudio::UnloadAudio(const char* name, type type)
 	}
 	else if (type == type::SFX)
 	{
-		for (int i = 0; i < MAX_FX - 1; ++i)
+		for (int i = 0; i < MAX_FX; ++i)
 		{
 			if (sfxArray[i].name == name)
 			{

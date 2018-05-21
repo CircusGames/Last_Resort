@@ -61,9 +61,9 @@ public:
 	bool alive = false; //prevent
 
 	//some needed vars or specific functions
-	SDL_Texture * graphics;
+	SDL_Texture* graphics = nullptr;
 	Animation playerUnitAnim[MAX_ANIMS];
-	Animation *currentUnitAnim;
+	Animation*currentUnitAnim = nullptr;
 
 	int unitIndex; //stores the index of the last
 	float frameIncrement = 0; //stores the index for applicate the speed of the rotation and points to its correct

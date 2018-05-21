@@ -1031,9 +1031,15 @@ bool ModulePlayerUnit::CleanUp()
 {
 	//unload textures
 	if (graphics != nullptr)
+	{
 		App->textures->Unload(graphics);
-	if(chargeGraphics != nullptr)
+		graphics = nullptr;
+	}
+	if (chargeGraphics != nullptr)
+	{
 		App->textures->Unload(chargeGraphics);
+		chargeGraphics = nullptr;
+	}
 	//unload audio
 	App->audio->UnloadAudio("UnitLocked", SFX);
 	App->audio->UnloadAudio("UnitUnlocked", SFX);

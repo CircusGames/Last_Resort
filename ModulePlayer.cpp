@@ -623,7 +623,7 @@ bool ModulePlayer::CleanUp()
 
 	//unloading SFX -----------------------
 	App->audio->UnloadAudio("speedDN", SFX);
-	//App->audio->UnloadAudio("speedUP", SFX);
+	App->audio->UnloadAudio("speedUP", SFX);
 	App->audio->UnloadAudio("spawn", SFX);
 	App->audio->UnloadAudio("death", SFX);
 	// ------------------------------------
