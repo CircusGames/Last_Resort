@@ -93,7 +93,7 @@ void EnemyDiver::Draw()
 	//timer
 	now = SDL_GetTicks() - startTime;
 
-	if (now == totalTime)
+	if (now > totalTime)
 		clock = true;
 
 	//update animations
