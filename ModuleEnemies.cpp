@@ -306,6 +306,7 @@ void ModuleEnemies::OnCollision(Collider* c1, Collider* c2)
 				enemies[i] = nullptr;
 				break;
 			}
+			
 		}
 		// if collision pertains to unit
 		else if (enemies[i] != nullptr && enemies[i]->GetCollider() == c1 && c2->type == COLLIDER_UNIT)

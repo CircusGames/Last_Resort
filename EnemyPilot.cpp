@@ -24,7 +24,7 @@ EnemyPilot::EnemyPilot(int x, int y, powerUpTypes type, SDL_Texture* thisTexture
 	animation = &die; //links animation
 	//Path
 
-	path.PushBack({ 0.5f, -1.0f }, 0, &die);
+	path.PushBack({ 0.5f, -1.0f }, 30, &die);
 	path.PushBack({ 0.5f, -0.5f }, 5, &die);
 	path.PushBack({ 0.5f, -0.2f }, 5, &die);
 	path.PushBack({ 0.5f, 0.0f }, 5, &die);
