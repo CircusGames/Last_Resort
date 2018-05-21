@@ -34,6 +34,7 @@ EnemyDiver::EnemyDiver(int x, int y, powerUpTypes type, SDL_Texture* thisTexture
 	animRight.PushBack({ 219, 0, -29, 39 });
 
 	animLeft.speed = animRight.speed = 0.1f;
+	animLeft.repeat = animRight.repeat = false;
 
 	//starting anim 
 	if (pivot < position.x)
@@ -105,7 +106,7 @@ void EnemyDiver::Draw()
 			{
 				currentAnimation = &animLeft;
 				if (animLeft.finish);
-					startTime = SDL_GetTicks();
+				;// startTime = SDL_GetTicks();
 			}
 		}
 
@@ -116,7 +117,7 @@ void EnemyDiver::Draw()
 			{
 				currentAnimation = &animRight;
 				if (animRight.finish);
-					startTime = SDL_GetTicks();
+				;// startTime = SDL_GetTicks();
 			}
 		}
 	}
