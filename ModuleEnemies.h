@@ -10,6 +10,7 @@
 #include "EnemyLamella.h"
 #include "EnemyMiniTank.h"
 #include "EnemySubmarine.h"
+#include "EnemyDiver.h"
 
 #include "ModuleParticles.h"
 
@@ -30,7 +31,8 @@ enum ENEMY_TYPES
 	ENEMYPROTATOR,
 	LAMELLA,
 	MINITANK,
-	SUBMARINE
+	SUBMARINE,
+	DIVER
 };
 
 //class Enemy;
@@ -74,6 +76,7 @@ public:
 	SDL_Texture* enemyLamellaTexture;
 	SDL_Texture* enemyMiniTankTexture;
 	SDL_Texture* enemySubmarineTexture;
+	SDL_Texture* enemyDiverTexture;
 	// ----------------------------
 	//ENEMY PARTICLES
 	Particle beeBullet;
