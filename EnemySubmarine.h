@@ -137,6 +137,16 @@ public:
 
 	iPoint original_pos;
 
+	SDL_Texture* submarineWavesTexture = nullptr;
+
+	struct subWaves
+	{
+		Animation anim;
+		iPoint position;
+	};
+	
+	subWaves submarineWaves[7];
+
 };
 
 #endif // __ENEMYPROTATOR__H__

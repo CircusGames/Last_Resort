@@ -18,6 +18,27 @@
 EnemySubmarine::EnemySubmarine(int x, int y, powerUpTypes type, SDL_Texture* thisTexture) : Enemy(x, y)
 {
 	int k = 0; // for extracolliders assignements
+	// load submarine waves texture
+	submarineWavesTexture = App->textures->Load("assets/Graphics/Enemies/Level_3/submarineWaves.png");
+
+
+	// "scene" animations --------
+	// submarine apparition
+	for (int i = 0; i < 7; ++i)
+	{
+		submarineWaves[i].anim.PushBack({ 0,0,48,16 });
+		submarineWaves[i].anim.PushBack({ 0,16,48,8 });
+		submarineWaves[i].anim.PushBack({ 0,24,46,12 });
+		submarineWaves[i].anim.PushBack({ 0,36,48,12 });
+		submarineWaves[i].anim.PushBack({ 0,48,48,8 });
+		submarineWaves[i].anim.PushBack({ 0,56,48,13 });
+		submarineWaves[i].anim.PushBack({ 0,69,48,16 });
+		submarineWaves[i].anim.PushBack({ 0,85,47,16 });
+		submarineWaves[i].anim.speed = 0.25f;
+	}
+
+	submarineWaves[0].position = {0, 100};
+	submarineWaves[1].position = { 0,100 };
 
 	// assigns type to despawn check of moduleEnemies
 	enemyType = ENEMY_TYPES::SUBMARINE;
@@ -642,6 +663,12 @@ void EnemySubmarine::Draw()
 	
 
 	// -----------------------------------------------------------------------------------------------
+	// draw submarine waves apparition
+	SDL_Rect submarineWavesRect = submarineWavesAnim[0].GetCurrentFrame();
+
+	App->render->Blit(submarineWavesTexture, position.x + 10, position.y - submarineWavesRect.h, &submarineWavesRect);
+
+
 }
 
 void EnemySubmarine::OnCollision(Collider* collider, Collider* collider2)
@@ -822,6 +849,13 @@ EnemySubmarine::~EnemySubmarine()
 			fullBodyColliders[i] = nullptr;
 		}
 
+	}
+
+	// unload textures
+	if (submarineWavesTexture != nullptr)
+	{
+		App->textures->Unload(submarineWavesTexture);
+		submarineWavesTexture = nullptr;
 	}
 
 }
