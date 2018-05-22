@@ -38,8 +38,10 @@ private:
 	float initialSpeed = 1.0f;
 	float projectileSpeed = 2.0f;
 
-	float decX = 0.05f;
-	float decY = 0.05f;//0.03f;
+	float turnAroundSpeed = 1.5f;
+
+	float decX = 0.10f;//0.05f;
+	float decY = 0.10f;//0.03f;
 	
 
 public:

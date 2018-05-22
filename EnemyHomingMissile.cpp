@@ -163,8 +163,8 @@ void EnemyHomingMissile::chaseThePlayer()
 	fPoint vector;
 	fPoint playerPos;
 	
-	playerPos.x = App->player[missile.playerTargetIndex]->position.x + 16;
-	playerPos.y = App->player[missile.playerTargetIndex]->position.y + 12;
+	playerPos.x = App->player[missile.playerTargetIndex]->position.x;// + 16;
+	playerPos.y = App->player[missile.playerTargetIndex]->position.y;// + 12;
 
 	missile.distance = missile.fposition.DistanceTo(playerPos);
 
@@ -219,7 +219,7 @@ void EnemyHomingMissile::chaseThePlayer()
 		}
 	
 
-		if (missile.distance >= 90)
+		if (missile.distance >= 56)
 			missile.targetReached = false;
 	}
 
