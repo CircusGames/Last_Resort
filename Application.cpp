@@ -43,8 +43,7 @@ Application::Application()
 	modules[i++] = winScreen = new ModuleWin();
 
 	modules[i++] = enemies = new ModuleEnemies();
-	//modules[i++] = particles = new ModuleParticles();
-
+	
 	modules[i++] = modulePowerUp = new ModulePowerUp();
 	
 	modules[i++] = player[0] = new Player();
@@ -134,6 +133,7 @@ bool Application::CleanUp()
 		ret = modules[i]->CleanUp();
 
 	App->collision->CleanUp(); // individual cleanup when all modules are cleanedUp when exits gameLoop
+	App->render->CleanUp();
 
 	return ret;
 }

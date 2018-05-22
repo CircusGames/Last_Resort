@@ -29,6 +29,8 @@ public:
 	float currentCameraPosX;
 	//bool scroll = false;
 	//int cameraPosX;
+
+	bool exitGameLoop = false;
 };
 
 #endif //__ModuleRenderer_H__

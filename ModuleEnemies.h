@@ -33,7 +33,9 @@ enum ENEMY_TYPES
 	MINITANK,
 	SUBMARINE,
 	DIVER,
-	ENEMYPILOT
+	ENEMYPILOT,
+	HOMINGMISSILE,
+	BIGHOMINGMISSILE
 };
 
 //class Enemy;
@@ -63,24 +65,25 @@ public:
 
 	bool AddEnemy(ENEMY_TYPES type, int x, int y, powerUpTypes powerUpType);
 
-	void pleaseKillMe(Enemy*);
+	//void pleaseKillMe(Enemy*);
 	
 
 	//more textures - in public because we call outside this module
 	//more enemies textures -------
-	SDL_Texture* enemy1Texture;
-	SDL_Texture* enemy2Texture;
-	SDL_Texture* enemyTankTexture;
-	SDL_Texture* enemyBeeTexture;
-	SDL_Texture* beeBulletTexture;
-	SDL_Texture* enemyRedbirdTexture;
-	SDL_Texture* enemyPowerBeeTexture;
-	SDL_Texture* enemyProtatorTexture;
-	SDL_Texture* enemyLamellaTexture;
-	SDL_Texture* enemyMiniTankTexture;
-	SDL_Texture* enemySubmarineTexture;
-	SDL_Texture* enemyDiverTexture;
-	SDL_Texture* enemyPilotTexture;
+	SDL_Texture* enemy1Texture = nullptr;
+	SDL_Texture* enemy2Texture = nullptr;
+	SDL_Texture* enemyTankTexture = nullptr;
+	SDL_Texture* enemyBeeTexture = nullptr;
+	SDL_Texture* beeBulletTexture = nullptr;
+	SDL_Texture* enemyRedbirdTexture = nullptr;
+	SDL_Texture* enemyPowerBeeTexture = nullptr;
+	SDL_Texture* enemyProtatorTexture = nullptr;
+	SDL_Texture* enemyLamellaTexture = nullptr;
+	SDL_Texture* enemyMiniTankTexture = nullptr;
+	SDL_Texture* enemySubmarineTexture = nullptr;
+	SDL_Texture* enemyDiverTexture = nullptr;
+	SDL_Texture* enemyPilotTexture = nullptr;
+	SDL_Texture* enemyHomingMissileTexture = nullptr;
 	// ----------------------------
 	//ENEMY PARTICLES
 	Particle beeBullet;
