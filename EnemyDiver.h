@@ -32,11 +32,14 @@ private:
 	Animation shootLeft;
 	Animation shootRight;
 
+	Animation spawnAnim;
+
 	Animation* currentAnimation;
 	Animation* currentShootAnim;
 
 	SDL_Rect diverRect;
 	SDL_Rect shootRect;
+	SDL_Rect spawnRect;
 
 	iPoint originalPos;
 

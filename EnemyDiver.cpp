@@ -39,12 +39,21 @@ EnemyDiver::EnemyDiver(int x, int y, powerUpTypes type, SDL_Texture* thisTexture
 	for (int i = 0; i < 4; i++)
 		shootRight.PushBack({ 32 * i, 48, -32, 16 });
 
+	//spawn anim
+	for (int i = 0; i < 6; i++)
+		spawnAnim.PushBack({ 80 * i, 80, 80, 104 });
+
+	for (int i = 0; i < 2; i++)
+		spawnAnim.PushBack({ 80 * i, 184, 80, 104 });
+
 	//features
 	animLeft.speed = animRight.speed = 0.1f;
 	animLeft.repeat = animRight.repeat = false;
 
-	shootLeft.speed = shootRight.speed = 0.05f;
+	shootLeft.speed = shootRight.speed = 0.143f;
 	shootLeft.repeat = shootRight.repeat = false;
+
+	spawnAnim.speed = 0.1f;
 
 	//starting anim & shoot anim pushbacks
 	if (pivot < position.x)
@@ -116,7 +125,7 @@ void EnemyDiver::Draw()
 		clock = false;
 
 	//shoot anim timer
-	if (currentAnimation->current_frame >= 3)
+	if (currentAnimation->current_frame > 2)
 		shoot = true;
 
 	if (currentShootAnim->finish)
@@ -160,6 +169,7 @@ void EnemyDiver::Draw()
 				
 				if (shoot)
 					currentShootAnim = &shootRight;
+
 				else
 				{
 					currentShootAnim->finish = false;
@@ -178,9 +188,11 @@ void EnemyDiver::Draw()
 
 	diverRect = currentAnimation->GetCurrentFrame();
 	shootRect = currentShootAnim->GetCurrentFrame();
+	spawnRect = spawnAnim.GetCurrentFrame();
 
 	App->render->Blit(enemyTex, position.x, position.y, &diverRect);
+	App->render->Blit(enemyTex, position.x, position.y, &spawnRect);
 
-	if(shoot)
-		App->render->Blit(enemyTex, position.x, position.y, &shootRect);
+	if (shoot)
+		App->render->Blit(enemyTex, position.x - 32, position.y + 18, &shootRect);
 }
