@@ -582,8 +582,11 @@ void ModulePlayer::OnCollision(Collider* collider1, Collider* collider2)
 		//PLAY FX
 		App->audio->ControlAudio("death", SFX, PLAY);
 
-	if (playerCollider != nullptr)
+		if (playerCollider != nullptr)
+		{
 			this->playerCollider->to_delete = true;
+			this->playerCollider = nullptr;
+		}
 
 	//decrement lifes
 	if (this == App->player[0]) lives--;

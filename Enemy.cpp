@@ -35,6 +35,7 @@ Enemy::~Enemy()
 			App->modulePowerUp->SpawnPowerUp(position, powerUpType);
 			App->player[0]->playerScore += enemyScore;
 			App->particles->AddParticle(App->particles->explosion, position.x, position.y, COLLIDER_NONE);
+			App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPILOT, position.x, position.y, NONE);
 		}
 	}
 	

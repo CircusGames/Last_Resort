@@ -82,13 +82,18 @@ update_status ModuleRender::PostUpdate()
 // Called before quitting
 bool ModuleRender::CleanUp()
 {
-	LOG("Destroying renderer");
-
-	//Destroy window
-	if(renderer != NULL)
+	if (!exitGameLoop)
 	{
-		SDL_DestroyRenderer(renderer);
+		LOG("Destroying renderer");
+
+		//Destroy window
+		if (renderer != NULL)
+		{
+			SDL_DestroyRenderer(renderer);
+		}
 	}
+	else
+		exitGameLoop = false;
 
 	return true;
 }

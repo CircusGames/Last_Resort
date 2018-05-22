@@ -9,6 +9,7 @@
 #define NUM_DESTROYABLE_PARTS 5
 #define NUM_NONDESTROYED_PARTS 8
 #define NUM_TURRETS 8
+#define NUM_WAVES 10
 
 class EnemySubmarine : public Enemy
 {
@@ -119,11 +120,6 @@ public:
 
 	const Collider* EnemySubmarine::GetCollider() const;
 
-	//Collider* rightCollider;
-	//Collider* leftCollider;
-
-	Module* desiredPlayerModule = nullptr;
-
 	int positionPartsX[NUM_DESTROYABLE_PARTS] = {16, 128, 168, 208, 288};
 	int positionPartsY[NUM_DESTROYABLE_PARTS] = {84, 80, 65, 19, 56};
 
@@ -136,6 +132,19 @@ public:
 	Path submarinePath;
 
 	iPoint original_pos;
+
+	SDL_Texture* submarineWavesTexture = nullptr;
+
+	struct subWaves
+	{
+		Animation anim;
+		iPoint position;
+		iPoint originalPos;
+		Path up;
+		Path down;
+	};
+	
+	subWaves submarineWaves[NUM_WAVES];
 
 };
 
