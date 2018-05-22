@@ -115,7 +115,7 @@ bool ModuleSceneLvl3::Start()
 	
 	//load needed audios
 	App->audio->LoadAudio("assets/Audio/Music/song_level_3.ogg", "song_lvl3", MUSIC);
-	App->audio->ControlAudio("song_lvl3", MUSIC, FADEIN, -1, 1500.0f);
+	//App->audio->ControlAudio("song_lvl3", MUSIC, FADEIN, -1, 1500.0f);
 
 	//boss background fade values
 	faded = false;
@@ -236,7 +236,7 @@ update_status ModuleSceneLvl3::Update()
 	}*/
 	
 	//cave background
-	App->render->Blit(fgTexture, 2150, 94, &fgRect, 0.50f);
+	//App->render->Blit(fgTexture, 2150, 94, &fgRect, 0.50f);
 	
 	//DEBUG actual colliders in scene
 	//LOG("current scene colliders: %d", App->collision->actualColliders);
@@ -246,10 +246,15 @@ update_status ModuleSceneLvl3::Update()
 
 update_status ModuleSceneLvl3::PostUpdate()
 {
+	//sea waves animations (foreground waves)
+
 	for (int i = 0; i < MAXWAVES; ++i)
 	{
 		App->render->Blit(fgWavesTexture, i * 128, 186, &seaWavesAnim[i].GetCurrentFrame(), 0.50f);
 	}
+
+	//cave background
+	App->render->Blit(fgTexture, 2150, 94, &fgRect, 0.50f);
 
 	return UPDATE_CONTINUE;
 }

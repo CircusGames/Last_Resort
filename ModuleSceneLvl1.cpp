@@ -1119,5 +1119,12 @@ void ModuleSceneLvl1::spawnEnemies(int x, int y)
 		positionY -= 30 / 2;
 		App->enemies->AddEnemy(ENEMY_TYPES::MINITANK, positionX, positionY, NONE);
 	}
+	if (App->input->keyboard[SDL_SCANCODE_9] == KEY_REPEAT)
+	{
+		//for now calculated center position manually, until fix it (access to animation frame)
+		positionX -= 14 / 2;
+		positionY -= 7 / 2;
+		App->enemies->AddEnemy(ENEMY_TYPES::HOMINGMISSILE, positionX, positionY, NONE);
+	}
 
 }

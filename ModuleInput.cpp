@@ -5,6 +5,7 @@
 
 #include "ModuleSceneLvl1.h" //for now scene lv1 spawn enemies debug mode
 #include "ModuleCollision.h"
+#include "ModuleRender.h"
 
 ModuleInput::ModuleInput() : Module()
 {
@@ -115,6 +116,7 @@ update_status ModuleInput::PreUpdate()
 	if (keyboard[SDL_SCANCODE_ESCAPE])
 	{
 		App->collision->exitGameLoop = true;
+		App->render->exitGameLoop = true;
 		return update_status::UPDATE_STOP;
 	}
 
@@ -123,6 +125,7 @@ update_status ModuleInput::PreUpdate()
 		if (Event.type == SDL_QUIT)
 		{
 			App->collision->exitGameLoop = true;
+			App->render->exitGameLoop = true;
 			return update_status::UPDATE_STOP;
 		}
 

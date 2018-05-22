@@ -17,6 +17,7 @@
 #include "EnemyMiniTank.h"
 #include "EnemyDiver.h"
 #include "EnemyPilot.h"
+#include "EnemyHomingMissile.h"
 
 #include "ModulePowerUp.h"
 #include "ModuleAudio.h"
@@ -87,6 +88,7 @@ bool ModuleEnemies::Start()
 	enemySubmarineTexture = App->textures->Load("assets/Graphics/Enemies/Level_3/submarine.png");
 	enemyDiverTexture = App->textures->Load("assets/Graphics/Enemies/Level_3/diver.png");
 	enemyPilotTexture = App->textures->Load("assets/Graphics/Enemies/Pilot.png");
+	enemyHomingMissileTexture = App->textures->Load("assets/Graphics/Enemies/Level_3/homingMissile.png");
 	// -------------------------------------------------------------------------------------
 	// ENEMY PARTICLES ---------------------------------------------------------------------
 	// textures ----------
@@ -170,7 +172,10 @@ bool ModuleEnemies::CleanUp()
 	LOG("Freeing all enemies");
 	
 	//unloading loaded textures
-	//inverse order
+	// INVERSE ORDER
+	App->textures->Unload(enemyHomingMissileTexture);
+	App->textures->Unload(enemyPilotTexture);
+	App->textures->Unload(enemyDiverTexture);
 	App->textures->Unload(enemySubmarineTexture);
 	App->textures->Unload(enemyMiniTankTexture);
 	App->textures->Unload(enemyLamellaTexture);
@@ -182,8 +187,6 @@ bool ModuleEnemies::CleanUp()
 	App->textures->Unload(enemy2Texture);
 	App->textures->Unload(enemy1Texture);
 	App->textures->Unload(enemyRedbirdTexture);
-	App->textures->Unload(enemyDiverTexture);
-	App->textures->Unload(enemyPilotTexture);
 	//App->textures->Unload(sprites);
 	
 	//Unloading loaded audio's
@@ -278,6 +281,9 @@ void ModuleEnemies::SpawnEnemy(EnemyInfo& info)
 			break;
 		case ENEMY_TYPES::ENEMYPILOT:
 			enemies[i] = new EnemyPilot(info.x, info.y, info.powerUpType, enemyPilotTexture);
+			break;
+		case ENEMY_TYPES::HOMINGMISSILE:
+			enemies[i] = new EnemyHomingMissile(info.x, info.y, info.powerUpType, enemyHomingMissileTexture);
 			break;
 		}
 	}

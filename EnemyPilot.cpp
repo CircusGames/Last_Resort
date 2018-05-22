@@ -44,6 +44,7 @@ void EnemyPilot::Move()
 {
 	position = original_pos + path.GetCurrentSpeed(&animation);
 
+	// protection to autokill enemy if the scene doesnt kill it
 	if (position.y >= SCREEN_SIZE * SCREEN_HEIGHT) {
 		killMe = true;
 	}
@@ -52,15 +53,7 @@ void EnemyPilot::Move()
 
 void EnemyPilot::Draw() {
 
-	Animation* current_animation;
-	current_animation = &die;
-	SDL_Rect PilotRect = current_animation->GetCurrentFrame();
+	SDL_Rect PilotRect = die.GetCurrentFrame();
 	App->render->Blit(enemyTex, position.x, position.y, &PilotRect);
 
 }
-
-/*void EnemyPilot::Suicide() {
-	if (position.y >= SCREEN_SIZE*SCREEN_HEIGHT) {
-		killMe = true;
-	}
-}*/
