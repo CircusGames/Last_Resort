@@ -13,9 +13,9 @@ private:
 	float pivot;
 
 	bool clock = false;
-	bool swap = false;
 	bool jumping = true;
 	bool shoot = false;
+	bool spawn = false;
 
 	int shots;
 

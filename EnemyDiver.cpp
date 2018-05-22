@@ -54,6 +54,7 @@ EnemyDiver::EnemyDiver(int x, int y, powerUpTypes type, SDL_Texture* thisTexture
 	shootLeft.repeat = shootRight.repeat = false;
 
 	spawnAnim.speed = 0.1f;
+	spawnAnim.repeat = false;
 
 	//starting anim & shoot anim pushbacks
 	if (pivot < position.x)
@@ -130,7 +131,10 @@ void EnemyDiver::Draw()
 
 	if (currentShootAnim->finish)
 		shoot = false;
-	
+
+	//spawn timer
+	if (position.y > 88)
+		spawn = true;
 
 	//update animations
 	if (!jumping)
@@ -191,7 +195,9 @@ void EnemyDiver::Draw()
 	spawnRect = spawnAnim.GetCurrentFrame();
 
 	App->render->Blit(enemyTex, position.x, position.y, &diverRect);
-	App->render->Blit(enemyTex, position.x, position.y, &spawnRect);
+	
+	if(spawn)
+		App->render->Blit(enemyTex, position.x - 22, 88, &spawnRect);
 
 	if (shoot)
 		App->render->Blit(enemyTex, position.x - 32, position.y + 18, &shootRect);
