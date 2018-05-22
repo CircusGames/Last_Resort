@@ -15,6 +15,7 @@ private:
 	bool clock = false;
 	bool swap = false;
 	bool jumping = true;
+	bool shoot = false;
 
 	int shots;
 
@@ -28,9 +29,14 @@ private:
 	Animation animLeft;
 	Animation animRight;
 
+	Animation shootLeft;
+	Animation shootRight;
+
 	Animation* currentAnimation;
+	Animation* currentShootAnim;
 
 	SDL_Rect diverRect;
+	SDL_Rect shootRect;
 
 	iPoint originalPos;
 
