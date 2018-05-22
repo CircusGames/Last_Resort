@@ -22,18 +22,25 @@ private:
 		fPoint fposition;
 		float xSpeed;
 		float ySpeed;
+		float targetSpeedX;
+		float targetSpeedY;
+		bool xflip = false;
 		bool searching = false;
 		// timer for destroy
 		Uint32 start_cycle_time;
 		Uint32 now_alive_time;
-		Uint32 search_life_time = 6000; // time wich missile is chasing the player
+		Uint32 search_life_time = 5000; // time wich missile is chasing the player
 		Uint32 instantiate_time = 500; // time wich missile waits to start searching the player
 	};
 
 	iPoint pivotAnimation[16] = {};
 
 	float initialSpeed = 1.0f;
-	float projectileSpeed = 1.5f;
+	float projectileSpeed = 2.0f;
+
+	float decX = 0.05f;
+	float decY = 0.05f;//0.03f;
+	
 
 public:
 

@@ -15,7 +15,7 @@ EnemyHomingMissile::EnemyHomingMissile(int x, int y, powerUpTypes type, SDL_Text
 	missile.anim.PushBack({ 0,0,12,8 });  // pointing left cycle - pi radians - 180 degrees
 	missile.anim.PushBack({ 13,0,16,8 }); 
 	
-	missile.anim.PushBack({ 30,0,11,7 }); // pointing 157,5 degrees - 2,7 aprox pi rad
+	/*missile.anim.PushBack({ 30,0,11,7 }); // pointing 157,5 degrees - 2,7 aprox pi rad
 	missile.anim.PushBack({ 42,0,14,10 });
 
 	missile.anim.PushBack({ 57,0,10,10 }); // pointing 3pi/4 radians - 135 degrees
@@ -58,7 +58,7 @@ EnemyHomingMissile::EnemyHomingMissile(int x, int y, powerUpTypes type, SDL_Text
 	missile.anim.PushBack({ 134,20,13,13 });
 
 	missile.anim.PushBack({ 159,23,11,10 });
-	missile.anim.PushBack({ 171,23,14,10 });
+	missile.anim.PushBack({ 171,23,14,10 });*/
 
 	
 	missile.anim.speed = 0.50f;
@@ -145,8 +145,8 @@ void EnemyHomingMissile::Draw()
 		scrollSpeed = 1; // for the moment assigns scroll speed here
 	}
 
-	//if (missile.now_alive_time >= missile.search_life_time)
-		//killMe = true; // destroy missile
+	if (missile.now_alive_time >= missile.search_life_time)
+		killMe = true; // destroy missile
 
 	// ---------------------------------------------------------------------------------------------------
 	
@@ -163,38 +163,63 @@ void EnemyHomingMissile::chaseThePlayer()
 	fPoint vector;
 	fPoint playerPos;
 	
-	playerPos.x = App->player[missile.playerTargetIndex]->position.x + 12;
-	playerPos.y = App->player[missile.playerTargetIndex]->position.y;
+	playerPos.x = App->player[missile.playerTargetIndex]->position.x + 16;
+	playerPos.y = App->player[missile.playerTargetIndex]->position.y + 12;
 
 	missile.distance = missile.fposition.DistanceTo(playerPos);
 
 	//if (abs((int)missile.xSpeed) <= 0) // if we are approximating of player position
 	
-	if(missile.distance <= 5) // if the player are very close, round it
+	if(missile.distance <= 5 && !missile.targetReached) // if the player are very close, round it
 	{
 		LOG("missile xSpeed VERY LOW: %f", missile.xSpeed);
 		missile.targetReached = true;
 
-		// detects xSpeed direction
-		/*if (missile.xSpeed > 0) // if missile are going to right (forward)
-		{
-			missile.xSpeed = -missile.xSpeed;
-		}
-		// detects ySpeed direction
-		if (missile.ySpeed < 0) // if missile are going upwards
-		{
-			missile.ySpeed = -missile.ySpeed;
-		}*/
-		//else
-			//missile.xSpeed = -missile.xSpeed * 2;
+		missile.ySpeed = 0;
+
+		// initial values to round it
+		// x
+		if (playerPos.x > position.x)
+			missile.targetSpeedX = //-projectileSpeed + missile.xSpeed;
+			missile.targetSpeedX = -2.0f; //- missile.xSpeed;
+		else
+			missile.targetSpeedX = 2.0f;
+		// y
+		if (playerPos.y > position.y)
+			missile.targetSpeedY = 2.0f;
+		else
+			missile.targetSpeedY = -2.0f;
+
+	
+
 	}
 
 	if (missile.targetReached)
 	{
-			//missile.xSpeed += missile.xSpeed;
-			//missile.xSpeed -= 1;
+		// x speed deceleration
+		if (missile.targetSpeedX < missile.xSpeed)
+			missile.xSpeed -= decX;
+		else
+			missile.xSpeed += decX;
 
-		if (missile.distance >= 40)
+		if ((int)missile.xSpeed == (int)missile.targetSpeedX)
+		{
+			missile.targetSpeedX = -missile.targetSpeedX;
+		}
+
+		// y speed deceleration
+		if (missile.targetSpeedY < missile.ySpeed)
+			missile.ySpeed -= decY;
+		else
+			missile.ySpeed += decY;
+
+		if ((int)missile.ySpeed == (int)missile.targetSpeedY)
+		{
+			missile.targetSpeedY = -missile.targetSpeedY;
+		}
+	
+
+		if (missile.distance >= 90)
 			missile.targetReached = false;
 	}
 
