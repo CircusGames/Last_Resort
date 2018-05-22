@@ -110,12 +110,12 @@ EnemyHomingMissile::EnemyHomingMissile(int x, int y, powerUpTypes type, SDL_Text
 
 void EnemyHomingMissile::Move()
 {
-
+	// update collider position
 	if (collider != nullptr)
 		collider->SetPos(position.x, position.y);
 
 	// updates fpositions
-	missile.fposition.x += missile.xSpeed + scrollSpeed;
+	missile.fposition.x += missile.xSpeed + scrollSpeed; // plus update with the current player follow camera speed
 	missile.fposition.y += missile.ySpeed;
 
 	// updates missile position
@@ -125,7 +125,6 @@ void EnemyHomingMissile::Move()
 	position.x = missile.position.x;
 	position.y = missile.position.y;
 
-	 // update with the current player follow camera speed
 }
 
 void EnemyHomingMissile::Draw()
@@ -146,8 +145,8 @@ void EnemyHomingMissile::Draw()
 		scrollSpeed = 1; // for the moment assigns scroll speed here
 	}
 
-	if (missile.now_alive_time >= missile.search_life_time)
-		killMe = true; // destroy missile
+	//if (missile.now_alive_time >= missile.search_life_time)
+		//killMe = true; // destroy missile
 
 	// ---------------------------------------------------------------------------------------------------
 	
@@ -164,16 +163,56 @@ void EnemyHomingMissile::chaseThePlayer()
 	fPoint vector;
 	fPoint playerPos;
 	
-	playerPos.x = App->player[missile.playerTargetIndex]->position.x;
+	playerPos.x = App->player[missile.playerTargetIndex]->position.x + 12;
 	playerPos.y = App->player[missile.playerTargetIndex]->position.y;
 
 	missile.distance = missile.fposition.DistanceTo(playerPos);
 
-	vector.x = playerPos.x - missile.position.x;
-	vector.y = playerPos.y - missile.position.y;
+	//if (abs((int)missile.xSpeed) <= 0) // if we are approximating of player position
+	
+	if(missile.distance <= 5) // if the player are very close, round it
+	{
+		LOG("missile xSpeed VERY LOW: %f", missile.xSpeed);
+		missile.targetReached = true;
 
-	missile.xSpeed = (vector.x / missile.distance) * projectileSpeed;
-	missile.ySpeed = (vector.y / missile.distance) * projectileSpeed;
+		// detects xSpeed direction
+		/*if (missile.xSpeed > 0) // if missile are going to right (forward)
+		{
+			missile.xSpeed = -missile.xSpeed;
+		}
+		// detects ySpeed direction
+		if (missile.ySpeed < 0) // if missile are going upwards
+		{
+			missile.ySpeed = -missile.ySpeed;
+		}*/
+		//else
+			//missile.xSpeed = -missile.xSpeed * 2;
+	}
+
+	if (missile.targetReached)
+	{
+			//missile.xSpeed += missile.xSpeed;
+			//missile.xSpeed -= 1;
+
+		if (missile.distance >= 40)
+			missile.targetReached = false;
+	}
+
+	if (!missile.targetReached) // while the player is far away, chase it
+	{
+		vector.x = playerPos.x - missile.position.x;
+		vector.y = playerPos.y - missile.position.y;
+
+
+		missile.xSpeed = (vector.x / missile.distance) * projectileSpeed;
+		missile.ySpeed = (vector.y / missile.distance) * projectileSpeed;
+	}
+
+	
+
+
+
+
 
 }
 

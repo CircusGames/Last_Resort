@@ -15,6 +15,7 @@ private:
 		Animation* current_animation;
 		SDL_Rect rect;
 		uint playerTargetIndex = 0;
+		bool targetReached = false;
 		float angle;
 		float distance;
 		iPoint position;
