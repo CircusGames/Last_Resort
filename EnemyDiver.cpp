@@ -127,7 +127,7 @@ void EnemyDiver::Draw()
 		clock = false;
 
 	//shoot anim timer
-	if ((currentAnimation->current_frame > 2)&&!shoot)
+	if ((currentAnimation->current_frame > 2) && !shoot)
 		shoot = true;
 
 	if (currentShootAnim->finish)
@@ -151,7 +151,10 @@ void EnemyDiver::Draw()
 
 			if (clock)
 			{
-				currentAnimation = &animLeft;
+				if (rightAnim)
+					currentAnimation = &animLeft;
+				else
+					currentAnimation = &animRight;
 			
 				if (shoot)
 					currentShootAnim = &shootLeft;
@@ -164,6 +167,7 @@ void EnemyDiver::Draw()
 
 				if (animLeft.finish)
 				{
+					leftAnim = true;
 					startTime = SDL_GetTicks();
 					animLeft.finish = false;
 					animLeft.current_frame = 0;
@@ -179,7 +183,11 @@ void EnemyDiver::Draw()
 			currentAnimation = &idleRight;
 			if (clock)
 			{
+				if(leftAnim)
 					currentAnimation = &animRight;
+				else
+					currentAnimation = &animLeft;
+					
 				
 				if (shoot)
 					currentShootAnim = &shootRight;
@@ -192,6 +200,7 @@ void EnemyDiver::Draw()
 
 				if (animRight.finish)
 				{
+					rightAnim = true;
 					startTime = SDL_GetTicks();
 					animRight.finish = false;
 					animRight.current_frame = 0;

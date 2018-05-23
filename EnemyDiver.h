@@ -21,9 +21,8 @@ private:
 	bool left = true;
 	bool right = true;
 
-	bool swap = true;
-
-	int shots;
+	bool leftAnim = false;
+	bool rightAnim = false;
 
 	Uint32 startTime;
 	Uint32 now;
