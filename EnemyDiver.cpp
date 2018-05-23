@@ -127,7 +127,7 @@ void EnemyDiver::Draw()
 		clock = false;
 
 	//shoot anim timer
-	if ((currentAnimation->current_frame > 2)&&!shoot)
+	if ((currentAnimation->current_frame > 2) && !shoot)
 		shoot = true;
 
 	if (currentShootAnim->finish)
@@ -144,7 +144,7 @@ void EnemyDiver::Draw()
 
 	// check if we are not in jump state (spawn state?)
 	if (!jumping)
-	{	// permits the pivot check only if the current animation condition is true (only idle)
+	{	// permits the pivot check only if the current animation repeat condition is true (only idle in this case)
 		if (currentAnimation->repeat == true) 
 		{
 			if (pivot < position.x) left = true;
@@ -187,6 +187,17 @@ void EnemyDiver::Draw()
 	// ----------------------------------------------------------------------------	
 
 
+		/*	if (clock)
+			{
+				if (rightAnim)
+					currentAnimation = &animLeft;
+				else
+					currentAnimation = &animRight;
+			
+				if (shoot)
+					currentShootAnim = &shootLeft;*/
+
+
 		/*if (pivot < position.x) //Left
 		{
 			left = true;
@@ -196,6 +207,7 @@ void EnemyDiver::Draw()
 
 				if (clock)
 				{
+<<<<<<< HEAD
 					currentAnimation = &animLeft;
 					//currentStateAnim = true;
 
@@ -218,6 +230,12 @@ void EnemyDiver::Draw()
 						animLeft.current_frame = 0;
 						//currentStateAnim = false;
 					}
+=======
+					leftAnim = true;
+					startTime = SDL_GetTicks();
+					animLeft.finish = false;
+					animLeft.current_frame = 0;
+>>>>>>> fd58b67c073145c00be516e2c4fd724c32988b95
 				}
 			
 			
@@ -231,7 +249,11 @@ void EnemyDiver::Draw()
 			currentAnimation = &idleRight;
 			if (clock)
 			{
+				if(leftAnim)
 					currentAnimation = &animRight;
+				else
+					currentAnimation = &animLeft;
+					
 				
 					if (shoot)
 					{
@@ -249,6 +271,7 @@ void EnemyDiver::Draw()
 
 				if (animRight.finish)
 				{
+					rightAnim = true;
 					startTime = SDL_GetTicks();
 					animRight.finish = false;
 					animRight.current_frame = 0;
@@ -285,7 +308,7 @@ void EnemyDiver::Draw()
 		if (left)
 			App->render->Blit(enemyTex, position.x - 31, position.y + 18, &shootRect); //32
 
-		else if (right)
+		else if (!left)
 			App->render->Blit(enemyTex, position.x + 33, position.y + 18, &shootRect);
 
 		
