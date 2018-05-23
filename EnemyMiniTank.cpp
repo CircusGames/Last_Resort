@@ -21,6 +21,8 @@ Enemy_MiniTank::Enemy_MiniTank(int x, int y, powerUpTypes type, SDL_Texture* thi
 	damage.PushBack({ 122,61,61,48 });
 	damage.speed = 0.25f;
 
+
+	//Missing Sprites of Shooting Animation
 	animation = &move;
 	shootanimation = &move2;
 	shootanimationdamage = &damage2;
@@ -55,6 +57,30 @@ Enemy_MiniTank::Enemy_MiniTank(int x, int y, powerUpTypes type, SDL_Texture* thi
 	damageAnimTime = 50;
 
 	life = 1;
+
+	//Missiles Animation
+	missilelaunch.PushBack({ 0,110,21,16 });
+	missilelaunch.PushBack({ 22,110,21,24 });
+	missilelaunch.PushBack({ 44,110,27,29 });
+	missilelaunch.PushBack({ 72,110,28,31 });
+	missilelaunch.PushBack({ 103,110,30,32 });
+	missilelaunch.PushBack({ 134,110,31,32 });
+	missilelaunch.PushBack({ 166,110,32,32 });
+	missilelaunch.PushBack({ 199,110,32,31 });
+	missilelaunch.PushBack({ 232,110,31,30 });
+	missilelaunch.PushBack({ 264,110,30,16 });
+	missilelaunch.PushBack({ 0,143,19,12 });
+	missilelaunch.PushBack({ 25,143,23,15 });
+
+	missileexplode.PushBack({ 0,171,23,19 });
+	missileexplode.PushBack({ 24,163,25,17 });
+	missileexplode.PushBack({ 50,160,30,30 });
+	missileexplode.PushBack({ 114,161,25,29 });
+	missileexplode.PushBack({ 140,159,28,31 });
+	missileexplode.PushBack({ 170,159,30,31 });
+	missileexplode.PushBack({ 201,159,32,31 });
+	missileexplode.PushBack({ 233,161,30,29 });
+	missileexplode.PushBack({ 264,163,29,27 });
 }
 
 void Enemy_MiniTank::Move()
