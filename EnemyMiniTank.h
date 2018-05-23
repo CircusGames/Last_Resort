@@ -14,6 +14,7 @@ private:
 	Animation * shootanimation;
 	Animation* shootanimationdamage;
 	Animation * current_animation;
+	Uint32 start_time;
 	Uint32 start_damage_time;
 	Uint32 nowDamagetime;
 	Uint32 damageAnimTime;
@@ -25,6 +26,7 @@ public:
 
 	void Move();
 	void Draw();
+	void OnCollision(Collider* collider, Collider* collider2);
 };
 
 

@@ -4,20 +4,22 @@
 #include "Globals.h"
 #include "ModuleEnemies.h"
 #include "SDL\include\SDL_timer.h"
+#include "Path.h"
+#include "ModuleRender.h"
 
 Enemy_MiniTank::Enemy_MiniTank(int x, int y, powerUpTypes type, SDL_Texture* thisTexture) : Enemy(x, y)
 {
 	enemyTex = thisTexture;
 
-	move2.PushBack({ 0,1,61,50 });
-	move.PushBack({ 61,0,61,50 });
-	move.PushBack({ 122,0,61,48 });
-	move.speed = 0.2f;
+	move.PushBack({ 0,12,61,47 });
+	move.PushBack({ 61,11,61,48 });
+	move.PushBack({ 122,11,61,48 });
+	move.speed = 0.25f;
 	
-	damage2.PushBack({ 0,62,61,50 });
-	damage.PushBack({ 61,61,61,50 });
+	damage.PushBack({ 0,62,61,47 });
+	damage.PushBack({ 61,61,61,48 });
 	damage.PushBack({ 122,61,61,48 });
-	damage.speed = 0.2f;
+	damage.speed = 0.25f;
 
 	animation = &move;
 	shootanimation = &move2;
@@ -42,12 +44,15 @@ Enemy_MiniTank::Enemy_MiniTank(int x, int y, powerUpTypes type, SDL_Texture* thi
 	path.PushBack({ -0.1f, 0.0f }, 100, &move);
 	path.PushBack({ 0.5f, 0.0f }, 30, &move2);
 
-	collider = App->collision->AddCollider({ 0, 0, 61, 47 }, COLLIDER_TYPE::COLLIDER_ENEMY, (Module*)App->enemies);
+	collider = App->collision->AddCollider({ 0, 0, 61, 48 }, COLLIDER_TYPE::COLLIDER_ENEMY, (Module*)App->enemies);
 
 	powerUpType = type;
 
 	original_pos.x = x;
 	original_pos.y = y;
+
+	start_time = SDL_GetTicks();
+	damageAnimTime = 50;
 
 	life = 1;
 }
@@ -57,8 +62,12 @@ void Enemy_MiniTank::Move()
 	position = original_pos + path.GetCurrentSpeed(&animation);
 }
 
+
 void Enemy_MiniTank::Draw()
 {
+	collider->SetPos(position.x, position.y);
+	SDL_Rect MiniTankRect = move.GetCurrentFrame();
+	App->render->Blit(enemyTex, position.x, position.y, &MiniTankRect);
 	if (receiveDamage)
 	{
 		current_frame = current_animation->current_frame;
@@ -76,5 +85,11 @@ void Enemy_MiniTank::Draw()
 		current_animation = &move;
 		current_animation->current_frame = current_frame;
 	}
+}
 
+void Enemy_MiniTank::OnCollision(Collider* collider, Collider* collider2)
+{
+
+	if (collider->type == COLLIDER_PLAYER_SHOT)
+		receiveDamage = true;
 }
