@@ -84,12 +84,14 @@ public:
 	SDL_Texture* enemyDiverTexture = nullptr;
 	SDL_Texture* enemyPilotTexture = nullptr;
 	SDL_Texture* enemyHomingMissileTexture = nullptr;
+	SDL_Texture* enemyDiverBeamTexture = nullptr;
 	// ----------------------------
 	//ENEMY PARTICLES
 	Particle beeBullet;
 	Particle tankBigShot;
 	Particle tankSmallShot;
 	Particle homingExplosion;
+	Particle diverBeam;
 private:
 
 	void SpawnEnemy(EnemyInfo& info);// , powerUpTypes powerUpType = powerUpTypes::NONE, SDL_Texture* texture = nullptr);

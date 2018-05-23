@@ -80,6 +80,13 @@ ModuleEnemies::ModuleEnemies()
 	homingExplosion.anim.repeat = false;
 
 	// -----------------------------------------------------
+
+	// DIVER LASER BEAMS
+	diverBeam.anim.PushBack({ 0, 5, 24, 7 });
+	diverBeam.anim.PushBack({ 28, 5, 48, 7 });
+	diverBeam.anim.speed = 0.2f;
+	diverBeam.damage = 1;
+	diverBeam.life = 1500;
 }
 
 // Destructor
@@ -104,11 +111,16 @@ bool ModuleEnemies::Start()
 	enemyDiverTexture = App->textures->Load("assets/Graphics/Enemies/Level_3/diver.png");
 	enemyPilotTexture = App->textures->Load("assets/Graphics/Enemies/Pilot.png");
 	enemyHomingMissileTexture = App->textures->Load("assets/Graphics/Enemies/Level_3/homingMissile.png");
+	
 	// -------------------------------------------------------------------------------------
 	// ENEMY PARTICLES ---------------------------------------------------------------------
 	// textures ----------
 	beeBulletTexture = App->textures->Load("assets/Graphics/Enemies/Level_1/bee_bullet.png");
 	beeBullet.texture = beeBulletTexture; //link texture to particle
+
+	enemyDiverBeamTexture = App->textures->Load("assets/Graphics/Enemies/Level_3/diverShot.png");
+	diverBeam.texture = enemyDiverBeamTexture;
+
 	//TANK shot particles
 	tankBigShot.texture = enemyTankTexture;
 	tankSmallShot.texture = enemyTankTexture;
@@ -204,6 +216,7 @@ bool ModuleEnemies::CleanUp()
 	App->textures->Unload(enemy2Texture);
 	App->textures->Unload(enemy1Texture);
 	App->textures->Unload(enemyRedbirdTexture);
+	App->textures->Unload(enemyDiverBeamTexture);
 	//App->textures->Unload(sprites);
 	
 	//Unloading loaded audio's

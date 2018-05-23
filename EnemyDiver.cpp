@@ -3,6 +3,7 @@
 #include "ModuleCollision.h"
 #include "ModuleEnemies.h"
 #include "ModuleRender.h"
+#include "ModuleParticles.h"
 
 #include "SDL\include\SDL_timer.h"
 
@@ -47,7 +48,7 @@ EnemyDiver::EnemyDiver(int x, int y, powerUpTypes type, SDL_Texture* thisTexture
 		spawnAnim.PushBack({ 80 * i, 184, 80, 104 });
 
 	//features
-	animLeft.speed = animRight.speed = 0.1f;
+	animLeft.speed = animRight.speed = 0.143f;
 	animLeft.repeat = animRight.repeat = false;
 
 	shootLeft.speed = shootRight.speed = 0.143f;
@@ -79,7 +80,7 @@ EnemyDiver::EnemyDiver(int x, int y, powerUpTypes type, SDL_Texture* thisTexture
 	enemyScore = 200;
 
 	//idle timer
-	totalTime = 1000;
+	totalTime = 500;
 
 	powerUpType = type;
 
@@ -141,11 +142,14 @@ void EnemyDiver::Draw()
 	{
 		if (pivot < position.x) //Left
 		{
+			left = true;
+			right = false;
 			currentAnimation = &idleLeft;
+
 			if (clock)
 			{
 				currentAnimation = &animLeft;
-
+			
 				if (shoot)
 					currentShootAnim = &shootLeft;
 
@@ -164,12 +168,15 @@ void EnemyDiver::Draw()
 			}
 		}
 
-		if (pivot > position.x) //Right
+		else if (pivot > position.x) //Right
 		{
+			right = true;
+			left = false;
+
 			currentAnimation = &idleRight;
 			if (clock)
 			{
-				currentAnimation = &animRight;
+					currentAnimation = &animRight;
 				
 				if (shoot)
 					currentShootAnim = &shootRight;
@@ -194,11 +201,26 @@ void EnemyDiver::Draw()
 	shootRect = currentShootAnim->GetCurrentFrame();
 	spawnRect = spawnAnim.GetCurrentFrame();
 
+	if (shoot)
+	{
+		if (left)
+			App->particles->AddParticle(App->enemies->diverBeam, position.x - 31, position.y + 18, COLLIDER_ENEMY_SHOT, { -1, 0 });
+
+		if (right)
+			App->particles->AddParticle(App->enemies->diverBeam, position.x + 33, position.y + 18, COLLIDER_ENEMY_SHOT, { 1, 0 });
+	}
+
 	App->render->Blit(enemyTex, position.x, position.y, &diverRect);
 	
 	if(spawn)
 		App->render->Blit(enemyTex, position.x - 22, 88, &spawnRect);
 
 	if (shoot)
-		App->render->Blit(enemyTex, position.x - 32, position.y + 18, &shootRect);
+	{
+		if (left)
+			App->render->Blit(enemyTex, position.x - 31, position.y + 18, &shootRect); //32
+
+		else if (right)
+			App->render->Blit(enemyTex, position.x + 33, position.y + 18, &shootRect);
+	}
 }

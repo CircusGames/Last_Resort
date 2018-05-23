@@ -17,6 +17,11 @@ private:
 	bool shoot = false;
 	bool spawn = false;
 
+	bool left = true;
+	bool right = true;
+
+	bool swap = true;
+
 	int shots;
 
 	Uint32 startTime;
