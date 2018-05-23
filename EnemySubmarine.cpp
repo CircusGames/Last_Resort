@@ -837,7 +837,7 @@ void EnemySubmarine::Draw()
 	// -----------------------------------------------------------------------------------------------
 	// draw submarine waves apparition
 
-	for (int i = NUM_WAVES; i >= 0; --i)
+	for (int i = NUM_WAVES - 1; i >= 0; --i)
 	{
 		SDL_Rect submarineWavesRect = submarineWaves[i].anim.GetCurrentFrame();
 
