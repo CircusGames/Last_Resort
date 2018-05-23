@@ -76,7 +76,7 @@ private:
 		bool launchMissiles = false;
 		bool readyToLaunch = false;
 		bool missilesFlash = false;
-		uint canyons;
+		int canyons;
 		iPoint canyonsPos[4];
 		// ---------------------
 
@@ -141,7 +141,7 @@ public:
 
 	DestroyableStatic nonDestroyedParts[NUM_NONDESTROYED_PARTS];
 	DestroyableAnimated ejectionHatch;
-	DestroyableAnimated missileLauncher;
+	DestroyableAnimated missileLauncher[2];
 	turrets submarineTurrets[NUM_TURRETS];
 	iPoint submarineTurretsPositions[NUM_TURRETS] = { {33,28}, {65,28}, {97,28}, {145,20}, {177, 4}, {289, -4}, {321, 12}, {353,12} };
 

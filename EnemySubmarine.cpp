@@ -196,26 +196,49 @@ EnemySubmarine::EnemySubmarine(int x, int y, powerUpTypes type, SDL_Texture* thi
 	ejectionHatch.collider = extraColliders[9] = App->collision->AddCollider({0,0, 60,32}, COLLIDER_ENEMY, (Module*)App->enemies);
 	ejectionHatch.life = 40;
 	// missiles platforms launchers anim
-	missileLauncher.anim[NORMAL_ANIM].PushBack({ 459,66,64,32 });
-	missileLauncher.anim[NORMAL_ANIM].PushBack({ 524,66,64,32 });
-	missileLauncher.anim[NORMAL_ANIM].PushBack({ 589,66,64,32 });
-	missileLauncher.anim[NORMAL_ANIM].PushBack({ 654,66,64,32 }); // max open
-	missileLauncher.anim[NORMAL_ANIM].PushBack({ 589,66,64,32 }); // returning to 0 pos
-	missileLauncher.anim[NORMAL_ANIM].PushBack({ 524,66,64,32 });
-	missileLauncher.anim[NORMAL_ANIM].PushBack({ 459,66,64,32 });
-	missileLauncher.anim[NORMAL_ANIM].speed = 0.125f;
-	missileLauncher.anim[NORMAL_ANIM].repeat = false;
+	missileLauncher[0].anim[NORMAL_ANIM].PushBack({ 459,66,64,32 });
+	missileLauncher[0].anim[NORMAL_ANIM].PushBack({ 524,66,64,32 });
+	missileLauncher[0].anim[NORMAL_ANIM].PushBack({ 589,66,64,32 });
+	missileLauncher[0].anim[NORMAL_ANIM].PushBack({ 654,66,64,32 }); // max open
+	missileLauncher[0].anim[NORMAL_ANIM].PushBack({ 589,66,64,32 }); // returning to 0 pos
+	missileLauncher[0].anim[NORMAL_ANIM].PushBack({ 524,66,64,32 });
+	missileLauncher[0].anim[NORMAL_ANIM].PushBack({ 459,66,64,32 });
+	missileLauncher[0].anim[NORMAL_ANIM].speed = 0.125f;
+	missileLauncher[0].anim[NORMAL_ANIM].repeat = false;
 	// ---
-	missileLauncher.anim[DAMAGE_ANIM].PushBack({ 459,99,64,32 });
-	missileLauncher.anim[DAMAGE_ANIM].PushBack({ 524,99,64,32 });
-	missileLauncher.anim[DAMAGE_ANIM].PushBack({ 589,99,64,32 });
-	missileLauncher.anim[DAMAGE_ANIM].PushBack({ 654,99,64,32 }); // max open
-	missileLauncher.anim[DAMAGE_ANIM].PushBack({ 589,99,64,32 });
-	missileLauncher.anim[DAMAGE_ANIM].PushBack({ 524,99,64,32 });
-	missileLauncher.anim[DAMAGE_ANIM].PushBack({ 459,99,64,32 }); // initial pos
-	missileLauncher.anim[DAMAGE_ANIM].speed = 0.125f;
-	missileLauncher.anim[DAMAGE_ANIM].repeat = false;
-	missileLauncher.position = { 208, 48 };
+	missileLauncher[0].anim[DAMAGE_ANIM].PushBack({ 459,99,64,32 });
+	missileLauncher[0].anim[DAMAGE_ANIM].PushBack({ 524,99,64,32 });
+	missileLauncher[0].anim[DAMAGE_ANIM].PushBack({ 589,99,64,32 });
+	missileLauncher[0].anim[DAMAGE_ANIM].PushBack({ 654,99,64,32 }); // max open
+	missileLauncher[0].anim[DAMAGE_ANIM].PushBack({ 589,99,64,32 });
+	missileLauncher[0].anim[DAMAGE_ANIM].PushBack({ 524,99,64,32 });
+	missileLauncher[0].anim[DAMAGE_ANIM].PushBack({ 459,99,64,32 }); // initial pos
+	missileLauncher[0].anim[DAMAGE_ANIM].speed = 0.125f;
+	missileLauncher[0].anim[DAMAGE_ANIM].repeat = false;
+	missileLauncher[0].position = { 208, 48 };
+	// -----------------------------------
+	// missile platform launcher 2 anim
+	missileLauncher[1].anim[NORMAL_ANIM].PushBack({ 809,0,64,40 });
+	missileLauncher[1].anim[NORMAL_ANIM].PushBack({ 809,80,64,40 });
+	missileLauncher[1].anim[NORMAL_ANIM].PushBack({ 809,160,64,40 });
+	missileLauncher[1].anim[NORMAL_ANIM].PushBack({ 809,240,64,40 }); // max open
+	missileLauncher[1].anim[NORMAL_ANIM].PushBack({ 809,160,64,40 }); // returning to 0 pos
+	missileLauncher[1].anim[NORMAL_ANIM].PushBack({ 809,80,64,40 });
+	missileLauncher[1].anim[NORMAL_ANIM].PushBack({ 809,0,64,40 });
+	missileLauncher[1].anim[NORMAL_ANIM].speed = 0.125f;
+	missileLauncher[1].anim[NORMAL_ANIM].repeat = false;
+	// ---
+	missileLauncher[1].anim[DAMAGE_ANIM].PushBack({ 809,40,64,40 });
+	missileLauncher[1].anim[DAMAGE_ANIM].PushBack({ 809,120,64,40 });
+	missileLauncher[1].anim[DAMAGE_ANIM].PushBack({ 809,200,64,40 });
+	missileLauncher[1].anim[DAMAGE_ANIM].PushBack({ 809,280,64,40 }); // max open
+	missileLauncher[1].anim[DAMAGE_ANIM].PushBack({ 809,200,64,40 });
+	missileLauncher[1].anim[DAMAGE_ANIM].PushBack({ 809,120,64,40 });
+	missileLauncher[1].anim[DAMAGE_ANIM].PushBack({ 809,40,64,40 }); // initial pos
+	missileLauncher[1].anim[DAMAGE_ANIM].speed = 0.125f;
+	missileLauncher[1].anim[DAMAGE_ANIM].repeat = false;
+	missileLauncher[1].position = { 400, 72 };
+
 
 	// ------------------------------------------------------------------------------------------------------------------
 	// SUBMARINE TURRETS
@@ -250,19 +273,31 @@ EnemySubmarine::EnemySubmarine(int x, int y, powerUpTypes type, SDL_Texture* thi
 	// -----------------------------------------------------------------------
 	// missiles flash ---
 	// first assign the number of canyons of each missile launcher platform
-	missileLauncher.canyons = 4;
-	// assign canyons positions
-	missileLauncher.canyonsPos[0] = { 0, 6 };
-	missileLauncher.canyonsPos[1] = { 16, 6 };
-	missileLauncher.canyonsPos[2] = { 32, 6 };
-	missileLauncher.canyonsPos[3] = { 48, 6 };
+	missileLauncher[0].canyons = 4;
+	missileLauncher[1].canyons = 3;
+	// assign canyons positions first platform
+	missileLauncher[0].canyonsPos[0] = { 0, 6 };
+	missileLauncher[0].canyonsPos[1] = { 16, 6 };
+	missileLauncher[0].canyonsPos[2] = { 32, 6 };
+	missileLauncher[0].canyonsPos[3] = { 48, 6 };
+	// assign canyons positions second platform
+	missileLauncher[1].canyonsPos[0] = { 8, 3 };
+	missileLauncher[1].canyonsPos[1] = { 24, 3 };
+	missileLauncher[1].canyonsPos[2] = { 40, 3 };
 	// flash animation
-	for (uint i = 0; i < missileLauncher.canyons; ++i)
+	for (int i = 0; i < missileLauncher[0].canyons; ++i)
 	{
-		missileLauncher.missileFlashAnim[i].PushBack({ 192,308,16,16 });
-		missileLauncher.missileFlashAnim[i].PushBack({ 210,308,16,16 });
-		missileLauncher.missileFlashAnim[i].speed = 0.25f;
-		missileLauncher.missileFlashAnim[i].repeat = false;
+		missileLauncher[0].missileFlashAnim[i].PushBack({ 192,308,16,16 });
+		missileLauncher[0].missileFlashAnim[i].PushBack({ 210,308,16,16 });
+		missileLauncher[0].missileFlashAnim[i].speed = 0.25f;
+		missileLauncher[0].missileFlashAnim[i].repeat = false;
+	}
+	for (int i = 0; i < missileLauncher[1].canyons; ++i)
+	{
+		missileLauncher[1].missileFlashAnim[i].PushBack({ 192,308,16,16 });
+		missileLauncher[1].missileFlashAnim[i].PushBack({ 210,308,16,16 });
+		missileLauncher[1].missileFlashAnim[i].speed = 0.25f;
+		missileLauncher[1].missileFlashAnim[i].repeat = false;
 	}
 	// -------------------------------------------------------------------------
 
@@ -291,16 +326,16 @@ EnemySubmarine::EnemySubmarine(int x, int y, powerUpTypes type, SDL_Texture* thi
 	start_ejectable_time = SDL_GetTicks();
 	start_missiles_time = SDL_GetTicks();
 
-
-
 	//position.x = -160;
 	//position.x = 10;
 	//position.y = 100;
 
-	// original positions 
+	// original positions ----- for PATH ----
 
 	original_pos.x = -72;
 	original_pos.y = 192;
+
+	// --------------------------------------
 
 	// SUBMARINE PATH
 	submarinePath.PushBack({1,0},272); // wait //300
@@ -605,7 +640,8 @@ void EnemySubmarine::Draw()
 	{
 		receiveDamage = false;
 		// deactivate missiles launchers damage too
-		missileLauncher.takenDamage = false;
+		missileLauncher[0].takenDamage = false;
+		missileLauncher[1].takenDamage = false;
 	}
 
 	//if we are taken damage, print only the full body and the alive destroyable parts damage sprite --
@@ -621,7 +657,8 @@ void EnemySubmarine::Draw()
 		}
 
 		// missile launchers
-		missileLauncher.takenDamage = true;
+		missileLauncher[0].takenDamage = true;
+		missileLauncher[1].takenDamage = true;
 	}
 
 	// -------------------------------------------------------------------------------------------------------------------
@@ -694,101 +731,108 @@ void EnemySubmarine::Draw()
 
 	// missile launchers
 
-	if (!missileLauncher.destroyed)
+	for (int i = 0; i < 2; ++i)
 	{
-		now_missiles_time = SDL_GetTicks() - start_missiles_time;
-		if (now_missiles_time > missiles_cadence_timer && missileLauncher.readyToEject)
+		if (!missileLauncher[i].destroyed)
 		{
-			missileLauncher.throwEnemy = true;
-			LOG("throwing enemy MISSILES");
-			missileLauncher.readyToEject = false;
-			missileLauncher.readyToLaunch = true; // ready for launch missiles
-		}
-
-		// swap damage/normal sprites
-		if (!missileLauncher.takenDamage)
-		{
-			missileLauncher.current_animation = &missileLauncher.anim[NORMAL_ANIM];
-			missileLauncher.current_animation->current_frame = missileLauncher.current_frame;
-
-		}
-		else
-		{
-			missileLauncher.current_animation = &missileLauncher.anim[DAMAGE_ANIM];
-			missileLauncher.current_animation->current_frame = missileLauncher.current_frame;
-		}
-
-		if (!missileLauncher.throwEnemy)
-		{
-			missileLauncher.rect = missileLauncher.current_animation->frames[0];
-		}
-		else
-		{
-			missileLauncher.rect = missileLauncher.current_animation->GetCurrentFrame();
-			if (missileLauncher.current_animation->finish)
+			now_missiles_time = SDL_GetTicks() - start_missiles_time;
+			if (now_missiles_time > missiles_cadence_timer && missileLauncher[i].readyToEject)
 			{
-				missileLauncher.throwEnemy = false;
-				LOG("stop MISSILES enemy launching");
-				start_missiles_time = SDL_GetTicks();
-				missileLauncher.readyToEject = true;
-
-				// reset damage and normal anim
-				missileLauncher.anim[NORMAL_ANIM].current_frame = 0;
-				missileLauncher.anim[NORMAL_ANIM].finish = false;
-				missileLauncher.anim[DAMAGE_ANIM].current_frame = 0;
-				missileLauncher.anim[DAMAGE_ANIM].finish = false;
+				missileLauncher[i].throwEnemy = true;
+				LOG("throwing enemy MISSILES");
+				missileLauncher[i].readyToEject = false;
+				missileLauncher[i].readyToLaunch = true; // ready for launch missiles
 			}
-		}
 
-		missileLauncher.current_frame = missileLauncher.current_animation->current_frame;
-
-		App->render->Blit(enemyTex, position.x + missileLauncher.position.x, position.y + missileLauncher.position.y, &missileLauncher.rect);
-
-		// check to instantiate missiles
-		if ((int)missileLauncher.current_frame == 3 && missileLauncher.readyToLaunch) // if the animation arrives to max open 
-		{
-			//launchMissiles = true;
-			missileLauncher.readyToLaunch = false;
-			missileLauncher.missilesFlash = true; // first play flash animation
-		}
-
-		if (missileLauncher.missilesFlash)
-		{
-			if (missileLauncher.missileFlashAnim[missileLauncher.canyons - 1].finish) // when the last canyon finish its flash anim
+			// swap damage/normal sprites
+			if (!missileLauncher[i].takenDamage)
 			{
-				// resets animation for next launch
-				for (uint i = 0; i < missileLauncher.canyons; ++i)
+				missileLauncher[i].current_animation = &missileLauncher[i].anim[NORMAL_ANIM];
+				missileLauncher[i].current_animation->current_frame = missileLauncher[i].current_frame;
+
+			}
+			else
+			{
+				missileLauncher[i].current_animation = &missileLauncher[i].anim[DAMAGE_ANIM];
+				missileLauncher[i].current_animation->current_frame = missileLauncher[i].current_frame;
+			}
+
+			if (!missileLauncher[i].throwEnemy)
+			{
+				missileLauncher[i].rect = missileLauncher[i].current_animation->frames[0];
+			}
+			else
+			{
+				missileLauncher[i].rect = missileLauncher[i].current_animation->GetCurrentFrame();
+				if (missileLauncher[i].current_animation->finish)
 				{
-					missileLauncher.missileFlashAnim[i].finish = false;
-					missileLauncher.missileFlashAnim[i].current_frame = 0;
+					missileLauncher[i].throwEnemy = false;
+					LOG("stop MISSILES enemy launching");
+					start_missiles_time = SDL_GetTicks();
+					missileLauncher[i].readyToEject = true;
+
+					// reset damage and normal anim
+					missileLauncher[i].anim[NORMAL_ANIM].current_frame = 0;
+					missileLauncher[i].anim[NORMAL_ANIM].finish = false;
+					missileLauncher[i].anim[DAMAGE_ANIM].current_frame = 0;
+					missileLauncher[i].anim[DAMAGE_ANIM].finish = false;
 				}
-				// update condition
-				missileLauncher.missilesFlash = false;
-				// launch missiles
-				missileLauncher.launchMissiles = true;
 			}
 
-			for (uint i = 0; i < missileLauncher.canyons; ++i)
+			missileLauncher[i].current_frame = missileLauncher[i].current_animation->current_frame;
+
+			App->render->Blit(enemyTex, position.x + missileLauncher[i].position.x, position.y + missileLauncher[i].position.y, &missileLauncher[i].rect);
+
+			// check to instantiate missiles
+			if ((int)missileLauncher[i].current_frame == 3 && missileLauncher[i].readyToLaunch) // if the animation arrives to max open 
 			{
-				App->render->Blit(enemyTex, position.x + missileLauncher.position.x + missileLauncher.canyonsPos[i].x,
-					position.y + missileLauncher.position.y + missileLauncher.canyonsPos[i].y, &missileLauncher.missileFlashAnim[i].GetCurrentFrame());
+				//launchMissiles = true;
+				missileLauncher[i].readyToLaunch = false;
+				missileLauncher[i].missilesFlash = true; // first play flash animation
 			}
-			
-		}
 
-		if (missileLauncher.launchMissiles)
-		{
-			// instantiate missiles
-			App->enemies->AddEnemy(HOMINGMISSILE, position.x + 8 + missileLauncher.position.x, position.y + missileLauncher.position.y, NONE);
-			App->enemies->AddEnemy(HOMINGMISSILE, position.x + 24 + missileLauncher.position.x, position.y + missileLauncher.position.y, NONE);
-			App->enemies->AddEnemy(HOMINGMISSILE, position.x + 40 + missileLauncher.position.x, position.y + missileLauncher.position.y, NONE);
-			App->enemies->AddEnemy(HOMINGMISSILE, position.x + 56 + missileLauncher.position.x, position.y + missileLauncher.position.y, NONE);
-			missileLauncher.launchMissiles = false;
-		}
+			if (missileLauncher[i].missilesFlash)
+			{
+					if (missileLauncher[i].missileFlashAnim[missileLauncher[i].canyons - 1].finish) // when the last canyon finish its flash anim
+					{
+						// resets animation for next launch
+						for (int z = 0; z < missileLauncher[i].canyons; ++z)
+						{
+							missileLauncher[i].missileFlashAnim[z].finish = false;
+							missileLauncher[i].missileFlashAnim[z].current_frame = 0;
+						}
+						// update condition
+						missileLauncher[i].missilesFlash = false;
+						// launch missiles
+						missileLauncher[i].launchMissiles = true;
+					}
 
+					// DRAW FLASHES
+					for (int z = 0; z < missileLauncher[i].canyons; ++z)
+					{
+					App->render->Blit(enemyTex, position.x + missileLauncher[i].position.x + missileLauncher[i].canyonsPos[z].x,
+						position.y + missileLauncher[i].position.y + missileLauncher[i].canyonsPos[z].y, &missileLauncher[i].missileFlashAnim[z].GetCurrentFrame());
+					}
+
+			}
+
+			if (missileLauncher[i].launchMissiles)
+			{
+				// instantiate missiles
+				for (uint z = 0; z < missileLauncher[i].canyons; ++z)
+				{
+					App->enemies->AddEnemy(HOMINGMISSILE, position.x + missileLauncher[i].position.x + missileLauncher[i].canyonsPos[z].x, 
+						position.y + missileLauncher[i].position.y + missileLauncher[i].canyonsPos[z].y, NONE);
+				}
+				//App->enemies->AddEnemy(HOMINGMISSILE, position.x + 8 + missileLauncher[i].position.x, position.y + missileLauncher[i].position.y, NONE);
+				//App->enemies->AddEnemy(HOMINGMISSILE, position.x + 24 + missileLauncher[i].position.x, position.y + missileLauncher[i].position.y, NONE);
+				//App->enemies->AddEnemy(HOMINGMISSILE, position.x + 40 + missileLauncher[i].position.x, position.y + missileLauncher[i].position.y, NONE);
+				//App->enemies->AddEnemy(HOMINGMISSILE, position.x + 56 + missileLauncher[i].position.x, position.y + missileLauncher[i].position.y, NONE);
+				missileLauncher[i].launchMissiles = false;
+			}
+
+		}
 	}
-
-	
 
 	// -----------------------------------------------------------------------------------------------
 	// draw submarine waves apparition
