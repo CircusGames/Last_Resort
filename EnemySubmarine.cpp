@@ -21,7 +21,6 @@ EnemySubmarine::EnemySubmarine(int x, int y, powerUpTypes type, SDL_Texture* thi
 	// load submarine waves texture
 	submarineWavesTexture = App->textures->Load("assets/Graphics/Enemies/Level_3/submarineWaves.png");
 
-
 	// "scene" animations -------------------------------------------
 	// submarine apparition
 	int q = 0;
@@ -248,6 +247,25 @@ EnemySubmarine::EnemySubmarine(int x, int y, powerUpTypes type, SDL_Texture* thi
 		// add colliders
 		submarineTurrets[i].collider = extraColliders[i+13] = App->collision->AddCollider({ 0, 0, 14, 11 }, COLLIDER_ENEMY, (Module*)App->enemies);
 	}
+	// -----------------------------------------------------------------------
+	// missiles flash ---
+	// first assign the number of canyons of each missile launcher platform
+	missileLauncher.canyons = 4;
+	// assign canyons positions
+	missileLauncher.canyonsPos[0] = { 0, 6 };
+	missileLauncher.canyonsPos[1] = { 16, 6 };
+	missileLauncher.canyonsPos[2] = { 32, 6 };
+	missileLauncher.canyonsPos[3] = { 48, 6 };
+	// flash animation
+	for (uint i = 0; i < missileLauncher.canyons; ++i)
+	{
+		missileLauncher.missileFlashAnim[i].PushBack({ 192,308,16,16 });
+		missileLauncher.missileFlashAnim[i].PushBack({ 210,308,16,16 });
+		missileLauncher.missileFlashAnim[i].speed = 0.25f;
+		missileLauncher.missileFlashAnim[i].repeat = false;
+	}
+	// -------------------------------------------------------------------------
+
 	// ------------------------------------------------------------------------------------------------------------------
 	
 	//animation = &nameAnim; //links animation
@@ -354,6 +372,7 @@ EnemySubmarine::EnemySubmarine(int x, int y, powerUpTypes type, SDL_Texture* thi
 
 void EnemySubmarine::Move()
 {
+
 	// move submarine waves to follow scroll speed
 	for (int i = 0; i < NUM_WAVES; ++i)
 	{
@@ -683,11 +702,7 @@ void EnemySubmarine::Draw()
 			missileLauncher.throwEnemy = true;
 			LOG("throwing enemy MISSILES");
 			missileLauncher.readyToEject = false;
-			// instantiate missiles
-			App->enemies->AddEnemy(HOMINGMISSILE, position.x + 8 + missileLauncher.position.x, position.y + missileLauncher.position.y, NONE);
-			App->enemies->AddEnemy(HOMINGMISSILE, position.x + 24 + missileLauncher.position.x, position.y + missileLauncher.position.y, NONE);
-			App->enemies->AddEnemy(HOMINGMISSILE, position.x + 40 + missileLauncher.position.x, position.y + missileLauncher.position.y, NONE);
-			App->enemies->AddEnemy(HOMINGMISSILE, position.x + 56 + missileLauncher.position.x, position.y + missileLauncher.position.y, NONE);
+			missileLauncher.readyToLaunch = true; // ready for launch missiles
 		}
 
 		// swap damage/normal sprites
@@ -728,6 +743,49 @@ void EnemySubmarine::Draw()
 		missileLauncher.current_frame = missileLauncher.current_animation->current_frame;
 
 		App->render->Blit(enemyTex, position.x + missileLauncher.position.x, position.y + missileLauncher.position.y, &missileLauncher.rect);
+
+		// check to instantiate missiles
+		if ((int)missileLauncher.current_frame == 3 && missileLauncher.readyToLaunch) // if the animation arrives to max open 
+		{
+			//launchMissiles = true;
+			missileLauncher.readyToLaunch = false;
+			missileLauncher.missilesFlash = true; // first play flash animation
+		}
+
+		if (missileLauncher.missilesFlash)
+		{
+			if (missileLauncher.missileFlashAnim[missileLauncher.canyons - 1].finish) // when the last canyon finish its flash anim
+			{
+				// resets animation for next launch
+				for (uint i = 0; i < missileLauncher.canyons; ++i)
+				{
+					missileLauncher.missileFlashAnim[i].finish = false;
+					missileLauncher.missileFlashAnim[i].current_frame = 0;
+				}
+				// update condition
+				missileLauncher.missilesFlash = false;
+				// launch missiles
+				missileLauncher.launchMissiles = true;
+			}
+
+			for (uint i = 0; i < missileLauncher.canyons; ++i)
+			{
+				App->render->Blit(enemyTex, position.x + missileLauncher.position.x + missileLauncher.canyonsPos[i].x,
+					position.y + missileLauncher.position.y + missileLauncher.canyonsPos[i].y, &missileLauncher.missileFlashAnim[i].GetCurrentFrame());
+			}
+			
+		}
+
+		if (missileLauncher.launchMissiles)
+		{
+			// instantiate missiles
+			App->enemies->AddEnemy(HOMINGMISSILE, position.x + 8 + missileLauncher.position.x, position.y + missileLauncher.position.y, NONE);
+			App->enemies->AddEnemy(HOMINGMISSILE, position.x + 24 + missileLauncher.position.x, position.y + missileLauncher.position.y, NONE);
+			App->enemies->AddEnemy(HOMINGMISSILE, position.x + 40 + missileLauncher.position.x, position.y + missileLauncher.position.y, NONE);
+			App->enemies->AddEnemy(HOMINGMISSILE, position.x + 56 + missileLauncher.position.x, position.y + missileLauncher.position.y, NONE);
+			missileLauncher.launchMissiles = false;
+		}
+
 	}
 
 	

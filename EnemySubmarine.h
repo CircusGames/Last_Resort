@@ -15,6 +15,13 @@ class EnemySubmarine : public Enemy
 {
 private:
 
+	// missile launching relative ---
+	/*Animation missileFlashAnimation;
+	bool launchMissiles = false;
+	bool readyToLaunch = false;
+	bool missilesFlash = false;*/
+	// ------------------------------
+
 	enum takenDamageIndex
 	{
 		NORMAL_ANIM,
@@ -26,7 +33,7 @@ private:
 	SDL_Rect submarineBodyDamageRect;
 	Animation destroyedParts[NUM_DESTROYABLE_PARTS];
 	//Animation ejectionHatch[2]; // normal and taken damage animations
-	Animation missileLauncherAnim[1][2]; //1 for now until we get the sprites
+	//Animation missileLauncherAnim[1][2]; //1 for now until we get the sprites
 	Collider* fullBodyColliders[NUM_NONDESTROYED_PARTS];
 	Collider* coreCollider;
 	//SDL_Rect fullBodyStaticDamage[NUM_NONDESTROYED_PARTS];
@@ -64,6 +71,15 @@ private:
 		bool readyToTakeDamage = true;
 		bool readyToEject = true;
 		SDL_Rect rect;
+		// missiles relative ---
+		Animation missileFlashAnim[4]; // max flash canyons
+		bool launchMissiles = false;
+		bool readyToLaunch = false;
+		bool missilesFlash = false;
+		uint canyons;
+		iPoint canyonsPos[4];
+		// ---------------------
+
 	};
 
 	struct turrets

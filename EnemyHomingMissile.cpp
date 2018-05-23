@@ -75,7 +75,7 @@ EnemyHomingMissile::EnemyHomingMissile(int x, int y, powerUpTypes type, SDL_Text
 	waterSplash.PushBack({ 81,99,16,31 });
 	waterSplash.PushBack({ 99,101,15,29 });
 	waterSplash.PushBack({ 116,104,16,26 });
-	waterSplash.speed = 0.25f;
+	waterSplash.speed = 0.23f;
 	waterSplash.repeat = false;
 	
 
