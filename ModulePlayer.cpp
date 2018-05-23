@@ -198,7 +198,7 @@ update_status ModulePlayer::Update()
 			current_animation->finish = false; //and resets condition
 			current_animation->current_frame = 0;
 			//activate collider
-			playerCollider = App->collision->AddCollider({ position.x, position.y, 32, 12 }, COLLIDER_PLAYER, this);
+			playerCollider = App->collision->AddCollider({ position.x, position.y, 28, 6 }, COLLIDER_PLAYER, this);
 		}
 	}
 
@@ -427,7 +427,7 @@ update_status ModulePlayer::Update()
 
 		//update player collider to its position -----------------------------------------
 		
-			playerCollider->SetPos(position.x, position.y - 6);
+			playerCollider->SetPos(position.x + 1, position.y - 3);
 		
 		//DEBUG FUNCTIONALITIES -------------------------------------------------------------------------------------------------
 
@@ -438,14 +438,14 @@ update_status ModulePlayer::Update()
 			{
 				this->playerCollider->to_delete = true;
 				playerCollider = nullptr;
-				playerCollider = App->collision->AddCollider({ position.x, position.y - 6, 32, 12 }, COLLIDER_PLAYER_GOD, this);
+				playerCollider = App->collision->AddCollider({ position.x + 1, position.y - 3, 28, 6 }, COLLIDER_PLAYER_GOD, this);
 				godMode = true;
 			}
 			else
 			{
 				this->playerCollider->to_delete = true;
 				playerCollider = nullptr;
-				playerCollider = App->collision->AddCollider({ position.x, position.y - 6, 32, 12 }, COLLIDER_PLAYER, this);
+				playerCollider = App->collision->AddCollider({ position.x + 1, position.y - 3, 28, 6 }, COLLIDER_PLAYER, this);
 				godMode = false;
 			}
 		}
