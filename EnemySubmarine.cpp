@@ -683,6 +683,11 @@ void EnemySubmarine::Draw()
 			missileLauncher.throwEnemy = true;
 			LOG("throwing enemy MISSILES");
 			missileLauncher.readyToEject = false;
+			// instantiate missiles
+			App->enemies->AddEnemy(HOMINGMISSILE, position.x + 8 + missileLauncher.position.x, position.y + missileLauncher.position.y, NONE);
+			App->enemies->AddEnemy(HOMINGMISSILE, position.x + 24 + missileLauncher.position.x, position.y + missileLauncher.position.y, NONE);
+			App->enemies->AddEnemy(HOMINGMISSILE, position.x + 40 + missileLauncher.position.x, position.y + missileLauncher.position.y, NONE);
+			App->enemies->AddEnemy(HOMINGMISSILE, position.x + 56 + missileLauncher.position.x, position.y + missileLauncher.position.y, NONE);
 		}
 
 		// swap damage/normal sprites

@@ -14,7 +14,7 @@ EnemyHomingMissile::EnemyHomingMissile(int x, int y, powerUpTypes type, SDL_Text
 	// Enemy data
 	life = 1;
 	// -----------------------------------------
-	// full angles animation
+	// HOMING MISSILE full angles animation
 	missile.anim[0].PushBack({ 0,0,12,8 });  // pointing left cycle - pi radians - 180 degrees
 	missile.anim[0].PushBack({ 13,0,16,8 }); 
 	
@@ -66,6 +66,17 @@ EnemyHomingMissile::EnemyHomingMissile(int x, int y, powerUpTypes type, SDL_Text
 	for (int i = 0; i < 16; ++i)
 		missile.anim[i].speed = 0.50f;
 
+	// WATER SPLASH animation --------------------------
+	waterSplash.PushBack({ 1,126,11,4 });
+	waterSplash.PushBack({ 14,105,16,25 });
+	waterSplash.PushBack({ 30,99,16,31 });
+	waterSplash.PushBack({ 47,98,16,32 });
+	waterSplash.PushBack({ 64,98,16,32 });
+	waterSplash.PushBack({ 81,99,16,31 });
+	waterSplash.PushBack({ 99,101,15,29 });
+	waterSplash.PushBack({ 116,104,16,26 });
+	waterSplash.speed = 0.25f;
+	waterSplash.repeat = false;
 	
 
 	animation = &missile.anim[4]; //links animation
@@ -112,6 +123,12 @@ EnemyHomingMissile::EnemyHomingMissile(int x, int y, powerUpTypes type, SDL_Text
 
 	// initial timers
 	missile.start_cycle_time = SDL_GetTicks();
+
+	// check if the missile is instantiated underWater
+	if (missile.fposition.y > waterLevel)
+	{
+		underWater = true;
+	}
 	
 	
 	
@@ -169,13 +186,51 @@ void EnemyHomingMissile::Draw()
 	{
 		chaseThePlayer();
 		assignAnim();
+		
+		if (underWater)
+		{
+			underWaterSplash();
+		}
 	}
 
-		//missile.current_animation = missile.current_animation->GetCurrentFrame();
-		missile.rect = missile.current_animation->GetCurrentFrame();//missile.anim.frames[(int)missile.anim.current_frame];
-		//missile.rect = missile.current_animation->frames[(int)missile.current_animation->current_frame];
+	
+	// MISSILE animation draw -------------------------------------------------------
 
+	missile.rect = missile.current_animation->GetCurrentFrame();
+	
 	App->render->Blit(enemyTex, position.x - pivotAnimation[pivotIndex+(int)missile.current_animation->current_frame].x, position.y, &missile.rect);
+
+	// ------------------------------------------------------------------------------
+	// water splash animation
+
+	if (waterSplashing)
+	{
+		waterRect = waterSplash.GetCurrentFrame();
+
+		// follow foreground water speed
+		followTheFlow += 0.5f;
+		waterContactPosition = followTheFlow;
+
+		App->render->Blit(enemyTex, waterContactPosition - 10, waterLevel - waterRect.h, &waterRect);
+
+		if (waterSplash.finish)
+			waterSplashing = false;
+	}
+	// -------------------------------------------------------------------------------
+
+}
+
+void EnemyHomingMissile::underWaterSplash()
+{
+
+	if (position.y < waterLevel)
+	{
+		waterContactPosition = position.x;
+		followTheFlow = waterContactPosition;
+		underWater = false;
+		waterSplashing = true;
+	}
+
 }
 
 void EnemyHomingMissile::assignAnim()

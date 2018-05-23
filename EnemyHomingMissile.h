@@ -29,7 +29,7 @@ private:
 		Uint32 start_cycle_time;
 		Uint32 now_alive_time;
 		Uint32 search_life_time = 5000; // time wich missile is chasing the player
-		Uint32 instantiate_time = 500; // time wich missile waits to start searching the player
+		Uint32 instantiate_time = 350; // time wich missile waits to start searching the player
 	};
 
 	iPoint pivotAnimation[32] = { 
@@ -48,6 +48,14 @@ private:
 
 	float decX = 0.10f;//0.05f;
 	float decY = 0.10f;//0.03f;
+
+	Animation waterSplash;
+	SDL_Rect waterRect;
+	bool underWater = false;
+	bool waterSplashing = false;
+	int waterLevel = 185;  // height of where the level of the water is
+	int waterContactPosition;
+	float followTheFlow; // for follow foreground speed on the instantiated waterSplash
 	
 
 public:
@@ -58,6 +66,7 @@ public:
 	void Draw();
 	void chaseThePlayer();
 	void assignAnim();
+	void underWaterSplash();
 
 	projectile missile;
 
