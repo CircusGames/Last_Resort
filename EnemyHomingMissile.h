@@ -61,7 +61,7 @@ public:
 
 	projectile missile;
 
-	int scrollSpeed = 0.5; // foreground speed, 0.5 for the timer before homing is activated
+	int scrollSpeed = 0; // foreground speed, 0.5 for the timer before homing is activated
 	int pivotIndex = 0;
 };
 

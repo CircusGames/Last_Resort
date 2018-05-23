@@ -64,6 +64,21 @@ ModuleEnemies::ModuleEnemies()
 	tankSmallShot.damage = 1;
 	tankSmallShot.life = 1500;
 	// ----------------------------
+
+	// HOMING MISSILE EXPLOSION
+	homingExplosion.anim.PushBack({5,40,21,19});
+	homingExplosion.anim.PushBack({ 32,35,27,27 });
+	homingExplosion.anim.PushBack({ 65,35,30,30 });
+	homingExplosion.anim.PushBack({ 103,35,32,31 });
+	homingExplosion.anim.PushBack({ 143,35,28,31 });
+	homingExplosion.anim.PushBack({ 177,35,31,31 });
+	homingExplosion.anim.PushBack({ 4,66,31,31 });
+	homingExplosion.anim.PushBack({ 39,66,30,31 });
+	homingExplosion.anim.PushBack({ 75,66,31,29 });
+	homingExplosion.anim.PushBack({ 112,66,29,27 });
+	homingExplosion.anim.speed = 0.25f;
+	homingExplosion.anim.repeat = false;
+
 	// -----------------------------------------------------
 }
 
@@ -97,6 +112,8 @@ bool ModuleEnemies::Start()
 	//TANK shot particles
 	tankBigShot.texture = enemyTankTexture;
 	tankSmallShot.texture = enemyTankTexture;
+	// HOMING missile particle to texture link
+	homingExplosion.texture = enemyHomingMissileTexture;
 	// -------------------------------------------------------------------------------------
 	// AUDIO FX ----------------------------------------------------------------------------
 	App->audio->LoadAudio("assets/Audio/SFX/enemies/Enemy_Explosion.wav", "EnemyDeath", SFX);

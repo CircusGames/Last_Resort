@@ -10,6 +10,9 @@ EnemyHomingMissile::EnemyHomingMissile(int x, int y, powerUpTypes type, SDL_Text
 {
 	//links the correct spritesheet texture ----
 	enemyTex = thisTexture;
+	enemyType = HOMINGMISSILE;
+	// Enemy data
+	life = 1;
 	// -----------------------------------------
 	// full angles animation
 	missile.anim[0].PushBack({ 0,0,12,8 });  // pointing left cycle - pi radians - 180 degrees
@@ -61,7 +64,7 @@ EnemyHomingMissile::EnemyHomingMissile(int x, int y, powerUpTypes type, SDL_Text
 	missile.anim[15].PushBack({ 171,23,14,10 });
 
 	for (int i = 0; i < 16; ++i)
-		missile.anim[i].speed = 0.10f;
+		missile.anim[i].speed = 0.50f;
 
 	
 

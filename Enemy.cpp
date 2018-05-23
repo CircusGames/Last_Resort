@@ -37,6 +37,11 @@ Enemy::~Enemy()
 			App->particles->AddParticle(App->particles->explosion, position.x, position.y, COLLIDER_NONE);
 			App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPILOT, position.x, position.y, NONE);
 		}
+
+		if (enemyType == HOMINGMISSILE)
+		{
+			App->particles->AddParticle(App->enemies->homingExplosion, position.x, position.y, COLLIDER_NONE);
+		}
 	}
 	
 	
