@@ -16,6 +16,7 @@ private:
 	bool jumping = true;
 	bool shoot = false;
 	bool spawn = false;
+	bool bullet = true;
 
 	bool left = true;
 	bool right = true;
@@ -39,8 +40,8 @@ private:
 
 	Animation spawnAnim;
 
-	Animation* currentAnimation;
-	Animation* currentShootAnim;
+	Animation* currentAnimation = nullptr;
+	Animation* currentShootAnim = nullptr;
 
 	SDL_Rect diverRect;
 	SDL_Rect shootRect;

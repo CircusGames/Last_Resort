@@ -91,7 +91,8 @@ public:
 	Particle tankBigShot;
 	Particle tankSmallShot;
 	Particle homingExplosion;
-	Particle diverBeam;
+	Particle diverBeamLeft;
+	Particle diverBeamRight;
 private:
 
 	void SpawnEnemy(EnemyInfo& info);// , powerUpTypes powerUpType = powerUpTypes::NONE, SDL_Texture* texture = nullptr);

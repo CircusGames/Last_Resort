@@ -82,11 +82,15 @@ ModuleEnemies::ModuleEnemies()
 	// -----------------------------------------------------
 
 	// DIVER LASER BEAMS
-	diverBeam.anim.PushBack({ 0, 5, 24, 7 });
-	diverBeam.anim.PushBack({ 28, 5, 48, 7 });
-	diverBeam.anim.speed = 0.2f;
-	diverBeam.damage = 1;
-	diverBeam.life = 1500;
+	diverBeamLeft.anim.PushBack({ 0, 0, 48, 7 });
+	diverBeamLeft.anim.PushBack({ 48, 0, 48, 7 });
+
+	diverBeamRight.anim.PushBack({ 0, 0, -48, 7 });
+	diverBeamRight.anim.PushBack({ 48, 0, -48, 7 });
+
+	diverBeamLeft.anim.speed = diverBeamRight.anim.speed = 0.2f;
+	diverBeamLeft.damage = diverBeamRight.damage = 1;
+	diverBeamLeft.damage = diverBeamRight.damage = 1500;
 }
 
 // Destructor
@@ -119,7 +123,7 @@ bool ModuleEnemies::Start()
 	beeBullet.texture = beeBulletTexture; //link texture to particle
 
 	enemyDiverBeamTexture = App->textures->Load("assets/Graphics/Enemies/Level_3/diverShot.png");
-	diverBeam.texture = enemyDiverBeamTexture;
+	diverBeamLeft.texture = diverBeamRight.texture = enemyDiverBeamTexture;
 
 	//TANK shot particles
 	tankBigShot.texture = enemyTankTexture;

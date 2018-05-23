@@ -127,11 +127,14 @@ void EnemyDiver::Draw()
 		clock = false;
 
 	//shoot anim timer
-	if (currentAnimation->current_frame > 2)
+	if ((currentAnimation->current_frame > 2)&&!shoot)
 		shoot = true;
 
 	if (currentShootAnim->finish)
+	{
 		shoot = false;
+		bullet = true;
+	}
 
 	//spawn timer
 	if (position.y > 88)
@@ -201,26 +204,33 @@ void EnemyDiver::Draw()
 	shootRect = currentShootAnim->GetCurrentFrame();
 	spawnRect = spawnAnim.GetCurrentFrame();
 
-	if (shoot)
+	if (shoot && bullet)
 	{
 		if (left)
-			App->particles->AddParticle(App->enemies->diverBeam, position.x - 31, position.y + 18, COLLIDER_ENEMY_SHOT, { -1, 0 });
+			App->particles->AddParticle(App->enemies->diverBeamLeft, position.x - 11, position.y + 23, COLLIDER_ENEMY_SHOT, { -1, 0 });
 
 		if (right)
-			App->particles->AddParticle(App->enemies->diverBeam, position.x + 33, position.y + 18, COLLIDER_ENEMY_SHOT, { 1, 0 });
+			App->particles->AddParticle(App->enemies->diverBeamRight, position.x + 13, position.y + 23, COLLIDER_ENEMY_SHOT, { 2, 0 });
+
+		bullet = false;
 	}
 
 	App->render->Blit(enemyTex, position.x, position.y, &diverRect);
-	
+
 	if(spawn)
 		App->render->Blit(enemyTex, position.x - 22, 88, &spawnRect);
 
-	if (shoot)
+	if (shoot )
 	{
 		if (left)
 			App->render->Blit(enemyTex, position.x - 31, position.y + 18, &shootRect); //32
 
 		else if (right)
 			App->render->Blit(enemyTex, position.x + 33, position.y + 18, &shootRect);
+
+		
 	}
+
+	
+
 }
