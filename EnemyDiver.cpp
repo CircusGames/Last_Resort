@@ -140,35 +140,87 @@ void EnemyDiver::Draw()
 	if (position.y > 88)
 		spawn = true;
 
-	//update animations
+	//update animations --------------------------------------------------------
+
+	// check if we are not in jump state (spawn state?)
 	if (!jumping)
+	{	// permits the pivot check only if the current animation condition is true (only idle)
+		if (currentAnimation->repeat == true) 
+		{
+			if (pivot < position.x) left = true;
+			else left = false;
+		}
+	}
+	// movement
+	if (left)
 	{
-		if (pivot < position.x) //Left
+		if (clock) currentAnimation = &animLeft;
+		else 
+			currentAnimation = &idleLeft;
+	}
+	else
+	{
+		if (clock) currentAnimation = &animRight;
+		else
+			currentAnimation = &idleRight;
+	}
+	// shot animation
+	if (shoot)
+	{
+		if(left)
+			currentShootAnim = &shootLeft;
+		else
+			currentShootAnim = &shootRight;
+	}
+	else
+	{
+		currentShootAnim->finish = false;
+		currentShootAnim->current_frame = 0;
+	}
+	// resets "movement animations"
+	if (currentAnimation->finish)
+	{
+		startTime = SDL_GetTicks();
+		currentAnimation->finish = false;
+		currentAnimation->current_frame = 0;
+	}
+	// ----------------------------------------------------------------------------	
+
+
+		/*if (pivot < position.x) //Left
 		{
 			left = true;
 			right = false;
-			currentAnimation = &idleLeft;
+		
+				currentAnimation = &idleLeft;
 
-			if (clock)
-			{
-				currentAnimation = &animLeft;
+				if (clock)
+				{
+					currentAnimation = &animLeft;
+					//currentStateAnim = true;
+
+					if (shoot)
+					{
+						currentShootAnim = &shootLeft;
+					}
+
+					else
+					{
+						currentShootAnim->finish = false;
+						currentShootAnim->current_frame = 0;
+						//currentStateAnim = false;
+					}
+
+					if (animLeft.finish)
+					{
+						startTime = SDL_GetTicks();
+						animLeft.finish = false;
+						animLeft.current_frame = 0;
+						//currentStateAnim = false;
+					}
+				}
 			
-				if (shoot)
-					currentShootAnim = &shootLeft;
-
-				else
-				{
-					currentShootAnim->finish = false;
-					currentShootAnim->current_frame = 0;
-				}
-
-				if (animLeft.finish)
-				{
-					startTime = SDL_GetTicks();
-					animLeft.finish = false;
-					animLeft.current_frame = 0;
-				}
-			}
+			
 		}
 
 		else if (pivot > position.x) //Right
@@ -181,13 +233,18 @@ void EnemyDiver::Draw()
 			{
 					currentAnimation = &animRight;
 				
-				if (shoot)
-					currentShootAnim = &shootRight;
+					if (shoot)
+					{
+						currentShootAnim = &shootRight;
+						//currentStateAnim = true;
+					}
 
 				else
 				{
 					currentShootAnim->finish = false;
 					currentShootAnim->current_frame = 0;
+					//currentStateAnim = false;
+
 				}
 
 				if (animRight.finish)
@@ -195,21 +252,24 @@ void EnemyDiver::Draw()
 					startTime = SDL_GetTicks();
 					animRight.finish = false;
 					animRight.current_frame = 0;
+					//currentStateAnim = false;
 				}
 			}
 		}
-	}
+	}*/
 
 	diverRect = currentAnimation->GetCurrentFrame();
 	shootRect = currentShootAnim->GetCurrentFrame();
 	spawnRect = spawnAnim.GetCurrentFrame();
+
+	currentStepAnim = currentAnimation;
 
 	if (shoot && bullet)
 	{
 		if (left)
 			App->particles->AddParticle(App->enemies->diverBeamLeft, position.x - 11, position.y + 23, COLLIDER_ENEMY_SHOT, { -1, 0 });
 
-		if (right)
+		if (!left)
 			App->particles->AddParticle(App->enemies->diverBeamRight, position.x + 13, position.y + 23, COLLIDER_ENEMY_SHOT, { 2, 0 });
 
 		bullet = false;

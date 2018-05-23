@@ -49,6 +49,9 @@ private:
 
 	iPoint originalPos;
 
+	Animation* currentStepAnim = nullptr;
+	//bool currentStateAnim = false;
+
 public:
 
 	EnemyDiver(int x, int y, powerUpTypes type, SDL_Texture* thisTexture = nullptr);
