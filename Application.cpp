@@ -30,7 +30,7 @@ Application::Application()
 {
 	int i = 0;
 	modules[i++] = window = new ModuleWindow();
-	//modules[i++] = render = new ModuleRender();
+	
 	modules[i++] = input = new ModuleInput();
 	modules[i++] = textures = new ModuleTextures();
 	modules[i++] = teamLogo = new ModuleTeamLogo();
@@ -52,12 +52,15 @@ Application::Application()
 	modules[i++] = playerUnit[1] = new ModulePlayerUnit();
 
 	modules[i++] = particles = new ModuleParticles();
-	modules[i++] = collision = new ModuleCollision();
+	//modules[i++] = render = new ModuleRender();
+	//modules[i++] = collision = new ModuleCollision();
 
 	modules[i++] = render = new ModuleRender();
 	modules[i++] = audio = new ModuleAudio();
 	modules[i++] = moduleUI = new ModuleUI();
 	modules[i++] = fade = new ModuleFadeToBlack();
+
+	modules[i++] = collision = new ModuleCollision();
 	
 	
 
@@ -132,7 +135,7 @@ bool Application::CleanUp()
 	for(int i = NUM_MODULES - 1; i >= 0 && ret == true; --i)
 		ret = modules[i]->CleanUp();
 
-	App->collision->CleanUp(); // individual cleanup when all modules are cleanedUp when exits gameLoop
+	//App->collision->CleanUp(); // individual cleanup when all modules are cleanedUp when exits gameLoop
 	//App->render->CleanUp();
 
 	return ret;

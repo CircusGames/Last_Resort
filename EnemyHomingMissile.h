@@ -11,12 +11,12 @@ private:
 	
 	struct projectile
 	{
-		Animation anim;
+		Animation anim[16];
 		Animation* current_animation;
 		SDL_Rect rect;
 		uint playerTargetIndex = 0;
 		bool targetReached = false;
-		float angle;
+		//float angle;
 		float distance;
 		iPoint position;
 		fPoint fposition;
@@ -24,7 +24,6 @@ private:
 		float ySpeed;
 		float targetSpeedX;
 		float targetSpeedY;
-		bool xflip = false;
 		bool searching = false;
 		// timer for destroy
 		Uint32 start_cycle_time;
@@ -33,12 +32,19 @@ private:
 		Uint32 instantiate_time = 500; // time wich missile waits to start searching the player
 	};
 
-	iPoint pivotAnimation[16] = {};
+	iPoint pivotAnimation[32] = { 
+		{ 0,0 },{ 0,0 },{ 0,0 },{ 0,0 },{ 0,0 },{ 0,0 },{ 0,0 },{ 0,0 },{ 0,0 },{ 0,0 },
+		{ 0,0 },{ 3,0 },{ 2,0 },{ 5,0 },{ 3,0 },{6,0},{ 3,0 },{ 8,0 },//{ 20,0 },
+
+		{ 0,0 },{ 0,0 },{ 0,0 },{ 0,0 },{ 0,0 },{ 0,0 },{ 0,0 },{ 0,0 },
+		{ 0,0 },{ 3,0 },{ 2,0 },{ 5,0 },{ 3,0 },{ 6,0 }
+	
+	};
 
 	float initialSpeed = 1.0f;
 	float projectileSpeed = 2.0f;
 
-	float turnAroundSpeed = 1.5f;
+	float turnAroundSpeed = 2.0f;
 
 	float decX = 0.10f;//0.05f;
 	float decY = 0.10f;//0.03f;
@@ -51,10 +57,12 @@ public:
 	void Move();
 	void Draw();
 	void chaseThePlayer();
+	void assignAnim();
 
 	projectile missile;
 
-	int scrollSpeed = 0.5; // foreground speed
+	int scrollSpeed = 0.5; // foreground speed, 0.5 for the timer before homing is activated
+	int pivotIndex = 0;
 };
 
 #endif // __ENEMYHOMINGMISSILE_H__
