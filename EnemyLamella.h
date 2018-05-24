@@ -41,7 +41,7 @@ private:
 	Animation moveAnim;
 	Animation despawnAnim;
 
-	Animation* currentAnimation;
+	Animation* currentAnimation = nullptr;
 
 	iPoint originalPos;
 

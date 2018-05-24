@@ -115,7 +115,7 @@ bool ModuleSceneLvl3::Start()
 	
 	//load needed audios
 	App->audio->LoadAudio("assets/Audio/Music/song_level_3.ogg", "song_lvl3", MUSIC);
-	App->audio->ControlAudio("song_lvl3", MUSIC, FADEIN, -1, 1500.0f);
+	//App->audio->ControlAudio("song_lvl3", MUSIC, FADEIN, -1, 1500.0f);
 
 	//boss background fade values
 	faded = false;
@@ -301,10 +301,10 @@ bool ModuleSceneLvl3::CleanUp()
 void ModuleSceneLvl3::addEnemiesToLvl3()
 {
 	// first ADD submarine ( for draw circunstances )
-	App->enemies->AddEnemy(ENEMY_TYPES::SUBMARINE, 0, 60, NONE);
+	//App->enemies->AddEnemy(ENEMY_TYPES::SUBMARINE, 0, 60, NONE);
 
 	//First Wave
-	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 300, 35, NONE);
+	/*App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 300, 35, NONE);
 	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 300, 90, NONE);
 	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 342, 35, NONE);
 	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 342, 90, NONE);
@@ -346,7 +346,7 @@ void ModuleSceneLvl3::addEnemiesToLvl3()
 	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 9210, 45, NONE);
 	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 9240, 45, NONE);
 	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 9270, 45, NONE);
-	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 9300, 45, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 9300, 45, NONE);*/
 	//-----------------------------------------------------------
 
 	// Enemy POWERUP BEE
@@ -482,7 +482,7 @@ void ModuleSceneLvl3::addEnemiesToLvl3()
 	//--------------------------------------------------------------------
 
 	// Enemy Lamella
-	App->enemies->AddEnemy(ENEMY_TYPES::LAMELLA, 200, 80, NONE);
+	//App->enemies->AddEnemy(ENEMY_TYPES::LAMELLA, 200, 80, NONE);
 	//App->enemies->AddEnemy(ENEMY_TYPES::LAMELLA, 0, 80, NONE);
 
 	//Enemy Diver
