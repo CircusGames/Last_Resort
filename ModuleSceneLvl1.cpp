@@ -1080,9 +1080,11 @@ void ModuleSceneLvl1::spawnEnemies(int x, int y)
 	if (App->input->keyboard[SDL_SCANCODE_3] == KEY_REPEAT)
 	{
 		//for now calculated center position manually, until fix it (access to animation frame)
-		positionX -= 157 / 2;
-		positionY -= 64 / 2;
-		App->enemies->AddEnemy(ENEMY_TYPES::TANK, positionX, positionY, NONE);
+		//positionX -= 157 / 2;
+		//positionY -= 64 / 2;
+		positionX -= 30 / 2;
+		positionY -= 30 / 2;
+		App->enemies->AddEnemy(ENEMY_TYPES::LAMELLA, positionX, positionY, NONE); // tank
 	}
 	if (App->input->keyboard[SDL_SCANCODE_4] == KEY_REPEAT)
 	{
