@@ -695,6 +695,8 @@ void EnemySubmarine::Draw()
 			ejectionHatch.throwEnemy = true;
 			LOG("throwing enemy");
 			ejectionHatch.readyToEject = false;
+			// eject enemy Divers!
+			launchDiver = true;
 		}
 		// ------
 
@@ -724,6 +726,11 @@ void EnemySubmarine::Draw()
 
 		App->render->Blit(enemyTex, position.x + ejectionHatch.position.x, position.y + ejectionHatch.position.y, &ejectionHatch.rect);
 
+		if ((int)ejectionHatch.current_frame == 3 && launchDiver)
+		{
+			App->enemies->AddEnemy(DIVER, position.x + ejectionHatch.position.x + 20, position.y - 12 + ejectionHatch.position.y, NONE);
+			launchDiver = false;
+		}
 	}
 	// ---------------------------------------------------------------------
 

@@ -67,7 +67,7 @@ public:
 	
 	iPoint position;
 
-	Animation* current_animation;
+	Animation* current_animation = nullptr;
 
 	Animation playerAnim;
 	Animation spawnAnim;
@@ -90,7 +90,7 @@ public:
 	const float boostPlayerSpeed = 2.0f;
 	const float brakePlayerSpeed = 0.9f;
 
-	Collider* playerCollider;
+	Collider* playerCollider = nullptr;
 	bool godMode = false;
 
 	int cameraPosition;
@@ -101,7 +101,7 @@ public:
 
 	//condition of the powerup call ---
 	powerUpTypes powerUpActive;
-	SDL_Texture* powerUpTextures;
+	SDL_Texture* powerUpTextures = nullptr;
 
 	struct activeBuff
 	{
@@ -122,7 +122,7 @@ public:
 
 	bool click = false;
 
-	Module* sceneCallback;
+	Module* sceneCallback = nullptr;
 
 	//public heritance for two players functionality
 	struct playerInput

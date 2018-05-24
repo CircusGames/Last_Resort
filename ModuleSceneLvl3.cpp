@@ -486,7 +486,7 @@ void ModuleSceneLvl3::addEnemiesToLvl3()
 	//App->enemies->AddEnemy(ENEMY_TYPES::LAMELLA, 10, 80, NONE);
 
 	//Enemy Diver
-	App->enemies->AddEnemy(ENEMY_TYPES::DIVER, 120, 100, NONE);
+	//App->enemies->AddEnemy(ENEMY_TYPES::DIVER, 120, 100, NONE);
 
 	//Enemy MiniTank
 	App->enemies->AddEnemy(ENEMY_TYPES::MINITANK, 4346, 141, NONE);

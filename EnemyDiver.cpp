@@ -41,20 +41,21 @@ EnemyDiver::EnemyDiver(int x, int y, powerUpTypes type, SDL_Texture* thisTexture
 		shootRight.PushBack({ 32 * i, 48, -32, 16 });
 
 	//spawn anim
-	for (int i = 0; i < 6; i++)
+	for (int i = 1; i >= 0; --i)
+		spawnAnim.PushBack({ 80 * i, 184, 80, 104 });
+	for (int i = 5; i >= 0; --i)
 		spawnAnim.PushBack({ 80 * i, 80, 80, 104 });
 
-	for (int i = 0; i < 2; i++)
-		spawnAnim.PushBack({ 80 * i, 184, 80, 104 });
+	
 
 	//features
-	animLeft.speed = animRight.speed = 0.143f;
+	animLeft.speed = animRight.speed = 0.25f;
 	animLeft.repeat = animRight.repeat = false;
 
-	shootLeft.speed = shootRight.speed = 0.143f;
+	shootLeft.speed = shootRight.speed = 0.25f;
 	shootLeft.repeat = shootRight.repeat = false;
 
-	spawnAnim.speed = 0.1f;
+	spawnAnim.speed = 0.125f;
 	spawnAnim.repeat = false;
 
 	//starting anim & shoot anim pushbacks
@@ -70,11 +71,21 @@ EnemyDiver::EnemyDiver(int x, int y, powerUpTypes type, SDL_Texture* thisTexture
 		currentShootAnim = &shootRight;
 	}
 
-	//max jump height
-	distance = 50;
-
 	originalPos.x = x;
 	originalPos.y = y;
+
+	fposition.y = originalPos.y;
+	fposition.x = originalPos.x;
+
+	// assigns jump height based on instantate y
+	//max jump height
+	if (originalPos.y > waterLevel)
+		distance = 120;
+	else
+		distance = 50;
+	// water splash spawn checker
+	if (originalPos.y > waterLevel)
+		spawn = true;
 
 	life = 3;
 	enemyScore = 200;
@@ -94,18 +105,42 @@ void EnemyDiver::Move()
 	{
 		if ((originalPos.y - position.y) >= distance)
 		{
-			jumping = false;
-			startTime = SDL_GetTicks();
+			decelerate = true;
 		}
-		else
-			position.y -= 1;
+		
+		if (decelerate)
+		{
+			jumpSpeed -= 0.07f;
+			if (jumpSpeed <= -0.5f)
+				jumping = false;
+		}
+		
+		fposition.y -= jumpSpeed;
+		position.y = fposition.y;
 	}
 
+	if (!jumping)
+	{
+		if (currentAnimation->repeat != false)
+		{
+			distance = GetNearestPlayerSqrtDistance();
+
+			xSpeed = (tx / distance)*chaseSpeed;
+			ySpeed = (ty / distance)*chaseSpeed;
+
+			fposition.x += xSpeed;
+			fposition.y += ySpeed;
+		}
+	}
+
+	fposition.x += 1;
+	position.x = fposition.x;
+	position.y = fposition.y;
 }
 
 void EnemyDiver::Draw()
 {
-	position.x += 1;
+	
 	//collider 
 	if (collider != nullptr)
 		collider->SetPos(position.x, position.y);
@@ -125,57 +160,40 @@ void EnemyDiver::Draw()
 
 	else
 		clock = false;
-
-	//shoot anim timer
-	if ((currentAnimation->current_frame > 2) && !shoot)
-		shoot = true;
-
-	if (currentShootAnim->finish)
-	{
-		shoot = false;
-		bullet = true;
-	}
-
-	//spawn timer
-	if (position.y > 88)
-		spawn = true;
+	// -----------------------------
 
 	//update animations --------------------------------------------------------
 
 	// check if we are not in jump state (spawn state?)
 	if (!jumping)
 	{	// permits the pivot check only if the current animation repeat condition is true (only idle in this case)
-		if (currentAnimation->repeat == true) 
+		if (currentAnimation->repeat == true && !shootingFlash) 
 		{
 			if (pivot < position.x) left = true;
 			else left = false;
 		}
 	}
 	// movement
-	if (left)
+	if (left && !jumping)
 	{
 		if (clock) currentAnimation = &animLeft;
 		else 
 			currentAnimation = &idleLeft;
 	}
-	else
+	else if (!left && !jumping)
 	{
 		if (clock) currentAnimation = &animRight;
 		else
 			currentAnimation = &idleRight;
 	}
 	// shot animation
-	if (shoot)
+	if (shootingFlash)
 	{
-		if(left)
+		if (left) 
 			currentShootAnim = &shootLeft;
-		else
+		else 
 			currentShootAnim = &shootRight;
-	}
-	else
-	{
-		currentShootAnim->finish = false;
-		currentShootAnim->current_frame = 0;
+			
 	}
 	// resets "movement animations"
 	if (currentAnimation->finish)
@@ -186,108 +204,19 @@ void EnemyDiver::Draw()
 	}
 	// ----------------------------------------------------------------------------	
 
-
-		/*	if (clock)
-			{
-				if (rightAnim)
-					currentAnimation = &animLeft;
-				else
-					currentAnimation = &animRight;
-			
-				if (shoot)
-					currentShootAnim = &shootLeft;*/
-
-
-		/*if (pivot < position.x) //Left
-		{
-			left = true;
-			right = false;
-		
-				currentAnimation = &idleLeft;
-
-				if (clock)
-				{
-<<<<<<< HEAD
-					currentAnimation = &animLeft;
-					//currentStateAnim = true;
-
-					if (shoot)
-					{
-						currentShootAnim = &shootLeft;
-					}
-
-					else
-					{
-						currentShootAnim->finish = false;
-						currentShootAnim->current_frame = 0;
-						//currentStateAnim = false;
-					}
-
-					if (animLeft.finish)
-					{
-						startTime = SDL_GetTicks();
-						animLeft.finish = false;
-						animLeft.current_frame = 0;
-						//currentStateAnim = false;
-					}
-=======
-					leftAnim = true;
-					startTime = SDL_GetTicks();
-					animLeft.finish = false;
-					animLeft.current_frame = 0;
->>>>>>> fd58b67c073145c00be516e2c4fd724c32988b95
-				}
-			
-			
-		}
-
-		else if (pivot > position.x) //Right
-		{
-			right = true;
-			left = false;
-
-			currentAnimation = &idleRight;
-			if (clock)
-			{
-				if(leftAnim)
-					currentAnimation = &animRight;
-				else
-					currentAnimation = &animLeft;
-					
-				
-					if (shoot)
-					{
-						currentShootAnim = &shootRight;
-						//currentStateAnim = true;
-					}
-
-				else
-				{
-					currentShootAnim->finish = false;
-					currentShootAnim->current_frame = 0;
-					//currentStateAnim = false;
-
-				}
-
-				if (animRight.finish)
-				{
-					rightAnim = true;
-					startTime = SDL_GetTicks();
-					animRight.finish = false;
-					animRight.current_frame = 0;
-					//currentStateAnim = false;
-				}
-			}
-		}
-	}*/
-
 	diverRect = currentAnimation->GetCurrentFrame();
 	shootRect = currentShootAnim->GetCurrentFrame();
 	spawnRect = spawnAnim.GetCurrentFrame();
 
-	currentStepAnim = currentAnimation;
-
-	if (shoot && bullet)
+	// ----------------------------------------------------------------------------
+	// checks correct frame for instantiate shooting effect
+	if ((int)currentAnimation->current_frame == 3 && !shootingFlash)
+	{
+		shootingFlash = true;
+		shootParticle = true;
+	}
+	
+	if (shootParticle)
 	{
 		if (left)
 			App->particles->AddParticle(App->enemies->diverBeamLeft, position.x - 11, position.y + 23, COLLIDER_ENEMY_SHOT, { -1, 0 });
@@ -295,23 +224,33 @@ void EnemyDiver::Draw()
 		if (!left)
 			App->particles->AddParticle(App->enemies->diverBeamRight, position.x + 13, position.y + 23, COLLIDER_ENEMY_SHOT, { 2, 0 });
 
-		bullet = false;
+		shootParticle = false;
 	}
 
+	// enemy draw
 	App->render->Blit(enemyTex, position.x, position.y, &diverRect);
 
-	if(spawn)
+	// water splash effect
+	if (spawn)
+	{
 		App->render->Blit(enemyTex, position.x - 22, 88, &spawnRect);
+		if (spawnAnim.finish) spawn = false;
+	}
 
-	if (shoot )
+	if (shootingFlash)
 	{
 		if (left)
-			App->render->Blit(enemyTex, position.x - 31, position.y + 18, &shootRect); //32
+			App->render->Blit(enemyTex, position.x - 25 , position.y + 19, &shootRect);
 
 		else if (!left)
-			App->render->Blit(enemyTex, position.x + 33, position.y + 18, &shootRect);
-
+			App->render->Blit(enemyTex, position.x + 27, position.y + 19, &shootRect);
 		
+		if (currentShootAnim->finish)
+		{
+			shootingFlash = false;
+			currentShootAnim->finish = false;
+			currentShootAnim->current_frame = 0;
+		}
 	}
 
 	

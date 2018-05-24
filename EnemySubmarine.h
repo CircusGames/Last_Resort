@@ -162,6 +162,8 @@ public:
 	
 	subWaves submarineWaves[NUM_WAVES];
 
+	bool launchDiver = false;
+
 };
 
 #endif // __ENEMYPROTATOR__H__
