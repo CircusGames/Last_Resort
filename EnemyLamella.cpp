@@ -19,7 +19,7 @@ EnemyLamella::EnemyLamella(int x, int y, powerUpTypes type, SDL_Texture* thisTex
 	else if (nearestTarget == P2)
 		pivot = App->player[1]->position.x;
 
-	if (pivot < position.x)
+	if (pivot > position.x)
 	{
 		//spawn animation
 		for (i = 0; i < 6; i++) // columns
@@ -60,7 +60,7 @@ EnemyLamella::EnemyLamella(int x, int y, powerUpTypes type, SDL_Texture* thisTex
 		}
 	}
 
-	else if (pivot > position.x)
+	else if (pivot < position.x)
 	{
 		//spawn animation
 		for (i = 0; i < 6; i++) // columns
@@ -102,19 +102,19 @@ EnemyLamella::EnemyLamella(int x, int y, powerUpTypes type, SDL_Texture* thisTex
 	}
 	
 	
-	spawnAnim.speed = 0.3f;
-	spawnAnim.repeat = false;
+	spawnAnim.speed = despawnAnim.speed = 0.3f;
+	spawnAnim.repeat = despawnAnim.repeat = false;
 
 	moveAnim.speed = 0.15f;
-	moveAnim.repeat = false;
-
-	despawnAnim.speed = 0.3f;
-	despawnAnim.repeat = false;
+	moveAnim.repeat = true;
 
 	currentAnimation = &spawnAnim;
 
 	originalPos.x = x;
 	originalPos.y = y;
+
+	fposition.y = originalPos.y;
+	fposition.x = originalPos.x;
 
 	life = 0; //random
 	enemyScore = 200; // random
@@ -125,43 +125,38 @@ EnemyLamella::EnemyLamella(int x, int y, powerUpTypes type, SDL_Texture* thisTex
 
 void EnemyLamella::Move()
 {
-	if(collider != nullptr)
-		collider->SetPos(position.x,position.y);
-
 	if (spawnAnim.finish)
 	{
 		currentAnimation = &moveAnim;
-		if (moveAnim.finish)
-		{
-			currentAnimation = &despawnAnim;
-			life = 0;
-		}
-			
-
-		if(collider == nullptr)
-			collider = App->collision->AddCollider({ 0, 0, 30, 30 }, COLLIDER_TYPE::COLLIDER_ENEMY, (Module*)App->enemies);
 
 		if (aimed)
 		{
 			distance = GetNearestPlayerSqrtDistance();
+			aimed = false;
 		}
+		xSpeed = (tx / distance)*chaseSpeed;
+		ySpeed = (ty / distance)*chaseSpeed;
 
-		if (despawnAnim.finish)
-		{
-			life = 0;
-		}
+		fposition.x += xSpeed;
+		fposition.y += ySpeed;
 	}
 
-	
-
-	else
-		position.x += 1;
+	fposition.x += 1;
+	position.x = fposition.x;
+	position.y = fposition.y;
 }
 
 void EnemyLamella::Draw()
 {
+	// collider
+	if (collider == nullptr)
+		collider = App->collision->AddCollider({ 0, 0, 30, 30 }, COLLIDER_TYPE::COLLIDER_ENEMY, (Module*)App->enemies);
 
+	if (collider != nullptr)
+		collider->SetPos(position.x, position.y);
+
+	//print
 	lamellaRect = currentAnimation->GetCurrentFrame();
-	App->render->Blit(enemyTex, position.x, position.y, &lamellaRect);
-
+	if(alive)
+		App->render->Blit(enemyTex, position.x, position.y, &lamellaRect);
 }

@@ -482,8 +482,8 @@ void ModuleSceneLvl3::addEnemiesToLvl3()
 	//--------------------------------------------------------------------
 
 	// Enemy Lamella
-	//App->enemies->AddEnemy(ENEMY_TYPES::LAMELLA, 200, 80, NONE);
-	//App->enemies->AddEnemy(ENEMY_TYPES::LAMELLA, 10, 80, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::LAMELLA, 200, 80, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::LAMELLA, 0, 80, NONE);
 
 	//Enemy Diver
 	//App->enemies->AddEnemy(ENEMY_TYPES::DIVER, 120, 100, NONE);

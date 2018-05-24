@@ -6,6 +6,7 @@
 
 class EnemyLamella : public Enemy
 {
+
 private:
 
 	int i, j;
@@ -13,8 +14,18 @@ private:
 	bool aimed = true;
 	bool finalPos = false;
 
+	bool alive = true;
+
+	bool left = false;
+	bool right = false;
+
 	float pivot;
 	float distance;
+
+	float xSpeed;
+	float ySpeed;
+
+	float chaseSpeed = 1.43f;
 
 	SDL_Rect lamellaRect;
 

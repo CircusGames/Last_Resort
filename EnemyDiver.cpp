@@ -252,7 +252,4 @@ void EnemyDiver::Draw()
 			currentShootAnim->current_frame = 0;
 		}
 	}
-
-	
-
 }
