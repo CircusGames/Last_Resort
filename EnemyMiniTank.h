@@ -43,14 +43,33 @@ private:
 		Animation dustAnim; // particles of wheel chains
 		Animation shotSmokeAnim; // particles when enemy shoots
 		Animation* current_animation = nullptr;
-		const int maxTravelDistance = 100;
-		int currentTraveledDistance;
-		bool travelDone = false;
-		// timers
+		// timers ---
 		Uint32 start_shot_time;
 		Uint32 now_shot_time;
 		Uint32 cadence_between_shots = 2000; // testing value
+		// travel timers --- with distance points with the scroll... meh
+		Uint32 start_travel_time;
+		Uint32 now_travel_time;
+		Uint32 time_travelling = 2000;
+		// ----------
 		float current_frame;
+		bool moveLeft = false;
+		//bool moveRight = false;
+		iPoint position;
+		fPoint fposition;
+		float xSpeed = 0.4f;
+		// travel values
+		iPoint initialTravelPosition;
+		fPoint targetTravelPosition;
+		const int maxTravelDistance = 100;
+		float currentTraveledDistance;
+		bool travelDone = false;
+		bool shoot = false;
+		SDL_Rect rect;
+		bool leftCollision = false;
+		bool rightCollision = false;
+		bool firstCollision = false;
+
 
 	};
 
@@ -61,6 +80,7 @@ public:
 	void Move();
 	void Draw();
 	void OnCollision(Collider* collider, Collider* collider2);
+	const Collider* GetCollider() const;
 
 	miniTank cartePillar;
 };

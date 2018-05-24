@@ -129,9 +129,9 @@ bool ModuleSceneLvl3::Start()
 	
 	// debug colliders
 
-	/*debugColRight = App->collision->AddCollider({300,0, 20, 300},COLLIDER_WALL, this);
+	//debugColRight = App->collision->AddCollider({300,0, 20, 300},COLLIDER_WALL, this);
 	debugColLeft = App->collision->AddCollider({ -15,0, 20, 300 }, COLLIDER_WALL, this);
-	debugColCenter = App->collision->AddCollider({ 0, 0, 50, 150 }, COLLIDER_WALL, this); //left column
+	/*debugColCenter = App->collision->AddCollider({ 0, 0, 50, 150 }, COLLIDER_WALL, this); //left column
 	//debugColCenter = App->collision->AddCollider({ 0, 0, 50, 150 }, COLLIDER_WALL, this); // right column
 	debugColumn = App->collision->AddCollider({ 0, 0, 50, 150 }, COLLIDER_WALL, this); //left column*/
 
@@ -176,7 +176,7 @@ update_status ModuleSceneLvl3::PreUpdate()
 	// update position of debug walls colliders to test bouncing functionalities
 
 	//debugColRight->SetPos(debugColRight->rect.x +1, 0);
-	//debugColLeft->SetPos(debugColLeft->rect.x + 1, 0);
+	debugColLeft->SetPos(debugColLeft->rect.x + 1, 0);
 	//debugColCenter->SetPos(debugColLeft->rect.x + 40, 180);//150, 60); // 280
 	//debugColCenter->SetPos(debugColLeft->rect.x + 280, 60);//-40);//150, 60); // 280
 	//debugColCenter->SetPos(debugColLeft->rect.x + 100, 180);//150, 60); // 280
@@ -534,7 +534,7 @@ void ModuleSceneLvl3::AddColliders()
 
 	// testing unit bouncing functionality
 
-	//sceneColliders[15] = App->collision->AddCollider({ 0,-15,15000,20 }, COLLIDER_TYPE::COLLIDER_WALL, this);
+	sceneColliders[15] = App->collision->AddCollider({ 320,100,20,200 }, COLLIDER_TYPE::COLLIDER_WALL, this);
 }
 
 void ModuleSceneLvl3::setCollidersToScenePos()
