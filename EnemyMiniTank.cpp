@@ -16,13 +16,25 @@ Enemy_MiniTank::Enemy_MiniTank(int x, int y, powerUpTypes type, SDL_Texture* thi
 	move.PushBack({ 122,11,61,48 });
 	move.speed = 0.25f;
 	
+	move2.PushBack({ 301,64,61,50 });
+	move2.PushBack({ 301,11,61,52 });
+	move2.PushBack({ 301,64,61,46 });
+	move2.PushBack({ 301,64,61,46 });
+	move2.PushBack({ 301,64,61,46 });
+	move2.PushBack({ 301,64,61,46 });
+	move2.PushBack({ 301,64,61,46 });
+	move2.speed = 0.25f;
+
 	damage.PushBack({ 0,62,61,47 });
 	damage.PushBack({ 61,61,61,48 });
 	damage.PushBack({ 122,61,61,48 });
 	damage.speed = 0.25f;
 
+	damage2.PushBack({ 363,64,61,50 });
+	damage2.PushBack({ 363,11,61,52 });
+	damage2.PushBack({ 362,64,61,46 });
+	damage2.speed = 0.25f;
 
-	//Missing Sprites of Shooting Animation
 	animation = &move;
 	shootanimation = &move2;
 	shootanimationdamage = &damage2;
@@ -31,7 +43,7 @@ Enemy_MiniTank::Enemy_MiniTank(int x, int y, powerUpTypes type, SDL_Texture* thi
 	//Path
 	path.PushBack({ -0.1f, 0.0f }, 140, &move);
 	path.PushBack({ 1.1f, 0.0f }, 130, &move);
-	path.PushBack({ 0.5f, 0.0f }, 30, &move2);
+	path.PushBack({ 0.5f, 0.0f }, 28, &move2);
 	path.PushBack({ 1.1f, 0.0f }, 10, &move);
 	path.PushBack({ -0.1f, 0.0f }, 10, &move);
 	path.PushBack({ 1.1f, 0.0f }, 10, &move);
@@ -39,12 +51,12 @@ Enemy_MiniTank::Enemy_MiniTank(int x, int y, powerUpTypes type, SDL_Texture* thi
 	path.PushBack({ 1.1f, 0.0f }, 10, &move);
 	path.PushBack({ -0.1f, 0.0f }, 10, &move);
 	path.PushBack({ 1.1f, 0.0f }, 70, &move);
-	path.PushBack({ 0.5f, 0.0f }, 30, &move2);
+	path.PushBack({ 0.5f, 0.0f }, 28, &move2);
 	path.PushBack({ 1.1f, 0.0f }, 65, &move);
 	path.PushBack({ -0.1f, 0.0f }, 10, &move);
 	path.PushBack({ 1.1f, 0.0f }, 10, &move);
 	path.PushBack({ -0.1f, 0.0f }, 100, &move);
-	path.PushBack({ 0.5f, 0.0f }, 30, &move2);
+	path.PushBack({ 0.5f, 0.0f }, 28, &move2);
 
 	collider = App->collision->AddCollider({ 0, 0, 61, 48 }, COLLIDER_TYPE::COLLIDER_ENEMY, (Module*)App->enemies);
 
@@ -82,7 +94,7 @@ Enemy_MiniTank::Enemy_MiniTank(int x, int y, powerUpTypes type, SDL_Texture* thi
 	missileexplode.PushBack({ 233,161,30,29 });
 	missileexplode.PushBack({ 264,163,29,27 });
 
-	missile.PushBack({ 184,11,10,14 });//0º
+	missile.PushBack({ 184,11,10,14 });//0º Mira hacia arriba
 	missile.PushBack({ 195,11,11,13 });//22'5º
 	missile.PushBack({ 207,11,13,13 });//45º
 	missile.PushBack({ 221,11,13,11 });//67'5º
@@ -98,6 +110,19 @@ Enemy_MiniTank::Enemy_MiniTank(int x, int y, powerUpTypes type, SDL_Texture* thi
 	missile.PushBack({ 221,26,13,11 });//292'5º
 	missile.PushBack({ 207,26,13,13 });//315º
 	missile.PushBack({ 195,26,10,14 });//337'5º
+
+	fire.PushBack({ 221,84,16,16 });
+	fire.PushBack({ 238,84,12,12 });
+	fire.PushBack({ 251,84,8,8 });
+	fire.PushBack({ 260,84,6,6 });
+	fire.speed = 0.5f;
+
+	missilesmoke.PushBack({ 314,164,13,14 });
+	missilesmoke.PushBack({ 339,164,15,14 });
+	missilesmoke.PushBack({ 366,164,16,16 });
+	missilesmoke.PushBack({ 394,164,14,16 });
+	missilesmoke.PushBack({ 420,164,15,14 });
+	missilesmoke.PushBack({ 447,164,15,14 });
 }
 
 void Enemy_MiniTank::Move()
