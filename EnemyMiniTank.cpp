@@ -252,7 +252,7 @@ const Collider* Enemy_MiniTank::GetCollider() const
 void Enemy_MiniTank::OnCollision(Collider* collider, Collider* collider2)
 {
 	// left collision detection
-	if (collider2 == cartePillar.leftCol) //&& !cartePillar.firstCollision) //&& collider->type == COLLIDER_WALL)
+	if (collider2 == cartePillar.leftCol && collider->type == COLLIDER_WALL)
 	{
 		LOG("LEFT COLLISION");
 		cartePillar.leftCollision = true;
@@ -262,7 +262,7 @@ void Enemy_MiniTank::OnCollision(Collider* collider, Collider* collider2)
 		cartePillar.fposition.x = collider->rect.x + collider->rect.w + 3; // some position trick to avoid false collisions
 	}
 	// right collision detection
-	if (collider2 == cartePillar.rightCol) //&& !cartePillar.firstCollision) //&& collider->type == COLLIDER_WALL)
+	if (collider2 == cartePillar.rightCol && collider->type == COLLIDER_WALL)
 	{
 		LOG("RIGHT COLLISION");
 		cartePillar.rightCollision = true;

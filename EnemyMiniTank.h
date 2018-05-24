@@ -61,7 +61,7 @@ private:
 		// travel values
 		iPoint initialTravelPosition;
 		fPoint targetTravelPosition;
-		const int maxTravelDistance = 100;
+		const int maxTravelDistance = 110;
 		float currentTraveledDistance;
 		bool travelDone = false;
 		bool shoot = false;

@@ -130,7 +130,7 @@ bool ModuleSceneLvl3::Start()
 	// debug colliders
 
 	//debugColRight = App->collision->AddCollider({300,0, 20, 300},COLLIDER_WALL, this);
-	debugColLeft = App->collision->AddCollider({ -15,0, 20, 300 }, COLLIDER_WALL, this);
+	//debugColLeft = App->collision->AddCollider({ -15,0, 20, 300 }, COLLIDER_WALL, this);
 	/*debugColCenter = App->collision->AddCollider({ 0, 0, 50, 150 }, COLLIDER_WALL, this); //left column
 	//debugColCenter = App->collision->AddCollider({ 0, 0, 50, 150 }, COLLIDER_WALL, this); // right column
 	debugColumn = App->collision->AddCollider({ 0, 0, 50, 150 }, COLLIDER_WALL, this); //left column*/
@@ -176,7 +176,7 @@ update_status ModuleSceneLvl3::PreUpdate()
 	// update position of debug walls colliders to test bouncing functionalities
 
 	//debugColRight->SetPos(debugColRight->rect.x +1, 0);
-	debugColLeft->SetPos(debugColLeft->rect.x + 1, 0);
+	//debugColLeft->SetPos(debugColLeft->rect.x + 1, 0);
 	//debugColCenter->SetPos(debugColLeft->rect.x + 40, 180);//150, 60); // 280
 	//debugColCenter->SetPos(debugColLeft->rect.x + 280, 60);//-40);//150, 60); // 280
 	//debugColCenter->SetPos(debugColLeft->rect.x + 100, 180);//150, 60); // 280
@@ -301,10 +301,10 @@ bool ModuleSceneLvl3::CleanUp()
 void ModuleSceneLvl3::addEnemiesToLvl3()
 {
 	// first ADD submarine ( for draw circunstances )
-	//App->enemies->AddEnemy(ENEMY_TYPES::SUBMARINE, 0, 60, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::SUBMARINE, 0, 60, NONE);
 
 	//First Wave
-	/*App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 300, 35, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 300, 35, NONE);
 	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 300, 90, NONE);
 	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 342, 35, NONE);
 	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 342, 90, NONE);
@@ -346,7 +346,7 @@ void ModuleSceneLvl3::addEnemiesToLvl3()
 	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 9210, 45, NONE);
 	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 9240, 45, NONE);
 	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 9270, 45, NONE);
-	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 9300, 45, NONE);*/
+	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 9300, 45, NONE);
 	//-----------------------------------------------------------
 
 	// Enemy POWERUP BEE
@@ -489,12 +489,15 @@ void ModuleSceneLvl3::addEnemiesToLvl3()
 	//App->enemies->AddEnemy(ENEMY_TYPES::DIVER, 120, 100, NONE);
 
 	//Enemy MiniTank
-	App->enemies->AddEnemy(ENEMY_TYPES::MINITANK, 4346, 141, NONE);
+	//App->enemies->AddEnemy(ENEMY_TYPES::MINITANK, 300, 185, NONE);
+	//App->enemies->AddEnemy(ENEMY_TYPES::MINITANK, 4346, 141, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::MINITANK, 4226, 189, NONE);
 
-	App->enemies->AddEnemy(ENEMY_TYPES::MINITANK, 5305, 141, NONE);
+	//App->enemies->AddEnemy(ENEMY_TYPES::MINITANK, 5305, 189, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::MINITANK, 5285, 189, NONE);
 
-	App->enemies->AddEnemy(ENEMY_TYPES::MINITANK, 7147, 141, NONE);
-
+	//App->enemies->AddEnemy(ENEMY_TYPES::MINITANK, 7147, 189, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::MINITANK, 7170, 189, NONE);
 	
 
 
@@ -534,7 +537,7 @@ void ModuleSceneLvl3::AddColliders()
 
 	// testing unit bouncing functionality
 
-	sceneColliders[15] = App->collision->AddCollider({ 320,100,20,200 }, COLLIDER_TYPE::COLLIDER_WALL, this);
+	//sceneColliders[15] = App->collision->AddCollider({ 320,100,20,200 }, COLLIDER_TYPE::COLLIDER_WALL, this);
 }
 
 void ModuleSceneLvl3::setCollidersToScenePos()
