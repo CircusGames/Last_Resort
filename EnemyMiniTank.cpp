@@ -81,6 +81,23 @@ Enemy_MiniTank::Enemy_MiniTank(int x, int y, powerUpTypes type, SDL_Texture* thi
 	missileexplode.PushBack({ 201,159,32,31 });
 	missileexplode.PushBack({ 233,161,30,29 });
 	missileexplode.PushBack({ 264,163,29,27 });
+
+	missile.PushBack({ 184,11,10,14 });//0º
+	missile.PushBack({ 195,11,11,13 });//22'5º
+	missile.PushBack({ 207,11,13,13 });//45º
+	missile.PushBack({ 221,11,13,11 });//67'5º
+	missile.PushBack({ 235,13,14,10 });//90º
+	missile.PushBack({ 250,11,13,11 });//112'5º
+	missile.PushBack({ 264,11,13,13 });//135º
+	missile.PushBack({ 278,11,11,13 });//157'5º
+	missile.PushBack({ 290,11,10,14 });//180º
+	missile.PushBack({ 278,26,11,13 });//202'5º
+	missile.PushBack({ 264,26,13,13 });//225º
+	missile.PushBack({ 250,26,13,11 });//247'5º
+	missile.PushBack({ 235,26,14,10 });//270º
+	missile.PushBack({ 221,26,13,11 });//292'5º
+	missile.PushBack({ 207,26,13,13 });//315º
+	missile.PushBack({ 195,26,10,14 });//337'5º
 }
 
 void Enemy_MiniTank::Move()

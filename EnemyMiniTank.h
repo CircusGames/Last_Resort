@@ -16,6 +16,7 @@ private:
 	Animation * current_animation;
 	Animation missilelaunch;
 	Animation missileexplode;
+	Animation missile;
 	Uint32 start_time;
 	Uint32 start_damage_time;
 	Uint32 nowDamagetime;
