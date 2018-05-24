@@ -120,12 +120,13 @@ EnemyLamella::EnemyLamella(int x, int y, powerUpTypes type, SDL_Texture* thisTex
 	enemyScore = 200; // random
 	powerUpType = type;
 
+	position = originalPos;
 	
 }
 
 void EnemyLamella::Move()
 {
-	if (spawnAnim.finish)
+	if (spawnAnim.finish && !targetReached)
 	{
 		currentAnimation = &moveAnim;
 
@@ -133,13 +134,56 @@ void EnemyLamella::Move()
 		{
 			distance = GetNearestPlayerSqrtDistance();
 			aimed = false;
-		}
-		xSpeed = (tx / distance)*chaseSpeed;
-		ySpeed = (ty / distance)*chaseSpeed;
 
-		fposition.x += xSpeed;
-		fposition.y += ySpeed;
+			if (nearestTarget == P1) targetPosition = App->player[0]->position;
+			else targetPosition = App->player[1]->position;
+
+			if (targetPosition.x >= position.x) toLeft = true;
+			if (targetPosition.y >= position.y) toDown = true;
+			
+			xSpeed = (tx / distance)*chaseSpeed;
+			ySpeed = (ty / distance)*chaseSpeed;
+		}
+		
+		//fposition.y += ySpeed;
+		//fposition.x += xSpeed;
+
+		if (!yTargetReached)
+		{
+			if (toDown)
+			{
+				if (position.y > targetPosition.y)
+					yTargetReached = true;
+			}
+			else
+			{
+				if (position.y < targetPosition.y)
+					yTargetReached = true;
+			}
+			fposition.y += ySpeed;
+		}
+
+		if (!xTargetReached)
+		{
+			if (toLeft)
+			{
+				if (position.x > targetPosition.x)
+					xTargetReached = true;
+
+			}
+			else
+			{
+				if (position.x < targetPosition.x)
+					xTargetReached = true;
+			}
+			
+			fposition.x += xSpeed;
+		}
+		if (xTargetReached & yTargetReached) targetReached = true;
+		
 	}
+
+	targetPosition.x += 1;
 
 	fposition.x += 1;
 	position.x = fposition.x;

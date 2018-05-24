@@ -27,6 +27,14 @@ private:
 
 	float chaseSpeed = 1.43f;
 
+	bool xTargetReached = false;
+	bool yTargetReached = false;
+	bool targetReached = false;
+
+	iPoint targetPosition;
+	bool toLeft = false;
+	bool toDown = false;
+
 	SDL_Rect lamellaRect;
 
 	Animation spawnAnim;
