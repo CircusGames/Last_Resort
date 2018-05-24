@@ -307,7 +307,7 @@ EnemySubmarine::EnemySubmarine(int x, int y, powerUpTypes type, SDL_Texture* thi
 	
 	// enemy data ----
 	powerUpType = type;
-	life = 140; // total core submarine life ( testing value, needs to be counted )
+	life = 120; // total core submarine life ( testing value, needs to be counted )
 	enemyScore = 12000;
 	// ---------------
 	//fposition.x = x;
@@ -475,7 +475,7 @@ void EnemySubmarine::goTurretsAttack()
 
 			if (submarineTurrets[i].shot)
 			{
-				if (submarineTurrets[i].distance < 160) // distance check
+				if (submarineTurrets[i].distance < 172) // distance check
 				{
 					LOG("TURRET %d SHOOT", i + 1);
 					submarineTurrets[i].shot = false;

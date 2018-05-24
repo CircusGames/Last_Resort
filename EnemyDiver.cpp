@@ -59,7 +59,7 @@ EnemyDiver::EnemyDiver(int x, int y, powerUpTypes type, SDL_Texture* thisTexture
 	spawnAnim.repeat = false;
 
 	//starting anim & shoot anim pushbacks
-	if (pivot < position.x)
+	if (pivot <= position.x) // in case of distance 0, prevail left animation
 	{
 		currentAnimation = &idleLeft;
 		currentShootAnim = &shootLeft;
@@ -87,7 +87,7 @@ EnemyDiver::EnemyDiver(int x, int y, powerUpTypes type, SDL_Texture* thisTexture
 	if (originalPos.y > waterLevel)
 		spawn = true;
 
-	life = 3;
+	life = 1;
 	enemyScore = 200;
 
 	//idle timer

@@ -30,7 +30,7 @@ Enemy::~Enemy()
 			}
 		}
 		
-		if (life <= 0) //only spawn powerup if the enemy is really death
+		if (life <= 0 && enemyType != HOMINGMISSILE) //only spawn powerup if the enemy is really death
 		{
 			App->modulePowerUp->SpawnPowerUp(position, powerUpType);
 			App->player[0]->playerScore += enemyScore;
