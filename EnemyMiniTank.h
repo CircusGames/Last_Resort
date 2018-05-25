@@ -46,7 +46,7 @@ private:
 		// timers ---
 		Uint32 start_shot_time;
 		Uint32 now_shot_time;
-		Uint32 cadence_between_shots = 2000; // testing value
+		Uint32 cadence_between_shots = 2400; // testing value
 		// travel timers --- with distance points with the scroll... meh
 		Uint32 start_travel_time;
 		Uint32 now_travel_time;

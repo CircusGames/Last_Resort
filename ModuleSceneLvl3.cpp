@@ -500,20 +500,9 @@ void ModuleSceneLvl3::addEnemiesToLvl3()
 	App->enemies->AddEnemy(ENEMY_TYPES::MINITANK, 7170, 189, NONE);
 	
 
-
-
-
-
-
 	//App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 5584, 108, NONE);
 
-
-	
-	
-
 	//App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPILOT, 500, 60, NONE);
-
-
 
 }
 
