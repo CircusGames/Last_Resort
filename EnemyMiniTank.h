@@ -5,6 +5,8 @@
 #include "Path.h"
 #include "ModuleTextures.h"
 
+#define NUM_ROCKETS 2
+
 class Enemy_MiniTank : public Enemy
 {
 private:
@@ -33,6 +35,14 @@ private:
 		DAMAGE_ANIM
 	};
 
+	struct smokeShoot
+	{
+		Animation anim;
+		SDL_Rect rect;
+		iPoint position;
+		bool playPipeSmoke = false;
+	};
+
 	struct miniTank
 	{
 
@@ -41,9 +51,9 @@ private:
 		Animation moveAnim[2]; // normal and take damage
 		Animation shootAnim[2]; // normal and take damage
 		Animation dustAnim; // particles of wheel chains
-		Animation shotSmokeAnim; // particles when enemy shoots
+		//Animation shotSmokeAnim; // particles when enemy shoots
 		Animation* current_animation = nullptr;
-		// timers ---
+		// timers ------
 		Uint32 start_shot_time;
 		Uint32 now_shot_time;
 		Uint32 cadence_between_shots = 2400; // testing value
@@ -51,6 +61,10 @@ private:
 		Uint32 start_travel_time;
 		Uint32 now_travel_time;
 		Uint32 time_travelling = 2000;
+		// damage timers ---
+		Uint32 start_damage_time;
+		Uint32 now_damage_time;
+		Uint32 duration_damage_time = 50;
 		// ----------
 		float current_frame;
 		bool moveLeft = false;
@@ -69,13 +83,17 @@ private:
 		bool leftCollision = false;
 		bool rightCollision = false;
 		bool firstCollision = false;
-
-
+		//bool playPipeSmoke = false;
+		smokeShoot pipeSmoke[NUM_ROCKETS];
+		bool takeDamage = false;
 	};
+
+	
 
 public:
 
 	Enemy_MiniTank(int x, int y, powerUpTypes type, SDL_Texture * thisTexture = nullptr);
+	~Enemy_MiniTank();
 
 	void Move();
 	void Draw();
@@ -83,6 +101,7 @@ public:
 	const Collider* GetCollider() const;
 
 	miniTank cartePillar;
+	//smokeShoot pipeSmoke[NUM_ROCKETS];
 };
 
 

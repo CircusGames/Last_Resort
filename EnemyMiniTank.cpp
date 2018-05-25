@@ -66,6 +66,8 @@ Enemy_MiniTank::Enemy_MiniTank(int x, int y, powerUpTypes type, SDL_Texture* thi
 
 	// -----------------------------------------------------------------
 	enemyTex = thisTexture; // links enemy to correct texture
+	//
+	enemyType = MINITANK;
 
 	powerUpType = type; // assigns receveid powerup
 
@@ -76,19 +78,31 @@ Enemy_MiniTank::Enemy_MiniTank(int x, int y, powerUpTypes type, SDL_Texture* thi
 
 	// animations ------------------------------------------------------------------------------
 	// 
-	// normal anim up 8 frames, 4 and 4 ---
+	// movement normal anim up 8 frames, 4 and 4 ---
 	cartePillar.moveAnim[NORMAL_ANIM].PushBack({61,11,61,48}); // wheels 1 || 4 frames
 	cartePillar.moveAnim[NORMAL_ANIM].PushBack({ 122,11,61,48 }); // wheels 2 || 4 frames
 	cartePillar.moveAnim[NORMAL_ANIM].PushBack({ 0,11,61,48 }); // wheels down || 4 frames
 	cartePillar.moveAnim[NORMAL_ANIM].speed = 0.25f;
+	// movement damage anim
+	cartePillar.moveAnim[DAMAGE_ANIM].PushBack({ 61,61,61,48 }); // wheels 1 || 4 frames
+	cartePillar.moveAnim[DAMAGE_ANIM].PushBack({ 122,61,61,48 }); // wheels 2 || 4 frames
+	cartePillar.moveAnim[DAMAGE_ANIM].PushBack({ 0,61,61,48 }); // wheels down || 4 frames
+	cartePillar.moveAnim[DAMAGE_ANIM].speed = 0.25f;
 	// ------------------------------------
-	// shooting animation ---
+	// shooting animation NORMAL ---
 	cartePillar.shootAnim[NORMAL_ANIM].PushBack({ 301,64,61,52 }); // mid up 4 frames
 	cartePillar.shootAnim[NORMAL_ANIM].PushBack({ 301,11,61,52 }); // top up 4 frames
 	for (int i = 0; i < 6; ++i)
 		cartePillar.shootAnim[NORMAL_ANIM].PushBack({ 301,117,61,52 }); // top down 24 frames
 	cartePillar.shootAnim[NORMAL_ANIM].speed = 0.25f;
 	cartePillar.shootAnim[NORMAL_ANIM].repeat = false;
+	// shooting animation DAMAGE ---
+	cartePillar.shootAnim[DAMAGE_ANIM].PushBack({ 363,64,61,52 }); // mid up 4 frames
+	cartePillar.shootAnim[DAMAGE_ANIM].PushBack({ 363,11,61,52 }); // top up 4 frames
+	for (int i = 0; i < 6; ++i)
+		cartePillar.shootAnim[DAMAGE_ANIM].PushBack({ 363,117,61,52 }); // top down 24 frames
+	cartePillar.shootAnim[DAMAGE_ANIM].speed = 0.25f;
+	cartePillar.shootAnim[DAMAGE_ANIM].repeat = false;
 	// ------------------------------------
 	// dust particles animation 4 frames per each
 	cartePillar.dustAnim.PushBack({ 184,40,4,9 });
@@ -100,6 +114,28 @@ Enemy_MiniTank::Enemy_MiniTank(int x, int y, powerUpTypes type, SDL_Texture* thi
 	cartePillar.dustAnim.PushBack({ 280,40,6,10 });
 	cartePillar.dustAnim.speed = 0.25f;
 	// ------------------------------------
+	// PIPE smoke animation when shoots 8 frames each
+	for (uint i = 0; i < NUM_ROCKETS; ++i)
+	{
+		cartePillar.pipeSmoke[i].anim.PushBack({ 0,110,21,16 });
+		cartePillar.pipeSmoke[i].anim.PushBack({ 22,110,21,24 });
+		cartePillar.pipeSmoke[i].anim.PushBack({ 44,110,27,29 });
+		cartePillar.pipeSmoke[i].anim.PushBack({ 72,110,28,31 });
+		cartePillar.pipeSmoke[i].anim.PushBack({ 101,110,32,32 });
+		cartePillar.pipeSmoke[i].anim.PushBack({ 134,110,31,32 });
+		cartePillar.pipeSmoke[i].anim.PushBack({ 166,110,30,32 });
+		cartePillar.pipeSmoke[i].anim.PushBack({ 197,110,29,31 });
+		cartePillar.pipeSmoke[i].anim.PushBack({ 227,110,29,30 });
+		cartePillar.pipeSmoke[i].anim.PushBack({ 258,110,36,30 });
+		cartePillar.pipeSmoke[i].anim.PushBack({ 0,143,30,28 });
+		cartePillar.pipeSmoke[i].anim.PushBack({ 31,143,17,20 });
+
+		cartePillar.pipeSmoke[i].anim.PushBack({ 55,143,18,10 });
+		cartePillar.pipeSmoke[i].anim.speed = 0.125f;
+		cartePillar.pipeSmoke[i].anim.repeat = false;
+	}
+	cartePillar.pipeSmoke[0].position = { 20,-42 };
+	cartePillar.pipeSmoke[1].position = { 30,-50 };
 	// ------------------------------------------------------------------------------------------
 	// needed values ----------------------
 	// set the initial direction of movement
@@ -203,6 +239,7 @@ void Enemy_MiniTank::Move()
 	if (cartePillar.now_shot_time > cartePillar.cadence_between_shots)
 	{
 		cartePillar.shoot = true;
+		//cartePillar.playPipeSmoke = true;
 	}
 
 
@@ -219,13 +256,29 @@ void Enemy_MiniTank::Move()
 
 void Enemy_MiniTank::Draw()
 {
-
+	// check if we are on shoot condition
 	if (cartePillar.shoot)
 	{
 		cartePillar.current_animation = cartePillar.shootAnim;
 	}
 	else
 		cartePillar.current_animation = cartePillar.moveAnim;
+
+	// timer for damage animation
+	cartePillar.now_damage_time = SDL_GetTicks() - cartePillar.start_damage_time;
+	if (cartePillar.now_damage_time > cartePillar.duration_damage_time && cartePillar.takeDamage)
+	{
+		cartePillar.takeDamage = false;
+		cartePillar.current_animation = &cartePillar.current_animation[NORMAL_ANIM];
+		cartePillar.current_animation->current_frame = cartePillar.current_frame;
+
+	}
+	// check if we are taken damage and swaps
+	if (cartePillar.takeDamage)
+	{
+		cartePillar.current_animation = &cartePillar.current_animation[DAMAGE_ANIM];
+		cartePillar.current_animation->current_frame = cartePillar.current_frame;
+	}
 
 	// checks if the shoot anim is finish and swaps
 	if (cartePillar.shootAnim->finish)
@@ -238,10 +291,48 @@ void Enemy_MiniTank::Draw()
 		cartePillar.shootAnim->finish = false;
 	}
 
+	// DRAW's ---------------------------------------------------------------------------------------------
+	// draw dust particles while cartepillar is moving
+	if (!cartePillar.shoot)
+	{
+		if (cartePillar.moveLeft)
+			App->render->Blit(enemyTex, position.x - 7, position.y - 10, &cartePillar.dustAnim.GetCurrentFrame());
+		else
+			App->render->Blit(enemyTex, position.x + 61, position.y - 10, &cartePillar.dustAnim.GetCurrentFrame());
+	}
+
+	// draw cartepillar body
 	cartePillar.rect = cartePillar.current_animation->GetCurrentFrame();
+	// stores last current frame for swap damage/normal animations
+	cartePillar.current_frame = cartePillar.current_animation->current_frame;
 
 	App->render->Blit(enemyTex, position.x, position.y - cartePillar.rect.h, &cartePillar.rect);
-	
+
+	// Pipe smoke when shoots - first check the shooting animation current frame to instantiate effect on correct timing
+	if (cartePillar.shootAnim->current_frame > 2 && !cartePillar.pipeSmoke[0].playPipeSmoke) // first shot
+		cartePillar.pipeSmoke[0].playPipeSmoke = true;
+	if (cartePillar.shootAnim->current_frame > 4 && !cartePillar.pipeSmoke[1].playPipeSmoke) // first shot
+		cartePillar.pipeSmoke[1].playPipeSmoke = true;
+	// ----
+	for (uint i = 0; i < NUM_ROCKETS; ++i)
+	{
+		if (cartePillar.pipeSmoke[i].playPipeSmoke) // first pipe smoke shot
+		{
+			cartePillar.rect = cartePillar.pipeSmoke[i].anim.GetCurrentFrame();
+
+			App->render->Blit(enemyTex, position.x + cartePillar.pipeSmoke[i].position.x, 
+				position.y - cartePillar.rect.h + cartePillar.pipeSmoke[i].position.y, &cartePillar.rect);
+		}
+		// resets pipe smoke animation when finish
+		if (cartePillar.pipeSmoke[i].anim.finish)
+		{
+			cartePillar.pipeSmoke[i].anim.finish = false;
+			cartePillar.pipeSmoke[i].anim.current_frame = 0;
+			cartePillar.pipeSmoke[i].playPipeSmoke = false;
+		}
+	}
+
+	// ------------------------------------------------------------------------------------------------------
 }
 
 const Collider* Enemy_MiniTank::GetCollider() const
@@ -272,6 +363,38 @@ void Enemy_MiniTank::OnCollision(Collider* collider, Collider* collider2)
 		cartePillar.fposition.x = collider->rect.x - 64; // some position trick to avoid false collisions
 	}
 
+	// damage detection -------------------------------------
+	if (readyToRumble && collider->type == COLLIDER_UNIT) // if the collider is the Unit and is ready to already take damage of it
+	{
+		life -= collider->damage; // substract collider unit charged/normal damage
+		cartePillar.takeDamage = true;
+		cartePillar.start_damage_time = SDL_GetTicks();
+
+	}
+	else if (collider->type != COLLIDER_UNIT)
+	{
+		//life -= collider->damage;
+		cartePillar.takeDamage = true;
+		cartePillar.start_damage_time = SDL_GetTicks();
+	}
+
+}
+
+Enemy_MiniTank::~Enemy_MiniTank() 
+{
+	
+	for (int i = 0; i < MAX_EXTRA_COLLIDERS; ++i)
+	{
+		if (extraColliders[i] != nullptr)
+		{
+			extraColliders[i]->to_delete = true;
+			extraColliders[i] = nullptr;
+		}
+	}
+
+	//App->player[0]->playerScore += enemyScore;
+	App->particles->AddParticle(App->particles->explosion, position.x + 30, position.y - 34, COLLIDER_NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPILOT, position.x + 30, position.y - 34, NONE);
 
 
 }
