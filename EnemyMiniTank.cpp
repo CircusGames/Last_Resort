@@ -10,30 +10,6 @@
 Enemy_MiniTank::Enemy_MiniTank(int x, int y, powerUpTypes type, SDL_Texture* thisTexture) : Enemy(x, y)
 {
 
-	//Missiles Animation
-	/*missilelaunch.PushBack({ 0,110,21,16 });
-	missilelaunch.PushBack({ 22,110,21,24 });
-	missilelaunch.PushBack({ 44,110,27,29 });
-	missilelaunch.PushBack({ 72,110,28,31 });
-	missilelaunch.PushBack({ 103,110,30,32 });
-	missilelaunch.PushBack({ 134,110,31,32 });
-	missilelaunch.PushBack({ 166,110,32,32 });
-	missilelaunch.PushBack({ 199,110,32,31 });
-	missilelaunch.PushBack({ 232,110,31,30 });
-	missilelaunch.PushBack({ 264,110,30,16 });
-	missilelaunch.PushBack({ 0,143,19,12 });
-	missilelaunch.PushBack({ 25,143,23,15 });
-
-	missileexplode.PushBack({ 0,171,23,19 });
-	missileexplode.PushBack({ 24,163,25,17 });
-	missileexplode.PushBack({ 50,160,30,30 });
-	missileexplode.PushBack({ 114,161,25,29 });
-	missileexplode.PushBack({ 140,159,28,31 });
-	missileexplode.PushBack({ 170,159,30,31 });
-	missileexplode.PushBack({ 201,159,32,31 });
-	missileexplode.PushBack({ 233,161,30,29 });
-	missileexplode.PushBack({ 264,163,29,27 });*/
-
 	/*missile.PushBack({ 184,11,10,14 });//0º Mira hacia arriba
 	missile.PushBack({ 195,11,11,13 });//22'5º
 	missile.PushBack({ 207,11,13,13 });//45º
@@ -364,18 +340,21 @@ void Enemy_MiniTank::OnCollision(Collider* collider, Collider* collider2)
 	}
 
 	// damage detection -------------------------------------
-	if (readyToRumble && collider->type == COLLIDER_UNIT) // if the collider is the Unit and is ready to already take damage of it
+	if (collider->type != COLLIDER_WALL)
 	{
-		life -= collider->damage; // substract collider unit charged/normal damage
-		cartePillar.takeDamage = true;
-		cartePillar.start_damage_time = SDL_GetTicks();
+		if (readyToRumble && collider->type == COLLIDER_UNIT) // if the collider is the Unit and is ready to already take damage of it
+		{
+			life -= collider->damage; // substract collider unit charged/normal damage
+			cartePillar.takeDamage = true;
+			cartePillar.start_damage_time = SDL_GetTicks();
 
-	}
-	else if (collider->type != COLLIDER_UNIT)
-	{
-		//life -= collider->damage;
-		cartePillar.takeDamage = true;
-		cartePillar.start_damage_time = SDL_GetTicks();
+		}
+		else if (collider->type != COLLIDER_UNIT)
+		{
+			//life -= collider->damage;
+			cartePillar.takeDamage = true;
+			cartePillar.start_damage_time = SDL_GetTicks();
+		}
 	}
 
 }
