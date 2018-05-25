@@ -30,7 +30,7 @@ Enemy::~Enemy()
 			}
 		}
 		
-		if (life <= 0 && enemyType != HOMINGMISSILE) //only spawn powerup if the enemy is really death
+		if (life <= 0 && enemyType != HOMINGMISSILE && enemyType != BIGFUCKINGROCKET) //only spawn powerup if the enemy is really death
 		{
 			App->modulePowerUp->SpawnPowerUp(position, powerUpType);
 			App->player[0]->playerScore += enemyScore;
@@ -38,7 +38,7 @@ Enemy::~Enemy()
 			App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPILOT, position.x, position.y, NONE);
 		}
 
-		if (enemyType == HOMINGMISSILE)
+		if (enemyType == HOMINGMISSILE || enemyType == BIGFUCKINGROCKET)
 		{
 			App->particles->AddParticle(App->enemies->homingExplosion, position.x, position.y, COLLIDER_NONE);
 		}

@@ -101,6 +101,14 @@ void EnemyBigFuckingRocket::Move()
 
 void EnemyBigFuckingRocket::Draw()
 {
+	// when big fucking rocket starts searching the player, starts timer to goodbye
+	// when the time ends, continue to last direction speed
+	if (!missile.searching && missile.goodBye)
+	{
+		missile.now_goodBye_time = SDL_GetTicks() - missile.goodBye_start_time;
+		if (missile.now_goodBye_time > missile.total_goodBye_time)
+			killMe = true;
+	}
 
 	// timers -------------------------------------------------------------------------------------------
 	// wait to search on born time
@@ -110,19 +118,23 @@ void EnemyBigFuckingRocket::Draw()
 		missile.now_alive_time = SDL_GetTicks() - missile.start_cycle_time; // its destruction is coming
 
 																			// check to start search the nearest targeted player
-	if (missile.now_alive_time >= missile.instantiate_time && !missile.searching)
+	if (missile.now_alive_time >= missile.instantiate_time && !missile.searching && !missile.goodBye)
 	{
 		missile.searching = true;
 		missile.start_cycle_time = SDL_GetTicks();
 		scrollSpeed = 1; // for the moment assigns scroll speed here
 	}
 
-	if (missile.now_alive_time >= missile.search_life_time)
-		killMe = true; // destroy missile
+	if (missile.now_alive_time >= missile.search_life_time && !missile.goodBye)
+	{
+		missile.goodBye = true;
+		missile.searching = false;
+		missile.goodBye_start_time = SDL_GetTicks();
+	}
 
-					   // ---------------------------------------------------------------------------------------------------
+	// ---------------------------------------------------------------------------------------------------
 
-					   // movement logic call
+	// movement logic call
 
 	if (missile.searching)
 	{
@@ -130,14 +142,10 @@ void EnemyBigFuckingRocket::Draw()
 		assignAnim();
 	}
 
-
-	// MISSILE animation draw -------------------------------------------------------
-
-	//missile.rect = missile.current_animation->GetCurrentFrame();
-
-	//App->render->Blit(enemyTex, position.x - pivotAnimation[pivotIndex + (int)missile.current_animation->current_frame].x, position.y, &missile.rect);
+	// MISSILE full body rects draw -------------------------------------------------------
 
 	App->render->Blit(enemyTex, position.x, position.y, missile.current_rect);
+
 	// ------------------------------------------------------------------------------
 
 }
@@ -260,6 +268,7 @@ void EnemyBigFuckingRocket::assignAnim()
 
 void EnemyBigFuckingRocket::chaseThePlayer()
 {
+	
 	fPoint vector;
 	fPoint playerPos;
 
@@ -294,8 +303,8 @@ void EnemyBigFuckingRocket::chaseThePlayer()
 
 	}
 
-	if (missile.targetReached)
-	{
+	if (missile.targetReached) 
+	{							
 		// x speed deceleration
 		if (missile.targetSpeedX < missile.xSpeed)
 			missile.xSpeed -= decX;
@@ -319,8 +328,8 @@ void EnemyBigFuckingRocket::chaseThePlayer()
 		}
 
 
-		if (missile.distance >= 56)
-			missile.targetReached = false;
+		//if (missile.distance >= 56)
+			//missile.targetReached = false;
 	}
 
 	if (!missile.targetReached) // while the player is far away, chase it
