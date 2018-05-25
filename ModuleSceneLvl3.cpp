@@ -114,8 +114,9 @@ bool ModuleSceneLvl3::Start()
 	currentLevelZone = stage_zone::level;
 	
 	//load needed audios
-	App->audio->LoadAudio("assets/Audio/Music/song_level_3.ogg", "song_lvl3", MUSIC);
-	//App->audio->ControlAudio("song_lvl3", MUSIC, FADEIN, -1, 1500.0f);
+	App->audio->LoadAudio("assets/Audio/Music/Sonar_Stage3_theme", "song_lvl3", MUSIC);
+	App->audio->LoadAudio("assets/Audio/Music/Cold_Machine _Boss3_theme", "bosslvl3", MUSIC);
+	App->audio->ControlAudio("song_lvl3", MUSIC, FADEIN, -1, 1500.0f);
 
 	//boss background fade values
 	faded = false;
@@ -129,7 +130,7 @@ bool ModuleSceneLvl3::Start()
 	
 	// debug colliders
 
-	//debugColRight = App->collision->AddCollider({300,0, 20, 300},COLLIDER_WALL, this);
+	//debugColRight = App->collision->AddCollider({300,0, 20, 300}, COLLIDER_WALL, this);
 	//debugColLeft = App->collision->AddCollider({ -15,0, 20, 300 }, COLLIDER_WALL, this);
 	/*debugColCenter = App->collision->AddCollider({ 0, 0, 50, 150 }, COLLIDER_WALL, this); //left column
 	//debugColCenter = App->collision->AddCollider({ 0, 0, 50, 150 }, COLLIDER_WALL, this); // right column
@@ -152,11 +153,11 @@ update_status ModuleSceneLvl3::PreUpdate()
 
 	
 
-	if (GetCurrentCameraPixelPos() > 5520 - SCREEN_WIDTH - 26.5f) //-26.5f is the offset
+	if ((GetCurrentCameraPixelPos() > 5520 - SCREEN_WIDTH - 26.5f)&&scroll) //-26.5f is the offset
 	{
 		scroll = false;
-
-		App->fade->FadeToBlack(this, (Module*)App->winScreen);
+		App->audio->ControlAudio("bosslvl3", MUSIC, FADEIN, -1, 1000.0f);
+		//App->fade->FadeToBlack(this, (Module*)App->winScreen);
 	}
 
 	if (currentLevelZone == stage_zone::level) // if we entry on boss zone and still not faded the boss background
@@ -166,6 +167,7 @@ update_status ModuleSceneLvl3::PreUpdate()
 		{
 			start_time = SDL_GetTicks();
 			currentLevelZone = stage_zone::boss_zone; //change level current zone
+			App->audio->ControlAudio("song_lvl3", MUSIC, FADEOFF, -1, 5000.0f);
 		}
 
 	}
@@ -208,7 +210,7 @@ update_status ModuleSceneLvl3::Update()
 	{
 		//draw background
 		App->render->Blit(bossBgTexture, 0, 0, NULL, 0.0f);
-			
+		
 		if (!faded)
 		{
 			bossBackgroundFade();
@@ -274,6 +276,7 @@ bool ModuleSceneLvl3::CleanUp()
 
 	//unload audio ---
 	App->audio->UnloadAudio("song_lvl3", MUSIC);
+	App->audio->UnloadAudio("bosslvl3", MUSIC);
 	
 	//unload modules
 	//App->collision->Disable();
