@@ -114,8 +114,8 @@ bool ModuleSceneLvl3::Start()
 	currentLevelZone = stage_zone::level;
 	
 	//load needed audios
-	App->audio->LoadAudio("assets/Audio/Music/Sonar_Stage3_theme", "song_lvl3", MUSIC);
-	App->audio->LoadAudio("assets/Audio/Music/Cold_Machine _Boss3_theme", "bosslvl3", MUSIC);
+	App->audio->LoadAudio("assets/Audio/Music/Sonar_Stage3_theme.ogg", "song_lvl3", MUSIC);
+	App->audio->LoadAudio("assets/Audio/Music/Cold_Machine _Boss3_theme.ogg", "bosslvl3", MUSIC);
 	App->audio->ControlAudio("song_lvl3", MUSIC, FADEIN, -1, 1500.0f);
 
 	//boss background fade values
