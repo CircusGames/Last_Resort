@@ -32,7 +32,19 @@ EnemyBigFuckingRocket::EnemyBigFuckingRocket(int x, int y, powerUpTypes type, SD
 	missile.bfrRect[14] = { 264,11,13,13 };
 	missile.bfrRect[15] = { 250,11,13,11 };
 	// BIGFUCKINGROCKET smoke trail
-
+	for (uint i = 0; i < NUM_SMOKE_PARTICLES; ++i)
+	{
+		missile.propulsionSmoke[i].anim.PushBack({ 301,176,10,8 });
+		missile.propulsionSmoke[i].anim.PushBack({ 320,174,13,14 });
+		missile.propulsionSmoke[i].anim.PushBack({ 344,174,15,14 });
+		missile.propulsionSmoke[i].anim.PushBack({ 371,173,16,16 });
+		missile.propulsionSmoke[i].anim.PushBack({ 399,173,14,16 });
+		missile.propulsionSmoke[i].anim.PushBack({ 425,173,15,15 });
+		missile.propulsionSmoke[i].anim.PushBack({ 452,174,15,14 });
+		missile.propulsionSmoke[i].anim.PushBack({ 479,173,15,14 });
+		missile.propulsionSmoke[i].anim.speed = 0.25f;
+		missile.propulsionSmoke[i].anim.repeat = false;
+	}
 
 	//original_y = y;
 	//fposition.x = x;
@@ -146,8 +158,50 @@ void EnemyBigFuckingRocket::Draw()
 
 	App->render->Blit(enemyTex, position.x, position.y, missile.current_rect);
 
-	// ------------------------------------------------------------------------------
+	// ------------------------------------------------------------------------------------
 
+	// Big Fucking rocket active smoke particles draw -------------------------------------
+	
+	for (uint i = 0; i < aliveParticles; ++i)
+	{
+		if (!missile.propulsionSmoke[i].active) // only for first particle
+		{
+			missile.propulsionSmoke[i].spawnPosition = missile.fposition;
+			missile.propulsionSmoke[i].active = true;
+		}
+		else // if is active, assigns speed to follow foreground speed
+		{
+			// assigns speed to current particle
+			missile.propulsionSmoke[i].spawnPosition.x += missile.propulsionSmoke[i].xSpeed;
+			// check current frame to instantiate the next particle 
+			// as long as the current is not the last...
+			if (i != NUM_SMOKE_PARTICLES - 1)
+			{
+				if (missile.propulsionSmoke[i].anim.current_frame > 2 && !missile.propulsionSmoke[i+1].active)
+				{
+					missile.propulsionSmoke[i + 1].active = true;
+					missile.propulsionSmoke[i + 1].spawnPosition = missile.fposition;
+					// if we reach the max active particles, not increment anymore
+					if (aliveParticles < NUM_SMOKE_PARTICLES)
+						aliveParticles++;
+				}
+			}
+		}
+
+		// draw
+		App->render->Blit(enemyTex, missile.propulsionSmoke[i].spawnPosition.x,
+			missile.propulsionSmoke[i].spawnPosition.y, &missile.propulsionSmoke[i].anim.GetCurrentFrame());
+
+		// if the current particle are finished the animation cycle, deactivate and restarts animation data
+		if (missile.propulsionSmoke[i].active && missile.propulsionSmoke[i].anim.finish)
+		{
+			missile.propulsionSmoke[i].active = false;
+			missile.propulsionSmoke[i].anim.finish = false;
+			missile.propulsionSmoke[i].anim.current_frame = 0;
+		}
+
+	}
+	// -------------------------------------------------------------------------------------
 }
 
 

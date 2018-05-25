@@ -9,36 +9,11 @@
 
 Enemy_MiniTank::Enemy_MiniTank(int x, int y, powerUpTypes type, SDL_Texture* thisTexture) : Enemy(x, y)
 {
-
-	/*missile.PushBack({ 184,11,10,14 });//0º Mira hacia arriba
-	missile.PushBack({ 195,11,11,13 });//22'5º
-	missile.PushBack({ 207,11,13,13 });//45º
-	missile.PushBack({ 221,11,13,11 });//67'5º
-	missile.PushBack({ 235,13,14,10 });//90º
-	missile.PushBack({ 250,11,13,11 });//112'5º
-	missile.PushBack({ 264,11,13,13 });//135º
-	missile.PushBack({ 278,11,11,13 });//157'5º
-	missile.PushBack({ 290,11,10,14 });//180º
-	missile.PushBack({ 278,26,11,13 });//202'5º
-	missile.PushBack({ 264,26,13,13 });//225º
-	missile.PushBack({ 250,26,13,11 });//247'5º
-	missile.PushBack({ 235,26,14,10 });//270º
-	missile.PushBack({ 221,26,13,11 });//292'5º
-	missile.PushBack({ 207,26,13,13 });//315º
-	missile.PushBack({ 195,26,10,14 });//337'5º*/
-
 	/*fire.PushBack({ 221,84,16,16 });
 	fire.PushBack({ 238,84,12,12 });
 	fire.PushBack({ 251,84,8,8 });
 	fire.PushBack({ 260,84,6,6 });
 	fire.speed = 0.5f;*/
-
-	/*missilesmoke.PushBack({ 314,164,13,14 });
-	missilesmoke.PushBack({ 339,164,15,14 });
-	missilesmoke.PushBack({ 366,164,16,16 });
-	missilesmoke.PushBack({ 394,164,14,16 });
-	missilesmoke.PushBack({ 420,164,15,14 });
-	missilesmoke.PushBack({ 447,164,15,14 });*/
 
 	// -----------------------------------------------------------------
 	enemyTex = thisTexture; // links enemy to correct texture

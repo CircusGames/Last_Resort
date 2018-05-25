@@ -4,15 +4,26 @@
 #include "Enemy.h"
 #include "ModuleTextures.h"
 
+#define NUM_SMOKE_PARTICLES 6
+
 
 class EnemyBigFuckingRocket : public Enemy
 {
 private:
 
+	struct smokeTrailParticles
+	{
+		Animation anim;
+		fPoint spawnPosition;
+		const float xSpeed = 0.5f; // compensate the foreground speed to slowly follow its velocity
+		bool active = false;
+
+	};
+
 	struct projectile
 	{
 		Animation propulsionFireAnim;
-		Animation smokeAnim[6]; // max trails at time
+		smokeTrailParticles propulsionSmoke[NUM_SMOKE_PARTICLES]; // max trails at time
 		SDL_Rect bfrRect[16]; // num static axis for rocket body draw
 		SDL_Rect* current_rect = nullptr;
 		Animation* current_animation = nullptr;
@@ -28,7 +39,7 @@ private:
 		float targetSpeedX;
 		float targetSpeedY;
 		bool searching = false;
-		// timer for destroy
+		// timer for start/stop searching routine
 		Uint32 start_cycle_time;
 		Uint32 now_alive_time;
 		Uint32 search_life_time = 2000; // time wich missile is chasing the player
@@ -37,17 +48,21 @@ private:
 		bool goodBye = false;
 		Uint32 goodBye_start_time;
 		Uint32 now_goodBye_time;
-		Uint32 total_goodBye_time = 3000;
+		Uint32 total_goodBye_time = 3000; // time wich missile are saying goodbye
 	};
 
-	iPoint pivotAnimation[32] = {
+	/*iPoint pivotAnimation[32] = {
 		{ 0,0 },{ 0,0 },{ 0,0 },{ 0,0 },{ 0,0 },{ 0,0 },{ 0,0 },{ 0,0 },{ 0,0 },{ 0,0 },
 	{ 0,0 },{ 3,0 },{ 2,0 },{ 5,0 },{ 3,0 },{ 6,0 },{ 3,0 },{ 8,0 },//{ 20,0 },
 
 	{ 0,0 },{ 0,0 },{ 0,0 },{ 0,0 },{ 0,0 },{ 0,0 },{ 0,0 },{ 0,0 },
 	{ 0,0 },{ 3,0 },{ 2,0 },{ 5,0 },{ 3,0 },{ 6,0 }
 
-	};
+	};*/
+
+	// data for always spawn the next trail on correct current position on back of rocket direction vector
+	iPoint pivotSmokeTrail[16] = {};
+	// -----
 
 	float initialSpeed = 1.0f;
 	float projectileSpeed = 2.0f;
@@ -70,6 +85,7 @@ public:
 
 	int scrollSpeed = 0; // foreground speed, 0.5 for the timer before homing is activated
 	int pivotIndex = 0;
+	int aliveParticles = 1;
 };
 
-#endif // __ENEMYHOMINGMISSILE_H__
+#endif // __ENEMYBIGFUCKINGROCKET_H__
