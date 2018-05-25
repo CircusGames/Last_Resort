@@ -18,6 +18,7 @@
 #include "EnemyDiver.h"
 #include "EnemyPilot.h"
 #include "EnemyHomingMissile.h"
+#include "EnemyBigFuckingRocket.h"
 
 #include "ModulePowerUp.h"
 #include "ModuleAudio.h"
@@ -318,6 +319,9 @@ void ModuleEnemies::SpawnEnemy(EnemyInfo& info)
 			break;
 		case ENEMY_TYPES::HOMINGMISSILE:
 			enemies[i] = new EnemyHomingMissile(info.x, info.y, info.powerUpType, enemyHomingMissileTexture);
+			break;
+		case ENEMY_TYPES::BIGFUCKINGROCKET:
+			enemies[i] = new EnemyBigFuckingRocket(info.x, info.y, info.powerUpType, enemyMiniTankTexture);
 			break;
 		}
 	}

@@ -1,17 +1,20 @@
-#ifndef __ENEMYHOMINGMISSILE_H__
-#define __ENEMYHOMINGMISSILE_H__
+#ifndef __ENEMYBIGFUCKINGROCKET_H__
+#define __ENEMYBIGFUCKINGROCKET_H__
 
 #include "Enemy.h"
 #include "ModuleTextures.h"
 
 
-class EnemyHomingMissile : public Enemy
+class EnemyBigFuckingRocket : public Enemy
 {
 private:
-	
+
 	struct projectile
 	{
-		Animation anim[16];
+		Animation propulsionFireAnim;
+		Animation smokeAnim[6]; // max trails at time
+		SDL_Rect bfrRect[16]; // num static axis for rocket body draw
+		SDL_Rect* current_rect = nullptr;
 		Animation* current_animation = nullptr;
 		SDL_Rect rect;
 		uint playerTargetIndex = 0;
@@ -32,13 +35,13 @@ private:
 		Uint32 instantiate_time = 350; // time wich missile waits to start searching the player
 	};
 
-	iPoint pivotAnimation[32] = { 
+	iPoint pivotAnimation[32] = {
 		{ 0,0 },{ 0,0 },{ 0,0 },{ 0,0 },{ 0,0 },{ 0,0 },{ 0,0 },{ 0,0 },{ 0,0 },{ 0,0 },
-		{ 0,0 },{ 3,0 },{ 2,0 },{ 5,0 },{ 3,0 },{6,0},{ 3,0 },{ 8,0 },//{ 20,0 },
+	{ 0,0 },{ 3,0 },{ 2,0 },{ 5,0 },{ 3,0 },{ 6,0 },{ 3,0 },{ 8,0 },//{ 20,0 },
 
-		{ 0,0 },{ 0,0 },{ 0,0 },{ 0,0 },{ 0,0 },{ 0,0 },{ 0,0 },{ 0,0 },
-		{ 0,0 },{ 3,0 },{ 2,0 },{ 5,0 },{ 3,0 },{ 6,0 }
-	
+	{ 0,0 },{ 0,0 },{ 0,0 },{ 0,0 },{ 0,0 },{ 0,0 },{ 0,0 },{ 0,0 },
+	{ 0,0 },{ 3,0 },{ 2,0 },{ 5,0 },{ 3,0 },{ 6,0 }
+
 	};
 
 	float initialSpeed = 1.0f;
@@ -49,24 +52,14 @@ private:
 	float decX = 0.10f;//0.05f;
 	float decY = 0.10f;//0.03f;
 
-	Animation waterSplash;
-	SDL_Rect waterRect;
-	bool underWater = false;
-	bool waterSplashing = false;
-	int waterLevel = 185;  // height of where the level of the water is
-	int waterContactPosition;
-	float followTheFlow; // for follow foreground speed on the instantiated waterSplash
-	
-
 public:
 
-	EnemyHomingMissile(int x, int y, powerUpTypes type, SDL_Texture* thisTexture);
+	EnemyBigFuckingRocket(int x, int y, powerUpTypes type, SDL_Texture* thisTexture);
 
 	void Move();
 	void Draw();
 	void chaseThePlayer();
 	void assignAnim();
-	void underWaterSplash();
 
 	projectile missile;
 
