@@ -273,7 +273,7 @@ void Enemy_MiniTank::Draw()
 	{
 		cartePillar.pipeSmoke[0].playPipeSmoke = true;
 		App->enemies->AddEnemy(BIGFUCKINGROCKET, position.x + cartePillar.pipeSmoke[0].position.x, 
-			position.y + cartePillar.pipeSmoke[0].position.y - 10, NONE);
+			position.y + cartePillar.pipeSmoke[0].position.y - 2, NONE);
 	}
 	if (cartePillar.shootAnim->current_frame > 4 && !cartePillar.pipeSmoke[1].playPipeSmoke) // first shot
 	{
