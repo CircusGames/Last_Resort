@@ -46,6 +46,15 @@ EnemyBigFuckingRocket::EnemyBigFuckingRocket(int x, int y, powerUpTypes type, SD
 		missile.propulsionSmoke[i].anim.repeat = false;
 	}
 
+	// BIG FUCKING ROCKET propulsion fire animation || 2 frames each
+	missile.propulsionFireAnim.PushBack({ 260,84,6,6 });
+	missile.propulsionFireAnim.PushBack({ 251,84,8,8 });
+	missile.propulsionFireAnim.PushBack({ 238,84,12,12 });
+	missile.propulsionFireAnim.PushBack({ 221,84,16,16 });
+	missile.propulsionFireAnim.PushBack({ 238,84,12,12 });
+	missile.propulsionFireAnim.PushBack({ 251,84,8,8 });
+	missile.propulsionFireAnim.speed = 0.5f;
+
 	//original_y = y;
 	//fposition.x = x;
 
@@ -65,12 +74,16 @@ EnemyBigFuckingRocket::EnemyBigFuckingRocket(int x, int y, powerUpTypes type, SD
 		missile.xSpeed = 1.0f;
 		// initial animation
 		missile.current_rect = &missile.bfrRect[4];
+		// assigns correct distances to pivots
+		missile.spawnPointPivot = pivotSmokeTrail[4];
+		//missile.propulsionSmoke[0].spawnPosition = pivotSmokeTrail[4];
 	}
 	else
 	{
 		missile.ySpeed = 0.0f;
 		missile.xSpeed = 0.0f;
 		missile.current_rect = &missile.bfrRect[0];
+		missile.spawnPointPivot = pivotSmokeTrail[0];
 	}
 	/*if (App->player[index]->position.x < position.x) // boss lvl3 initial speed circunstance
 	{
@@ -109,6 +122,13 @@ void EnemyBigFuckingRocket::Move()
 	position.x = missile.position.x;
 	position.y = missile.position.y;
 	//position.x += 1;
+
+	if (missile.searching)
+	{
+		chaseThePlayer();
+		assignAnim();
+	}
+
 }
 
 void EnemyBigFuckingRocket::Draw()
@@ -129,7 +149,7 @@ void EnemyBigFuckingRocket::Draw()
 	else
 		missile.now_alive_time = SDL_GetTicks() - missile.start_cycle_time; // its destruction is coming
 
-																			// check to start search the nearest targeted player
+	// check to start search the nearest targeted player
 	if (missile.now_alive_time >= missile.instantiate_time && !missile.searching && !missile.goodBye)
 	{
 		missile.searching = true;
@@ -142,17 +162,18 @@ void EnemyBigFuckingRocket::Draw()
 		missile.goodBye = true;
 		missile.searching = false;
 		missile.goodBye_start_time = SDL_GetTicks();
+		assignAnim(); // updates anim position for last time
 	}
 
 	// ---------------------------------------------------------------------------------------------------
 
 	// movement logic call
 
-	if (missile.searching)
+	/*if (missile.searching)
 	{
 		chaseThePlayer();
 		assignAnim();
-	}
+	}*/
 
 	// MISSILE full body rects draw -------------------------------------------------------
 
@@ -166,7 +187,7 @@ void EnemyBigFuckingRocket::Draw()
 	{
 		if (!missile.propulsionSmoke[i].active) // only for first ignition chain particle
 		{
-			missile.propulsionSmoke[i].spawnPosition = missile.fposition;
+			missile.propulsionSmoke[i].spawnPosition = missile.fposition + missile.spawnPointPivot;
 			missile.propulsionSmoke[i].active = true;
 		}
 		else // if is active, assigns speed to follow foreground speed
@@ -181,7 +202,7 @@ void EnemyBigFuckingRocket::Draw()
 				if (missile.propulsionSmoke[i].anim.current_frame > 1 && !missile.propulsionSmoke[i+1].active)
 				{
 					missile.propulsionSmoke[i + 1].active = true;
-					missile.propulsionSmoke[i + 1].spawnPosition = missile.fposition;
+					missile.propulsionSmoke[i + 1].spawnPosition = missile.fposition + missile.spawnPointPivot;
 					// if we reach the max active particles, not increment anymore
 					if (aliveParticles < NUM_SMOKE_PARTICLES)
 						aliveParticles++;
@@ -199,9 +220,15 @@ void EnemyBigFuckingRocket::Draw()
 			//missile.propulsionSmoke[i].active = false;
 			missile.propulsionSmoke[i].anim.finish = false;
 			missile.propulsionSmoke[i].anim.current_frame = 0;
-			missile.propulsionSmoke[i].spawnPosition = missile.fposition;
+			missile.propulsionSmoke[i].spawnPosition = missile.fposition + missile.spawnPointPivot;
 		}
 	}
+
+	// BIG FUCKING ROCKET fire propulsion animation DRAW
+
+	App->render->Blit(enemyTex, missile.position.x + missile.spawnPointPivot.x + pivotFireAnim[(int)missile.propulsionFireAnim.current_frame].x,
+		missile.position.y + missile.spawnPointPivot.y + pivotFireAnim[(int)missile.propulsionFireAnim.current_frame].y, &missile.propulsionFireAnim.GetCurrentFrame());
+
 	// -------------------------------------------------------------------------------------
 }
 
@@ -214,25 +241,25 @@ void EnemyBigFuckingRocket::assignAnim()
 	if (fabs(missile.xSpeed) < 0.5f && (fabs(missile.xSpeed) >= 0.05f) && missile.ySpeed > 0)
 	{
 		missile.current_rect = &missile.bfrRect[12];
-		//pivotIndex = 24;
+		missile.spawnPointPivot = pivotSmokeTrail[12];
 	}
 	// pointing up
 	if (fabs(missile.xSpeed) < 0.5f && (fabs(missile.xSpeed) >= 0.05f) && missile.ySpeed < 0)
 	{
 		missile.current_rect = &missile.bfrRect[4];
-		//pivotIndex = 8;
+		missile.spawnPointPivot = pivotSmokeTrail[4];
 	}
 	// pointing right
 	if (fabs(missile.ySpeed) < 0.5f && (fabs(missile.ySpeed) >= 0.00f) && missile.xSpeed > 0)
 	{
 		missile.current_rect = &missile.bfrRect[8];
-		//pivotIndex = 16;
+		missile.spawnPointPivot = pivotSmokeTrail[8];
 	}
 	// pointing left
 	if (fabs(missile.ySpeed) < 0.5f && (fabs(missile.ySpeed) >= 0.00f) && missile.xSpeed < 0)
 	{
 		missile.current_rect = &missile.bfrRect[0];
-		//pivotIndex = 0;
+		missile.spawnPointPivot = pivotSmokeTrail[0]; // assigns correct draw point
 	}
 	// ---------------------------------------------------------------------------
 	// TO THE RIGHTS diagonals ---------------------------------------------------
@@ -241,38 +268,38 @@ void EnemyBigFuckingRocket::assignAnim()
 	if (missile.xSpeed >= 1.65f && missile.xSpeed <= 1.97f && missile.ySpeed < 0)
 	{
 		missile.current_rect = &missile.bfrRect[7];
-		//pivotIndex = 14;
+		missile.spawnPointPivot = pivotSmokeTrail[7];
 	}
 	// pointing up/right 45
 	if (missile.xSpeed >= 1.25f && missile.xSpeed <= 1.65f && missile.ySpeed < 0)
 	{
 		missile.current_rect = &missile.bfrRect[6];
-		//pivotIndex = 12;
+		missile.spawnPointPivot = pivotSmokeTrail[6];
 	}
 	//pointing up/right 66.5
 	if (missile.xSpeed >= 0.45f && missile.xSpeed <= 1.25f && missile.ySpeed < 0)
 	{
 		missile.current_rect = &missile.bfrRect[5];
-		//pivotIndex = 10;
+		missile.spawnPointPivot = pivotSmokeTrail[5];
 	}
 	// DOWN/RIGHT  -----------
 	//pointing down/right 22.5
 	if (missile.xSpeed >= 1.65f && missile.xSpeed <= 1.97f && missile.ySpeed > 0)
 	{
 		missile.current_rect = &missile.bfrRect[15];
-		//pivotIndex = 30;
+		missile.spawnPointPivot = pivotSmokeTrail[15];
 	}
 	// pointing down/right 45
 	if (missile.xSpeed >= 1.25f && missile.xSpeed <= 1.65f && missile.ySpeed > 0)
 	{
 		missile.current_rect = &missile.bfrRect[14];
-		//pivotIndex = 28;
+		missile.spawnPointPivot = pivotSmokeTrail[14];
 	}
 	//pointing down/right 66.5
 	if (missile.xSpeed >= 0.45f && missile.xSpeed <= 1.25f && missile.ySpeed > 0)
 	{
 		missile.current_rect = &missile.bfrRect[13];
-		//pivotIndex = 26;
+		missile.spawnPointPivot = pivotSmokeTrail[13];
 	}
 
 	//LEFT DIAGONALS ------------------------------------------------------------------
@@ -281,19 +308,19 @@ void EnemyBigFuckingRocket::assignAnim()
 	if (missile.xSpeed <= -1.65f && missile.xSpeed >= -1.97f && missile.ySpeed < 0)
 	{
 		missile.current_rect = &missile.bfrRect[1];
-		//pivotIndex = 2;
+		missile.spawnPointPivot = pivotSmokeTrail[1];
 	}
 	// pointing up/left 45
 	if (missile.xSpeed <= -1.25f && missile.xSpeed >= -1.65f && missile.ySpeed < 0)
 	{
 		missile.current_rect = &missile.bfrRect[2];
-		//pivotIndex = 4;
+		missile.spawnPointPivot = pivotSmokeTrail[2];
 	}
 	//pointing up/left 66.5
 	if (missile.xSpeed <= -0.45f && missile.xSpeed >= -1.25f && missile.ySpeed < 0)
 	{
 		missile.current_rect = &missile.bfrRect[3];
-		//pivotIndex = 6;
+		missile.spawnPointPivot = pivotSmokeTrail[3];
 	}
 	// --------------------
 	// DOWN cases ----------------
@@ -301,19 +328,19 @@ void EnemyBigFuckingRocket::assignAnim()
 	if (missile.xSpeed <= -1.65f && missile.xSpeed >= -1.97f && missile.ySpeed > 0)
 	{
 		missile.current_rect = &missile.bfrRect[9];
-		//pivotIndex = 18;
+		missile.spawnPointPivot = pivotSmokeTrail[9];
 	}
 	// pointing down/left 45
 	if (missile.xSpeed <= -1.25f && missile.xSpeed >= -1.65f && missile.ySpeed > 0)
 	{
 		missile.current_rect = &missile.bfrRect[10];
-		//pivotIndex = 20;
+		missile.spawnPointPivot = pivotSmokeTrail[10];
 	}
 	//pointing down/left 66.5
 	if (missile.xSpeed <= -0.45f && missile.xSpeed >= -1.25f && missile.ySpeed > 0)
 	{
 		missile.current_rect = &missile.bfrRect[11];
-		//pivotIndex = 22;
+		missile.spawnPointPivot = pivotSmokeTrail[11];
 	}
 
 	//LOG("XSPEED: %f", missile.xSpeed);

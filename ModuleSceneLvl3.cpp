@@ -304,10 +304,10 @@ bool ModuleSceneLvl3::CleanUp()
 void ModuleSceneLvl3::addEnemiesToLvl3()
 {
 	// first ADD submarine ( for draw circunstances )
-	App->enemies->AddEnemy(ENEMY_TYPES::SUBMARINE, 0, 60, NONE);
+	//App->enemies->AddEnemy(ENEMY_TYPES::SUBMARINE, 0, 60, NONE);
 
 	//First Wave
-	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 300, 35, NONE);
+	/*App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 300, 35, NONE);
 	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 300, 90, NONE);
 	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 342, 35, NONE);
 	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 342, 90, NONE);
@@ -349,7 +349,7 @@ void ModuleSceneLvl3::addEnemiesToLvl3()
 	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 9210, 45, NONE);
 	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 9240, 45, NONE);
 	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 9270, 45, NONE);
-	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 9300, 45, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 9300, 45, NONE);*/
 	//-----------------------------------------------------------
 
 	// Enemy POWERUP BEE

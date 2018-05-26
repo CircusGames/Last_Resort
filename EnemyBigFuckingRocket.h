@@ -49,20 +49,19 @@ private:
 		Uint32 goodBye_start_time;
 		Uint32 now_goodBye_time;
 		Uint32 total_goodBye_time = 3000; // time wich missile are saying goodbye
+		// position to assign the pivot of fire/smoke trails
+		fPoint spawnPointPivot;
 	};
 
-	/*iPoint pivotAnimation[32] = {
-		{ 0,0 },{ 0,0 },{ 0,0 },{ 0,0 },{ 0,0 },{ 0,0 },{ 0,0 },{ 0,0 },{ 0,0 },{ 0,0 },
-	{ 0,0 },{ 3,0 },{ 2,0 },{ 5,0 },{ 3,0 },{ 6,0 },{ 3,0 },{ 8,0 },//{ 20,0 },
-
-	{ 0,0 },{ 0,0 },{ 0,0 },{ 0,0 },{ 0,0 },{ 0,0 },{ 0,0 },{ 0,0 },
-	{ 0,0 },{ 3,0 },{ 2,0 },{ 5,0 },{ 3,0 },{ 6,0 }
-
-	};*/
-
 	// data for always spawn the next trail on correct current position on back of rocket direction vector
-	iPoint pivotSmokeTrail[16] = {};
+	// respect center point
+	/*fPoint pivotSmokeTrail[16] = { {23,5}, {20,12}, {17,17}, {12,20}, {5,23}, {-1,20}, {-4,17},{-7,12}, {-9,5}, {21,-2},
+								   {17, -4}, {12, -7}, {5, -8}, {-1,-7}, {-4,-4}, {-7,-1} };*/
+	// respect sprites x coord.
+	fPoint pivotSmokeTrail[16] = { { 23,0 },{ 15,7 },{ 14,14 },{ 9,17 },{ 0,23 },{ -7,15 },{ -9,14 },{ -12,9 },
+	                               { -14,0 },{ 17,-7 },{ 13, -9 },{ 7, -12 },{ 0, -15 },{ -7,-12 },{ -9,-9 },{ -12,-6 } };
 	// -----
+	iPoint pivotFireAnim[6] = { {0,0},{ -1,-1},{ -3,-3},{-5,-5},{-3,-3},{-1,-1} };
 
 	float initialSpeed = 1.0f;
 	float projectileSpeed = 2.0f;
