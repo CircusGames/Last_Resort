@@ -19,6 +19,7 @@
 #include "EnemyPilot.h"
 #include "EnemyHomingMissile.h"
 #include "EnemyBigFuckingRocket.h"
+#include "EnemyBigDaddy.h"
 
 #include "ModulePowerUp.h"
 #include "ModuleAudio.h"
@@ -116,6 +117,7 @@ bool ModuleEnemies::Start()
 	enemyDiverTexture = App->textures->Load("assets/Graphics/Enemies/Level_3/diver.png");
 	enemyPilotTexture = App->textures->Load("assets/Graphics/Enemies/Pilot.png");
 	enemyHomingMissileTexture = App->textures->Load("assets/Graphics/Enemies/Level_3/homingMissile.png");
+	enemyBigDaddyTexture = App->textures->Load("assets/Graphics/Enemies/Level_3/mid_boss.png");
 	
 	// -------------------------------------------------------------------------------------
 	// ENEMY PARTICLES ---------------------------------------------------------------------
@@ -207,6 +209,8 @@ bool ModuleEnemies::CleanUp()
 	
 	//unloading loaded textures
 	// INVERSE ORDER
+	App->textures->Unload(enemyBigDaddyTexture);
+	App->textures->Unload(enemyDiverBeamTexture);
 	App->textures->Unload(enemyHomingMissileTexture);
 	App->textures->Unload(enemyPilotTexture);
 	App->textures->Unload(enemyDiverTexture);
@@ -216,12 +220,11 @@ bool ModuleEnemies::CleanUp()
 	App->textures->Unload(enemyProtatorTexture);
 	App->textures->Unload(enemyPowerBeeTexture);
 	App->textures->Unload(beeBulletTexture);
+	App->textures->Unload(enemyRedbirdTexture);
 	App->textures->Unload(enemyBeeTexture);
 	App->textures->Unload(enemyTankTexture);
 	App->textures->Unload(enemy2Texture);
 	App->textures->Unload(enemy1Texture);
-	App->textures->Unload(enemyRedbirdTexture);
-	App->textures->Unload(enemyDiverBeamTexture);
 	//App->textures->Unload(sprites);
 	
 	//Unloading loaded audio's
@@ -322,6 +325,9 @@ void ModuleEnemies::SpawnEnemy(EnemyInfo& info)
 			break;
 		case ENEMY_TYPES::BIGFUCKINGROCKET:
 			enemies[i] = new EnemyBigFuckingRocket(info.x, info.y, info.powerUpType, enemyMiniTankTexture);
+			break;
+		case ENEMY_TYPES::BIGDADDY:
+			enemies[i] = new EnemyBigDaddy(info.x, info.y, info.powerUpType, enemyBigDaddyTexture);
 			break;
 		}
 	}

@@ -75,6 +75,7 @@
     <ClInclude Include="BasicEnemy.h" />
     <ClInclude Include="EnemyBee.h" />
     <ClInclude Include="Enemy.h" />
+    <ClInclude Include="EnemyBigDaddy.h" />
     <ClInclude Include="EnemyBigFuckingRocket.h" />
     <ClInclude Include="EnemyDiver.h" />
     <ClInclude Include="EnemyHomingMissile.h" />
@@ -121,6 +122,7 @@
     <ClCompile Include="BasicEnemy.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="EnemyBee.cpp" />
+    <ClCompile Include="EnemyBigDaddy.cpp" />
     <ClCompile Include="EnemyBigFuckingRocket.cpp" />
     <ClCompile Include="EnemyDiver.cpp" />
     <ClCompile Include="EnemyHomingMissile.cpp" />

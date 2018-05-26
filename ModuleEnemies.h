@@ -35,7 +35,8 @@ enum ENEMY_TYPES
 	DIVER,
 	ENEMYPILOT,
 	HOMINGMISSILE,
-	BIGFUCKINGROCKET
+	BIGFUCKINGROCKET,
+	BIGDADDY
 };
 
 //class Enemy;
@@ -85,6 +86,7 @@ public:
 	SDL_Texture* enemyPilotTexture = nullptr;
 	SDL_Texture* enemyHomingMissileTexture = nullptr;
 	SDL_Texture* enemyDiverBeamTexture = nullptr;
+	SDL_Texture* enemyBigDaddyTexture = nullptr;
 	// ----------------------------
 	//ENEMY PARTICLES
 	Particle beeBullet;
