@@ -9,23 +9,16 @@
 
 Enemy_MiniTank::Enemy_MiniTank(int x, int y, powerUpTypes type, SDL_Texture* thisTexture) : Enemy(x, y)
 {
-	/*fire.PushBack({ 221,84,16,16 });
-	fire.PushBack({ 238,84,12,12 });
-	fire.PushBack({ 251,84,8,8 });
-	fire.PushBack({ 260,84,6,6 });
-	fire.speed = 0.5f;*/
 
 	// -----------------------------------------------------------------
 	enemyTex = thisTexture; // links enemy to correct texture
 	//
 	enemyType = MINITANK;
-
+	//
 	powerUpType = type; // assigns receveid powerup
-
-	//original_pos.x = x;
-	//original_pos.y = y;
-
+	// 
 	life = 17;
+	// -----------------------------------------------------------------
 
 	// animations ------------------------------------------------------------------------------
 	// 
@@ -129,8 +122,6 @@ Enemy_MiniTank::Enemy_MiniTank(int x, int y, powerUpTypes type, SDL_Texture* thi
 void Enemy_MiniTank::Move()
 {
 	
-	
-
 	// checks the direction and assigns movement speed
 	if (!cartePillar.shoot)
 	{
@@ -216,6 +207,8 @@ void Enemy_MiniTank::Move()
 
 void Enemy_MiniTank::Draw()
 {
+	// TIMERS and damage updates ----------------------------------------------------------------
+
 	// check if we are on shoot condition
 	if (cartePillar.shoot)
 	{
@@ -250,8 +243,9 @@ void Enemy_MiniTank::Draw()
 		cartePillar.shootAnim->current_frame = 0;
 		cartePillar.shootAnim->finish = false;
 	}
+	// ------------------------------------------------------------------------------------------
 
-	// DRAW's ---------------------------------------------------------------------------------------------
+	// DRAW's -----------------------------------------------------------------------------------
 	// draw dust particles while cartepillar is moving
 	if (!cartePillar.shoot)
 	{
@@ -308,7 +302,7 @@ void Enemy_MiniTank::Draw()
 		}
 	}
 
-	// ------------------------------------------------------------------------------------------------------
+	// -----------------------------------------------------------------------------------------------
 }
 
 const Collider* Enemy_MiniTank::GetCollider() const
