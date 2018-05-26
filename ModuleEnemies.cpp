@@ -83,11 +83,11 @@ ModuleEnemies::ModuleEnemies()
 	// -----------------------------------------------------
 
 	// DIVER LASER BEAMS
-	diverBeamLeft.anim.PushBack({ 0, 0, 48, 7 });
+	diverBeamLeft.anim.PushBack({ 0, 0, 24, 7 });
 	diverBeamLeft.anim.PushBack({ 48, 0, 48, 7 });
 
-	diverBeamRight.anim.PushBack({ 0, 0, -48, 7 });
-	diverBeamRight.anim.PushBack({ 48, 0, -48, 7 });
+	diverBeamRight.anim.PushBack({ 0, 8, 48, 7 });
+	diverBeamRight.anim.PushBack({ 48, 8, 48, 7 });
 
 	diverBeamLeft.anim.speed = diverBeamRight.anim.speed = 0.2f;
 	diverBeamLeft.damage = diverBeamRight.damage = 1;
