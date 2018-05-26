@@ -38,6 +38,7 @@ private:
 	struct smokeShoot
 	{
 		Animation anim;
+		Animation shootFlashAnim; // flash effect when shoots
 		SDL_Rect rect;
 		iPoint position;
 		bool playPipeSmoke = false;

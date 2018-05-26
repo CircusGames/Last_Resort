@@ -64,7 +64,7 @@ Enemy_MiniTank::Enemy_MiniTank(int x, int y, powerUpTypes type, SDL_Texture* thi
 	cartePillar.dustAnim.PushBack({ 261,40,12,9 });
 	cartePillar.dustAnim.PushBack({ 280,40,6,10 });
 	cartePillar.dustAnim.speed = 0.25f;
-	// ------------------------------------
+	// -----------------------------------------------------------
 	// PIPE smoke animation when shoots 8 frames each
 	for (uint i = 0; i < NUM_ROCKETS; ++i)
 	{
@@ -87,6 +87,15 @@ Enemy_MiniTank::Enemy_MiniTank(int x, int y, powerUpTypes type, SDL_Texture* thi
 	}
 	cartePillar.pipeSmoke[0].position = { 20,-42 };
 	cartePillar.pipeSmoke[1].position = { 30,-50 };
+	// -------------------------------------------------------------
+	// PIPE shoot flash // 4 frames each 0.25f
+	for (uint i = 0; i < NUM_ROCKETS; ++i)
+	{
+		cartePillar.pipeSmoke[i].shootFlashAnim.PushBack({221,61,16,16});
+		cartePillar.pipeSmoke[i].shootFlashAnim.PushBack({ 238,61,16,16 });
+		cartePillar.pipeSmoke[i].shootFlashAnim.speed = 0.25f;
+		cartePillar.pipeSmoke[i].shootFlashAnim.repeat = false;
+	}
 	// ------------------------------------------------------------------------------------------
 	// needed values ----------------------
 	// set the initial direction of movement
@@ -281,6 +290,11 @@ void Enemy_MiniTank::Draw()
 
 			App->render->Blit(enemyTex, position.x + cartePillar.pipeSmoke[i].position.x, 
 				position.y - cartePillar.rect.h + cartePillar.pipeSmoke[i].position.y, &cartePillar.rect);
+
+			// flash effect
+			if (!cartePillar.pipeSmoke[i].shootFlashAnim.finish)
+				App->render->Blit(enemyTex, position.x + cartePillar.pipeSmoke[i].position.x,
+					position.y - cartePillar.rect.h + 5 + cartePillar.pipeSmoke[i].position.y, &cartePillar.pipeSmoke[i].shootFlashAnim.GetCurrentFrame());
 		}
 		// resets pipe smoke animation when finish
 		if (cartePillar.pipeSmoke[i].anim.finish)
@@ -288,6 +302,9 @@ void Enemy_MiniTank::Draw()
 			cartePillar.pipeSmoke[i].anim.finish = false;
 			cartePillar.pipeSmoke[i].anim.current_frame = 0;
 			cartePillar.pipeSmoke[i].playPipeSmoke = false;
+			// resets the flash animation too
+			cartePillar.pipeSmoke[i].shootFlashAnim.finish = false;
+			cartePillar.pipeSmoke[i].shootFlashAnim.current_frame = 0;
 		}
 	}
 
