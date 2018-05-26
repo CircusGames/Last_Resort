@@ -175,7 +175,7 @@ void EnemyBigFuckingRocket::Draw()
 			missile.propulsionSmoke[i].spawnPosition.x += missile.propulsionSmoke[i].xSpeed;
 			// check current frame to instantiate the next particle 
 			// as long as the current is not the last...
-			if (i < NUM_SMOKE_PARTICLES)
+			if (i < NUM_SMOKE_PARTICLES - 1)
 			{	
 				// instantiate the next when actual frame are superior a specific frame increment
 				if (missile.propulsionSmoke[i].anim.current_frame > 1 && !missile.propulsionSmoke[i+1].active)
