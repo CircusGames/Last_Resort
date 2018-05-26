@@ -4,7 +4,7 @@
 #include "Enemy.h"
 #include "ModuleTextures.h"
 
-#define NUM_SMOKE_PARTICLES 6
+#define NUM_SMOKE_PARTICLES 8
 
 
 class EnemyBigFuckingRocket : public Enemy
@@ -43,7 +43,7 @@ private:
 		Uint32 start_cycle_time;
 		Uint32 now_alive_time;
 		Uint32 search_life_time = 2000; // time wich missile is chasing the player
-		Uint32 instantiate_time = 350; // time wich missile waits to start searching the player
+		Uint32 instantiate_time = 500; // time wich missile waits to start searching the player
 		// timer for autodestruction
 		bool goodBye = false;
 		Uint32 goodBye_start_time;

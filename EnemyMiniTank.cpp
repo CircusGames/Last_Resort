@@ -261,9 +261,17 @@ void Enemy_MiniTank::Draw()
 
 	// Pipe smoke when shoots - first check the shooting animation current frame to instantiate effect on correct timing
 	if (cartePillar.shootAnim->current_frame > 2 && !cartePillar.pipeSmoke[0].playPipeSmoke) // first shot
+	{
 		cartePillar.pipeSmoke[0].playPipeSmoke = true;
+		App->enemies->AddEnemy(BIGFUCKINGROCKET, position.x + cartePillar.pipeSmoke[0].position.x, 
+			position.y + cartePillar.pipeSmoke[0].position.y - 10, NONE);
+	}
 	if (cartePillar.shootAnim->current_frame > 4 && !cartePillar.pipeSmoke[1].playPipeSmoke) // first shot
+	{
 		cartePillar.pipeSmoke[1].playPipeSmoke = true;
+		App->enemies->AddEnemy(BIGFUCKINGROCKET, position.x + cartePillar.pipeSmoke[1].position.x,
+			position.y + cartePillar.pipeSmoke[1].position.y - 10, NONE);
+	}
 	// ----
 	for (uint i = 0; i < NUM_ROCKETS; ++i)
 	{

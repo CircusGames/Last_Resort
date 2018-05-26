@@ -164,7 +164,7 @@ void EnemyBigFuckingRocket::Draw()
 	
 	for (uint i = 0; i < aliveParticles; ++i)
 	{
-		if (!missile.propulsionSmoke[i].active) // only for first particle
+		if (!missile.propulsionSmoke[i].active) // only for first ignition chain particle
 		{
 			missile.propulsionSmoke[i].spawnPosition = missile.fposition;
 			missile.propulsionSmoke[i].active = true;
@@ -175,9 +175,10 @@ void EnemyBigFuckingRocket::Draw()
 			missile.propulsionSmoke[i].spawnPosition.x += missile.propulsionSmoke[i].xSpeed;
 			// check current frame to instantiate the next particle 
 			// as long as the current is not the last...
-			if (i != NUM_SMOKE_PARTICLES - 1)
-			{
-				if (missile.propulsionSmoke[i].anim.current_frame > 2 && !missile.propulsionSmoke[i+1].active)
+			if (i < NUM_SMOKE_PARTICLES)
+			{	
+				// instantiate the next when actual frame are superior a specific frame increment
+				if (missile.propulsionSmoke[i].anim.current_frame > 1 && !missile.propulsionSmoke[i+1].active)
 				{
 					missile.propulsionSmoke[i + 1].active = true;
 					missile.propulsionSmoke[i + 1].spawnPosition = missile.fposition;
@@ -191,15 +192,15 @@ void EnemyBigFuckingRocket::Draw()
 		// draw
 		App->render->Blit(enemyTex, missile.propulsionSmoke[i].spawnPosition.x,
 			missile.propulsionSmoke[i].spawnPosition.y, &missile.propulsionSmoke[i].anim.GetCurrentFrame());
-
+		//LOG("active particles: %d", aliveParticles);
 		// if the current particle are finished the animation cycle, deactivate and restarts animation data
 		if (missile.propulsionSmoke[i].active && missile.propulsionSmoke[i].anim.finish)
 		{
-			missile.propulsionSmoke[i].active = false;
+			//missile.propulsionSmoke[i].active = false;
 			missile.propulsionSmoke[i].anim.finish = false;
 			missile.propulsionSmoke[i].anim.current_frame = 0;
+			missile.propulsionSmoke[i].spawnPosition = missile.fposition;
 		}
-
 	}
 	// -------------------------------------------------------------------------------------
 }
