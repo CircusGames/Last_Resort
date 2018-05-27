@@ -492,20 +492,12 @@ void ModuleSceneLvl3::addEnemiesToLvl3()
 	//App->enemies->AddEnemy(ENEMY_TYPES::DIVER, 120, 100, NONE);
 
 	//Enemy MiniTank
-	//App->enemies->AddEnemy(ENEMY_TYPES::MINITANK, 300, 185, NONE);
-	//App->enemies->AddEnemy(ENEMY_TYPES::MINITANK, 4346, 141, NONE);
 	App->enemies->AddEnemy(ENEMY_TYPES::MINITANK, 4226, 189, NONE);
-
-	//App->enemies->AddEnemy(ENEMY_TYPES::MINITANK, 5305, 189, NONE);
 	App->enemies->AddEnemy(ENEMY_TYPES::MINITANK, 5285, 189, NONE);
-
-	//App->enemies->AddEnemy(ENEMY_TYPES::MINITANK, 7147, 189, NONE);
 	App->enemies->AddEnemy(ENEMY_TYPES::MINITANK, 7170, 189, NONE);
 	
-
-	//App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 5584, 108, NONE);
-
-	//App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPILOT, 500, 60, NONE);
+	// bigDaddy testing spawn here
+	App->enemies->AddEnemy(ENEMY_TYPES::BIGDADDY, 200, 100, NONE);
 
 }
 
