@@ -66,9 +66,16 @@ private:
 		bool active[8][5] = { false };
 		SDL_Rect rect;
 	    int	laserPartIndex[5]; // 1 full laser is composed by 4 animated parts, 1 left cap, 3 mid, 1 cap right
+		int laserAxisIndex;//[16]; // indicates wich direction we have to instantiate 0 to 15 ( 16 axis )
 	};
 
-	iPoint offset[8][4]; // stores the offsets positions to laser parts instantiation
+	iPoint offset[8][5]; // stores the offsets positions to laser parts instantiation
+
+	int distanceManhattan;
+
+	int maxDistances[5] = { 16,32,48,64,80 };
+
+
 
 public:
 
@@ -81,6 +88,13 @@ public:
 	midBoss bigDaddy;
 	laserBeam laser;  
 
+	
+	float checkInstantiationDistance;
+
+	int maxFarAwayDistances[2]; // only two values we need to check, the cap and the mids
+
+	float otherDistance;
+	int blabla;
 	
 
 };
