@@ -84,6 +84,9 @@ EnemyBigDaddy::EnemyBigDaddy(int x, int y, powerUpTypes type, SDL_Texture* thisT
 	// start timers
 	bigDaddy.start_shoot_time = SDL_GetTicks();
 
+	//offset[0][1] = { 13,0 };
+
+	offset[0][0] = { 13,0};
 	offset[0][1] = { 13,0 };
 	offset[0][2] = { 16,0 };
 	offset[0][3] = { 16,0 };
@@ -97,32 +100,72 @@ EnemyBigDaddy::EnemyBigDaddy(int x, int y, powerUpTypes type, SDL_Texture* thisT
 
 	laser.position[0][0] = laser.instantiationPosition[0];
 
+	// test
+	laser.position[0][4] = laser.instantiationPosition[0];
+
 
 }
 
 void EnemyBigDaddy::Move()
 {
-	// updates laser instantiation position to follow enemy position
+	// updates laser instantiation position to follow enemy position || instatiation point position
 	laser.instantiationPosition[0] = { position.x , position.y }; // left up corner
+	
 
 	//fposition.x -= 1.35;
 	//position.x = fposition.x;
 	position.x += 1;
 
 	// laser test positions
-	laser.position[0][0].x -= 1;
+	//laser.position[0][0].x -= 1;
 	//laser.position[0][0].y -= 1;
+	// if laser 1 shooted || laser totally horizontal
+	/*laser.position[0][1] = laser.position[0][0] + offset[0][1];
+	laser.position[0][2] = laser.position[0][1] + offset[0][2];
+	laser.position[0][3] = laser.position[0][2] + offset[0][3];
+	laser.position[0][4] = laser.position[0][3] + offset[0][4];*/
+	
+	// this array stores the first shooted part of one of the total 4 instantiation enemy corner points 
+	// for do correct for loops checks(inverse/reverse order), or this is the intention
+	// in really only stores the last or the first 0/4 (order for activate the correct parts dependent of direction)
+	laser.laserPartIndex[0] = 0;
+	// activate laser parts
+	laser.active[0][laser.laserPartIndex[0]] = true;
+
+	/*laser.position[0][laser.laserPartIndex[0]].x += 1;
 	laser.position[0][1] = laser.position[0][0] + offset[0][1];
 	laser.position[0][2] = laser.position[0][1] + offset[0][2];
 	laser.position[0][3] = laser.position[0][2] + offset[0][3];
-	laser.position[0][4] = laser.position[0][3] + offset[0][4];
+	laser.position[0][4] = laser.position[0][3] + offset[0][4];*/
+
+	// check if the instantiated laser need to be mounted in inverse/reverse
+	// if is to the right to left 4 to 0... and the first part of the chain isnt yet instantiated, associate each parts positions and updates it
+	if (laser.laserPartIndex[0] > 0 )//&& !laser.active[0][laser.laserPartIndex[0]]) // if the part is bigger than 0 indicates is reverse order, if not, normal order right to left
+	{
+		// because the part wich has passed this if is the "right" cap (to the right direction) the velocity assigned is always positive
+		laser.position[0][laser.laserPartIndex[0]].x += 2; // updates the position of the first chain cap
+
+		for (int i = laser.laserPartIndex[0] - 1; i >= 0; --i) // and assigns the correct offsets to the rest
+		{
+			laser.position[0][i] = laser.position[0][i + 1] - offset[0][i];
+
+		}
+	}
+	else
+	{
+		laser.position[0][0].x -= 1;
+
+		for (int i = 1; i < 5; ++i)
+		{
+			laser.position[0][i] = laser.position[0][i - 1] + offset[0][i];
+		}
+	}
+
 
 	// set colliders pos
 	collider->SetPos(position.x + 10, position.y + 8);
 
-	// activate laser parts
-	laser.active[0][0] = true;
-	//laser.active[0][1] = true;
+	
 
 
 }
@@ -149,27 +192,29 @@ void EnemyBigDaddy::Draw()
 
 	// check distance of the instantiated laser to grow up the lenght with more parts (active ones)
 
-	for (uint i = 0; i < 5; ++i)
+	if (!laser.laserPartIndex[0] > 0)
 	{
-		if (laser.position[0][i].x < laser.instantiationPosition[0].x - offset[0][i+1].x && !laser.active[0][i+1])//- offset[0][1].x)
+		for (uint i = 0; i < 5; ++i)
 		{
-			laser.active[0][i+1] = true;
-			laser.anim[0][i+1].current_frame = laser.anim[0][0].current_frame;
+			if (laser.position[0][i].x < laser.instantiationPosition[0].x - offset[0][i + 1].x && !laser.active[0][i + 1])//- offset[0][1].x)
+			{
+				laser.active[0][i + 1] = true;
+				laser.anim[0][i + 1].current_frame = laser.anim[0][0].current_frame;
+			}
 		}
 	}
-	/*for (uint i = 4; i > 0; --i)
+	else
 	{
-		if (laser.position[0][i].x > laser.instantiationPosition[0].x + offset[0][i - 1].x && !laser.active[0][i - 1])//- offset[0][1].x)
+		for (uint i = laser.laserPartIndex[0]; i > 0; --i)
 		{
-			laser.active[0][i - 1] = true;
-			laser.anim[0][i - 1].current_frame = laser.anim[0][4].current_frame;
+			if (laser.position[0][i].x > laser.instantiationPosition[0].x + offset[0][i - 1].x && !laser.active[0][i - 1])
+			{
+				laser.active[0][i - 1] = true;
+				laser.anim[0][i - 1].current_frame = laser.anim[0][laser.laserPartIndex[0]].current_frame;
+			}
 		}
-	}*/
-	/*if (laser.position[0][0].x < laser.instantiationPosition[0].x - offset[0][1].x && !laser.active[0][1])//- offset[0][1].x)
-	{
-		laser.active[0][1] = true;
-		laser.anim[0][1].current_frame = laser.anim[0][0].current_frame;
-	}*/
+	}
+	
 
 	// and draw the actives
 	for (uint i = 0; i < 5; ++i)

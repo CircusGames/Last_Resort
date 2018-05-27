@@ -65,6 +65,7 @@ private:
 		iPoint instantiationPosition[4]; // one of the 4 boss spawn points
 		bool active[8][5] = { false };
 		SDL_Rect rect;
+	    int	laserPartIndex[5]; // 1 full laser is composed by 4 animated parts, 1 left cap, 3 mid, 1 cap right
 	};
 
 	iPoint offset[8][4]; // stores the offsets positions to laser parts instantiation
@@ -79,6 +80,8 @@ public:
 
 	midBoss bigDaddy;
 	laserBeam laser;  
+
+	
 
 };
 
