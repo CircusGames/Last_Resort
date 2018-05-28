@@ -94,6 +94,90 @@ EnemyBigDaddy::EnemyBigDaddy(int x, int y, powerUpTypes type, SDL_Texture* thisT
 	laser.anim[1][4].PushBack({ 194,212,6,16 });
 	laser.anim[1][4].PushBack({ 200,213,8,16 }); // BIG
 	laser.anim[1][4].speed = 1.0f;
+	// -------
+	// 3pi/4 -------------------------------------------------
+	// pointing "up" cap
+	laser.anim[2][0].PushBack({ 0,129,22,16 }); // BIG
+	laser.anim[2][0].PushBack({ 198,79,19,15 });
+	laser.anim[2][0].PushBack({ 152,79,16,14 });
+	laser.anim[2][0].PushBack({ 108,79,14,13 });
+
+	laser.anim[2][0].PushBack({ 152,79,16,14 });
+	laser.anim[2][0].PushBack({ 198,79,19,15 });
+	laser.anim[2][0].PushBack({ 0,129,22,16 }); // BIG
+	laser.anim[2][0].speed = 1.0f;
+	//  mid
+	for (uint i = 1; i < 4; ++i)
+	{
+		laser.anim[2][i].PushBack({ 11,146,28,16 }); // BIG
+		laser.anim[2][i].PushBack({ 210,95,24,16 });
+		laser.anim[2][i].PushBack({ 165,94,20,16 });
+		laser.anim[2][i].PushBack({ 121,93,18,16 });
+
+		laser.anim[2][i].PushBack({ 165,94,20,16 });
+		laser.anim[2][i].PushBack({ 210,95,24,16 });
+		laser.anim[2][i].PushBack({ 11,146,28,16 }); // BIG
+		laser.anim[2][i].speed = 1.0f;
+	}
+	// pointing "down" cap
+	laser.anim[2][4].PushBack({ 28,163,22,16 }); // BIG
+	laser.anim[2][4].PushBack({ 227,112,19,15 });
+	laser.anim[2][4].PushBack({ 182,111,16,14 });
+	laser.anim[2][4].PushBack({ 138,110,14,13 });
+
+	laser.anim[2][4].PushBack({ 182,111,16,14 });
+	laser.anim[2][4].PushBack({ 227,112,19,15 });
+	laser.anim[2][4].PushBack({ 28,163,22,16 }); // BIG
+	laser.anim[2][4].speed = 1.0f;
+	// -----------------------------------------------------
+	// PI/4 ------------------------
+	// pointing "up" cap
+	laser.anim[3][0].PushBack({ 216,129,22,16 }); // BIG
+	laser.anim[3][0].PushBack({ 169,129,19,15 }); 
+	laser.anim[3][0].PushBack({ 124,129,16,14 }); 
+	laser.anim[3][0].PushBack({ 80,129,14,13 });
+
+	laser.anim[3][0].PushBack({ 124,129,16,14 });
+	laser.anim[3][0].PushBack({ 169,129,19,15 });
+	laser.anim[3][0].PushBack({ 216,129,22,16 }); // BIG
+	laser.anim[3][0].speed = 1.0f;
+	// mid
+	for (uint i = 1; i < 4; ++i)
+	{
+		laser.anim[3][i].PushBack({ 199,146,28,16 }); // BIG
+		laser.anim[3][i].PushBack({ 152,145,24,16 }); 
+		laser.anim[3][i].PushBack({ 107,144,20,16 });
+		laser.anim[3][i].PushBack({ 63, 143,18,16 });
+
+		laser.anim[3][i].PushBack({ 107,144,20,16 });
+		laser.anim[3][i].PushBack({ 152,145,24,16 });
+		laser.anim[3][i].PushBack({ 199,146,28,16 }); // BIG
+		laser.anim[3][i].speed = 1.0f;
+
+	}
+	// "down" cap
+	laser.anim[3][4].PushBack({ 188,163,22,16 }); // BIG
+	laser.anim[3][4].PushBack({ 140,162,19,15 });
+	laser.anim[3][4].PushBack({ 94,161,16,14 });
+	laser.anim[3][4].PushBack({ 50,160,14,13 });
+
+	laser.anim[3][4].PushBack({ 94,161,16,14 });
+	laser.anim[3][4].PushBack({ 140,162,19,15 });
+	laser.anim[3][4].PushBack({ 188,163,22,16 }); // BIG
+	laser.anim[3][4].speed = 1.0f;
+	// ----------------------------------------------------
+
+
+	// -----------------------------------------------------
+	// LASER FLASH anim
+	bigDaddy.laserFlashAnim.PushBack({45,229,10,10});
+	bigDaddy.laserFlashAnim.PushBack({ 32,229,12,12 });
+	bigDaddy.laserFlashAnim.PushBack({ 17,229,14,14 });
+	bigDaddy.laserFlashAnim.PushBack({ 0,229,16,16 });
+	bigDaddy.laserFlashAnim.PushBack({ 17,229,14,14 });
+	bigDaddy.laserFlashAnim.PushBack({ 32,229,12,12 });
+	bigDaddy.laserFlashAnim.speed = 0.25f;
+	//bigDaddy.laserFlashAnim.repeat = false;
 
 	// ---------------------------------------------------------------------------------------------
 
@@ -106,9 +190,7 @@ EnemyBigDaddy::EnemyBigDaddy(int x, int y, powerUpTypes type, SDL_Texture* thisT
 
 	//offset[0][1] = { 13,0 };
 
-	// indicates wich axis direcion laser we have to instantiate/move/animate
-	//laser.laserAxisIndex = 0; // right left situation || LINKS to the animation data
-	laser.laserAxisIndex = 0; // Up and down situation
+	
 	// -----------------------------------------------------
 	// OFFSETS distances for the right/left laser, this distances measures how long can reach the first instantiated cap before the next part is activated
 	offset[0][0] = { 13,0}; // only in consideration on REVERSE order ( 4 to 0, cap right mid mid mid cap left)
@@ -122,10 +204,26 @@ EnemyBigDaddy::EnemyBigDaddy(int x, int y, powerUpTypes type, SDL_Texture* thisT
 	offset[1][2] = { 0,13 };
 	offset[1][3] = { 0,13 };
 	offset[1][4] = { 0,13 }; // on
+	// 3pi/4
+	offset[2][0] = { 8,10 };
+	offset[2][1] = { 10,10 };
+	offset[2][2] = { 10,10 };
+	offset[2][3] = { 8,10 };
+	offset[2][4] = { 8,10 };
+	// PI/4
+	offset[3][0] = { -9,10 };
+	offset[3][1] = { -8,10 };
+	offset[3][2] = { -10,10 };
+	offset[3][3] = { -8,10 };
+	offset[3][4] = { -9,10 };
 
+
+	// indicates wich axis direcion laser we have to instantiate/move/animate
+	//laser.laserAxisIndex = 0; // right left situation || LINKS to the animation data
+	laser.laserAxisIndex = 0; // Up and down situation ------------------------------------------------------------------
 
 	// spawn points boss laser corners
-	laser.instantiationPosition[0] = { position.x - 100, position.y }; // left up corner
+	laser.instantiationPosition[0] = { position.x - 50, position.y }; // left up corner
 	laser.instantiationPosition[1] = { 200 , 100 }; // left down corner
 	laser.instantiationPosition[2] = { 200 , 100 }; // right up corner
 	laser.instantiationPosition[3] = { 200 , 100 }; // right down corner
@@ -136,10 +234,10 @@ EnemyBigDaddy::EnemyBigDaddy(int x, int y, powerUpTypes type, SDL_Texture* thisT
 	laser.position[1][4] = laser.instantiationPosition[0];
 	laser.position[1][0] = laser.instantiationPosition[0];
 	// important laser shooting logic activators ----
-	laser.laserPartIndex[0] = 4;
+	laser.laserPartIndex[0] = 0; // direction cap selector
 	//laser.laserPartIndex[1] = 4;
 	// activate laser parts
-	laser.active[laser.laserAxisIndex][laser.laserPartIndex[0]] = true;
+	//laser.active[laser.laserAxisIndex][laser.laserPartIndex[0]] = true;
 	
 
 }
@@ -147,7 +245,7 @@ EnemyBigDaddy::EnemyBigDaddy(int x, int y, powerUpTypes type, SDL_Texture* thisT
 void EnemyBigDaddy::Move()
 {
 	// updates laser instantiation position to follow enemy position || instatiation point position
-	laser.instantiationPosition[0] = { position.x - 100 , position.y }; // left up corner
+	laser.instantiationPosition[0] = { position.x - 50 , position.y }; // left up corner
 	
 	//fposition.x -= 1.35;
 	//position.x = fposition.x;
@@ -168,7 +266,7 @@ void EnemyBigDaddy::Move()
 	{
 		if (laser.active[laser.laserAxisIndex][i])
 		{
-			laser.position[laser.laserAxisIndex][i].x += 4;
+			//laser.position[laser.laserAxisIndex][i].x += 2; //5 to right
 			//laser.position[laser.laserAxisIndex][i].y += 1;
 		}
 	}
@@ -201,38 +299,45 @@ void EnemyBigDaddy::Draw()
 	App->render->Blit(enemyTex,position.x, position.y, &bigDaddy.onStageAnim->GetCurrentFrame());
 
 	// instantiate laser beams
-	if (bigDaddy.attack)
+	if (bigDaddy.attack && !laser.active[laser.laserAxisIndex][laser.laserPartIndex[0]])
 	{
-
+		laser.active[laser.laserAxisIndex][laser.laserPartIndex[0]] = true;
+		laser.position[laser.laserAxisIndex][laser.laserPartIndex[0]] = laser.instantiationPosition[0];
 	}
 
 	// check distances ---
 
 	if (!laser.laserPartIndex[0] > 0)
 	{
-		for (uint i = 1; i < 5; ++i)
+		if (laser.active[laser.laserAxisIndex][0])
 		{
-			distanceManhattan = laser.position[laser.laserAxisIndex][0].DistanceManhattan(laser.instantiationPosition[0]);
-
-			if (distanceManhattan > maxDistances[i-1] && !laser.active[laser.laserAxisIndex][i])
+			for (uint i = 1; i < 5; ++i)
 			{
-				laser.active[laser.laserAxisIndex][i] = true;
-				laser.position[laser.laserAxisIndex][i] = laser.position[laser.laserAxisIndex][i - 1] + offset[laser.laserAxisIndex][i];
-				laser.anim[laser.laserAxisIndex][i].current_frame = laser.anim[laser.laserAxisIndex][i - 1].current_frame;
+				distanceManhattan = laser.position[laser.laserAxisIndex][0].DistanceManhattan(laser.instantiationPosition[0]);
+
+				if (distanceManhattan > maxDistances[i - 1] && !laser.active[laser.laserAxisIndex][i])
+				{
+					laser.active[laser.laserAxisIndex][i] = true;
+					laser.position[laser.laserAxisIndex][i] = laser.position[laser.laserAxisIndex][i - 1] + offset[laser.laserAxisIndex][i];
+					laser.anim[laser.laserAxisIndex][i].current_frame = laser.anim[laser.laserAxisIndex][i - 1].current_frame;
+				}
 			}
 		}
 	}
 	else
 	{
-		for (int i = 4; i >= 0; --i)
+		if (laser.active[laser.laserAxisIndex][4])
 		{
-			distanceManhattan = laser.position[laser.laserAxisIndex][4].DistanceManhattan(laser.instantiationPosition[0]);
-
-			if (distanceManhattan > maxDistances[3-i] && !laser.active[laser.laserAxisIndex][i])
+			for (int i = 4; i >= 0; --i)
 			{
-				laser.active[laser.laserAxisIndex][i] = true;
-				laser.position[laser.laserAxisIndex][i] = laser.position[laser.laserAxisIndex][i + 1] - offset[laser.laserAxisIndex][i];
-				laser.anim[laser.laserAxisIndex][i].current_frame = laser.anim[laser.laserAxisIndex][i + 1].current_frame;
+				distanceManhattan = laser.position[laser.laserAxisIndex][4].DistanceManhattan(laser.instantiationPosition[0]);
+
+				if (distanceManhattan > maxDistances[3 - i] && !laser.active[laser.laserAxisIndex][i])
+				{
+					laser.active[laser.laserAxisIndex][i] = true;
+					laser.position[laser.laserAxisIndex][i] = laser.position[laser.laserAxisIndex][i + 1] - offset[laser.laserAxisIndex][i];
+					laser.anim[laser.laserAxisIndex][i].current_frame = laser.anim[laser.laserAxisIndex][i + 1].current_frame;
+				}
 			}
 		}
 	}
@@ -259,6 +364,12 @@ void EnemyBigDaddy::Draw()
 	App->render->Blit(laserTexture, laser.position[0][3].x, laser.position[0][3].y, &laser.anim[0][3].GetCurrentFrame());
 
 	App->render->Blit(laserTexture, laser.position[0][4].x, laser.position[0][4].y, &laser.anim[0][4].GetCurrentFrame());*/
+
+	// DRAW FIRE animation
+	//flashAnimRect = bigDaddy.laserFlashAnim.GetCurrentFrame();
+
+	App->render->Blit(laserTexture, laser.instantiationPosition[0].x - 5 + pivotFlashAnim[(int)bigDaddy.laserFlashAnim.current_frame].x,
+		laser.instantiationPosition[0].y + pivotFlashAnim[(int)bigDaddy.laserFlashAnim.current_frame].y - 5, &bigDaddy.laserFlashAnim.GetCurrentFrame());
 }
 
 EnemyBigDaddy::~EnemyBigDaddy()

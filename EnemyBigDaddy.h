@@ -45,7 +45,7 @@ private:
 		// shooting timer
 		Uint32 start_shoot_time;
 		Uint32 now_shoot_time;
-		Uint32 cadence_shoot_time;
+		Uint32 cadence_shoot_time = 2000;
 		//
 		const int maxCyclesOnStage = 4; // num of total attack loops (based on path full loops)
 		bool attack = false;
@@ -75,6 +75,9 @@ private:
 
 	int maxDistances[5] = { 16,32,48,64,80 };
 
+	SDL_Rect flashAnimRect;
+	iPoint pivotFlashAnim[6] = { { 0,0 },{ -1,-1 },{ -3,-3 },{ -5,-5 },{ -3,-3 },{ -1,-1 } };
+
 
 
 public:
@@ -86,7 +89,7 @@ public:
 	void Draw();
 
 	midBoss bigDaddy;
-	laserBeam laser;  
+	laserBeam laser;
 
 	
 	float checkInstantiationDistance;
