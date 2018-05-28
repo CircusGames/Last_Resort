@@ -229,10 +229,10 @@ EnemyBigDaddy::EnemyBigDaddy(int x, int y, powerUpTypes type, SDL_Texture* thisT
 	laser.instantiationPosition[3] = { 200 , 100 }; // right down corner
 
 	// test
-	laser.position[0][0] = laser.instantiationPosition[0];
+	/*laser.position[0][0] = laser.instantiationPosition[0];
 	laser.position[0][4] = laser.instantiationPosition[0];
 	laser.position[1][4] = laser.instantiationPosition[0];
-	laser.position[1][0] = laser.instantiationPosition[0];
+	laser.position[1][0] = laser.instantiationPosition[0];*/
 	// important laser shooting logic activators ----
 	laser.laserPartIndex[0] = 0; // direction cap selector
 	//laser.laserPartIndex[1] = 4;
