@@ -179,8 +179,11 @@ void EnemyLamella::Move()
 			
 			fposition.x += xSpeed;
 		}
-		if (xTargetReached & yTargetReached) targetReached = true;
-		
+		if (xTargetReached & yTargetReached)
+			targetReached = true;
+
+		if (targetReached)
+			currentAnimation = &despawnAnim;	
 	}
 
 	targetPosition.x += 1;
@@ -201,6 +204,12 @@ void EnemyLamella::Draw()
 
 	//print
 	lamellaRect = currentAnimation->GetCurrentFrame();
-	if(alive)
+
+	if (alive)
+	{
 		App->render->Blit(enemyTex, position.x, position.y, &lamellaRect);
+		
+		if (despawnAnim.finish)
+			alive = false;
+	}
 }
