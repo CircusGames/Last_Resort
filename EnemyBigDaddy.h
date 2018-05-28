@@ -63,12 +63,14 @@ private:
 		float ySpeed;//[8][5];
 		float playerAngle;//[8];
 		iPoint position[8][5];
+		fPoint fposition[8][5];
 		iPoint instantiationPosition[4]; // one of the 4 boss spawn points
 		bool active[8][5] = { false };
 		SDL_Rect rect;
 	    int	laserPartIndex[5]; // 1 full laser is composed by 4 animated parts, 1 left cap, 3 mid, 1 cap right
 		int laserAxisIndex;//[16]; // indicates wich direction we have to instantiate 0 to 15 ( 16 axis )
 		uint instantiationPoint;
+		uint part;
 	};
 
 	iPoint offset[8][5]; // stores the offsets positions to laser parts instantiation
@@ -92,6 +94,7 @@ public:
 	void Draw();
 
 	void youDecide();
+	void assignAxis();
 
 	midBoss bigDaddy;
 	laserBeam laser;
