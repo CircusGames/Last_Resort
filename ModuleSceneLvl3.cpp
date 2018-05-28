@@ -167,7 +167,7 @@ update_status ModuleSceneLvl3::PreUpdate()
 		{
 			start_time = SDL_GetTicks();
 			currentLevelZone = stage_zone::boss_zone; //change level current zone
-			App->audio->ControlAudio("song_lvl3", MUSIC, FADEOFF, -1, 4500.0f);
+			App->audio->ControlAudio("song_lvl3", MUSIC, FADEOFF, -1, 0.0f, 4500.0f);
 		}
 
 	}
