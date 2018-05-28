@@ -116,7 +116,7 @@ bool ModuleSceneLvl3::Start()
 	//load needed audios
 	App->audio->LoadAudio("assets/Audio/Music/Sonar_Stage3_theme.ogg", "song_lvl3", MUSIC);
 	App->audio->LoadAudio("assets/Audio/Music/Cold_Machine_Boss3_theme.ogg", "bosslvl3", MUSIC);
-	//App->audio->ControlAudio("song_lvl3", MUSIC, FADEIN, -1, 1500.0f);
+	App->audio->ControlAudio("song_lvl3", MUSIC, FADEIN, -1, 1500.0f);
 
 	//boss background fade values
 	faded = false;
@@ -153,7 +153,7 @@ update_status ModuleSceneLvl3::PreUpdate()
 
 	
 
-	if ((GetCurrentCameraPixelPos() > 5520 - SCREEN_WIDTH - 26.5f)&&scroll) //-26.5f is the offset
+	if ((GetCurrentCameraPixelPos() > 5520 - SCREEN_WIDTH - 26.5f) && scroll) //-26.5f is the offset
 	{
 		scroll = false;
 		App->audio->ControlAudio("bosslvl3", MUSIC, FADEIN, -1, 1000.0f);
@@ -167,7 +167,7 @@ update_status ModuleSceneLvl3::PreUpdate()
 		{
 			start_time = SDL_GetTicks();
 			currentLevelZone = stage_zone::boss_zone; //change level current zone
-			App->audio->ControlAudio("song_lvl3", MUSIC, FADEOFF, -1, 5000.0f);
+			App->audio->ControlAudio("song_lvl3", MUSIC, FADEOFF, -1, 4500.0f);
 		}
 
 	}
