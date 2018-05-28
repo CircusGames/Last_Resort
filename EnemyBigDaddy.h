@@ -51,22 +51,24 @@ private:
 		bool attack = false;
 		//
 		uint numAlivePlayers = 0; // to num laser shoots logic
+		
 
 	};
 
 	struct laserBeam
 	{
 		Animation anim[8][5]; // [num max laser angles][num parts anims] -> 1 cap 2 center 1 cap
-		float distance[8][5];
-		float xSpeed[8][5];
-		float ySpeed[8][5];
-		float playerAngle[8];
+		float distance;//[8][5];
+		float xSpeed;//[8][5];
+		float ySpeed;//[8][5];
+		float playerAngle;//[8];
 		iPoint position[8][5];
 		iPoint instantiationPosition[4]; // one of the 4 boss spawn points
 		bool active[8][5] = { false };
 		SDL_Rect rect;
 	    int	laserPartIndex[5]; // 1 full laser is composed by 4 animated parts, 1 left cap, 3 mid, 1 cap right
 		int laserAxisIndex;//[16]; // indicates wich direction we have to instantiate 0 to 15 ( 16 axis )
+		uint instantiationPoint;
 	};
 
 	iPoint offset[8][5]; // stores the offsets positions to laser parts instantiation
@@ -78,6 +80,7 @@ private:
 	SDL_Rect flashAnimRect;
 	iPoint pivotFlashAnim[6] = { { 0,0 },{ -1,-1 },{ -3,-3 },{ -5,-5 },{ -3,-3 },{ -1,-1 } };
 
+	//bool noFollow = false;
 
 
 public:
@@ -87,6 +90,8 @@ public:
 
 	void Move();
 	void Draw();
+
+	void youDecide();
 
 	midBoss bigDaddy;
 	laserBeam laser;
