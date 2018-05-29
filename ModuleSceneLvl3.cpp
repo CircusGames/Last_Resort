@@ -151,7 +151,35 @@ update_status ModuleSceneLvl3::PreUpdate()
 			App->player[1]->position.x += 1;
 	}
 
-	
+	if ((GetCurrentCameraPixelPos() > 2000) & wave==1)
+	{
+		App->enemies->AddEnemy(ENEMY_TYPES::LAMELLA, GetCurrentCameraPixelPos() * 2 + 20, 20, NONE);
+		App->enemies->AddEnemy(ENEMY_TYPES::LAMELLA, GetCurrentCameraPixelPos() * 2 + 20, 60, NONE);
+		App->enemies->AddEnemy(ENEMY_TYPES::LAMELLA, GetCurrentCameraPixelPos() * 2 + 20, 100, NONE);
+		App->enemies->AddEnemy(ENEMY_TYPES::LAMELLA, GetCurrentCameraPixelPos() * 2 + 20, 140, NONE);
+
+		App->enemies->AddEnemy(ENEMY_TYPES::LAMELLA, GetCurrentCameraPixelPos() * 2 + 240, 20, NONE);
+		App->enemies->AddEnemy(ENEMY_TYPES::LAMELLA, GetCurrentCameraPixelPos() * 2 + 240, 60, NONE);
+		App->enemies->AddEnemy(ENEMY_TYPES::LAMELLA, GetCurrentCameraPixelPos() * 2 + 240, 100, NONE);
+		App->enemies->AddEnemy(ENEMY_TYPES::LAMELLA, GetCurrentCameraPixelPos() * 2 + 240, 140, NONE);
+
+		wave++;
+	}
+
+	if ((GetCurrentCameraPixelPos() > 2300) & wave == 2)
+	{
+		App->enemies->AddEnemy(ENEMY_TYPES::LAMELLA, GetCurrentCameraPixelPos() * 2 + 20, 20, NONE);
+		App->enemies->AddEnemy(ENEMY_TYPES::LAMELLA, GetCurrentCameraPixelPos() * 2 + 20, 60, NONE);
+		App->enemies->AddEnemy(ENEMY_TYPES::LAMELLA, GetCurrentCameraPixelPos() * 2 + 20, 100, NONE);
+		App->enemies->AddEnemy(ENEMY_TYPES::LAMELLA, GetCurrentCameraPixelPos() * 2 + 20, 140, NONE);
+
+		App->enemies->AddEnemy(ENEMY_TYPES::LAMELLA, GetCurrentCameraPixelPos() * 2 + 240, 20, NONE);
+		App->enemies->AddEnemy(ENEMY_TYPES::LAMELLA, GetCurrentCameraPixelPos() * 2 + 240, 60, NONE);
+		App->enemies->AddEnemy(ENEMY_TYPES::LAMELLA, GetCurrentCameraPixelPos() * 2 + 240, 100, NONE);
+		App->enemies->AddEnemy(ENEMY_TYPES::LAMELLA, GetCurrentCameraPixelPos() * 2 + 240, 140, NONE);
+
+		wave++;
+	}
 
 	if ((GetCurrentCameraPixelPos() > 5520 - SCREEN_WIDTH - 26.5f) && scroll) //-26.5f is the offset
 	{

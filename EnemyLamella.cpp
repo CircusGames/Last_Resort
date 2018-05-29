@@ -5,6 +5,8 @@
 #include "ModuleParticles.h"
 #include "ModuleRender.h"
 
+#include "SDL\include\SDL_timer.h"
+
 EnemyLamella::EnemyLamella(int x, int y, powerUpTypes type, SDL_Texture* thisTexture) : Enemy(x, y)
 {
 	// correct texture link
@@ -120,17 +122,26 @@ EnemyLamella::EnemyLamella(int x, int y, powerUpTypes type, SDL_Texture* thisTex
 	enemyScore = 200; // random
 	powerUpType = type;
 
+	totalTime = 1000;
+
 	position = originalPos;
-	
 }
 
 void EnemyLamella::Move()
 {
+	if (now > totalTime)
+		clock = true;
+
 	if (spawnAnim.finish && !targetReached)
 	{
+		if(once) startTime = SDL_GetTicks();
+
+		now = SDL_GetTicks() - startTime;
+		once = false;
+
 		currentAnimation = &moveAnim;
 
-		if (aimed)
+		if (aimed&clock)
 		{
 			distance = GetNearestPlayerSqrtDistance();
 			aimed = false;

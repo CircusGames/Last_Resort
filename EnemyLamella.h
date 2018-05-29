@@ -15,8 +15,12 @@ private:
 	bool finalPos = false;
 
 	bool alive = true;
+	bool clock = false;
+	bool once = true;
 
-	bool once = false;
+	Uint32 startTime;
+	Uint32 now;
+	Uint32 totalTime;
 
 	float pivot;
 	float distance;
@@ -31,6 +35,7 @@ private:
 	bool targetReached = false;
 
 	iPoint targetPosition;
+
 	bool toLeft = false;
 	bool toDown = false;
 

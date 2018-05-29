@@ -36,6 +36,11 @@ public:
 
 	bool CleanUp();
 
+
+	bool spawnOnce = true;
+	Uint32 wave = 1;
+
+
 	//void spawnEnemies(int x, int y);
 	void addEnemiesToLvl3();
 	void AddColliders();
