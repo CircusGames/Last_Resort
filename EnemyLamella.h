@@ -16,8 +16,7 @@ private:
 
 	bool alive = true;
 
-	bool left = false;
-	bool right = false;
+	bool once = false;
 
 	float pivot;
 	float distance;
