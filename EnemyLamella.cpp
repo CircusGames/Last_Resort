@@ -209,7 +209,7 @@ void EnemyLamella::Move()
 void EnemyLamella::Draw()
 {
 	// collider
-	if (collider == nullptr && spawnAnim.finish)
+	if (collider == nullptr && spawnAnim.finish && !targetReached)
 		collider = App->collision->AddCollider({ 0, 0, 30, 30 }, COLLIDER_TYPE::COLLIDER_ENEMY, (Module*)App->enemies);
 
    if (collider != nullptr)

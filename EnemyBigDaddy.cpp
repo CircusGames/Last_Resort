@@ -404,6 +404,7 @@ EnemyBigDaddy::EnemyBigDaddy(int x, int y, powerUpTypes type, SDL_Texture* thisT
 	//laser.active[laser.laserAxisIndex][laser.laserPartIndex[0]] = true;
 	
 	position.x = 120;
+	position.y = 20;
 }
 
 void EnemyBigDaddy::Move()
@@ -512,8 +513,8 @@ void EnemyBigDaddy::youDecide()
 
 		laser.playerAngle = atan2f(ty, tx);
 
-		laser.xSpeed = 5 * cos(laser.playerAngle);
-		laser.ySpeed = 5 * sin(laser.playerAngle);
+		laser.xSpeed = 4 * cos(laser.playerAngle);
+		laser.ySpeed = 4 * sin(laser.playerAngle);
 
 		bigDaddy.now_shoot_time = SDL_GetTicks() - bigDaddy.start_shoot_time;
 
