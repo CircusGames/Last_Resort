@@ -524,16 +524,19 @@ void EnemyBigDaddy::youDecide()
 		// checks the no assigned instantiation points
 		if (numActiveLasers > 2)
 		{
-			for (uint i = 0; i < numActiveLasers; i++)
+			for (uint i = 0; i < 4; i++)
 			{
 				if (assignedP[i] == -1) // if is not assigned
 				{
 					for (uint z = 0; z < 4; z++)
 					{
+						if (z == laser[i].instantiationPoint) 
+							continue;
+
 						if (z != laser[z].instantiationPoint)
 						{
 							laser[z].instantiationPoint = z;
-							break;
+							//break;
 						}
 
 					}
