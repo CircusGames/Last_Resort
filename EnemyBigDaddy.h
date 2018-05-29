@@ -92,6 +92,11 @@ private:
 
 	int numActiveLasers = 2; // always have 2 lasers active, 2 players 4 lasers
 
+	// timer for destroy all the lasers at once
+	Uint32 start_all_shoots_time;
+	Uint32 now_all_shoots_time;
+	Uint32 time_to_destroy = 1000;
+
 
 public:
 

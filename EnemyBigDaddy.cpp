@@ -468,18 +468,16 @@ void EnemyBigDaddy::Move()
 void EnemyBigDaddy::youDecide()
 {
 
-	//if (numActivePlayers == 2) numActiveLasers = 4;
-
-	numActiveLasers = 1;
+	if (numActivePlayers == 2) numActiveLasers = 4;
+	else
+		numActiveLasers = 2;
 
 	fPoint sourcePos;
-
 
 	float pointDistances[4];
 
 	//for (uint z = 0; z < numActiveLasers; z++)
 	//{
-
 		for (uint i = 0; i < 4; ++i) // store all the distances nearest to the nearest active player
 		{
 			sourcePos.x = bigDaddy.instantiationPosition[i].x;
@@ -493,6 +491,8 @@ void EnemyBigDaddy::youDecide()
 
 		int secondPoint = 0;
 
+		int assignedP[4] = {-1,-1,-1,-1}; // not assigned yet
+
 		// checks the nearest point
 		for (uint i = 0; i < 4; ++i)
 		{
@@ -501,10 +501,11 @@ void EnemyBigDaddy::youDecide()
 				tempValue = pointDistances[i];
 				laser[0].instantiationPoint = i;
 				//instantiationIndex = i;
+				assignedP[0] = i;
 			}
 		}
 		// second check to decide the next second point nearest to player
-		for (uint i = 0; i < 3; ++i)
+		for (uint i = 0; i < 4; ++i)
 		{
 			// if index is the same checked before continue
 			if (pointDistances[i] == tempValue) continue;
@@ -513,54 +514,72 @@ void EnemyBigDaddy::youDecide()
 			{
 				tempValue2 = pointDistances[i];
 				secondPoint = i;
-				//laser[1].instantiationPoint = i; // second laser instantiation point
+				laser[1].instantiationPoint = i; // second laser instantiation point
+				assignedP[1] = i;
 				//instantiationIndex = i;
 			}
 		}
 
-		// if the second player are in scene, assign the rest of points to it
-
-		//for (uint z = 0; z < numActiveLasers; z++)
-		//{
-
-			sourcePos.x = bigDaddy.instantiationPosition[laser[0].instantiationPoint].x;
-			sourcePos.y = bigDaddy.instantiationPosition[laser[0].instantiationPoint].y;
-
-			LOG("instantiation index2: %d", secondPoint);
-
-			//sourcePos.x = laser.instantiationPosition[0].x;
-			//sourcePos.y = laser.instantiationPosition[0].y;
-
-			laser[0].distance = GetNearestPlayerSqrtDistance(sourcePos);
-			//laser.instantiationPoint = 3;
-
-
-
-
-
-			//if (numActivePlayers)
-
-			if (nearestTarget == nearestPlayer::P1 && !laser[0].active[laser[0].laserAxisIndex][laser[0].laserPartIndex[0]])
+		// assign the rest of points 
+		// checks the no assigned instantiation points
+		if (numActiveLasers > 2)
+		{
+			for (uint i = 0; i < numActiveLasers; i++)
 			{
-			float tx;
-			float ty;
+				if (assignedP[i] == -1) // if is not assigned
+				{
+					for (uint z = 0; z < 4; z++)
+					{
+						if (z != laser[z].instantiationPoint)
+						{
+							laser[z].instantiationPoint = z;
+							break;
+						}
 
-			tx = App->player[0]->position.x - sourcePos.x;
-			ty = App->player[0]->position.y - sourcePos.y;
+					}
+				}
+			}
+		}
 
-			laser[0].playerAngle = atan2f(ty, tx);
+		
+		for (uint z = 0; z < numActiveLasers; z++)
+		{
+			sourcePos.x = bigDaddy.instantiationPosition[laser[z].instantiationPoint].x;
+			sourcePos.y = bigDaddy.instantiationPosition[laser[z].instantiationPoint].y;
 
-			laser[0].xSpeed = 4 * cos(laser[0].playerAngle);
-			laser[0].ySpeed = 4 * sin(laser[0].playerAngle);
+			laser[z].distance = GetNearestPlayerSqrtDistance(sourcePos);
 
-			bigDaddy.now_shoot_time = SDL_GetTicks() - bigDaddy.start_shoot_time;
+			//if (nearestTarget == nearestPlayer::P1 && !laser[z].active[laser[z].laserAxisIndex][laser[z].laserPartIndex[0]])
+			if (!laser[z].active[laser[z].laserAxisIndex][laser[z].laserPartIndex[0]])
+			{
+				float tx;
+				float ty;
 
-			if (bigDaddy.now_shoot_time >= bigDaddy.cadence_shoot_time)
-				bigDaddy.attack = true;
+				if (nearestTarget == P1)
+				{
+					tx = App->player[0]->position.x - sourcePos.x;
+					ty = App->player[0]->position.y - sourcePos.y;
+				}
+				else
+				{
+					tx = App->player[1]->position.x - sourcePos.x;
+					ty = App->player[1]->position.y - sourcePos.y;
+				}
 
-			// assigns correct cap and axis to "instantiated" laser
-			assignAxis(0);
-			//if (laser.playerAngle)
+				laser[z].playerAngle = atan2f(ty, tx);
+
+				laser[z].xSpeed = 4 * cos(laser[z].playerAngle);
+				laser[z].ySpeed = 4 * sin(laser[z].playerAngle);
+
+				bigDaddy.now_shoot_time = SDL_GetTicks() - bigDaddy.start_shoot_time;
+
+				if (bigDaddy.now_shoot_time >= bigDaddy.cadence_shoot_time)
+					bigDaddy.attack = true;
+
+				// assigns correct cap and axis to "instantiated" laser
+				assignAxis(z);
+				//if (laser.playerAngle)
+			}
 		}
 
 		//LOG("playerAngle: %f", laser.playerAngle);
@@ -696,8 +715,14 @@ void EnemyBigDaddy::Draw()
 			laser[z].fposition[laser[z].laserAxisIndex][laser[z].laserPartIndex[0]].x = laser[z].position[laser[z].laserAxisIndex][laser[z].laserPartIndex[0]].x;
 			laser[z].fposition[laser[z].laserAxisIndex][laser[z].laserPartIndex[0]].y = laser[z].position[laser[z].laserAxisIndex][laser[z].laserPartIndex[0]].y;
 
-			bigDaddy.attack = false;
-			bigDaddy.start_shoot_time = SDL_GetTicks();
+			if (z == numActiveLasers)
+			{
+				bigDaddy.attack = false;
+				bigDaddy.start_shoot_time = SDL_GetTicks();
+				// general timer
+				//start_all_shoots_time = SDL_GetTicks();
+			}
+			start_all_shoots_time = SDL_GetTicks();
 		}
 	}
 
@@ -723,11 +748,11 @@ void EnemyBigDaddy::Draw()
 						laser[z].fposition[laser[z].laserAxisIndex][i].y = laser[z].position[laser[z].laserAxisIndex][i].y;
 					}
 					// deactivates laser to prepare next shoot
-					if (distanceManhattan > 400) // distance with the latest checked part
+					/*if (distanceManhattan > 400) // distance with the latest checked part
 					{
 						for (uint i = 0; i < 5; ++i)
 							laser[z].active[laser[z].laserAxisIndex][i] = false;
-					}
+					}*/
 
 				}
 			}
@@ -752,11 +777,27 @@ void EnemyBigDaddy::Draw()
 					}
 
 					// deactivates laser to prepare next shoot
-					if (distanceManhattan > 400) // distance with the latest checked part
+					/*if (distanceManhattan > 400) // distance with the latest checked part
 					{
 						for (uint i = 0; i < 5; ++i)
 							laser[z].active[laser[z].laserAxisIndex][i] = false;
-					}
+					}*/
+				}
+			}
+		}
+	}
+
+	// timer for destroy all lasers independent of its distance
+	now_all_shoots_time = SDL_GetTicks() - start_all_shoots_time;
+	if (now_all_shoots_time > time_to_destroy)
+	{
+		for (uint i = 0; i < numActiveLasers; ++i)
+		{
+			for (uint z = 0; z < 5; z++)
+			{
+				if (laser[i].active[laser[i].laserAxisIndex][z])
+				{
+					laser[i].active[laser[i].laserAxisIndex][z] = false;
 				}
 			}
 		}
@@ -768,7 +809,7 @@ void EnemyBigDaddy::Draw()
 	// DRAW lasers actives 
 	for (uint z = 0; z < numActiveLasers; z++)
 	{
-		for (uint i = 0; i < 5; ++i)
+		for (uint i = 0; i < 5; ++i) // all parts, all active lasers
 		{
 
 			if (laser[z].active[laser[z].laserAxisIndex][i])
