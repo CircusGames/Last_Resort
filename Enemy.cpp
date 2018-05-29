@@ -134,14 +134,15 @@ float Enemy::GetNearestPlayerSqrtDistance(fPoint sourcePosition)
 
 		if (distanceToP2 < distanceToNearest || App->player[0]->player_step == player_state::died)
 		{
-			/*if (App->player[0]->player_step == player_state::died)
-				LOG("P2 ENABLED, P1 is death");
+			if (App->player[0]->player_step == player_state::died)
+				numActivePlayers = 1;//LOG("P2 ENABLED, P1 is death");
 			if (App->player[0]->player_step != player_state::died)
-				LOG("Player 2 is enabled and are nearest than P1");
+				numActivePlayers = 2;//LOG("Player 2 is enabled and are nearest than P1");
 
-			LOG("P1 distance: %f, P2 distance: %f", distanceToNearest, distanceToP2);*/
+			//LOG("P1 distance: %f, P2 distance: %f", distanceToNearest, distanceToP2);
 
 			distanceToNearest = distanceToP2;
+			
 
 			// and assign tx,ty
 
@@ -165,7 +166,7 @@ float Enemy::GetNearestPlayerSqrtDistance(fPoint sourcePosition)
 
 			// assign enum nearest player, if we need for getTargetPos function
 			nearestTarget = nearestPlayer::P1;
-
+			numActivePlayers = 2;
 		}
 
 	}
@@ -179,6 +180,7 @@ float Enemy::GetNearestPlayerSqrtDistance(fPoint sourcePosition)
 		
 		// assign enum nearest player, if we need for getTargetPos function
 		nearestTarget = nearestPlayer::P1;
+		numActivePlayers = 1;
 	}
 
 	

@@ -166,7 +166,145 @@ EnemyBigDaddy::EnemyBigDaddy(int x, int y, powerUpTypes type, SDL_Texture* thisT
 	laser.anim[3][4].PushBack({ 188,163,22,16 }); // BIG
 	laser.anim[3][4].speed = 1.0f;
 	// ----------------------------------------------------
+	// 22,5 degrees CAP ----
+	laser.anim[4][0].PushBack({ 172,0,16,14}); // BIG
+	laser.anim[4][0].PushBack({ 123,0,15,12 });
+	laser.anim[4][0].PushBack({ 76,0,14,10 });
+	laser.anim[4][0].PushBack({ 31,0,13,8 });
 
+	laser.anim[4][0].PushBack({ 76,0,14,10 });
+	laser.anim[4][0].PushBack({ 123,0,15,12 });
+	laser.anim[4][0].PushBack({ 172,0,16,14 });
+	laser.anim[4][0].speed = 1.0f;
+	// mid
+	for (uint i = 1; i < 4; ++i)
+	{
+		laser.anim[4][i].PushBack({ 155,7,16,16 }); // BIG
+		laser.anim[4][i].PushBack({ 106,7,16,14 });
+		laser.anim[4][i].PushBack({ 59,7,16,12 });
+		laser.anim[4][i].PushBack({ 14,7,16,10 });
+
+		laser.anim[4][i].PushBack({ 59,7,16,12 });
+		laser.anim[4][i].PushBack({ 106,7,16,14 });
+		laser.anim[4][i].PushBack({ 155,7,16,16 }); // BIG
+		laser.anim[4][i].speed = 1.0f;
+	}
+	// "down" cap
+	laser.anim[4][4].PushBack({ 138,15,16,14 }); // BIG
+	laser.anim[4][4].PushBack({ 90,16,15,12 });
+	laser.anim[4][4].PushBack({ 44,16,14,10 });
+	laser.anim[4][4].PushBack({ 0,16,13,8 });
+
+	laser.anim[4][4].PushBack({ 44,16,14,10 });
+	laser.anim[4][4].PushBack({ 90,16,15,12 });
+	laser.anim[4][4].PushBack({ 138,15,16,14 });
+	laser.anim[4][4].speed = 1.0f;
+	// -----------------------------------------------------
+	// 67'5 degrees --------
+	// "up" cap
+	laser.anim[5][0].PushBack({ 238,29,14,16 }); // BIG
+	laser.anim[5][0].PushBack({ 210,29,12,15 });
+	laser.anim[5][0].PushBack({ 184,29,10,14 });
+	laser.anim[5][0].PushBack({ 160,29,8,13 });
+
+	laser.anim[5][0].PushBack({ 184,29,10,14 });
+	laser.anim[5][0].PushBack({ 210,29,12,15 });
+	laser.anim[5][0].PushBack({ 238,29,14,16 }); // BIG
+	laser.anim[5][0].speed = 1.0f;
+	// mid
+	for (uint i = 1; i < 4; ++i)
+	{
+		laser.anim[5][i].PushBack({ 229,46,16,16 }); // BIG
+		laser.anim[5][i].PushBack({ 201,45,14,16 });
+		laser.anim[5][i].PushBack({ 175,44,12,16 });
+		laser.anim[5][i].PushBack({ 151,46,8,16 });
+
+		laser.anim[5][i].PushBack({ 175,44,12,16 });
+		laser.anim[5][i].PushBack({ 201,45,14,16 });
+		laser.anim[5][i].PushBack({ 229,46,16,16 }); // BIG
+		laser.anim[5][i].speed = 1.0f;
+	}
+	// "down" cap
+	laser.anim[5][4].PushBack({ 222,63,14,16 }); // BIG
+	laser.anim[5][4].PushBack({ 194,62,12,15 });
+	laser.anim[5][4].PushBack({ 168,61,10,14 });
+	laser.anim[5][4].PushBack({ 144,60,10,13 });
+
+	laser.anim[5][4].PushBack({ 168,61,10,14 });
+	laser.anim[5][4].PushBack({ 194,62,12,15 });
+	laser.anim[5][4].PushBack({ 222,63,14,16 }); // BIG
+	laser.anim[5][4].speed = 1.0f;
+	// -----------------------------------------------------
+	//112.5 degrees (pointing upLeft)
+	// "up" top cap
+	laser.anim[6][0].PushBack({ 78,79,14,16 }); // BIG
+	laser.anim[6][0].PushBack({ 50,79,12,15 });
+	laser.anim[6][0].PushBack({ 24,79,10,14 });
+	laser.anim[6][0].PushBack({ 0,79,8,13 });
+
+	laser.anim[6][0].PushBack({ 24,79,10,14 });
+	laser.anim[6][0].PushBack({ 50,79,12,15 });
+	laser.anim[6][0].PushBack({ 78,79,14,16 }); // BIG
+	laser.anim[6][0].speed = 1.0f;
+	// MID ---
+	for (uint i = 1; i < 4; ++i)
+	{
+		laser.anim[6][i].PushBack({ 85,96,16,16 }); // BIG
+		laser.anim[6][i].PushBack({ 57,95,14,16 });
+		laser.anim[6][i].PushBack({ 31,94,12,16 });
+		laser.anim[6][i].PushBack({ 7,93,10,16 }); 
+
+		laser.anim[6][i].PushBack({ 31,94,12,16 });
+		laser.anim[6][i].PushBack({ 57,95,14,16 });
+		laser.anim[6][i].PushBack({ 85,96,16,16 }); // BIG
+		laser.anim[6][i].speed = 1.0f;
+	}
+	// "down" bottom cap
+	laser.anim[6][4].PushBack({ 94,113,14,16 }); // BIG
+	laser.anim[6][4].PushBack({ 66,112,12,15 });
+	laser.anim[6][4].PushBack({ 40,111,10,14 });
+	laser.anim[6][4].PushBack({ 16,110,9,13 });
+
+	laser.anim[6][4].PushBack({ 40,111,10,14 });
+	laser.anim[6][4].PushBack({ 66,112,12,15 });
+	laser.anim[6][4].PushBack({ 94,113,14,16 }); // BIG
+	laser.anim[6][4].speed = 1.0f;
+	// -----------------------------------------------------
+	// 157.5 degrees ---------------
+	// "up" top cap
+	laser.anim[7][0].PushBack({ 94,29,16,14 }); // BIG
+	laser.anim[7][0].PushBack({ 46,29,15,12 });
+	laser.anim[7][0].PushBack({ 0,29,14,10 });
+	laser.anim[7][0].PushBack({ 189,0,13,8 });
+
+	laser.anim[7][0].PushBack({ 0,29,14,10 });
+	laser.anim[7][0].PushBack({ 46,29,15,12 });
+	laser.anim[7][0].PushBack({ 94,29,16,14 }); // BIG
+	laser.anim[7][0].speed = 1.0f;
+	// mid
+	for (uint i = 1; i < 4; ++i)
+	{
+		laser.anim[7][i].PushBack({ 111,35,16,16 }); // BIG
+		laser.anim[7][i].PushBack({ 62,36,16,14 });
+		laser.anim[7][i].PushBack({ 15,36,16,12 });
+		laser.anim[7][i].PushBack({ 202,7,16,10 });
+
+		laser.anim[7][i].PushBack({ 15,36,16,12 });
+		laser.anim[7][i].PushBack({ 62,36,16,14 });
+		laser.anim[7][i].PushBack({ 111,35,16,16 }); // BIG
+		laser.anim[7][i].speed = 1.0f;
+	}
+	// "down" bottom cap
+	laser.anim[7][4].PushBack({ 128,44,16,14 }); // BIG
+	laser.anim[7][4].PushBack({ 79,45,15,12 });
+	laser.anim[7][4].PushBack({ 32,45,14,10 });
+	laser.anim[7][4].PushBack({ 219,16,13,8 });
+	
+	laser.anim[7][4].PushBack({ 32,45,14,10 });
+	laser.anim[7][4].PushBack({ 79,45,15,12 });
+	laser.anim[7][4].PushBack({ 128,44,16,14 }); // BIG
+	laser.anim[7][4].speed = 1.0f;
+	// -----------------------------------------------------
 
 	// -----------------------------------------------------
 	// LASER FLASH anim
@@ -193,6 +331,7 @@ EnemyBigDaddy::EnemyBigDaddy(int x, int y, powerUpTypes type, SDL_Texture* thisT
 	
 	// -----------------------------------------------------
 	// OFFSETS distances for the right/left laser, this distances measures how long can reach the first instantiated cap before the next part is activated
+	// right/left offsets
 	offset[0][0] = { 13,0}; // only in consideration on REVERSE order ( 4 to 0, cap right mid mid mid cap left)
 	offset[0][1] = { 13,0 };
 	offset[0][2] = { 16,0 };
@@ -216,17 +355,41 @@ EnemyBigDaddy::EnemyBigDaddy(int x, int y, powerUpTypes type, SDL_Texture* thisT
 	offset[3][2] = { -10,10 };
 	offset[3][3] = { -8,10 };
 	offset[3][4] = { -9,10 };
+	// 22.5
+	offset[4][0] = { -11,5 };
+	offset[4][1] = { -14,7 };
+	offset[4][2] = { -14,7 };
+	offset[4][3] = { -10,4 };
+	offset[4][4] = { -11,5 };
+	// 67.5
+	offset[5][0] = { -6,14 };
+	offset[5][1] = { -4,9 };
+	offset[5][2] = { -5,10 };
+	offset[5][3] = { -4,9 };
+	offset[5][4] = { -6,14 };
+	// 112.5
+	offset[6][0] = { 6,14 };
+	offset[6][1] = { 4,9 };
+	offset[6][2] = { 5,10 };
+	offset[6][3] = { 4,9 };
+	offset[6][4] = { 6,14 };
+	// 157.5
+	offset[7][0] = { 8,3 };
+	offset[7][1] = { 13,6 };
+	offset[7][2] = { 14,7 };
+	offset[7][3] = { 12,6 };
+	offset[7][4] = { 8,3 };
 
 
 	// indicates wich axis direcion laser we have to instantiate/move/animate
 	//laser.laserAxisIndex = 0; // right left situation || LINKS to the animation data
-	laser.laserAxisIndex = 0; // Up and down situation ------------------------------------------------------------------
+	laser.laserAxisIndex = 7; // Up and down situation ------------------------------------------------------------------
 
 	// spawn points boss laser corners
-	laser.instantiationPosition[0] = { position.x - 50, position.y }; // left up corner
-	laser.instantiationPosition[1] = { 200 , 100 }; // left down corner
-	laser.instantiationPosition[2] = { 200 , 100 }; // right up corner
-	laser.instantiationPosition[3] = { 200 , 100 }; // right down corner
+	laser.instantiationPosition[0] = { position.x + 2, position.y + 2 }; // left up corner
+	laser.instantiationPosition[1] = { position.x + 64, position.y + 2}; // left down corner
+	laser.instantiationPosition[2] = { position.x + 2 , position.y + 60 }; // left down corner
+	laser.instantiationPosition[3] = { position.x + 64 , position.y + 60 }; // right down corner
 
 	// test
 	/*laser.position[0][0] = laser.instantiationPosition[0];
@@ -235,21 +398,28 @@ EnemyBigDaddy::EnemyBigDaddy(int x, int y, powerUpTypes type, SDL_Texture* thisT
 	laser.position[1][0] = laser.instantiationPosition[0];*/
 	// important laser shooting logic activators ----
 	laser.laserPartIndex[0] = 0; // direction cap selector
+	laser.instantiationPoint = 0;
 	//laser.laserPartIndex[1] = 4;
 	// activate laser parts
 	//laser.active[laser.laserAxisIndex][laser.laserPartIndex[0]] = true;
 	
-
+	position.x = 120;
 }
 
 void EnemyBigDaddy::Move()
 {
 	// updates laser instantiation position to follow enemy position || instatiation point position
-	laser.instantiationPosition[0] = { position.x - 50 , position.y }; // left up corner
-	
+	laser.instantiationPosition[0] = { position.x + 2, position.y + 2 }; // left up corner
+	laser.instantiationPosition[1] = { position.x + 64, position.y + 2 }; // right up corner
+	laser.instantiationPosition[2] = { position.x + 2 , position.y + 60 }; // left down corner
+	laser.instantiationPosition[3] = { position.x + 64 , position.y + 60 }; // right down corner
 	//fposition.x -= 1.35;
 	//position.x = fposition.x;
 	position.x += 1; // ENEMY position
+
+	// check player angle and decide what laser axis to spawn and the cap wich are pointing to
+
+	youDecide();
 
 	// this array stores the first shooted part of one of the total 4 instantiation enemy corner points 
 	// for do correct for loops checks(inverse/reverse order), or this is the intention
@@ -266,8 +436,11 @@ void EnemyBigDaddy::Move()
 	{
 		if (laser.active[laser.laserAxisIndex][i])
 		{
-			//laser.position[laser.laserAxisIndex][i].x += 2; //5 to right
-			//laser.position[laser.laserAxisIndex][i].y += 1;
+			laser.fposition[laser.laserAxisIndex][i].x += laser.xSpeed + 1;
+			//laser.fposition[laser.laserAxisIndex][i].x += 1;
+			laser.fposition[laser.laserAxisIndex][i].y += laser.ySpeed ;
+			laser.position[laser.laserAxisIndex][i].x = laser.fposition[laser.laserAxisIndex][i].x; //2; //5 to right
+			laser.position[laser.laserAxisIndex][i].y = laser.fposition[laser.laserAxisIndex][i].y;
 		}
 	}
 
@@ -284,16 +457,191 @@ void EnemyBigDaddy::Move()
 
 }
 
+void EnemyBigDaddy::youDecide()
+{
+
+	fPoint sourcePos;
+
+	float pointDistances[4];
+
+	for (uint i = 0; i < 4; ++i)
+	{
+		sourcePos.x = laser.instantiationPosition[i].x;
+		sourcePos.y = laser.instantiationPosition[i].y;
+
+		pointDistances[i] = GetNearestPlayerSqrtDistance(sourcePos);
+	}
+
+	float tempValue = 500; // fake distance
+
+	for (uint i = 0; i < 4; ++i)
+	{
+		if (pointDistances[i] < tempValue)
+		{
+			tempValue = pointDistances[i];
+			laser.instantiationPoint = i;
+			//instantiationIndex = i;
+		}
+		
+	}
+	
+	sourcePos.x = laser.instantiationPosition[laser.instantiationPoint].x;
+	sourcePos.y = laser.instantiationPosition[laser.instantiationPoint].y;
+
+	//LOG("instantiation index: %d", laser.instantiationPoint);
+
+	//sourcePos.x = laser.instantiationPosition[0].x;
+	//sourcePos.y = laser.instantiationPosition[0].y;
+
+	laser.distance = GetNearestPlayerSqrtDistance(sourcePos);
+	//laser.instantiationPoint = 3;
+
+	
+
+
+
+	//if (numActivePlayers)
+
+	if (nearestTarget == nearestPlayer::P1 && !laser.active[laser.laserAxisIndex][laser.laserPartIndex[0]] )
+	{
+		float tx;
+		float ty;
+
+		tx = App->player[0]->position.x - sourcePos.x;
+		ty = App->player[0]->position.y - sourcePos.y;
+
+		laser.playerAngle = atan2f(ty, tx);
+
+		laser.xSpeed = 5 * cos(laser.playerAngle);
+		laser.ySpeed = 5 * sin(laser.playerAngle);
+
+		bigDaddy.now_shoot_time = SDL_GetTicks() - bigDaddy.start_shoot_time;
+
+		if (bigDaddy.now_shoot_time >= bigDaddy.cadence_shoot_time) 
+				bigDaddy.attack = true;
+
+		// assigns correct cap and axis to "instantiated" laser
+		assignAxis();
+		//if (laser.playerAngle)
+	}
+
+	LOG("playerAngle: %f", laser.playerAngle);
+	
+
+}
+
+void EnemyBigDaddy::assignAxis()
+{
+	// check lasers angles
+	// 2.35 = 135 degrees
+
+	float AlphaCentaury = laser.playerAngle;
+
+	// mid down situations
+	if (AlphaCentaury > 2.94f)// 0 || AlphaCentaury < 0.39f)
+	{
+		laser.laserAxisIndex = 0;
+		laser.laserPartIndex[0] = 0;
+	}
+	if (AlphaCentaury > 2.67f && AlphaCentaury < 2.94f)
+	{
+		laser.laserAxisIndex = 4;
+		laser.laserPartIndex[0] = 4;
+	}
+	if (AlphaCentaury > 2.17f && AlphaCentaury < 2.67f)
+	{
+		laser.laserAxisIndex = 3;
+		laser.laserPartIndex[0] = 4;
+	}
+	if (AlphaCentaury > 1.77f && AlphaCentaury < 2.17f)
+	{
+		laser.laserAxisIndex = 5;
+		laser.laserPartIndex[0] = 4;
+	}
+	if (AlphaCentaury > 1.37f && AlphaCentaury < 1.77f) // mid bottom 1.57 offset 0.2
+	{
+		laser.laserAxisIndex = 1;
+		laser.laserPartIndex[0] = 4;
+	}
+	if (AlphaCentaury > 0.97f && AlphaCentaury < 1.37f)
+	{
+		laser.laserAxisIndex = 6;
+		laser.laserPartIndex[0] = 4;
+	}
+	if (AlphaCentaury > 0.47f && AlphaCentaury < 0.97f)
+	{
+		laser.laserAxisIndex = 2;
+		laser.laserPartIndex[0] = 4;
+	}
+	if (AlphaCentaury > 0.17f && AlphaCentaury < 0.47f)
+	{
+		laser.laserAxisIndex = 7;
+		laser.laserPartIndex[0] = 4;
+	}
+	if (AlphaCentaury > 0 && AlphaCentaury < 0.17f)
+	{
+		laser.laserAxisIndex = 0;
+		laser.laserPartIndex[0] = 4;
+	}
+	// mid up situations
+	if (AlphaCentaury < 0 && AlphaCentaury > -0.17f)
+	{
+		laser.laserAxisIndex = 0;
+		laser.laserPartIndex[0] = 4;
+	}
+	if (AlphaCentaury < -0.17 && AlphaCentaury > -0.47f)
+	{
+		laser.laserAxisIndex = 4;
+		laser.laserPartIndex[0] = 0;
+	}
+	if (AlphaCentaury < -0.47 && AlphaCentaury > -0.97f)
+	{
+		laser.laserAxisIndex = 3;
+		laser.laserPartIndex[0] = 0;
+	}
+	if (AlphaCentaury < -0.97 && AlphaCentaury > -1.37f)
+	{
+		laser.laserAxisIndex = 5;
+		laser.laserPartIndex[0] = 0;
+	}
+	if (AlphaCentaury < -1.37 && AlphaCentaury > -1.77f)
+	{
+		laser.laserAxisIndex = 1;
+		laser.laserPartIndex[0] = 0;
+	}
+	if (AlphaCentaury < -1.77 && AlphaCentaury > -2.17f)
+	{
+		laser.laserAxisIndex = 6;
+		laser.laserPartIndex[0] = 0;
+	}
+	if (AlphaCentaury < -2.17 && AlphaCentaury > -2.67f)
+	{
+		laser.laserAxisIndex = 2;
+		laser.laserPartIndex[0] = 0;
+	}
+	if (AlphaCentaury < -2.67 && AlphaCentaury > -2.94f)
+	{
+		laser.laserAxisIndex = 7;
+		laser.laserPartIndex[0] = 0;
+	}
+	if (AlphaCentaury < -2.94)
+	{
+		laser.laserAxisIndex = 0;
+		laser.laserPartIndex[0] = 0;
+	}
+
+}
+
 void EnemyBigDaddy::Draw()
 {
 
 
 	// check shooting cadence time
-	bigDaddy.now_shoot_time = SDL_GetTicks() - bigDaddy.start_shoot_time;
+	/*bigDaddy.now_shoot_time = SDL_GetTicks() - bigDaddy.start_shoot_time;
 	if (bigDaddy.now_shoot_time > bigDaddy.cadence_shoot_time && !bigDaddy.attack)
 	{
 		bigDaddy.attack = true;
-	}
+	}*/
 
 	// full body onStage animation
 	App->render->Blit(enemyTex,position.x, position.y, &bigDaddy.onStageAnim->GetCurrentFrame());
@@ -302,41 +650,70 @@ void EnemyBigDaddy::Draw()
 	if (bigDaddy.attack && !laser.active[laser.laserAxisIndex][laser.laserPartIndex[0]])
 	{
 		laser.active[laser.laserAxisIndex][laser.laserPartIndex[0]] = true;
-		laser.position[laser.laserAxisIndex][laser.laserPartIndex[0]] = laser.instantiationPosition[0];
+		laser.position[laser.laserAxisIndex][laser.laserPartIndex[0]] = laser.instantiationPosition[laser.instantiationPoint]; //+ offset[laser.laserAxisIndex][laser.laserPartIndex[0]];
+		
+		// assign fpositions
+		laser.fposition[laser.laserAxisIndex][laser.laserPartIndex[0]].x = laser.position[laser.laserAxisIndex][laser.laserPartIndex[0]].x;
+		laser.fposition[laser.laserAxisIndex][laser.laserPartIndex[0]].y = laser.position[laser.laserAxisIndex][laser.laserPartIndex[0]].y;
+
+		bigDaddy.attack = false;
+		bigDaddy.start_shoot_time = SDL_GetTicks();
 	}
 
 	// check distances ---
 
 	if (!laser.laserPartIndex[0] > 0)
 	{
-		if (laser.active[laser.laserAxisIndex][0])
+		if (laser.active[laser.laserAxisIndex][0]) // "top cap part"
 		{
 			for (uint i = 1; i < 5; ++i)
 			{
-				distanceManhattan = laser.position[laser.laserAxisIndex][0].DistanceManhattan(laser.instantiationPosition[0]);
+				distanceManhattan = laser.position[laser.laserAxisIndex][0].DistanceManhattan(laser.instantiationPosition[laser.instantiationPoint]);
 
 				if (distanceManhattan > maxDistances[i - 1] && !laser.active[laser.laserAxisIndex][i])
 				{
 					laser.active[laser.laserAxisIndex][i] = true;
 					laser.position[laser.laserAxisIndex][i] = laser.position[laser.laserAxisIndex][i - 1] + offset[laser.laserAxisIndex][i];
 					laser.anim[laser.laserAxisIndex][i].current_frame = laser.anim[laser.laserAxisIndex][i - 1].current_frame;
+
+					// assign fpositions
+					laser.fposition[laser.laserAxisIndex][i].x = laser.position[laser.laserAxisIndex][i].x;
+					laser.fposition[laser.laserAxisIndex][i].y = laser.position[laser.laserAxisIndex][i].y;
 				}
+				// deactivates laser to prepare next shoot
+				if (distanceManhattan > 400) // distance with the latest checked part
+				{
+					for (uint i = 0; i < 5; ++i)
+						laser.active[laser.laserAxisIndex][i] = false;
+				}
+				
 			}
 		}
 	}
 	else
 	{
-		if (laser.active[laser.laserAxisIndex][4])
+		if (laser.active[laser.laserAxisIndex][4]) // "bottom cap part"
 		{
 			for (int i = 4; i >= 0; --i)
 			{
-				distanceManhattan = laser.position[laser.laserAxisIndex][4].DistanceManhattan(laser.instantiationPosition[0]);
+				distanceManhattan = laser.position[laser.laserAxisIndex][4].DistanceManhattan(laser.instantiationPosition[laser.instantiationPoint]);
 
 				if (distanceManhattan > maxDistances[3 - i] && !laser.active[laser.laserAxisIndex][i])
 				{
 					laser.active[laser.laserAxisIndex][i] = true;
 					laser.position[laser.laserAxisIndex][i] = laser.position[laser.laserAxisIndex][i + 1] - offset[laser.laserAxisIndex][i];
 					laser.anim[laser.laserAxisIndex][i].current_frame = laser.anim[laser.laserAxisIndex][i + 1].current_frame;
+
+					// assign fpositions
+					laser.fposition[laser.laserAxisIndex][i].x = laser.position[laser.laserAxisIndex][i].x;
+					laser.fposition[laser.laserAxisIndex][i].y = laser.position[laser.laserAxisIndex][i].y;
+				}
+
+				// deactivates laser to prepare next shoot
+				if (distanceManhattan > 400) // distance with the latest checked part
+				{
+					for (uint i = 0; i < 5; ++i)
+						laser.active[laser.laserAxisIndex][i] = false;
 				}
 			}
 		}
@@ -368,8 +745,8 @@ void EnemyBigDaddy::Draw()
 	// DRAW FIRE animation
 	//flashAnimRect = bigDaddy.laserFlashAnim.GetCurrentFrame();
 
-	App->render->Blit(laserTexture, laser.instantiationPosition[0].x - 5 + pivotFlashAnim[(int)bigDaddy.laserFlashAnim.current_frame].x,
-		laser.instantiationPosition[0].y + pivotFlashAnim[(int)bigDaddy.laserFlashAnim.current_frame].y - 5, &bigDaddy.laserFlashAnim.GetCurrentFrame());
+	App->render->Blit(laserTexture, laser.instantiationPosition[3].x - 5 + pivotFlashAnim[(int)bigDaddy.laserFlashAnim.current_frame].x,
+		laser.instantiationPosition[3].y + pivotFlashAnim[(int)bigDaddy.laserFlashAnim.current_frame].y - 5, &bigDaddy.laserFlashAnim.GetCurrentFrame());
 }
 
 EnemyBigDaddy::~EnemyBigDaddy()

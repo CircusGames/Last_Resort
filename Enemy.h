@@ -70,8 +70,8 @@ public:
 		P1,
 		P2
 	}nearestTarget;
-	
-	
+
+	int numActivePlayers = 0;
 
 	powerUpTypes powerUpType;
 
