@@ -45,12 +45,12 @@ private:
 		// shooting timer
 		Uint32 start_shoot_time;
 		Uint32 now_shoot_time;
-		Uint32 cadence_shoot_time = 2000;
+		Uint32 cadence_shoot_time = 1000;
 		//
 		const int maxCyclesOnStage = 4; // num of total attack loops (based on path full loops)
 		bool attack = false;
 		//
-		uint numAlivePlayers = 0; // to num laser shoots logic
+		//uint numAlivePlayers = 0; // to num laser shoots logic
 		
 
 	};
@@ -83,6 +83,8 @@ private:
 	iPoint pivotFlashAnim[6] = { { 0,0 },{ -1,-1 },{ -3,-3 },{ -5,-5 },{ -3,-3 },{ -1,-1 } };
 
 	//bool noFollow = false;
+
+	int instantiationIndex;
 
 
 public:

@@ -436,8 +436,8 @@ void EnemyBigDaddy::Move()
 	{
 		if (laser.active[laser.laserAxisIndex][i])
 		{
-			laser.fposition[laser.laserAxisIndex][i].x += laser.xSpeed;
-			laser.fposition[laser.laserAxisIndex][i].x += 1;
+			laser.fposition[laser.laserAxisIndex][i].x += laser.xSpeed + 1;
+			//laser.fposition[laser.laserAxisIndex][i].x += 1;
 			laser.fposition[laser.laserAxisIndex][i].y += laser.ySpeed ;
 			laser.position[laser.laserAxisIndex][i].x = laser.fposition[laser.laserAxisIndex][i].x; //2; //5 to right
 			laser.position[laser.laserAxisIndex][i].y = laser.fposition[laser.laserAxisIndex][i].y;
@@ -462,19 +462,58 @@ void EnemyBigDaddy::youDecide()
 
 	fPoint sourcePos;
 
-	sourcePos.x = laser.instantiationPosition[0].x;
-	sourcePos.y = laser.instantiationPosition[0].y;
+	float pointDistances[4];
+
+	for (uint i = 0; i < 4; ++i)
+	{
+		sourcePos.x = laser.instantiationPosition[i].x;
+		sourcePos.y = laser.instantiationPosition[i].y;
+
+		pointDistances[i] = GetNearestPlayerSqrtDistance(sourcePos);
+	}
+
+	float tempValue = 500; // fake distance
+
+	for (uint i = 0; i < 4; ++i)
+	{
+		if (pointDistances[i] < tempValue)
+		{
+			tempValue = pointDistances[i];
+			laser.instantiationPoint = i;
+			//instantiationIndex = i;
+		}
+		
+	}
+	
+	sourcePos.x = laser.instantiationPosition[laser.instantiationPoint].x;
+	sourcePos.y = laser.instantiationPosition[laser.instantiationPoint].y;
+
+	//LOG("instantiation index: %d", laser.instantiationPoint);
+
+	//sourcePos.x = laser.instantiationPosition[0].x;
+	//sourcePos.y = laser.instantiationPosition[0].y;
 
 	laser.distance = GetNearestPlayerSqrtDistance(sourcePos);
+	//laser.instantiationPoint = 3;
+
+	
+
+
 
 	//if (numActivePlayers)
 
 	if (nearestTarget == nearestPlayer::P1 && !laser.active[laser.laserAxisIndex][laser.laserPartIndex[0]] )
 	{
+		float tx;
+		float ty;
+
+		tx = App->player[0]->position.x - sourcePos.x;
+		ty = App->player[0]->position.y - sourcePos.y;
+
 		laser.playerAngle = atan2f(ty, tx);
 
-		laser.xSpeed = 4 * cos(laser.playerAngle);
-		laser.ySpeed = 4 * sin(laser.playerAngle);
+		laser.xSpeed = 5 * cos(laser.playerAngle);
+		laser.ySpeed = 5 * sin(laser.playerAngle);
 
 		bigDaddy.now_shoot_time = SDL_GetTicks() - bigDaddy.start_shoot_time;
 
@@ -611,7 +650,7 @@ void EnemyBigDaddy::Draw()
 	if (bigDaddy.attack && !laser.active[laser.laserAxisIndex][laser.laserPartIndex[0]])
 	{
 		laser.active[laser.laserAxisIndex][laser.laserPartIndex[0]] = true;
-		laser.position[laser.laserAxisIndex][laser.laserPartIndex[0]] = laser.instantiationPosition[0] + offset[laser.laserAxisIndex][laser.laserPartIndex[0]];
+		laser.position[laser.laserAxisIndex][laser.laserPartIndex[0]] = laser.instantiationPosition[laser.instantiationPoint]; //+ offset[laser.laserAxisIndex][laser.laserPartIndex[0]];
 		
 		// assign fpositions
 		laser.fposition[laser.laserAxisIndex][laser.laserPartIndex[0]].x = laser.position[laser.laserAxisIndex][laser.laserPartIndex[0]].x;
@@ -629,7 +668,7 @@ void EnemyBigDaddy::Draw()
 		{
 			for (uint i = 1; i < 5; ++i)
 			{
-				distanceManhattan = laser.position[laser.laserAxisIndex][0].DistanceManhattan(laser.instantiationPosition[0]);
+				distanceManhattan = laser.position[laser.laserAxisIndex][0].DistanceManhattan(laser.instantiationPosition[laser.instantiationPoint]);
 
 				if (distanceManhattan > maxDistances[i - 1] && !laser.active[laser.laserAxisIndex][i])
 				{
@@ -642,7 +681,7 @@ void EnemyBigDaddy::Draw()
 					laser.fposition[laser.laserAxisIndex][i].y = laser.position[laser.laserAxisIndex][i].y;
 				}
 				// deactivates laser to prepare next shoot
-				if (distanceManhattan > 200) // distance with the latest checked part
+				if (distanceManhattan > 400) // distance with the latest checked part
 				{
 					for (uint i = 0; i < 5; ++i)
 						laser.active[laser.laserAxisIndex][i] = false;
@@ -657,7 +696,7 @@ void EnemyBigDaddy::Draw()
 		{
 			for (int i = 4; i >= 0; --i)
 			{
-				distanceManhattan = laser.position[laser.laserAxisIndex][4].DistanceManhattan(laser.instantiationPosition[0]);
+				distanceManhattan = laser.position[laser.laserAxisIndex][4].DistanceManhattan(laser.instantiationPosition[laser.instantiationPoint]);
 
 				if (distanceManhattan > maxDistances[3 - i] && !laser.active[laser.laserAxisIndex][i])
 				{
