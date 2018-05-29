@@ -194,7 +194,9 @@ void EnemyLamella::Move()
 			targetReached = true;
 
 		if (targetReached)
-			currentAnimation = &despawnAnim;	
+			currentAnimation = &despawnAnim;
+			
+
 	}
 
 	targetPosition.x += 1;
@@ -207,12 +209,20 @@ void EnemyLamella::Move()
 void EnemyLamella::Draw()
 {
 	// collider
-	if (collider == nullptr)
+	if (collider == nullptr && spawnAnim.finish)
 		collider = App->collision->AddCollider({ 0, 0, 30, 30 }, COLLIDER_TYPE::COLLIDER_ENEMY, (Module*)App->enemies);
 
-	if (collider != nullptr)
+   if (collider != nullptr)
 		collider->SetPos(position.x, position.y);
 
+   if (targetReached)
+   {
+	   if (collider != nullptr)
+	   {
+		   collider->to_delete = true;
+		   collider = nullptr;
+	   }	
+   }
 	//print
 	lamellaRect = currentAnimation->GetCurrentFrame();
 
