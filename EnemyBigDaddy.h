@@ -5,6 +5,8 @@
 #include "ModuleTextures.h"
 #include "Path.h"
 
+#define MAX_NUM_LASERS 4
+
 
 class EnemyBigDaddy : public Enemy
 {
@@ -51,6 +53,7 @@ private:
 		bool attack = false;
 		//
 		//uint numAlivePlayers = 0; // to num laser shoots logic
+		iPoint instantiationPosition[4]; // one of the 4 boss spawn points
 		
 
 	};
@@ -64,7 +67,7 @@ private:
 		float playerAngle;//[8];
 		iPoint position[8][5];
 		fPoint fposition[8][5];
-		iPoint instantiationPosition[4]; // one of the 4 boss spawn points
+		//iPoint instantiationPosition[4]; // one of the 4 boss spawn points
 		bool active[8][5] = { false };
 		SDL_Rect rect;
 	    int	laserPartIndex[5]; // 1 full laser is composed by 4 animated parts, 1 left cap, 3 mid, 1 cap right
@@ -77,6 +80,7 @@ private:
 
 	int distanceManhattan;
 
+	// distances respect the instatiation part (cap) of the laser, to activate the rest
 	int maxDistances[5] = { 16,32,48,64,80 };
 
 	SDL_Rect flashAnimRect;
@@ -85,6 +89,8 @@ private:
 	//bool noFollow = false;
 
 	int instantiationIndex;
+
+	int numActiveLasers = 2; // always have 2 lasers active, 2 players 4 lasers
 
 
 public:
@@ -96,10 +102,10 @@ public:
 	void Draw();
 
 	void youDecide();
-	void assignAxis();
+	void assignAxis(uint index);
 
 	midBoss bigDaddy;
-	laserBeam laser;
+	laserBeam laser[4]; // max lasers count situation
 
 	
 	float checkInstantiationDistance;

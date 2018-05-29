@@ -26,284 +26,288 @@ EnemyBigDaddy::EnemyBigDaddy(int x, int y, powerUpTypes type, SDL_Texture* thisT
 	// lasers animations
 	// left/right --------------------------------
 	// left cap // the biggests parts lasts x2 = at the start and end of animation repeats the frame
-	laser.anim[0][0].PushBack({138,179,16,8}); // big
-	laser.anim[0][0].PushBack({ 90,179,15,6 }); // 
-	laser.anim[0][0].PushBack({ 44,179,14,4 }); //
-	laser.anim[0][0].PushBack({ 0,179,13,2 }); // 
-
-	laser.anim[0][0].PushBack({ 44,179,14,4 }); //
-	laser.anim[0][0].PushBack({ 90,179,15,6 }); // 
-	laser.anim[0][0].PushBack({ 138,179,16,8 }); // big
-	laser.anim[0][0].speed = 1.0f;
-
-	// mid THREE MID PARTS TOTAL
-	for (uint i = 1; i < 4; ++i)
+	for (uint z = 0; z < MAX_NUM_LASERS; ++z)
 	{
-		laser.anim[0][i].PushBack({ 155,179,16,8 }); // big
-		laser.anim[0][i].PushBack({ 106,179,16,6 });
-		laser.anim[0][i].PushBack({ 59,179,16,4 });
-		laser.anim[0][i].PushBack({ 14,179,16,2 });
+		laser[z].anim[0][0].PushBack({ 138,179,16,8 }); // big
+		laser[z].anim[0][0].PushBack({ 90,179,15,6 }); // 
+		laser[z].anim[0][0].PushBack({ 44,179,14,4 }); //
+		laser[z].anim[0][0].PushBack({ 0,179,13,2 }); // 
 
-		laser.anim[0][i].PushBack({ 59,179,16,4 });
-		laser.anim[0][i].PushBack({ 106,179,16,6 });
-		laser.anim[0][i].PushBack({ 155,179,16,8 }); // big
-		laser.anim[0][i].speed = 1.0f;
+		laser[z].anim[0][0].PushBack({ 44,179,14,4 }); //
+		laser[z].anim[0][0].PushBack({ 90,179,15,6 }); // 
+		laser[z].anim[0][0].PushBack({ 138,179,16,8 }); // big
+		laser[z].anim[0][0].speed = 1.0f;
+
+
+		// mid THREE MID PARTS TOTAL
+		for (uint i = 1; i < 4; ++i)
+		{
+			laser[z].anim[0][i].PushBack({ 155,179,16,8 }); // big
+			laser[z].anim[0][i].PushBack({ 106,179,16,6 });
+			laser[z].anim[0][i].PushBack({ 59,179,16,4 });
+			laser[z].anim[0][i].PushBack({ 14,179,16,2 });
+
+			laser[z].anim[0][i].PushBack({ 59,179,16,4 });
+			laser[z].anim[0][i].PushBack({ 106,179,16,6 });
+			laser[z].anim[0][i].PushBack({ 155,179,16,8 }); // big
+			laser[z].anim[0][i].speed = 1.0f;
+		}
+		// right cap
+		laser[z].anim[0][4].PushBack({ 172,179,16,8 }); // big
+		laser[z].anim[0][4].PushBack({ 123,179,15,6 });
+		laser[z].anim[0][4].PushBack({ 76,179,14,4 });
+		laser[z].anim[0][4].PushBack({ 31,179,13,2 });
+
+		laser[z].anim[0][4].PushBack({ 76,179,14,4 });
+		laser[z].anim[0][4].PushBack({ 123,179,15,6 });
+		laser[z].anim[0][4].PushBack({ 172,179,16,8 }); // big
+		laser[z].anim[0][4].speed = 1.0f;
+		// ---------------------------------------------
+		// UP & DOWN animation parts -------
+		// upper cap
+		laser[z].anim[1][0].PushBack({ 200,179,8,16 }); // upper cap BIG
+		laser[z].anim[1][0].PushBack({ 194,179,6,15 });
+		laser[z].anim[1][0].PushBack({ 190,179,4,14 });
+		laser[z].anim[1][0].PushBack({ 188,179,2,13 });
+
+		laser[z].anim[1][0].PushBack({ 190,179,4,14 });
+		laser[z].anim[1][0].PushBack({ 194,179,6,15 });
+		laser[z].anim[1][0].PushBack({ 200,179,8,16 }); // upper cap BIG
+		laser[z].anim[1][0].speed = 1.0f;
+		// MID PARTS caps
+		for (uint i = 1; i < 4; ++i)
+		{
+			laser[z].anim[1][i].PushBack({ 200,196,8,16 }); // BIG
+			laser[z].anim[1][i].PushBack({ 194,195,6,16 });
+			laser[z].anim[1][i].PushBack({ 190,194,4,14 });
+			laser[z].anim[1][i].PushBack({ 188,194,2,13 });
+
+			laser[z].anim[1][i].PushBack({ 190,194,4,14 });
+			laser[z].anim[1][i].PushBack({ 194,195,6,16 });
+			laser[z].anim[1][i].PushBack({ 200,196,8,16 }); // BIG
+			laser[z].anim[1][i].speed = 1.0f;
+		}
+		// down cap pointing down
+		laser[z].anim[1][4].PushBack({ 200,213,8,16 }); // BIG
+		laser[z].anim[1][4].PushBack({ 194,212,6,16 });
+		laser[z].anim[1][4].PushBack({ 190,211,4,14 });
+		laser[z].anim[1][4].PushBack({ 188,210,2,13 });
+
+		laser[z].anim[1][4].PushBack({ 190,211,4,14 });
+		laser[z].anim[1][4].PushBack({ 194,212,6,16 });
+		laser[z].anim[1][4].PushBack({ 200,213,8,16 }); // BIG
+		laser[z].anim[1][4].speed = 1.0f;
+		// -------
+		// 3pi/4 -------------------------------------------------
+		// pointing "up" cap
+		laser[z].anim[2][0].PushBack({ 0,129,22,16 }); // BIG
+		laser[z].anim[2][0].PushBack({ 198,79,19,15 });
+		laser[z].anim[2][0].PushBack({ 152,79,16,14 });
+		laser[z].anim[2][0].PushBack({ 108,79,14,13 });
+
+		laser[z].anim[2][0].PushBack({ 152,79,16,14 });
+		laser[z].anim[2][0].PushBack({ 198,79,19,15 });
+		laser[z].anim[2][0].PushBack({ 0,129,22,16 }); // BIG
+		laser[z].anim[2][0].speed = 1.0f;
+		//  mid
+		for (uint i = 1; i < 4; ++i)
+		{
+			laser[z].anim[2][i].PushBack({ 11,146,28,16 }); // BIG
+			laser[z].anim[2][i].PushBack({ 210,95,24,16 });
+			laser[z].anim[2][i].PushBack({ 165,94,20,16 });
+			laser[z].anim[2][i].PushBack({ 121,93,18,16 });
+
+			laser[z].anim[2][i].PushBack({ 165,94,20,16 });
+			laser[z].anim[2][i].PushBack({ 210,95,24,16 });
+			laser[z].anim[2][i].PushBack({ 11,146,28,16 }); // BIG
+			laser[z].anim[2][i].speed = 1.0f;
+		}
+		// pointing "down" cap
+		laser[z].anim[2][4].PushBack({ 28,163,22,16 }); // BIG
+		laser[z].anim[2][4].PushBack({ 227,112,19,15 });
+		laser[z].anim[2][4].PushBack({ 182,111,16,14 });
+		laser[z].anim[2][4].PushBack({ 138,110,14,13 });
+
+		laser[z].anim[2][4].PushBack({ 182,111,16,14 });
+		laser[z].anim[2][4].PushBack({ 227,112,19,15 });
+		laser[z].anim[2][4].PushBack({ 28,163,22,16 }); // BIG
+		laser[z].anim[2][4].speed = 1.0f;
+		// -----------------------------------------------------
+		// PI/4 ------------------------
+		// pointing "up" cap
+		laser[z].anim[3][0].PushBack({ 216,129,22,16 }); // BIG
+		laser[z].anim[3][0].PushBack({ 169,129,19,15 });
+		laser[z].anim[3][0].PushBack({ 124,129,16,14 });
+		laser[z].anim[3][0].PushBack({ 80,129,14,13 });
+
+		laser[z].anim[3][0].PushBack({ 124,129,16,14 });
+		laser[z].anim[3][0].PushBack({ 169,129,19,15 });
+		laser[z].anim[3][0].PushBack({ 216,129,22,16 }); // BIG
+		laser[z].anim[3][0].speed = 1.0f;
+		// mid
+		for (uint i = 1; i < 4; ++i)
+		{
+			laser[z].anim[3][i].PushBack({ 199,146,28,16 }); // BIG
+			laser[z].anim[3][i].PushBack({ 152,145,24,16 });
+			laser[z].anim[3][i].PushBack({ 107,144,20,16 });
+			laser[z].anim[3][i].PushBack({ 63, 143,18,16 });
+
+			laser[z].anim[3][i].PushBack({ 107,144,20,16 });
+			laser[z].anim[3][i].PushBack({ 152,145,24,16 });
+			laser[z].anim[3][i].PushBack({ 199,146,28,16 }); // BIG
+			laser[z].anim[3][i].speed = 1.0f;
+
+		}
+		// "down" cap
+		laser[z].anim[3][4].PushBack({ 188,163,22,16 }); // BIG
+		laser[z].anim[3][4].PushBack({ 140,162,19,15 });
+		laser[z].anim[3][4].PushBack({ 94,161,16,14 });
+		laser[z].anim[3][4].PushBack({ 50,160,14,13 });
+
+		laser[z].anim[3][4].PushBack({ 94,161,16,14 });
+		laser[z].anim[3][4].PushBack({ 140,162,19,15 });
+		laser[z].anim[3][4].PushBack({ 188,163,22,16 }); // BIG
+		laser[z].anim[3][4].speed = 1.0f;
+		// ----------------------------------------------------
+		// 22,5 degrees CAP ----
+		laser[z].anim[4][0].PushBack({ 172,0,16,14 }); // BIG
+		laser[z].anim[4][0].PushBack({ 123,0,15,12 });
+		laser[z].anim[4][0].PushBack({ 76,0,14,10 });
+		laser[z].anim[4][0].PushBack({ 31,0,13,8 });
+
+		laser[z].anim[4][0].PushBack({ 76,0,14,10 });
+		laser[z].anim[4][0].PushBack({ 123,0,15,12 });
+		laser[z].anim[4][0].PushBack({ 172,0,16,14 });
+		laser[z].anim[4][0].speed = 1.0f;
+		// mid
+		for (uint i = 1; i < 4; ++i)
+		{
+			laser[z].anim[4][i].PushBack({ 155,7,16,16 }); // BIG
+			laser[z].anim[4][i].PushBack({ 106,7,16,14 });
+			laser[z].anim[4][i].PushBack({ 59,7,16,12 });
+			laser[z].anim[4][i].PushBack({ 14,7,16,10 });
+
+			laser[z].anim[4][i].PushBack({ 59,7,16,12 });
+			laser[z].anim[4][i].PushBack({ 106,7,16,14 });
+			laser[z].anim[4][i].PushBack({ 155,7,16,16 }); // BIG
+			laser[z].anim[4][i].speed = 1.0f;
+		}
+		// "down" cap
+		laser[z].anim[4][4].PushBack({ 138,15,16,14 }); // BIG
+		laser[z].anim[4][4].PushBack({ 90,16,15,12 });
+		laser[z].anim[4][4].PushBack({ 44,16,14,10 });
+		laser[z].anim[4][4].PushBack({ 0,16,13,8 });
+
+		laser[z].anim[4][4].PushBack({ 44,16,14,10 });
+		laser[z].anim[4][4].PushBack({ 90,16,15,12 });
+		laser[z].anim[4][4].PushBack({ 138,15,16,14 });
+		laser[z].anim[4][4].speed = 1.0f;
+		// -----------------------------------------------------
+		// 67'5 degrees --------
+		// "up" cap
+		laser[z].anim[5][0].PushBack({ 238,29,14,16 }); // BIG
+		laser[z].anim[5][0].PushBack({ 210,29,12,15 });
+		laser[z].anim[5][0].PushBack({ 184,29,10,14 });
+		laser[z].anim[5][0].PushBack({ 160,29,8,13 });
+
+		laser[z].anim[5][0].PushBack({ 184,29,10,14 });
+		laser[z].anim[5][0].PushBack({ 210,29,12,15 });
+		laser[z].anim[5][0].PushBack({ 238,29,14,16 }); // BIG
+		laser[z].anim[5][0].speed = 1.0f;
+		// mid
+		for (uint i = 1; i < 4; ++i)
+		{
+			laser[z].anim[5][i].PushBack({ 229,46,16,16 }); // BIG
+			laser[z].anim[5][i].PushBack({ 201,45,14,16 });
+			laser[z].anim[5][i].PushBack({ 175,44,12,16 });
+			laser[z].anim[5][i].PushBack({ 151,46,8,16 });
+
+			laser[z].anim[5][i].PushBack({ 175,44,12,16 });
+			laser[z].anim[5][i].PushBack({ 201,45,14,16 });
+			laser[z].anim[5][i].PushBack({ 229,46,16,16 }); // BIG
+			laser[z].anim[5][i].speed = 1.0f;
+		}
+		// "down" cap
+		laser[z].anim[5][4].PushBack({ 222,63,14,16 }); // BIG
+		laser[z].anim[5][4].PushBack({ 194,62,12,15 });
+		laser[z].anim[5][4].PushBack({ 168,61,10,14 });
+		laser[z].anim[5][4].PushBack({ 144,60,10,13 });
+
+		laser[z].anim[5][4].PushBack({ 168,61,10,14 });
+		laser[z].anim[5][4].PushBack({ 194,62,12,15 });
+		laser[z].anim[5][4].PushBack({ 222,63,14,16 }); // BIG
+		laser[z].anim[5][4].speed = 1.0f;
+		// -----------------------------------------------------
+		//112.5 degrees (pointing upLeft)
+		// "up" top cap
+		laser[z].anim[6][0].PushBack({ 78,79,14,16 }); // BIG
+		laser[z].anim[6][0].PushBack({ 50,79,12,15 });
+		laser[z].anim[6][0].PushBack({ 24,79,10,14 });
+		laser[z].anim[6][0].PushBack({ 0,79,8,13 });
+
+		laser[z].anim[6][0].PushBack({ 24,79,10,14 });
+		laser[z].anim[6][0].PushBack({ 50,79,12,15 });
+		laser[z].anim[6][0].PushBack({ 78,79,14,16 }); // BIG
+		laser[z].anim[6][0].speed = 1.0f;
+		// MID ---
+		for (uint i = 1; i < 4; ++i)
+		{
+			laser[z].anim[6][i].PushBack({ 85,96,16,16 }); // BIG
+			laser[z].anim[6][i].PushBack({ 57,95,14,16 });
+			laser[z].anim[6][i].PushBack({ 31,94,12,16 });
+			laser[z].anim[6][i].PushBack({ 7,93,10,16 });
+
+			laser[z].anim[6][i].PushBack({ 31,94,12,16 });
+			laser[z].anim[6][i].PushBack({ 57,95,14,16 });
+			laser[z].anim[6][i].PushBack({ 85,96,16,16 }); // BIG
+			laser[z].anim[6][i].speed = 1.0f;
+		}
+		// "down" bottom cap
+		laser[z].anim[6][4].PushBack({ 94,113,14,16 }); // BIG
+		laser[z].anim[6][4].PushBack({ 66,112,12,15 });
+		laser[z].anim[6][4].PushBack({ 40,111,10,14 });
+		laser[z].anim[6][4].PushBack({ 16,110,9,13 });
+
+		laser[z].anim[6][4].PushBack({ 40,111,10,14 });
+		laser[z].anim[6][4].PushBack({ 66,112,12,15 });
+		laser[z].anim[6][4].PushBack({ 94,113,14,16 }); // BIG
+		laser[z].anim[6][4].speed = 1.0f;
+		// -----------------------------------------------------
+		// 157.5 degrees ---------------
+		// "up" top cap
+		laser[z].anim[7][0].PushBack({ 94,29,16,14 }); // BIG
+		laser[z].anim[7][0].PushBack({ 46,29,15,12 });
+		laser[z].anim[7][0].PushBack({ 0,29,14,10 });
+		laser[z].anim[7][0].PushBack({ 189,0,13,8 });
+
+		laser[z].anim[7][0].PushBack({ 0,29,14,10 });
+		laser[z].anim[7][0].PushBack({ 46,29,15,12 });
+		laser[z].anim[7][0].PushBack({ 94,29,16,14 }); // BIG
+		laser[z].anim[7][0].speed = 1.0f;
+		// mid
+		for (uint i = 1; i < 4; ++i)
+		{
+			laser[z].anim[7][i].PushBack({ 111,35,16,16 }); // BIG
+			laser[z].anim[7][i].PushBack({ 62,36,16,14 });
+			laser[z].anim[7][i].PushBack({ 15,36,16,12 });
+			laser[z].anim[7][i].PushBack({ 202,7,16,10 });
+
+			laser[z].anim[7][i].PushBack({ 15,36,16,12 });
+			laser[z].anim[7][i].PushBack({ 62,36,16,14 });
+			laser[z].anim[7][i].PushBack({ 111,35,16,16 }); // BIG
+			laser[z].anim[7][i].speed = 1.0f;
+		}
+		// "down" bottom cap
+		laser[z].anim[7][4].PushBack({ 128,44,16,14 }); // BIG
+		laser[z].anim[7][4].PushBack({ 79,45,15,12 });
+		laser[z].anim[7][4].PushBack({ 32,45,14,10 });
+		laser[z].anim[7][4].PushBack({ 219,16,13,8 });
+
+		laser[z].anim[7][4].PushBack({ 32,45,14,10 });
+		laser[z].anim[7][4].PushBack({ 79,45,15,12 });
+		laser[z].anim[7][4].PushBack({ 128,44,16,14 }); // BIG
+		laser[z].anim[7][4].speed = 1.0f;
 	}
-	// right cap
-	laser.anim[0][4].PushBack({ 172,179,16,8 }); // big
-	laser.anim[0][4].PushBack({ 123,179,15,6 });
-	laser.anim[0][4].PushBack({ 76,179,14,4 });
-	laser.anim[0][4].PushBack({ 31,179,13,2 });
-
-	laser.anim[0][4].PushBack({ 76,179,14,4 });
-	laser.anim[0][4].PushBack({ 123,179,15,6 });
-	laser.anim[0][4].PushBack({ 172,179,16,8 }); // big
-	laser.anim[0][4].speed = 1.0f;
-	// ---------------------------------------------
-	// UP & DOWN animation parts -------
-	// upper cap
-	laser.anim[1][0].PushBack({ 200,179,8,16 }); // upper cap BIG
-	laser.anim[1][0].PushBack({ 194,179,6,15 });
-	laser.anim[1][0].PushBack({ 190,179,4,14 });
-	laser.anim[1][0].PushBack({ 188,179,2,13 });
-	
-	laser.anim[1][0].PushBack({ 190,179,4,14 });
-	laser.anim[1][0].PushBack({ 194,179,6,15 });
-	laser.anim[1][0].PushBack({ 200,179,8,16 }); // upper cap BIG
-	laser.anim[1][0].speed = 1.0f;
-	// MID PARTS caps
-	for (uint i = 1; i < 4; ++i)
-	{
-		laser.anim[1][i].PushBack({ 200,196,8,16 }); // BIG
-		laser.anim[1][i].PushBack({ 194,195,6,16 });
-		laser.anim[1][i].PushBack({ 190,194,4,14 });
-		laser.anim[1][i].PushBack({ 188,194,2,13 });
-
-		laser.anim[1][i].PushBack({ 190,194,4,14 });
-		laser.anim[1][i].PushBack({ 194,195,6,16 });
-		laser.anim[1][i].PushBack({ 200,196,8,16 }); // BIG
-		laser.anim[1][i].speed = 1.0f;
-	}
-	// down cap pointing down
-	laser.anim[1][4].PushBack({ 200,213,8,16 }); // BIG
-	laser.anim[1][4].PushBack({ 194,212,6,16 });
-	laser.anim[1][4].PushBack({ 190,211,4,14 });
-	laser.anim[1][4].PushBack({ 188,210,2,13 });
-
-	laser.anim[1][4].PushBack({ 190,211,4,14 });
-	laser.anim[1][4].PushBack({ 194,212,6,16 });
-	laser.anim[1][4].PushBack({ 200,213,8,16 }); // BIG
-	laser.anim[1][4].speed = 1.0f;
-	// -------
-	// 3pi/4 -------------------------------------------------
-	// pointing "up" cap
-	laser.anim[2][0].PushBack({ 0,129,22,16 }); // BIG
-	laser.anim[2][0].PushBack({ 198,79,19,15 });
-	laser.anim[2][0].PushBack({ 152,79,16,14 });
-	laser.anim[2][0].PushBack({ 108,79,14,13 });
-
-	laser.anim[2][0].PushBack({ 152,79,16,14 });
-	laser.anim[2][0].PushBack({ 198,79,19,15 });
-	laser.anim[2][0].PushBack({ 0,129,22,16 }); // BIG
-	laser.anim[2][0].speed = 1.0f;
-	//  mid
-	for (uint i = 1; i < 4; ++i)
-	{
-		laser.anim[2][i].PushBack({ 11,146,28,16 }); // BIG
-		laser.anim[2][i].PushBack({ 210,95,24,16 });
-		laser.anim[2][i].PushBack({ 165,94,20,16 });
-		laser.anim[2][i].PushBack({ 121,93,18,16 });
-
-		laser.anim[2][i].PushBack({ 165,94,20,16 });
-		laser.anim[2][i].PushBack({ 210,95,24,16 });
-		laser.anim[2][i].PushBack({ 11,146,28,16 }); // BIG
-		laser.anim[2][i].speed = 1.0f;
-	}
-	// pointing "down" cap
-	laser.anim[2][4].PushBack({ 28,163,22,16 }); // BIG
-	laser.anim[2][4].PushBack({ 227,112,19,15 });
-	laser.anim[2][4].PushBack({ 182,111,16,14 });
-	laser.anim[2][4].PushBack({ 138,110,14,13 });
-
-	laser.anim[2][4].PushBack({ 182,111,16,14 });
-	laser.anim[2][4].PushBack({ 227,112,19,15 });
-	laser.anim[2][4].PushBack({ 28,163,22,16 }); // BIG
-	laser.anim[2][4].speed = 1.0f;
-	// -----------------------------------------------------
-	// PI/4 ------------------------
-	// pointing "up" cap
-	laser.anim[3][0].PushBack({ 216,129,22,16 }); // BIG
-	laser.anim[3][0].PushBack({ 169,129,19,15 }); 
-	laser.anim[3][0].PushBack({ 124,129,16,14 }); 
-	laser.anim[3][0].PushBack({ 80,129,14,13 });
-
-	laser.anim[3][0].PushBack({ 124,129,16,14 });
-	laser.anim[3][0].PushBack({ 169,129,19,15 });
-	laser.anim[3][0].PushBack({ 216,129,22,16 }); // BIG
-	laser.anim[3][0].speed = 1.0f;
-	// mid
-	for (uint i = 1; i < 4; ++i)
-	{
-		laser.anim[3][i].PushBack({ 199,146,28,16 }); // BIG
-		laser.anim[3][i].PushBack({ 152,145,24,16 }); 
-		laser.anim[3][i].PushBack({ 107,144,20,16 });
-		laser.anim[3][i].PushBack({ 63, 143,18,16 });
-
-		laser.anim[3][i].PushBack({ 107,144,20,16 });
-		laser.anim[3][i].PushBack({ 152,145,24,16 });
-		laser.anim[3][i].PushBack({ 199,146,28,16 }); // BIG
-		laser.anim[3][i].speed = 1.0f;
-
-	}
-	// "down" cap
-	laser.anim[3][4].PushBack({ 188,163,22,16 }); // BIG
-	laser.anim[3][4].PushBack({ 140,162,19,15 });
-	laser.anim[3][4].PushBack({ 94,161,16,14 });
-	laser.anim[3][4].PushBack({ 50,160,14,13 });
-
-	laser.anim[3][4].PushBack({ 94,161,16,14 });
-	laser.anim[3][4].PushBack({ 140,162,19,15 });
-	laser.anim[3][4].PushBack({ 188,163,22,16 }); // BIG
-	laser.anim[3][4].speed = 1.0f;
-	// ----------------------------------------------------
-	// 22,5 degrees CAP ----
-	laser.anim[4][0].PushBack({ 172,0,16,14}); // BIG
-	laser.anim[4][0].PushBack({ 123,0,15,12 });
-	laser.anim[4][0].PushBack({ 76,0,14,10 });
-	laser.anim[4][0].PushBack({ 31,0,13,8 });
-
-	laser.anim[4][0].PushBack({ 76,0,14,10 });
-	laser.anim[4][0].PushBack({ 123,0,15,12 });
-	laser.anim[4][0].PushBack({ 172,0,16,14 });
-	laser.anim[4][0].speed = 1.0f;
-	// mid
-	for (uint i = 1; i < 4; ++i)
-	{
-		laser.anim[4][i].PushBack({ 155,7,16,16 }); // BIG
-		laser.anim[4][i].PushBack({ 106,7,16,14 });
-		laser.anim[4][i].PushBack({ 59,7,16,12 });
-		laser.anim[4][i].PushBack({ 14,7,16,10 });
-
-		laser.anim[4][i].PushBack({ 59,7,16,12 });
-		laser.anim[4][i].PushBack({ 106,7,16,14 });
-		laser.anim[4][i].PushBack({ 155,7,16,16 }); // BIG
-		laser.anim[4][i].speed = 1.0f;
-	}
-	// "down" cap
-	laser.anim[4][4].PushBack({ 138,15,16,14 }); // BIG
-	laser.anim[4][4].PushBack({ 90,16,15,12 });
-	laser.anim[4][4].PushBack({ 44,16,14,10 });
-	laser.anim[4][4].PushBack({ 0,16,13,8 });
-
-	laser.anim[4][4].PushBack({ 44,16,14,10 });
-	laser.anim[4][4].PushBack({ 90,16,15,12 });
-	laser.anim[4][4].PushBack({ 138,15,16,14 });
-	laser.anim[4][4].speed = 1.0f;
-	// -----------------------------------------------------
-	// 67'5 degrees --------
-	// "up" cap
-	laser.anim[5][0].PushBack({ 238,29,14,16 }); // BIG
-	laser.anim[5][0].PushBack({ 210,29,12,15 });
-	laser.anim[5][0].PushBack({ 184,29,10,14 });
-	laser.anim[5][0].PushBack({ 160,29,8,13 });
-
-	laser.anim[5][0].PushBack({ 184,29,10,14 });
-	laser.anim[5][0].PushBack({ 210,29,12,15 });
-	laser.anim[5][0].PushBack({ 238,29,14,16 }); // BIG
-	laser.anim[5][0].speed = 1.0f;
-	// mid
-	for (uint i = 1; i < 4; ++i)
-	{
-		laser.anim[5][i].PushBack({ 229,46,16,16 }); // BIG
-		laser.anim[5][i].PushBack({ 201,45,14,16 });
-		laser.anim[5][i].PushBack({ 175,44,12,16 });
-		laser.anim[5][i].PushBack({ 151,46,8,16 });
-
-		laser.anim[5][i].PushBack({ 175,44,12,16 });
-		laser.anim[5][i].PushBack({ 201,45,14,16 });
-		laser.anim[5][i].PushBack({ 229,46,16,16 }); // BIG
-		laser.anim[5][i].speed = 1.0f;
-	}
-	// "down" cap
-	laser.anim[5][4].PushBack({ 222,63,14,16 }); // BIG
-	laser.anim[5][4].PushBack({ 194,62,12,15 });
-	laser.anim[5][4].PushBack({ 168,61,10,14 });
-	laser.anim[5][4].PushBack({ 144,60,10,13 });
-
-	laser.anim[5][4].PushBack({ 168,61,10,14 });
-	laser.anim[5][4].PushBack({ 194,62,12,15 });
-	laser.anim[5][4].PushBack({ 222,63,14,16 }); // BIG
-	laser.anim[5][4].speed = 1.0f;
-	// -----------------------------------------------------
-	//112.5 degrees (pointing upLeft)
-	// "up" top cap
-	laser.anim[6][0].PushBack({ 78,79,14,16 }); // BIG
-	laser.anim[6][0].PushBack({ 50,79,12,15 });
-	laser.anim[6][0].PushBack({ 24,79,10,14 });
-	laser.anim[6][0].PushBack({ 0,79,8,13 });
-
-	laser.anim[6][0].PushBack({ 24,79,10,14 });
-	laser.anim[6][0].PushBack({ 50,79,12,15 });
-	laser.anim[6][0].PushBack({ 78,79,14,16 }); // BIG
-	laser.anim[6][0].speed = 1.0f;
-	// MID ---
-	for (uint i = 1; i < 4; ++i)
-	{
-		laser.anim[6][i].PushBack({ 85,96,16,16 }); // BIG
-		laser.anim[6][i].PushBack({ 57,95,14,16 });
-		laser.anim[6][i].PushBack({ 31,94,12,16 });
-		laser.anim[6][i].PushBack({ 7,93,10,16 }); 
-
-		laser.anim[6][i].PushBack({ 31,94,12,16 });
-		laser.anim[6][i].PushBack({ 57,95,14,16 });
-		laser.anim[6][i].PushBack({ 85,96,16,16 }); // BIG
-		laser.anim[6][i].speed = 1.0f;
-	}
-	// "down" bottom cap
-	laser.anim[6][4].PushBack({ 94,113,14,16 }); // BIG
-	laser.anim[6][4].PushBack({ 66,112,12,15 });
-	laser.anim[6][4].PushBack({ 40,111,10,14 });
-	laser.anim[6][4].PushBack({ 16,110,9,13 });
-
-	laser.anim[6][4].PushBack({ 40,111,10,14 });
-	laser.anim[6][4].PushBack({ 66,112,12,15 });
-	laser.anim[6][4].PushBack({ 94,113,14,16 }); // BIG
-	laser.anim[6][4].speed = 1.0f;
-	// -----------------------------------------------------
-	// 157.5 degrees ---------------
-	// "up" top cap
-	laser.anim[7][0].PushBack({ 94,29,16,14 }); // BIG
-	laser.anim[7][0].PushBack({ 46,29,15,12 });
-	laser.anim[7][0].PushBack({ 0,29,14,10 });
-	laser.anim[7][0].PushBack({ 189,0,13,8 });
-
-	laser.anim[7][0].PushBack({ 0,29,14,10 });
-	laser.anim[7][0].PushBack({ 46,29,15,12 });
-	laser.anim[7][0].PushBack({ 94,29,16,14 }); // BIG
-	laser.anim[7][0].speed = 1.0f;
-	// mid
-	for (uint i = 1; i < 4; ++i)
-	{
-		laser.anim[7][i].PushBack({ 111,35,16,16 }); // BIG
-		laser.anim[7][i].PushBack({ 62,36,16,14 });
-		laser.anim[7][i].PushBack({ 15,36,16,12 });
-		laser.anim[7][i].PushBack({ 202,7,16,10 });
-
-		laser.anim[7][i].PushBack({ 15,36,16,12 });
-		laser.anim[7][i].PushBack({ 62,36,16,14 });
-		laser.anim[7][i].PushBack({ 111,35,16,16 }); // BIG
-		laser.anim[7][i].speed = 1.0f;
-	}
-	// "down" bottom cap
-	laser.anim[7][4].PushBack({ 128,44,16,14 }); // BIG
-	laser.anim[7][4].PushBack({ 79,45,15,12 });
-	laser.anim[7][4].PushBack({ 32,45,14,10 });
-	laser.anim[7][4].PushBack({ 219,16,13,8 });
-	
-	laser.anim[7][4].PushBack({ 32,45,14,10 });
-	laser.anim[7][4].PushBack({ 79,45,15,12 });
-	laser.anim[7][4].PushBack({ 128,44,16,14 }); // BIG
-	laser.anim[7][4].speed = 1.0f;
 	// -----------------------------------------------------
 
 	// -----------------------------------------------------
@@ -383,13 +387,13 @@ EnemyBigDaddy::EnemyBigDaddy(int x, int y, powerUpTypes type, SDL_Texture* thisT
 
 	// indicates wich axis direcion laser we have to instantiate/move/animate
 	//laser.laserAxisIndex = 0; // right left situation || LINKS to the animation data
-	laser.laserAxisIndex = 7; // Up and down situation ------------------------------------------------------------------
+	//laser.laserAxisIndex = 7; // Up and down situation ------------------------------------------------------------------
 
 	// spawn points boss laser corners
-	laser.instantiationPosition[0] = { position.x + 2, position.y + 2 }; // left up corner
+	/*laser.instantiationPosition[0] = { position.x + 2, position.y + 2 }; // left up corner
 	laser.instantiationPosition[1] = { position.x + 64, position.y + 2}; // left down corner
 	laser.instantiationPosition[2] = { position.x + 2 , position.y + 60 }; // left down corner
-	laser.instantiationPosition[3] = { position.x + 64 , position.y + 60 }; // right down corner
+	laser.instantiationPosition[3] = { position.x + 64 , position.y + 60 }; // right down corner*/
 
 	// test
 	/*laser.position[0][0] = laser.instantiationPosition[0];
@@ -397,8 +401,8 @@ EnemyBigDaddy::EnemyBigDaddy(int x, int y, powerUpTypes type, SDL_Texture* thisT
 	laser.position[1][4] = laser.instantiationPosition[0];
 	laser.position[1][0] = laser.instantiationPosition[0];*/
 	// important laser shooting logic activators ----
-	laser.laserPartIndex[0] = 0; // direction cap selector
-	laser.instantiationPoint = 0;
+	/*laser.laserPartIndex[0] = 0; // direction cap selector
+	laser.instantiationPoint = 0;*/
 	//laser.laserPartIndex[1] = 4;
 	// activate laser parts
 	//laser.active[laser.laserAxisIndex][laser.laserPartIndex[0]] = true;
@@ -410,10 +414,10 @@ EnemyBigDaddy::EnemyBigDaddy(int x, int y, powerUpTypes type, SDL_Texture* thisT
 void EnemyBigDaddy::Move()
 {
 	// updates laser instantiation position to follow enemy position || instatiation point position
-	laser.instantiationPosition[0] = { position.x + 2, position.y + 2 }; // left up corner
-	laser.instantiationPosition[1] = { position.x + 64, position.y + 2 }; // right up corner
-	laser.instantiationPosition[2] = { position.x + 2 , position.y + 60 }; // left down corner
-	laser.instantiationPosition[3] = { position.x + 64 , position.y + 60 }; // right down corner
+	bigDaddy.instantiationPosition[0] = { position.x + 2, position.y + 2 }; // left up corner
+	bigDaddy.instantiationPosition[1] = { position.x + 64, position.y + 2 }; // right up corner
+	bigDaddy.instantiationPosition[2] = { position.x + 2 , position.y + 60 }; // left down corner
+	bigDaddy.instantiationPosition[3] = { position.x + 64 , position.y + 60 }; // right down corner
 	//fposition.x -= 1.35;
 	//position.x = fposition.x;
 	position.x += 1; // ENEMY position
@@ -425,23 +429,26 @@ void EnemyBigDaddy::Move()
 	// this array stores the first shooted part of one of the total 4 instantiation enemy corner points 
 	// for do correct for loops checks(inverse/reverse order), or this is the intention
 	// in really only stores the last or the first 0/4 (order for activate the correct parts dependent of direction)
-	//laser.laserPartIndex[0] = 4;
+	//laser[0].laserPartIndex[0] = 4;
 	// activate laser parts
-	//laser.active[0][laser.laserPartIndex[0]] = true;
+	//laser[0].active[0][laser[0].laserPartIndex[0]] = true;
 
 	// UPDATES POSITIONS OF ALL PARTS of the LASERS -----------------------------------------------
 	// check if the instantiated laser need to be mounted in inverse/reverse
 	// if is to the right to left 4 to 0... and the next part of the chain isnt yet instantiated, associate each parts positions and updates it
-	
-	for (uint i = 0; i < 5; ++i)
+
+	for (uint z = 0; z < numActiveLasers; ++z)
 	{
-		if (laser.active[laser.laserAxisIndex][i])
+		for (uint i = 0; i < 5; ++i)
 		{
-			laser.fposition[laser.laserAxisIndex][i].x += laser.xSpeed + 1;
-			//laser.fposition[laser.laserAxisIndex][i].x += 1;
-			laser.fposition[laser.laserAxisIndex][i].y += laser.ySpeed ;
-			laser.position[laser.laserAxisIndex][i].x = laser.fposition[laser.laserAxisIndex][i].x; //2; //5 to right
-			laser.position[laser.laserAxisIndex][i].y = laser.fposition[laser.laserAxisIndex][i].y;
+			if (laser[z].active[laser[z].laserAxisIndex][i])
+			{
+				laser[z].fposition[laser[z].laserAxisIndex][i].x += laser[z].xSpeed + 1;
+				//laser.fposition[laser.laserAxisIndex][i].x += 1;
+				laser[z].fposition[laser[z].laserAxisIndex][i].y += laser[z].ySpeed;
+				laser[z].position[laser[z].laserAxisIndex][i].x = laser[z].fposition[laser[z].laserAxisIndex][i].x; //2; //5 to right
+				laser[z].position[laser[z].laserAxisIndex][i].y = laser[z].fposition[laser[z].laserAxisIndex][i].y;
+			}
 		}
 	}
 
@@ -461,174 +468,204 @@ void EnemyBigDaddy::Move()
 void EnemyBigDaddy::youDecide()
 {
 
+	//if (numActivePlayers == 2) numActiveLasers = 4;
+
+	numActiveLasers = 1;
+
 	fPoint sourcePos;
+
 
 	float pointDistances[4];
 
-	for (uint i = 0; i < 4; ++i)
-	{
-		sourcePos.x = laser.instantiationPosition[i].x;
-		sourcePos.y = laser.instantiationPosition[i].y;
+	//for (uint z = 0; z < numActiveLasers; z++)
+	//{
 
-		pointDistances[i] = GetNearestPlayerSqrtDistance(sourcePos);
-	}
-
-	float tempValue = 500; // fake distance
-
-	for (uint i = 0; i < 4; ++i)
-	{
-		if (pointDistances[i] < tempValue)
+		for (uint i = 0; i < 4; ++i) // store all the distances nearest to the nearest active player
 		{
-			tempValue = pointDistances[i];
-			laser.instantiationPoint = i;
-			//instantiationIndex = i;
+			sourcePos.x = bigDaddy.instantiationPosition[i].x;
+			sourcePos.y = bigDaddy.instantiationPosition[i].y;
+
+			pointDistances[i] = GetNearestPlayerSqrtDistance(sourcePos);
 		}
-		
-	}
-	
-	sourcePos.x = laser.instantiationPosition[laser.instantiationPoint].x;
-	sourcePos.y = laser.instantiationPosition[laser.instantiationPoint].y;
 
-	//LOG("instantiation index: %d", laser.instantiationPoint);
+		float tempValue = 500; // fake distance (player never can be than far away)
+		float tempValue2 = 500; // fake distance
 
-	//sourcePos.x = laser.instantiationPosition[0].x;
-	//sourcePos.y = laser.instantiationPosition[0].y;
+		int secondPoint = 0;
 
-	laser.distance = GetNearestPlayerSqrtDistance(sourcePos);
-	//laser.instantiationPoint = 3;
+		// checks the nearest point
+		for (uint i = 0; i < 4; ++i)
+		{
+			if (pointDistances[i] < tempValue)
+			{
+				tempValue = pointDistances[i];
+				laser[0].instantiationPoint = i;
+				//instantiationIndex = i;
+			}
+		}
+		// second check to decide the next second point nearest to player
+		for (uint i = 0; i < 3; ++i)
+		{
+			// if index is the same checked before continue
+			if (pointDistances[i] == tempValue) continue;
 
-	
+			if (pointDistances[i] < tempValue2)
+			{
+				tempValue2 = pointDistances[i];
+				secondPoint = i;
+				//laser[1].instantiationPoint = i; // second laser instantiation point
+				//instantiationIndex = i;
+			}
+		}
+
+		// if the second player are in scene, assign the rest of points to it
+
+		//for (uint z = 0; z < numActiveLasers; z++)
+		//{
+
+			sourcePos.x = bigDaddy.instantiationPosition[laser[0].instantiationPoint].x;
+			sourcePos.y = bigDaddy.instantiationPosition[laser[0].instantiationPoint].y;
+
+			LOG("instantiation index2: %d", secondPoint);
+
+			//sourcePos.x = laser.instantiationPosition[0].x;
+			//sourcePos.y = laser.instantiationPosition[0].y;
+
+			laser[0].distance = GetNearestPlayerSqrtDistance(sourcePos);
+			//laser.instantiationPoint = 3;
 
 
 
-	//if (numActivePlayers)
 
-	if (nearestTarget == nearestPlayer::P1 && !laser.active[laser.laserAxisIndex][laser.laserPartIndex[0]] )
-	{
-		float tx;
-		float ty;
 
-		tx = App->player[0]->position.x - sourcePos.x;
-		ty = App->player[0]->position.y - sourcePos.y;
+			//if (numActivePlayers)
 
-		laser.playerAngle = atan2f(ty, tx);
+			if (nearestTarget == nearestPlayer::P1 && !laser[0].active[laser[0].laserAxisIndex][laser[0].laserPartIndex[0]])
+			{
+			float tx;
+			float ty;
 
-		laser.xSpeed = 4 * cos(laser.playerAngle);
-		laser.ySpeed = 4 * sin(laser.playerAngle);
+			tx = App->player[0]->position.x - sourcePos.x;
+			ty = App->player[0]->position.y - sourcePos.y;
 
-		bigDaddy.now_shoot_time = SDL_GetTicks() - bigDaddy.start_shoot_time;
+			laser[0].playerAngle = atan2f(ty, tx);
 
-		if (bigDaddy.now_shoot_time >= bigDaddy.cadence_shoot_time) 
+			laser[0].xSpeed = 4 * cos(laser[0].playerAngle);
+			laser[0].ySpeed = 4 * sin(laser[0].playerAngle);
+
+			bigDaddy.now_shoot_time = SDL_GetTicks() - bigDaddy.start_shoot_time;
+
+			if (bigDaddy.now_shoot_time >= bigDaddy.cadence_shoot_time)
 				bigDaddy.attack = true;
 
-		// assigns correct cap and axis to "instantiated" laser
-		assignAxis();
-		//if (laser.playerAngle)
-	}
+			// assigns correct cap and axis to "instantiated" laser
+			assignAxis(0);
+			//if (laser.playerAngle)
+		}
 
-	LOG("playerAngle: %f", laser.playerAngle);
-	
-
+		//LOG("playerAngle: %f", laser.playerAngle);
+	//}
+		//}
 }
 
-void EnemyBigDaddy::assignAxis()
+void EnemyBigDaddy::assignAxis(uint index)
 {
 	// check lasers angles
 	// 2.35 = 135 degrees
 
-	float AlphaCentaury = laser.playerAngle;
+	float AlphaCentaury = laser[index].playerAngle;
 
 	// mid down situations
 	if (AlphaCentaury > 2.94f)// 0 || AlphaCentaury < 0.39f)
 	{
-		laser.laserAxisIndex = 0;
-		laser.laserPartIndex[0] = 0;
+		laser[index].laserAxisIndex = 0;
+		laser[index].laserPartIndex[0] = 0;
 	}
 	if (AlphaCentaury > 2.67f && AlphaCentaury < 2.94f)
 	{
-		laser.laserAxisIndex = 4;
-		laser.laserPartIndex[0] = 4;
+		laser[index].laserAxisIndex = 4;
+		laser[index].laserPartIndex[0] = 4;
 	}
 	if (AlphaCentaury > 2.17f && AlphaCentaury < 2.67f)
 	{
-		laser.laserAxisIndex = 3;
-		laser.laserPartIndex[0] = 4;
+		laser[index].laserAxisIndex = 3;
+		laser[index].laserPartIndex[0] = 4;
 	}
 	if (AlphaCentaury > 1.77f && AlphaCentaury < 2.17f)
 	{
-		laser.laserAxisIndex = 5;
-		laser.laserPartIndex[0] = 4;
+		laser[index].laserAxisIndex = 5;
+		laser[index].laserPartIndex[0] = 4;
 	}
 	if (AlphaCentaury > 1.37f && AlphaCentaury < 1.77f) // mid bottom 1.57 offset 0.2
 	{
-		laser.laserAxisIndex = 1;
-		laser.laserPartIndex[0] = 4;
+		laser[index].laserAxisIndex = 1;
+		laser[index].laserPartIndex[0] = 4;
 	}
 	if (AlphaCentaury > 0.97f && AlphaCentaury < 1.37f)
 	{
-		laser.laserAxisIndex = 6;
-		laser.laserPartIndex[0] = 4;
+		laser[index].laserAxisIndex = 6;
+		laser[index].laserPartIndex[0] = 4;
 	}
 	if (AlphaCentaury > 0.47f && AlphaCentaury < 0.97f)
 	{
-		laser.laserAxisIndex = 2;
-		laser.laserPartIndex[0] = 4;
+		laser[index].laserAxisIndex = 2;
+		laser[index].laserPartIndex[0] = 4;
 	}
 	if (AlphaCentaury > 0.17f && AlphaCentaury < 0.47f)
 	{
-		laser.laserAxisIndex = 7;
-		laser.laserPartIndex[0] = 4;
+		laser[index].laserAxisIndex = 7;
+		laser[index].laserPartIndex[0] = 4;
 	}
 	if (AlphaCentaury > 0 && AlphaCentaury < 0.17f)
 	{
-		laser.laserAxisIndex = 0;
-		laser.laserPartIndex[0] = 4;
+		laser[index].laserAxisIndex = 0;
+		laser[index].laserPartIndex[0] = 4;
 	}
 	// mid up situations
 	if (AlphaCentaury < 0 && AlphaCentaury > -0.17f)
 	{
-		laser.laserAxisIndex = 0;
-		laser.laserPartIndex[0] = 4;
+		laser[index].laserAxisIndex = 0;
+		laser[index].laserPartIndex[0] = 4;
 	}
 	if (AlphaCentaury < -0.17 && AlphaCentaury > -0.47f)
 	{
-		laser.laserAxisIndex = 4;
-		laser.laserPartIndex[0] = 0;
+		laser[index].laserAxisIndex = 4;
+		laser[index].laserPartIndex[0] = 0;
 	}
 	if (AlphaCentaury < -0.47 && AlphaCentaury > -0.97f)
 	{
-		laser.laserAxisIndex = 3;
-		laser.laserPartIndex[0] = 0;
+		laser[index].laserAxisIndex = 3;
+		laser[index].laserPartIndex[0] = 0;
 	}
 	if (AlphaCentaury < -0.97 && AlphaCentaury > -1.37f)
 	{
-		laser.laserAxisIndex = 5;
-		laser.laserPartIndex[0] = 0;
+		laser[index].laserAxisIndex = 5;
+		laser[index].laserPartIndex[0] = 0;
 	}
 	if (AlphaCentaury < -1.37 && AlphaCentaury > -1.77f)
 	{
-		laser.laserAxisIndex = 1;
-		laser.laserPartIndex[0] = 0;
+		laser[index].laserAxisIndex = 1;
+		laser[index].laserPartIndex[0] = 0;
 	}
 	if (AlphaCentaury < -1.77 && AlphaCentaury > -2.17f)
 	{
-		laser.laserAxisIndex = 6;
-		laser.laserPartIndex[0] = 0;
+		laser[index].laserAxisIndex = 6;
+		laser[index].laserPartIndex[0] = 0;
 	}
 	if (AlphaCentaury < -2.17 && AlphaCentaury > -2.67f)
 	{
-		laser.laserAxisIndex = 2;
-		laser.laserPartIndex[0] = 0;
+		laser[index].laserAxisIndex = 2;
+		laser[index].laserPartIndex[0] = 0;
 	}
 	if (AlphaCentaury < -2.67 && AlphaCentaury > -2.94f)
 	{
-		laser.laserAxisIndex = 7;
-		laser.laserPartIndex[0] = 0;
+		laser[index].laserAxisIndex = 7;
+		laser[index].laserPartIndex[0] = 0;
 	}
 	if (AlphaCentaury < -2.94)
 	{
-		laser.laserAxisIndex = 0;
-		laser.laserPartIndex[0] = 0;
+		laser[index].laserAxisIndex = 0;
+		laser[index].laserPartIndex[0] = 0;
 	}
 
 }
@@ -648,73 +685,78 @@ void EnemyBigDaddy::Draw()
 	App->render->Blit(enemyTex,position.x, position.y, &bigDaddy.onStageAnim->GetCurrentFrame());
 
 	// instantiate laser beams
-	if (bigDaddy.attack && !laser.active[laser.laserAxisIndex][laser.laserPartIndex[0]])
+	for (uint z = 0; z < numActiveLasers; z++)
 	{
-		laser.active[laser.laserAxisIndex][laser.laserPartIndex[0]] = true;
-		laser.position[laser.laserAxisIndex][laser.laserPartIndex[0]] = laser.instantiationPosition[laser.instantiationPoint]; //+ offset[laser.laserAxisIndex][laser.laserPartIndex[0]];
-		
-		// assign fpositions
-		laser.fposition[laser.laserAxisIndex][laser.laserPartIndex[0]].x = laser.position[laser.laserAxisIndex][laser.laserPartIndex[0]].x;
-		laser.fposition[laser.laserAxisIndex][laser.laserPartIndex[0]].y = laser.position[laser.laserAxisIndex][laser.laserPartIndex[0]].y;
+		if (bigDaddy.attack && !laser[z].active[laser[z].laserAxisIndex][laser[z].laserPartIndex[0]])
+		{
+			laser[z].active[laser[z].laserAxisIndex][laser[z].laserPartIndex[0]] = true;
+			laser[z].position[laser[z].laserAxisIndex][laser[z].laserPartIndex[0]] = bigDaddy.instantiationPosition[laser[z].instantiationPoint]; //+ offset[laser.laserAxisIndex][laser.laserPartIndex[0]];
 
-		bigDaddy.attack = false;
-		bigDaddy.start_shoot_time = SDL_GetTicks();
+			// assign fpositions
+			laser[z].fposition[laser[z].laserAxisIndex][laser[z].laserPartIndex[0]].x = laser[z].position[laser[z].laserAxisIndex][laser[z].laserPartIndex[0]].x;
+			laser[z].fposition[laser[z].laserAxisIndex][laser[z].laserPartIndex[0]].y = laser[z].position[laser[z].laserAxisIndex][laser[z].laserPartIndex[0]].y;
+
+			bigDaddy.attack = false;
+			bigDaddy.start_shoot_time = SDL_GetTicks();
+		}
 	}
 
 	// check distances ---
-
-	if (!laser.laserPartIndex[0] > 0)
+	for (uint z = 0; z < numActiveLasers; z++)
 	{
-		if (laser.active[laser.laserAxisIndex][0]) // "top cap part"
+		if (!laser[z].laserPartIndex[0] > 0)
 		{
-			for (uint i = 1; i < 5; ++i)
+			if (laser[z].active[laser[z].laserAxisIndex][0]) // "top cap part"
 			{
-				distanceManhattan = laser.position[laser.laserAxisIndex][0].DistanceManhattan(laser.instantiationPosition[laser.instantiationPoint]);
-
-				if (distanceManhattan > maxDistances[i - 1] && !laser.active[laser.laserAxisIndex][i])
+				for (uint i = 1; i < 5; ++i)
 				{
-					laser.active[laser.laserAxisIndex][i] = true;
-					laser.position[laser.laserAxisIndex][i] = laser.position[laser.laserAxisIndex][i - 1] + offset[laser.laserAxisIndex][i];
-					laser.anim[laser.laserAxisIndex][i].current_frame = laser.anim[laser.laserAxisIndex][i - 1].current_frame;
+					distanceManhattan = laser[z].position[laser[z].laserAxisIndex][0].DistanceManhattan(bigDaddy.instantiationPosition[laser[z].instantiationPoint]);
 
-					// assign fpositions
-					laser.fposition[laser.laserAxisIndex][i].x = laser.position[laser.laserAxisIndex][i].x;
-					laser.fposition[laser.laserAxisIndex][i].y = laser.position[laser.laserAxisIndex][i].y;
+					if (distanceManhattan > maxDistances[i - 1] && !laser[z].active[laser[z].laserAxisIndex][i])
+					{
+						laser[z].active[laser[z].laserAxisIndex][i] = true;
+						laser[z].position[laser[z].laserAxisIndex][i] = laser[z].position[laser[z].laserAxisIndex][i - 1] + offset[laser[z].laserAxisIndex][i];
+						laser[z].anim[laser[z].laserAxisIndex][i].current_frame = laser[z].anim[laser[z].laserAxisIndex][i - 1].current_frame;
+
+						// assign fpositions
+						laser[z].fposition[laser[z].laserAxisIndex][i].x = laser[z].position[laser[z].laserAxisIndex][i].x;
+						laser[z].fposition[laser[z].laserAxisIndex][i].y = laser[z].position[laser[z].laserAxisIndex][i].y;
+					}
+					// deactivates laser to prepare next shoot
+					if (distanceManhattan > 400) // distance with the latest checked part
+					{
+						for (uint i = 0; i < 5; ++i)
+							laser[z].active[laser[z].laserAxisIndex][i] = false;
+					}
+
 				}
-				// deactivates laser to prepare next shoot
-				if (distanceManhattan > 400) // distance with the latest checked part
-				{
-					for (uint i = 0; i < 5; ++i)
-						laser.active[laser.laserAxisIndex][i] = false;
-				}
-				
 			}
 		}
-	}
-	else
-	{
-		if (laser.active[laser.laserAxisIndex][4]) // "bottom cap part"
+		else
 		{
-			for (int i = 4; i >= 0; --i)
+			if (laser[z].active[laser[z].laserAxisIndex][4]) // "bottom cap part"
 			{
-				distanceManhattan = laser.position[laser.laserAxisIndex][4].DistanceManhattan(laser.instantiationPosition[laser.instantiationPoint]);
-
-				if (distanceManhattan > maxDistances[3 - i] && !laser.active[laser.laserAxisIndex][i])
+				for (int i = 4; i >= 0; --i)
 				{
-					laser.active[laser.laserAxisIndex][i] = true;
-					laser.position[laser.laserAxisIndex][i] = laser.position[laser.laserAxisIndex][i + 1] - offset[laser.laserAxisIndex][i];
-					laser.anim[laser.laserAxisIndex][i].current_frame = laser.anim[laser.laserAxisIndex][i + 1].current_frame;
+					distanceManhattan = laser[z].position[laser[z].laserAxisIndex][4].DistanceManhattan(bigDaddy.instantiationPosition[laser[z].instantiationPoint]);
 
-					// assign fpositions
-					laser.fposition[laser.laserAxisIndex][i].x = laser.position[laser.laserAxisIndex][i].x;
-					laser.fposition[laser.laserAxisIndex][i].y = laser.position[laser.laserAxisIndex][i].y;
-				}
+					if (distanceManhattan > maxDistances[3 - i] && !laser[z].active[laser[z].laserAxisIndex][i])
+					{
+						laser[z].active[laser[z].laserAxisIndex][i] = true;
+						laser[z].position[laser[z].laserAxisIndex][i] = laser[z].position[laser[z].laserAxisIndex][i + 1] - offset[laser[z].laserAxisIndex][i];
+						laser[z].anim[laser[z].laserAxisIndex][i].current_frame = laser[z].anim[laser[z].laserAxisIndex][i + 1].current_frame;
 
-				// deactivates laser to prepare next shoot
-				if (distanceManhattan > 400) // distance with the latest checked part
-				{
-					for (uint i = 0; i < 5; ++i)
-						laser.active[laser.laserAxisIndex][i] = false;
+						// assign fpositions
+						laser[z].fposition[laser[z].laserAxisIndex][i].x = laser[z].position[laser[z].laserAxisIndex][i].x;
+						laser[z].fposition[laser[z].laserAxisIndex][i].y = laser[z].position[laser[z].laserAxisIndex][i].y;
+					}
+
+					// deactivates laser to prepare next shoot
+					if (distanceManhattan > 400) // distance with the latest checked part
+					{
+						for (uint i = 0; i < 5; ++i)
+							laser[z].active[laser[z].laserAxisIndex][i] = false;
+					}
 				}
 			}
 		}
@@ -724,14 +766,17 @@ void EnemyBigDaddy::Draw()
 	
 
 	// DRAW lasers actives 
-	for (uint i = 0; i < 5; ++i)
+	for (uint z = 0; z < numActiveLasers; z++)
 	{
-
-		if (laser.active[laser.laserAxisIndex][i])
+		for (uint i = 0; i < 5; ++i)
 		{
-			laser.rect = laser.anim[laser.laserAxisIndex][i].GetCurrentFrame();
 
-			App->render->Blit(laserTexture, laser.position[laser.laserAxisIndex][i].x - laser.rect.w / 2, laser.position[laser.laserAxisIndex][i].y - laser.rect.h / 2, &laser.rect);
+			if (laser[z].active[laser[z].laserAxisIndex][i])
+			{
+				laser[z].rect = laser[z].anim[laser[z].laserAxisIndex][i].GetCurrentFrame();
+
+				App->render->Blit(laserTexture, laser[z].position[laser[z].laserAxisIndex][i].x - laser[z].rect.w / 2, laser[z].position[laser[z].laserAxisIndex][i].y - laser[z].rect.h / 2, &laser[z].rect);
+			}
 		}
 	}
 
@@ -746,8 +791,8 @@ void EnemyBigDaddy::Draw()
 	// DRAW FIRE animation
 	//flashAnimRect = bigDaddy.laserFlashAnim.GetCurrentFrame();
 
-	App->render->Blit(laserTexture, laser.instantiationPosition[3].x - 5 + pivotFlashAnim[(int)bigDaddy.laserFlashAnim.current_frame].x,
-		laser.instantiationPosition[3].y + pivotFlashAnim[(int)bigDaddy.laserFlashAnim.current_frame].y - 5, &bigDaddy.laserFlashAnim.GetCurrentFrame());
+	App->render->Blit(laserTexture, bigDaddy.instantiationPosition[3].x - 5 + pivotFlashAnim[(int)bigDaddy.laserFlashAnim.current_frame].x,
+		bigDaddy.instantiationPosition[3].y + pivotFlashAnim[(int)bigDaddy.laserFlashAnim.current_frame].y - 5, &bigDaddy.laserFlashAnim.GetCurrentFrame());
 }
 
 EnemyBigDaddy::~EnemyBigDaddy()
