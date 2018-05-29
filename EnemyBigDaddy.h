@@ -33,10 +33,13 @@ private:
 		Collider* fullBodyCollider = nullptr;
 		Collider* damageCollider = nullptr;
 		Animation onStageAnim[2]; // normal and taken damage
+		Animation travelAnim[2];
 		Animation foregroundAnim;
 		Animation laserFlashAnim;
 		Animation* current_animation = nullptr;
 		Path onStagePath;
+		Path onStageEntry;
+		Path onStageExit;
 		iPoint position;
 		fPoint fposition;
 		// timers -----------------
@@ -51,9 +54,17 @@ private:
 		//
 		const int maxCyclesOnStage = 4; // num of total attack loops (based on path full loops)
 		bool attack = false;
+		bool showFlashAnim = false;
 		//
 		//uint numAlivePlayers = 0; // to num laser shoots logic
-		iPoint instantiationPosition[4]; // one of the 4 boss spawn points
+		iPoint instantiationPosition[4]; // one of the 4 boss laser spawn points
+
+		// timer for laser shot flash...
+		Uint32 start_flash_time;
+		Uint32 now_flash_time;
+		Uint32 total_flash_time = 400;
+		SDL_Rect flashRect;
+		SDL_Rect rect;
 		
 
 	};
@@ -61,19 +72,18 @@ private:
 	struct laserBeam
 	{
 		Animation anim[8][5]; // [num max laser angles][num parts anims] -> 1 cap 2 center 1 cap
-		float distance;//[8][5];
-		float xSpeed;//[8][5];
-		float ySpeed;//[8][5];
-		float playerAngle;//[8];
+		float distance;
+		float xSpeed;
+		float ySpeed;
+		float playerAngle;
 		iPoint position[8][5];
 		fPoint fposition[8][5];
-		//iPoint instantiationPosition[4]; // one of the 4 boss spawn points
-		bool active[8][5] = { false };
+		bool active[8][5] = { false }; // all parts of 1 complete full axis laser
 		SDL_Rect rect;
 	    int	laserPartIndex[5]; // 1 full laser is composed by 4 animated parts, 1 left cap, 3 mid, 1 cap right
-		int laserAxisIndex;//[16]; // indicates wich direction we have to instantiate 0 to 15 ( 16 axis )
-		uint instantiationPoint;
-		uint part;
+		int laserAxisIndex;// 8 index, indicates wich direction we have to instantiate 0 to 15 ( 16 axis )
+		uint instantiationPoint; // assigns one of the 4 max boss spawn laser points
+		//uint part;
 	};
 
 	iPoint offset[8][5]; // stores the offsets positions to laser parts instantiation
@@ -97,6 +107,9 @@ private:
 	Uint32 now_all_shoots_time;
 	Uint32 time_to_destroy = 1000;
 
+	int readyForNextShot = true;
+
+	iPoint original_pos;
 
 public:
 

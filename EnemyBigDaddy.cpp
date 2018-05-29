@@ -18,11 +18,39 @@ EnemyBigDaddy::EnemyBigDaddy(int x, int y, powerUpTypes type, SDL_Texture* thisT
 	enemyScore = 1200;
 
 	// animation rects --------------------------------------------------------------------------------------
-	// big daddy on stage animation
-	// normal anim
-	bigDaddy.onStageAnim[NORMAL_ANIM].PushBack({ 325,167,64,60 }); // midEye center
-	bigDaddy.onStageAnim[NORMAL_ANIM].speed = 0.25f;
 
+	// big daddy on stage animation ------------------------------------------
+	// normal anim
+	bigDaddy.onStageAnim[NORMAL_ANIM].PushBack({ 0,167,64,40 }); // max closed
+	bigDaddy.onStageAnim[NORMAL_ANIM].PushBack({ 65,167,64,44 });
+	bigDaddy.onStageAnim[NORMAL_ANIM].PushBack({ 130,167,64,48 });
+	bigDaddy.onStageAnim[NORMAL_ANIM].PushBack({ 195,167,64,52 });
+	bigDaddy.onStageAnim[NORMAL_ANIM].PushBack({ 260,167,64,56 });
+	
+	bigDaddy.onStageAnim[NORMAL_ANIM].PushBack({ 325,167,64,60 }); // midEye center
+	bigDaddy.onStageAnim[NORMAL_ANIM].PushBack({ 325,167,64,60 }); // midEye center
+
+	for (uint i = 0; i < 8; ++i) // 8 loops rotating
+	{
+		bigDaddy.onStageAnim[NORMAL_ANIM].PushBack({ 325,167,64,60 }); // midEye center
+		bigDaddy.onStageAnim[NORMAL_ANIM].PushBack({ 390,167,64,60 });
+		bigDaddy.onStageAnim[NORMAL_ANIM].PushBack({ 455,167,64,60 });
+		bigDaddy.onStageAnim[NORMAL_ANIM].PushBack({ 520,167,64,60 });
+	}
+	// and close again
+	bigDaddy.onStageAnim[NORMAL_ANIM].PushBack({ 260,167,64,56 });
+	bigDaddy.onStageAnim[NORMAL_ANIM].PushBack({ 195,167,64,52 });
+	bigDaddy.onStageAnim[NORMAL_ANIM].PushBack({ 130,167,64,48 });
+	bigDaddy.onStageAnim[NORMAL_ANIM].PushBack({ 65,167,64,44 });
+	bigDaddy.onStageAnim[NORMAL_ANIM].PushBack({ 0,167,64,40 }); // max closed
+
+	bigDaddy.onStageAnim[NORMAL_ANIM].speed = 0.25f;
+	bigDaddy.onStageAnim[NORMAL_ANIM].repeat = false;
+	// -----------------------------------------------------------------------
+	// travel path anim
+	bigDaddy.travelAnim[NORMAL_ANIM].PushBack({ 0,167,64,40 }); // max closed
+
+	// -----------------------------------------------------------------------
 	// lasers animations
 	// left/right --------------------------------
 	// left cap // the biggests parts lasts x2 = at the start and end of animation repeats the frame
@@ -406,25 +434,72 @@ EnemyBigDaddy::EnemyBigDaddy(int x, int y, powerUpTypes type, SDL_Texture* thisT
 	//laser.laserPartIndex[1] = 4;
 	// activate laser parts
 	//laser.active[laser.laserAxisIndex][laser.laserPartIndex[0]] = true;
-	
-	position.x = 120;
-	position.y = 20;
+
+	// positions
+	original_pos.x = 172;
+	original_pos.y = 102;
+
+	//position.x = 120;
+	//position.y = 20;
+
+	// PATHS ---------------------------------------------------------------------
+	// mid to right and shoot position
+	bigDaddy.onStagePath.PushBack({ 1, 0},5, bigDaddy.travelAnim);
+	bigDaddy.onStagePath.PushBack({ 2, -0.5f }, 50, bigDaddy.travelAnim);
+	bigDaddy.onStagePath.PushBack({ 2, -0.3f }, 25, bigDaddy.travelAnim);
+	bigDaddy.onStagePath.PushBack({ 1.3f, +0.3f }, 50, bigDaddy.travelAnim);
+	bigDaddy.onStagePath.PushBack({ 0.7f, +0.6f }, 70, bigDaddy.travelAnim);
+	bigDaddy.onStagePath.PushBack({ 1.0f, +1.0f }, 30, bigDaddy.travelAnim);
+
+	bigDaddy.onStagePath.PushBack({ 1.0f, 0.0f }, 172, bigDaddy.onStageAnim); // shoot
+
+	// to left
+	bigDaddy.onStagePath.PushBack({ -0.2f, -0.3f }, 40, bigDaddy.travelAnim);
+	bigDaddy.onStagePath.PushBack({ -0.2f, +0.3f }, 25, bigDaddy.travelAnim);
+	bigDaddy.onStagePath.PushBack({ -0.3f, -0.4f }, 30, bigDaddy.travelAnim);
+	bigDaddy.onStagePath.PushBack({ 0.5f, 0.3f }, 35, bigDaddy.travelAnim);
+	bigDaddy.onStagePath.PushBack({ 1.0f, 0.3f }, 21, bigDaddy.travelAnim);
+
+	bigDaddy.onStagePath.PushBack({ 1.0f, 0.0f }, 172, bigDaddy.onStageAnim); // shoot
+
+	// to up 
+	bigDaddy.onStagePath.PushBack({ -0.1f, -0.5f }, 30, bigDaddy.travelAnim);
+	bigDaddy.onStagePath.PushBack({ 1.2f, -0.6f }, 40, bigDaddy.travelAnim);
+	bigDaddy.onStagePath.PushBack({ 1.2f, -0.6f }, 40, bigDaddy.travelAnim);
+	bigDaddy.onStagePath.PushBack({ 2.0f, -0.2f }, 40, bigDaddy.travelAnim);
+	bigDaddy.onStagePath.PushBack({ 2.0f, 0.4f }, 40, bigDaddy.travelAnim);
+
+	bigDaddy.onStagePath.PushBack({ 1.0f, 0.0f }, 172, bigDaddy.onStageAnim); // shoot
+
+
+	//bigDaddy.onStagePath.loop = false;
 }
 
 void EnemyBigDaddy::Move()
 {
 	// updates laser instantiation position to follow enemy position || instatiation point position
-	bigDaddy.instantiationPosition[0] = { position.x + 2, position.y + 2 }; // left up corner
+	/*bigDaddy.instantiationPosition[0] = { position.x + 2, position.y + 2 }; // left up corner
 	bigDaddy.instantiationPosition[1] = { position.x + 64, position.y + 2 }; // right up corner
 	bigDaddy.instantiationPosition[2] = { position.x + 2 , position.y + 60 }; // left down corner
-	bigDaddy.instantiationPosition[3] = { position.x + 64 , position.y + 60 }; // right down corner
+	bigDaddy.instantiationPosition[3] = { position.x + 64 , position.y + 60 }; // right down corner*/
+
+	// faked instantiation positions to nicolas with faked printed method to do correct open/close animation of the enemy...
+	bigDaddy.instantiationPosition[0] = { position.x + 2, position.y - 26 }; // left up corner
+	bigDaddy.instantiationPosition[1] = { position.x + 64, position.y - 26 }; // right up corner
+	bigDaddy.instantiationPosition[2] = { position.x + 2 , position.y + 26  }; // left down corner
+	bigDaddy.instantiationPosition[3] = { position.x + 64 , position.y + 26  }; // right down corner
+	// ---------------------------------------------------------------------------------------------------------------------
 	//fposition.x -= 1.35;
 	//position.x = fposition.x;
 	position.x += 1; // ENEMY position
 
+	position = original_pos + bigDaddy.onStagePath.GetCurrentSpeed(&animation);
+	fposition.x = position.x;
+	fposition.y = position.y;
+
 	// check player angle and decide what laser axis to spawn and the cap wich are pointing to
 
-	youDecide();
+	//youDecide();
 
 	// this array stores the first shooted part of one of the total 4 instantiation enemy corner points 
 	// for do correct for loops checks(inverse/reverse order), or this is the intention
@@ -467,6 +542,7 @@ void EnemyBigDaddy::Move()
 
 void EnemyBigDaddy::youDecide()
 {
+
 
 	if (numActivePlayers == 2) numActiveLasers = 4;
 	else
@@ -576,8 +652,8 @@ void EnemyBigDaddy::youDecide()
 
 				bigDaddy.now_shoot_time = SDL_GetTicks() - bigDaddy.start_shoot_time;
 
-				if (bigDaddy.now_shoot_time >= bigDaddy.cadence_shoot_time)
-					bigDaddy.attack = true;
+				//if (bigDaddy.now_shoot_time >= bigDaddy.cadence_shoot_time)
+					//bigDaddy.attack = true;
 
 				// assigns correct cap and axis to "instantiated" laser
 				assignAxis(z);
@@ -704,7 +780,33 @@ void EnemyBigDaddy::Draw()
 	}*/
 
 	// full body onStage animation
-	App->render->Blit(enemyTex,position.x, position.y, &bigDaddy.onStageAnim->GetCurrentFrame());
+	//App->render->Blit(enemyTex,position.x, position.y, &bigDaddy.onStageAnim->GetCurrentFrame());
+	bigDaddy.rect = animation->GetCurrentFrame();
+
+
+	App->render->Blit(enemyTex, position.x, position.y - bigDaddy.rect.h / 2, &bigDaddy.rect);
+
+	//if (bigDaddy.onStageAnim->finish && !bigDaddy.attack)
+	if ((int)bigDaddy.onStageAnim->current_frame == 6 && readyForNextShot)//&& bigDaddy.onStageAnim->current_frame < 7 && !bigDaddy.attack)
+	{
+		youDecide();
+		bigDaddy.attack = true;
+		readyForNextShot = false;
+		
+	}
+	/*if (bigDaddy.onStageAnim->finish)
+	{
+		bigDaddy.onStageAnim->finish = false;
+		bigDaddy.onStageAnim->current_frame = 0;
+		readyForNextShot = true;
+
+	}*/
+	if (animation != bigDaddy.onStageAnim && !readyForNextShot)
+	{
+		bigDaddy.onStageAnim->finish = false;
+		bigDaddy.onStageAnim->current_frame = 0;
+		readyForNextShot = true;
+	}
 
 	// instantiate laser beams
 	for (uint z = 0; z < numActiveLasers; z++)
@@ -718,14 +820,17 @@ void EnemyBigDaddy::Draw()
 			laser[z].fposition[laser[z].laserAxisIndex][laser[z].laserPartIndex[0]].x = laser[z].position[laser[z].laserAxisIndex][laser[z].laserPartIndex[0]].x;
 			laser[z].fposition[laser[z].laserAxisIndex][laser[z].laserPartIndex[0]].y = laser[z].position[laser[z].laserAxisIndex][laser[z].laserPartIndex[0]].y;
 
-			if (z == numActiveLasers)
+			if (z == numActiveLasers -1)
 			{
 				bigDaddy.attack = false;
 				bigDaddy.start_shoot_time = SDL_GetTicks();
 				// general timer
 				//start_all_shoots_time = SDL_GetTicks();
+				//bigDaddy.showFlashAnim = false;
 			}
 			start_all_shoots_time = SDL_GetTicks();
+			bigDaddy.showFlashAnim = true;
+			bigDaddy.start_flash_time = SDL_GetTicks();
 		}
 	}
 
@@ -809,7 +914,7 @@ void EnemyBigDaddy::Draw()
 
 	
 
-	// DRAW lasers actives 
+	// DRAW active lasers
 	for (uint z = 0; z < numActiveLasers; z++)
 	{
 		for (uint i = 0; i < 5; ++i) // all parts, all active lasers
@@ -824,19 +929,25 @@ void EnemyBigDaddy::Draw()
 		}
 	}
 
-	/*App->render->Blit(laserTexture, laser.position[0][1].x , laser.position[0][1].y, &laser.anim[0][1].GetCurrentFrame());
+	// DRAW LASER FLASH animation
+	if (bigDaddy.showFlashAnim)
+	{
+		bigDaddy.now_flash_time = SDL_GetTicks() - bigDaddy.start_flash_time;
+		if (bigDaddy.now_flash_time > bigDaddy.total_flash_time)
+		{
+			bigDaddy.showFlashAnim = false;
+			bigDaddy.laserFlashAnim.current_frame = 0;
+		}
 
-	App->render->Blit(laserTexture, laser.position[0][2].x , laser.position[0][2].y, &laser.anim[0][2].GetCurrentFrame());
+		bigDaddy.flashRect = bigDaddy.laserFlashAnim.GetCurrentFrame();
 
-	App->render->Blit(laserTexture, laser.position[0][3].x, laser.position[0][3].y, &laser.anim[0][3].GetCurrentFrame());
+		for (uint i = 0; i < numActiveLasers; ++i)
+		{
 
-	App->render->Blit(laserTexture, laser.position[0][4].x, laser.position[0][4].y, &laser.anim[0][4].GetCurrentFrame());*/
-
-	// DRAW FIRE animation
-	//flashAnimRect = bigDaddy.laserFlashAnim.GetCurrentFrame();
-
-	App->render->Blit(laserTexture, bigDaddy.instantiationPosition[3].x - 5 + pivotFlashAnim[(int)bigDaddy.laserFlashAnim.current_frame].x,
-		bigDaddy.instantiationPosition[3].y + pivotFlashAnim[(int)bigDaddy.laserFlashAnim.current_frame].y - 5, &bigDaddy.laserFlashAnim.GetCurrentFrame());
+			App->render->Blit(laserTexture, bigDaddy.instantiationPosition[laser[i].instantiationPoint].x - 5 + pivotFlashAnim[(int)bigDaddy.laserFlashAnim.current_frame].x,
+				bigDaddy.instantiationPosition[laser[i].instantiationPoint].y + pivotFlashAnim[(int)bigDaddy.laserFlashAnim.current_frame].y - 5, &bigDaddy.flashRect);
+		}
+	}
 }
 
 EnemyBigDaddy::~EnemyBigDaddy()
