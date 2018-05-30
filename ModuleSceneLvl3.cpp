@@ -342,7 +342,7 @@ bool ModuleSceneLvl3::CleanUp()
 void ModuleSceneLvl3::addEnemiesToLvl3()
 {
 	// first ADD submarine ( for draw circunstances )
-	//App->enemies->AddEnemy(ENEMY_TYPES::SUBMARINE, 0, 60, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::SUBMARINE, 0, 60, NONE);
 
 	//First Wave
 	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 300, 35, NONE);
