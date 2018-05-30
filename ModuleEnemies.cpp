@@ -333,7 +333,7 @@ void ModuleEnemies::SpawnEnemy(EnemyInfo& info)
 			enemies[i] = new EnemyBigDaddy(info.x, info.y, info.powerUpType, enemyBigDaddyTexture);
 			break;
 		case ENEMY_TYPES::COLDMACHINE:
-			enemies[i] = new EnemyColdMachine(info.x, info.y, info.powerUpType, enemyBigDaddyTexture);
+			enemies[i] = new EnemyColdMachine(info.x, info.y, info.powerUpType, enemyColdMachineTexture);
 			break;
 		}
 	}
