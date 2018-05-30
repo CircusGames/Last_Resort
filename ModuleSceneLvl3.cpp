@@ -127,6 +127,9 @@ bool ModuleSceneLvl3::Start()
 
 	//correct camera position
 	App->render->camera.x = 0;
+	// correct spawn values
+	wave = 1; // lamellas
+	midBossSpawn = false;
 	
 	// debug colliders
 
@@ -179,6 +182,13 @@ update_status ModuleSceneLvl3::PreUpdate()
 		App->enemies->AddEnemy(ENEMY_TYPES::LAMELLA, GetCurrentCameraPixelPos() * 2 + 240, 140, NONE);
 
 		wave++;
+	}
+
+	if ((GetCurrentCameraPixelPos() > 3550) && !midBossSpawn)
+	{
+		App->enemies->AddEnemy(ENEMY_TYPES::BIGDADDY, GetCurrentCameraPixelPos() * 2, 102, NONE);
+
+		midBossSpawn = true;
 	}
 
 	if ((GetCurrentCameraPixelPos() > 5520 - SCREEN_WIDTH - 26.5f) && scroll) //-26.5f is the offset
@@ -525,7 +535,7 @@ void ModuleSceneLvl3::addEnemiesToLvl3()
 	App->enemies->AddEnemy(ENEMY_TYPES::MINITANK, 7170, 189, NONE);
 	
 	// bigDaddy testing spawn here
-	App->enemies->AddEnemy(ENEMY_TYPES::BIGDADDY, 200, 100, NONE);
+	//App->enemies->AddEnemy(ENEMY_TYPES::BIGDADDY, 200, 100, NONE);
 
 }
 

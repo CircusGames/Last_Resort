@@ -15,7 +15,9 @@ private:
 	enum currentState
 	{
 		FOREGROUND,
+		ENTRYANIM,
 		ONSTAGE,
+		GOODBYEANIM,
 		GOODBYE
 	};
 
@@ -35,8 +37,12 @@ private:
 		Animation onStageAnim[2]; // normal and taken damage
 		Animation travelAnim[2];
 		Animation foregroundAnim;
+		Animation entryAnim;
+		Animation goodByeAnim;
 		Animation laserFlashAnim;
 		Animation* current_animation = nullptr;
+		float current_frame;
+		Path onForeground;
 		Path onStagePath;
 		Path onStageEntry;
 		Path onStageExit;
@@ -45,14 +51,14 @@ private:
 		// timers -----------------
 		// foreground time
 		Uint32 start_foreground_time;
-		Uint32 total_foreground_time;
+		Uint32 total_foreground_time = 10000;
 		Uint32 now_foreground_time;
 		// shooting timer
 		Uint32 start_shoot_time;
 		Uint32 now_shoot_time;
 		Uint32 cadence_shoot_time = 1000;
 		//
-		const int maxCyclesOnStage = 4; // num of total attack loops (based on path full loops)
+		const int maxCyclesOnStage = 2; // num of total attack loops (based on path full loops)
 		bool attack = false;
 		bool showFlashAnim = false;
 		//
@@ -65,12 +71,17 @@ private:
 		Uint32 total_flash_time = 400;
 		SDL_Rect flashRect;
 		SDL_Rect rect;
+		currentState current_enemy_step;
+
+		float wave = -1.0f;
+		bool going_up = true;
 		
 
 	};
 
 	struct laserBeam
 	{
+		Collider* laserCollider = nullptr;
 		Animation anim[8][5]; // [num max laser angles][num parts anims] -> 1 cap 2 center 1 cap
 		float distance;
 		float xSpeed;
@@ -105,11 +116,21 @@ private:
 	// timer for destroy all the lasers at once
 	Uint32 start_all_shoots_time;
 	Uint32 now_all_shoots_time;
-	Uint32 time_to_destroy = 1000;
+	Uint32 time_to_destroy = 2000;
 
 	int readyForNextShot = true;
 
 	iPoint original_pos;
+
+	uint numAttacks = 0; // max real game attacks 7
+
+	// take damage values, anim and permission
+	bool canReceiveDamage = false;
+	Uint32 start_damage_time;
+	Uint32 nowDamagetime;
+	Uint32 damageAnimTime = 50;
+
+	int extraCollidersIndex = 0;
 
 public:
 
@@ -121,6 +142,8 @@ public:
 
 	void youDecide();
 	void assignAxis(uint index);
+	void OnCollision(Collider* collider, Collider* collider2);
+	void OnCollisionUnit(Collider* c2, Collider* c1);
 
 	midBoss bigDaddy;
 	laserBeam laser[4]; // max lasers count situation

@@ -8,6 +8,7 @@
 
 EnemyBigDaddy::EnemyBigDaddy(int x, int y, powerUpTypes type, SDL_Texture* thisTexture) : Enemy(x, y)
 {
+	enemyType = BIGDADDY;
 	// Loads laser texture, only we have 1 big daddy on scene, loads here is ok
 	laserTexture = App->textures->Load("assets/Graphics/Enemies/Level_3/laserMidBoss.png");
 	//links the correct spritesheet texture ----
@@ -46,9 +47,151 @@ EnemyBigDaddy::EnemyBigDaddy(int x, int y, powerUpTypes type, SDL_Texture* thisT
 
 	bigDaddy.onStageAnim[NORMAL_ANIM].speed = 0.25f;
 	bigDaddy.onStageAnim[NORMAL_ANIM].repeat = false;
+	// DAMAGE anim ------------
+	bigDaddy.onStageAnim[DAMAGE_ANIM].PushBack({ 0,106,64,40 }); // max closed
+	bigDaddy.onStageAnim[DAMAGE_ANIM].PushBack({ 65,106,64,44 });
+	bigDaddy.onStageAnim[DAMAGE_ANIM].PushBack({ 130,106,64,48 });
+	bigDaddy.onStageAnim[DAMAGE_ANIM].PushBack({ 195,106,64,52 });
+	bigDaddy.onStageAnim[DAMAGE_ANIM].PushBack({ 260,106,64,56 });
+
+	bigDaddy.onStageAnim[DAMAGE_ANIM].PushBack({ 325,106,64,60 }); // midEye center
+	bigDaddy.onStageAnim[DAMAGE_ANIM].PushBack({ 325,167,64,60 }); // midEye center
+
+	for (uint i = 0; i < 8; ++i)
+	{
+		bigDaddy.onStageAnim[DAMAGE_ANIM].PushBack({ 325,106,64,60 }); // midEye center
+		bigDaddy.onStageAnim[DAMAGE_ANIM].PushBack({ 390,106,64,60 });
+		bigDaddy.onStageAnim[DAMAGE_ANIM].PushBack({ 455,106,64,60 });
+		bigDaddy.onStageAnim[DAMAGE_ANIM].PushBack({ 520,106,64,60 });
+	}
+	// and close again
+	bigDaddy.onStageAnim[DAMAGE_ANIM].PushBack({ 260,106,64,56 });
+	bigDaddy.onStageAnim[DAMAGE_ANIM].PushBack({ 195,106,64,52 });
+	bigDaddy.onStageAnim[DAMAGE_ANIM].PushBack({ 130,106,64,48 });
+	bigDaddy.onStageAnim[DAMAGE_ANIM].PushBack({ 65,106,64,44 });
+	bigDaddy.onStageAnim[DAMAGE_ANIM].PushBack({ 0,106,64,40 }); // max closed
+	bigDaddy.onStageAnim[DAMAGE_ANIM].speed = 0.25f;
+	bigDaddy.onStageAnim[DAMAGE_ANIM].repeat = false;
+
 	// -----------------------------------------------------------------------
 	// travel path anim
 	bigDaddy.travelAnim[NORMAL_ANIM].PushBack({ 0,167,64,40 }); // max closed
+	// -------
+	// FOREGROUND anim
+	bigDaddy.foregroundAnim.PushBack({ 0,0,33,20 }); // max closed foreground
+	// ENTRY animation
+	bigDaddy.entryAnim.PushBack({ 35,0,34,21 });
+	bigDaddy.entryAnim.PushBack({ 69,0,34,22 });
+	bigDaddy.entryAnim.PushBack({ 104,0,35,22 });
+	bigDaddy.entryAnim.PushBack({ 140,0,35,23 });
+	bigDaddy.entryAnim.PushBack({ 176,0,36,23 });
+	bigDaddy.entryAnim.PushBack({ 213,0,37,23 });
+	bigDaddy.entryAnim.PushBack({ 289,0,38,23 });
+	bigDaddy.entryAnim.PushBack({ 328,0,38,24 });
+	bigDaddy.entryAnim.PushBack({ 367,0,39,24 });
+	bigDaddy.entryAnim.PushBack({ 407,0,39,25 });
+	bigDaddy.entryAnim.PushBack({ 447,0,40,25 });
+	bigDaddy.entryAnim.PushBack({ 488,0,40,25 });
+	bigDaddy.entryAnim.PushBack({ 529,0,41,25 });
+	bigDaddy.entryAnim.PushBack({ 571,0,41,26 });
+	bigDaddy.entryAnim.PushBack({ 613,0,42,26 });
+	bigDaddy.entryAnim.PushBack({ 656,0,42,26 });
+	bigDaddy.entryAnim.PushBack({ 699,0,43,26 });
+	bigDaddy.entryAnim.PushBack({ 743,0,43,27 });
+	bigDaddy.entryAnim.PushBack({ 787,0,44,27 });
+	bigDaddy.entryAnim.PushBack({ 832,0,44,27 });
+	bigDaddy.entryAnim.PushBack({ 877,0,45,27 });
+	bigDaddy.entryAnim.PushBack({ 923,0,45,28 });
+	bigDaddy.entryAnim.PushBack({ 0,29,46,28 });
+	bigDaddy.entryAnim.PushBack({ 47,29,46,29 });
+	bigDaddy.entryAnim.PushBack({ 94,29,47,29 });
+	bigDaddy.entryAnim.PushBack({ 142,29,47,30 });
+	bigDaddy.entryAnim.PushBack({ 190,29,48,30 });
+	bigDaddy.entryAnim.PushBack({ 239,29,49,30 });
+	bigDaddy.entryAnim.PushBack({ 289,29,49,31 });
+	bigDaddy.entryAnim.PushBack({ 339,29,50,32 });
+	bigDaddy.entryAnim.PushBack({ 390,29,51,32 });
+	bigDaddy.entryAnim.PushBack({ 442,29,51,33 });
+	bigDaddy.entryAnim.PushBack({ 494,29,52,33 });
+	bigDaddy.entryAnim.PushBack({ 547,29,53,33 });
+	bigDaddy.entryAnim.PushBack({ 601,29,53,33 });
+	bigDaddy.entryAnim.PushBack({ 655,29,54,33 });
+	bigDaddy.entryAnim.PushBack({ 710,29,54,34 });
+	bigDaddy.entryAnim.PushBack({ 765,29,55,34 });
+	bigDaddy.entryAnim.PushBack({ 821,29,55,35 });
+	bigDaddy.entryAnim.PushBack({ 877,29,56,35 });
+	bigDaddy.entryAnim.PushBack({ 934,29,56,35 });
+	bigDaddy.entryAnim.PushBack({ 0,65,57,35 });
+	bigDaddy.entryAnim.PushBack({ 58,65,57,36 });
+	bigDaddy.entryAnim.PushBack({ 116,65,58,36 });
+	bigDaddy.entryAnim.PushBack({ 175,65,58,36 });
+	bigDaddy.entryAnim.PushBack({ 234,65,59,36 });
+	bigDaddy.entryAnim.PushBack({ 294,65,59,37 });
+	bigDaddy.entryAnim.PushBack({ 354,65,60,37 });
+	bigDaddy.entryAnim.PushBack({ 415,65,61,37 });
+	bigDaddy.entryAnim.PushBack({ 477,65,62,38 });
+	bigDaddy.entryAnim.PushBack({ 540,65,62,39 });
+	bigDaddy.entryAnim.PushBack({ 603,65,63,39 });
+	bigDaddy.entryAnim.PushBack({ 667,65,63,40 });
+	bigDaddy.entryAnim.speed = 0.5f;
+	bigDaddy.entryAnim.repeat = false;
+	// ------------------------------------------------
+	// GOODBYE ANIMATION
+	bigDaddy.goodByeAnim.PushBack({ 667,65,63,40 });
+	bigDaddy.goodByeAnim.PushBack({ 603,65,63,39 });
+	bigDaddy.goodByeAnim.PushBack({ 540,65,62,39 });
+	bigDaddy.goodByeAnim.PushBack({ 477,65,62,38 });
+	bigDaddy.goodByeAnim.PushBack({ 415,65,61,37 });
+	bigDaddy.goodByeAnim.PushBack({ 354,65,60,37 });
+	bigDaddy.goodByeAnim.PushBack({ 294,65,59,37 });
+	bigDaddy.goodByeAnim.PushBack({ 234,65,59,36 });
+	bigDaddy.goodByeAnim.PushBack({ 175,65,58,36 });
+	bigDaddy.goodByeAnim.PushBack({ 116,65,58,36 });
+	bigDaddy.goodByeAnim.PushBack({ 58,65,57,36 });
+	bigDaddy.goodByeAnim.PushBack({ 0,65,57,35 });
+	bigDaddy.goodByeAnim.PushBack({ 934,29,56,35 });
+	bigDaddy.goodByeAnim.PushBack({ 877,29,56,35 });
+	bigDaddy.goodByeAnim.PushBack({ 821,29,55,35 });
+	bigDaddy.goodByeAnim.PushBack({ 765,29,55,34 });
+	bigDaddy.goodByeAnim.PushBack({ 710,29,54,34 });
+	bigDaddy.goodByeAnim.PushBack({ 655,29,54,33 });
+	bigDaddy.goodByeAnim.PushBack({ 601,29,53,33 });
+	bigDaddy.goodByeAnim.PushBack({ 547,29,53,33 });
+	bigDaddy.goodByeAnim.PushBack({ 494,29,52,33 });
+	bigDaddy.goodByeAnim.PushBack({ 442,29,51,33 });
+	bigDaddy.goodByeAnim.PushBack({ 390,29,51,32 });
+	bigDaddy.goodByeAnim.PushBack({ 339,29,50,32 });
+	bigDaddy.goodByeAnim.PushBack({ 289,29,49,31 });
+	bigDaddy.goodByeAnim.PushBack({ 239,29,49,30 });
+	bigDaddy.goodByeAnim.PushBack({ 190,29,48,30 });
+	bigDaddy.goodByeAnim.PushBack({ 142,29,47,30 });
+	bigDaddy.goodByeAnim.PushBack({ 94,29,47,29 });
+	bigDaddy.goodByeAnim.PushBack({ 47,29,46,29 });
+	bigDaddy.goodByeAnim.PushBack({ 0,29,46,28 });
+	bigDaddy.goodByeAnim.PushBack({ 923,0,45,28 });
+	bigDaddy.goodByeAnim.PushBack({ 877,0,45,27 });
+	bigDaddy.goodByeAnim.PushBack({ 832,0,44,27 });
+	bigDaddy.goodByeAnim.PushBack({ 787,0,44,27 });
+	bigDaddy.goodByeAnim.PushBack({ 743,0,43,27 });
+	bigDaddy.goodByeAnim.PushBack({ 699,0,43,26 });
+	bigDaddy.goodByeAnim.PushBack({ 656,0,42,26 });
+	bigDaddy.goodByeAnim.PushBack({ 613,0,42,26 });
+	bigDaddy.goodByeAnim.PushBack({ 571,0,41,26 });
+	bigDaddy.goodByeAnim.PushBack({ 529,0,41,25 });
+	bigDaddy.goodByeAnim.PushBack({ 488,0,40,25 });
+	bigDaddy.goodByeAnim.PushBack({ 447,0,40,25 });
+	bigDaddy.goodByeAnim.PushBack({ 407,0,39,25 });
+	bigDaddy.goodByeAnim.PushBack({ 367,0,39,24 });
+	bigDaddy.goodByeAnim.PushBack({ 328,0,38,24 });
+	bigDaddy.goodByeAnim.PushBack({ 289,0,38,23 });
+	bigDaddy.goodByeAnim.PushBack({ 213,0,37,23 });
+	bigDaddy.goodByeAnim.PushBack({ 176,0,36,23 });
+	bigDaddy.goodByeAnim.PushBack({ 140,0,35,23 });
+	bigDaddy.goodByeAnim.PushBack({ 104,0,35,22 });
+	bigDaddy.goodByeAnim.PushBack({ 69,0,34,22 });
+	bigDaddy.goodByeAnim.PushBack({ 35,0,34,21 });
+	bigDaddy.goodByeAnim.speed = 0.5f;
+	bigDaddy.goodByeAnim.repeat = false;
 
 	// -----------------------------------------------------------------------
 	// lasers animations
@@ -352,7 +495,7 @@ EnemyBigDaddy::EnemyBigDaddy(int x, int y, powerUpTypes type, SDL_Texture* thisT
 	// ---------------------------------------------------------------------------------------------
 
 
-	collider = App->collision->AddCollider({ 0, 0, 44, 48 }, COLLIDER_TYPE::COLLIDER_ENEMY, (Module*)App->enemies);
+	//collider = App->collision->AddCollider({ 0, 0, 44, 48 }, COLLIDER_TYPE::COLLIDER_ENEMY, (Module*)App->enemies);
 
 
 	// start timers
@@ -436,13 +579,17 @@ EnemyBigDaddy::EnemyBigDaddy(int x, int y, powerUpTypes type, SDL_Texture* thisT
 	//laser.active[laser.laserAxisIndex][laser.laserPartIndex[0]] = true;
 
 	// positions
-	original_pos.x = 172;
+	original_pos.x = x;//172;
 	original_pos.y = 102;
+
+	fposition.x = x;
+	fposition.y = 102;
 
 	//position.x = 120;
 	//position.y = 20;
 
-	// PATHS ---------------------------------------------------------------------
+	// PATHS -----------------------------------------------------------------------
+	// ONSTAGE path --
 	// mid to right and shoot position
 	bigDaddy.onStagePath.PushBack({ 1, 0},5, bigDaddy.travelAnim);
 	bigDaddy.onStagePath.PushBack({ 2, -0.5f }, 50, bigDaddy.travelAnim);
@@ -467,16 +614,33 @@ EnemyBigDaddy::EnemyBigDaddy(int x, int y, powerUpTypes type, SDL_Texture* thisT
 	bigDaddy.onStagePath.PushBack({ 1.2f, -0.6f }, 40, bigDaddy.travelAnim);
 	bigDaddy.onStagePath.PushBack({ 1.2f, -0.6f }, 40, bigDaddy.travelAnim);
 	bigDaddy.onStagePath.PushBack({ 2.0f, -0.2f }, 40, bigDaddy.travelAnim);
-	bigDaddy.onStagePath.PushBack({ 2.0f, 0.4f }, 40, bigDaddy.travelAnim);
+	bigDaddy.onStagePath.PushBack({ 2.0f, 0.4f }, 41, bigDaddy.travelAnim);
 
 	bigDaddy.onStagePath.PushBack({ 1.0f, 0.0f }, 172, bigDaddy.onStageAnim); // shoot
 
+	// ---------------------------------------------------------------------------------
+	// FOREGROUND path
+	//bigDaddy.onForeground.PushBack({});
+
 
 	//bigDaddy.onStagePath.loop = false;
+
+	// assign the current enemy stage
+	bigDaddy.current_enemy_step = currentState::FOREGROUND;
+	bigDaddy.start_foreground_time = SDL_GetTicks();
+
+	animation = &bigDaddy.foregroundAnim;
+
+	// deactivate the first collision with unit to avoid some circunstances
+	readyToRumble = false;
 }
 
 void EnemyBigDaddy::Move()
 {
+	//position.x = fposition.x;
+	//position.y = fposition.y;
+	//fposition.x = position.x;
+	//fposition.y = position.y;
 	// updates laser instantiation position to follow enemy position || instatiation point position
 	/*bigDaddy.instantiationPosition[0] = { position.x + 2, position.y + 2 }; // left up corner
 	bigDaddy.instantiationPosition[1] = { position.x + 64, position.y + 2 }; // right up corner
@@ -491,11 +655,86 @@ void EnemyBigDaddy::Move()
 	// ---------------------------------------------------------------------------------------------------------------------
 	//fposition.x -= 1.35;
 	//position.x = fposition.x;
-	position.x += 1; // ENEMY position
+	//position.x += 1; // ENEMY position
+	if (bigDaddy.current_enemy_step == FOREGROUND)
+	{
+		if (bigDaddy.going_up)
+		{
+			if (bigDaddy.wave > 1.0f)
+				bigDaddy.going_up = false;
+			else
+				bigDaddy.wave += 0.08f;
+		}
+		else
+		{
+			if (bigDaddy.wave < -1.0f)
+				bigDaddy.going_up = true;
+			else
+				bigDaddy.wave -= 0.08f;
+		}
 
-	position = original_pos + bigDaddy.onStagePath.GetCurrentSpeed(&animation);
-	fposition.x = position.x;
-	fposition.y = position.y;
+		position.y = 102 + int(7.0f * sinf(bigDaddy.wave));
+		fposition.x += 1.3f;
+		position.x = fposition.x;
+
+		// timer
+		bigDaddy.now_foreground_time = SDL_GetTicks() - bigDaddy.start_foreground_time;
+
+		if (bigDaddy.now_foreground_time > bigDaddy.total_foreground_time)
+		{
+			bigDaddy.current_enemy_step = ENTRYANIM;
+			//original_pos = position;
+			//position.y = fposition.y;
+			//fposition.x = position.x;
+			//fposition.y = position.y;
+		}
+	}
+	if (bigDaddy.current_enemy_step == ENTRYANIM)
+	{
+		animation = &bigDaddy.entryAnim;
+		if (bigDaddy.entryAnim.finish)
+		{
+			bigDaddy.current_enemy_step = ONSTAGE;
+			original_pos = position;
+		}
+		position.x += 1;
+	}
+
+	if (bigDaddy.current_enemy_step == ONSTAGE)
+	{
+		// ADDS COLLIDER
+		if (collider== nullptr)
+			collider = App->collision->AddCollider({ 0, 0, 44, 48 }, COLLIDER_TYPE::COLLIDER_ENEMY, (Module*)App->enemies);
+
+		position = original_pos + bigDaddy.onStagePath.GetCurrentSpeed(&animation);
+	}
+
+	// checks the num of attacks, then goodbye
+	if (numAttacks == 7)
+	{
+		bigDaddy.current_enemy_step = GOODBYEANIM;
+		fposition.x = position.x;
+	}
+	if (bigDaddy.current_enemy_step == GOODBYEANIM)
+	{
+		// DESTROY COLLIDER
+		if (collider != nullptr)
+		{
+			collider->to_delete = true;
+			collider = nullptr;
+		}
+
+		animation = &bigDaddy.goodByeAnim;
+
+		// assigns speed to last goodBye
+		fposition.x -= 0.07f;
+		position.x = fposition.x;
+	}
+	//else
+		//position.x += 1;
+
+	//fposition.x = position.x;
+	//fposition.y = position.y;
 
 	// check player angle and decide what laser axis to spawn and the cap wich are pointing to
 
@@ -523,6 +762,10 @@ void EnemyBigDaddy::Move()
 				laser[z].fposition[laser[z].laserAxisIndex][i].y += laser[z].ySpeed;
 				laser[z].position[laser[z].laserAxisIndex][i].x = laser[z].fposition[laser[z].laserAxisIndex][i].x; //2; //5 to right
 				laser[z].position[laser[z].laserAxisIndex][i].y = laser[z].fposition[laser[z].laserAxisIndex][i].y;
+
+				// updates laser colliders positions
+				if(laser[z].laserCollider != nullptr)
+					laser[z].laserCollider->SetPos(laser[z].position[laser[z].laserAxisIndex][laser[z].laserPartIndex[0]].x, laser[z].position[laser[z].laserAxisIndex][laser[z].laserPartIndex[0]].y);
 			}
 		}
 	}
@@ -532,7 +775,8 @@ void EnemyBigDaddy::Move()
 	// -----------------------------------------------------------------------------------
 
 	// set colliders pos
-	collider->SetPos(position.x + 10, position.y + 8);
+	if(collider != nullptr)
+		collider->SetPos(position.x + 10, position.y - 20);
 
 	
 	//laser.position[1][0].x += 2;
@@ -771,7 +1015,7 @@ void EnemyBigDaddy::assignAxis(uint index)
 void EnemyBigDaddy::Draw()
 {
 
-
+	LOG("NUM ATTACKS: %d", numAttacks);
 	// check shooting cadence time
 	/*bigDaddy.now_shoot_time = SDL_GetTicks() - bigDaddy.start_shoot_time;
 	if (bigDaddy.now_shoot_time > bigDaddy.cadence_shoot_time && !bigDaddy.attack)
@@ -781,10 +1025,31 @@ void EnemyBigDaddy::Draw()
 
 	// full body onStage animation
 	//App->render->Blit(enemyTex,position.x, position.y, &bigDaddy.onStageAnim->GetCurrentFrame());
+	//if (receiveDamage) animation = &animation[DAMAGE_ANIM];
+
+	// check if we are taken damage and swaps -------------------------------------------------------
+	if (receiveDamage)
+	{
+		nowDamagetime = SDL_GetTicks() - start_damage_time;
+		if (nowDamagetime > damageAnimTime) receiveDamage = false;
+
+		animation = &animation[DAMAGE_ANIM];
+		animation->current_frame = bigDaddy.current_frame;
+	}
+	else
+	{
+		animation = &animation[NORMAL_ANIM];
+		animation->current_frame = bigDaddy.current_frame;
+	}
+
 	bigDaddy.rect = animation->GetCurrentFrame();
 
 
 	App->render->Blit(enemyTex, position.x, position.y - bigDaddy.rect.h / 2, &bigDaddy.rect);
+
+	bigDaddy.current_frame = animation->current_frame;
+	
+	// ----------------------------------------------------------------------------------------------
 
 	//if (bigDaddy.onStageAnim->finish && !bigDaddy.attack)
 	if ((int)bigDaddy.onStageAnim->current_frame == 6 && readyForNextShot)//&& bigDaddy.onStageAnim->current_frame < 7 && !bigDaddy.attack)
@@ -794,18 +1059,21 @@ void EnemyBigDaddy::Draw()
 		readyForNextShot = false;
 		
 	}
-	/*if (bigDaddy.onStageAnim->finish)
+	// checks if we can receive damage
+	if (animation == bigDaddy.onStageAnim)
 	{
-		bigDaddy.onStageAnim->finish = false;
-		bigDaddy.onStageAnim->current_frame = 0;
-		readyForNextShot = true;
+		canReceiveDamage = true;
 
-	}*/
+	}
+	else
+		canReceiveDamage = false;
+
 	if (animation != bigDaddy.onStageAnim && !readyForNextShot)
 	{
 		bigDaddy.onStageAnim->finish = false;
 		bigDaddy.onStageAnim->current_frame = 0;
 		readyForNextShot = true;
+		numAttacks++;
 	}
 
 	// instantiate laser beams
@@ -819,6 +1087,11 @@ void EnemyBigDaddy::Draw()
 			// assign fpositions
 			laser[z].fposition[laser[z].laserAxisIndex][laser[z].laserPartIndex[0]].x = laser[z].position[laser[z].laserAxisIndex][laser[z].laserPartIndex[0]].x;
 			laser[z].fposition[laser[z].laserAxisIndex][laser[z].laserPartIndex[0]].y = laser[z].position[laser[z].laserAxisIndex][laser[z].laserPartIndex[0]].y;
+
+			// ADD colliders to cap
+			if(laser[z].laserCollider == nullptr)
+				laser[z].laserCollider = App->collision->AddCollider({0,0,10,10}, COLLIDER_ENEMY_SHOT, (Module*)App->enemies);
+			
 
 			if (z == numActiveLasers -1)
 			{
@@ -901,12 +1174,18 @@ void EnemyBigDaddy::Draw()
 	{
 		for (uint i = 0; i < numActiveLasers; ++i)
 		{
-			for (uint z = 0; z < 5; z++)
+			for (uint z = 0; z < 5; z++) // deactivate all parts
 			{
 				if (laser[i].active[laser[i].laserAxisIndex][z])
 				{
 					laser[i].active[laser[i].laserAxisIndex][z] = false;
 				}
+			}
+			// remove laser collider
+			if (laser[i].laserCollider != nullptr)
+			{
+				laser[i].laserCollider->to_delete = true;
+				laser[i].laserCollider = nullptr;
 			}
 		}
 	}
@@ -950,10 +1229,49 @@ void EnemyBigDaddy::Draw()
 	}
 }
 
+void EnemyBigDaddy::OnCollision(Collider* collider, Collider* collider2)
+{
+
+	if (collider->type == COLLIDER_PLAYER_SHOT && canReceiveDamage)
+	{
+		receiveDamage = true;
+		start_damage_time = SDL_GetTicks();
+		life -= collider->damage;
+	}
+
+}
+
+void EnemyBigDaddy::OnCollisionUnit(Collider* c2, Collider* c1)
+{
+	if (readyToRumble == true) 
+	{ 
+		readyToRumble = false; 
+		receiveDamage = true; 
+	}
+	
+	else
+	{
+		now_unit_damage_time = SDL_GetTicks() - start_unit_damage_time;
+
+		if (now_unit_damage_time >= cadence_unit_damage_time && canReceiveDamage)
+			readyToRumble = true;
+	}
+}
+
+
 EnemyBigDaddy::~EnemyBigDaddy()
 {
 	// unloads laser texture
 	App->textures->Unload(laserTexture);
 	
+	// removes all colliders
+	for (uint i = 0; i < numActiveLasers; ++i)
+	{
+		if (laser[i].laserCollider != nullptr)
+		{
+			laser[i].laserCollider->to_delete = true;
+			laser[i].laserCollider = nullptr;
+		}
+	}
 
 }

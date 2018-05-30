@@ -1105,7 +1105,8 @@ void ModuleSceneLvl1::spawnEnemies(int x, int y)
 		//for now calculated center position manually, until fix it (access to animation frame)
 		positionX -= 30 / 2;
 		positionY -= 30 / 2;
-		App->enemies->AddEnemy(ENEMY_TYPES::POWERUP_BEE, positionX, positionY, NONE);
+		//App->enemies->AddEnemy(ENEMY_TYPES::POWERUP_BEE, positionX, positionY, NONE);
+		App->enemies->AddEnemy(ENEMY_TYPES::BIGDADDY, positionX, positionY, NONE);
 	}
 	if (App->input->keyboard[SDL_SCANCODE_7] == KEY_REPEAT)
 	{

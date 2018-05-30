@@ -39,6 +39,7 @@ public:
 
 	bool spawnOnce = true;
 	Uint32 wave = 1;
+	bool midBossSpawn = false;
 
 
 	//void spawnEnemies(int x, int y);

@@ -349,7 +349,7 @@ void ModuleEnemies::OnCollision(Collider* c1, Collider* c2)
 		{
 			enemies[i]->OnCollision(c2, c1);
 
-			if (enemies[i]->enemyType != SUBMARINE)
+			if(enemies[i]->enemyType != SUBMARINE && enemies[i]->enemyType != BIGDADDY)
  				enemies[i]->life -= c2->damage; //particle damage
 
 			if (c2->type == COLLIDER_PLAYER)
@@ -373,16 +373,24 @@ void ModuleEnemies::OnCollision(Collider* c1, Collider* c2)
 				enemies[i]->start_unit_damage_time = SDL_GetTicks();
 
 				//if the unit can't destroy the enemy at once, return state
-				if (enemies[i]->life > c2->damage)
+				/*if (enemies[i]->life > c2->damage)
 				{
 					if (c2->callback == App->playerUnit[0] && App->playerUnit[0]->this_state != actualState::LINKED) 
 						App->playerUnit[0]->this_state = actualState::RETURN;
 					if (c2->callback == App->playerUnit[1] && App->playerUnit[0]->this_state != actualState::LINKED) 
 						App->playerUnit[1]->this_state = actualState::RETURN;
-				}
+				}*/
 
-				if(enemies[i]->enemyType != SUBMARINE || enemies[i]->enemyType != MINITANK)
+				if(enemies[i]->enemyType != SUBMARINE || enemies[i]->enemyType != MINITANK || enemies[i]->enemyType != BIGDADDY)
 				enemies[i]->life -= c2->damage; //receive unit damage respect the actual unit damage (charged or not amount)
+			}
+			// second check if the readyToRumbe is false, and the unit needs to be returnted too
+			if (enemies[i]->life > c2->damage)
+			{
+				if (c2->callback == App->playerUnit[0] && App->playerUnit[0]->this_state != actualState::LINKED)
+					App->playerUnit[0]->this_state = actualState::RETURN;
+				if (c2->callback == App->playerUnit[1] && App->playerUnit[0]->this_state != actualState::LINKED)
+					App->playerUnit[1]->this_state = actualState::RETURN;
 			}
 
 			if (enemies[i]->enemyType == SUBMARINE || enemies[i]->enemyType == MINITANK)
