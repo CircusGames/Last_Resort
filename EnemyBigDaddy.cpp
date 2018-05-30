@@ -15,8 +15,8 @@ EnemyBigDaddy::EnemyBigDaddy(int x, int y, powerUpTypes type, SDL_Texture* thisT
 	enemyTex = thisTexture;
 	// -----------------------------------------
 	powerUpType = type;
-	life = 20;
-	enemyScore = 1200;
+	life = 135;
+	enemyScore = 2000;
 
 	// animation rects --------------------------------------------------------------------------------------
 

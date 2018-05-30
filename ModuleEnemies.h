@@ -36,7 +36,8 @@ enum ENEMY_TYPES
 	ENEMYPILOT,
 	HOMINGMISSILE,
 	BIGFUCKINGROCKET,
-	BIGDADDY
+	BIGDADDY,
+	COLDMACHINE
 };
 
 //class Enemy;
@@ -87,6 +88,7 @@ public:
 	SDL_Texture* enemyHomingMissileTexture = nullptr;
 	SDL_Texture* enemyDiverBeamTexture = nullptr;
 	SDL_Texture* enemyBigDaddyTexture = nullptr;
+	SDL_Texture* enemyColdMachineTexture = nullptr;
 	// ----------------------------
 	//ENEMY PARTICLES
 	Particle beeBullet;
@@ -95,6 +97,11 @@ public:
 	Particle homingExplosion;
 	Particle diverBeamLeft;
 	Particle diverBeamRight;
+	// particles boss level 3 - Cold Machine
+	Particle coldMachineFootFire;
+	Particle coldMachineFootSmoke;
+	Particle coldMachinePiecesSmoke;
+
 private:
 
 	void SpawnEnemy(EnemyInfo& info);// , powerUpTypes powerUpType = powerUpTypes::NONE, SDL_Texture* texture = nullptr);

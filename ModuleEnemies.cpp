@@ -20,6 +20,7 @@
 #include "EnemyHomingMissile.h"
 #include "EnemyBigFuckingRocket.h"
 #include "EnemyBigDaddy.h"
+#include "EnemyColdMachine.h"
 
 #include "ModulePowerUp.h"
 #include "ModuleAudio.h"
@@ -118,6 +119,7 @@ bool ModuleEnemies::Start()
 	enemyPilotTexture = App->textures->Load("assets/Graphics/Enemies/Pilot.png");
 	enemyHomingMissileTexture = App->textures->Load("assets/Graphics/Enemies/Level_3/homingMissile.png");
 	enemyBigDaddyTexture = App->textures->Load("assets/Graphics/Enemies/Level_3/mid_boss.png");
+	enemyColdMachineTexture = App->textures->Load("assets/Graphics/Enemies/Level_3/boss.png");
 	
 	// -------------------------------------------------------------------------------------
 	// ENEMY PARTICLES ---------------------------------------------------------------------
@@ -209,6 +211,7 @@ bool ModuleEnemies::CleanUp()
 	
 	//unloading loaded textures
 	// INVERSE ORDER
+	App->textures->Unload(enemyColdMachineTexture);
 	App->textures->Unload(enemyBigDaddyTexture);
 	App->textures->Unload(enemyDiverBeamTexture);
 	App->textures->Unload(enemyHomingMissileTexture);
@@ -328,6 +331,9 @@ void ModuleEnemies::SpawnEnemy(EnemyInfo& info)
 			break;
 		case ENEMY_TYPES::BIGDADDY:
 			enemies[i] = new EnemyBigDaddy(info.x, info.y, info.powerUpType, enemyBigDaddyTexture);
+			break;
+		case ENEMY_TYPES::COLDMACHINE:
+			enemies[i] = new EnemyColdMachine(info.x, info.y, info.powerUpType, enemyBigDaddyTexture);
 			break;
 		}
 	}
