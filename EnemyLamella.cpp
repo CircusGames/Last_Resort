@@ -118,7 +118,7 @@ EnemyLamella::EnemyLamella(int x, int y, powerUpTypes type, SDL_Texture* thisTex
 	fposition.y = originalPos.y;
 	fposition.x = originalPos.x;
 
-	life = 0; //random
+	life = 1; //random
 	enemyScore = 200; // random
 	powerUpType = type;
 
