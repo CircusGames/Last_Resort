@@ -385,6 +385,7 @@ void ModuleEnemies::OnCollision(Collider* c1, Collider* c2)
 				enemies[i]->life -= c2->damage; //receive unit damage respect the actual unit damage (charged or not amount)
 			}
 			// second check if the readyToRumbe is false, and the unit needs to be returnted too
+			if (enemies[i]->life <= 0)enemies[i]->life = 0; // protection
 			if (enemies[i]->life > c2->damage)
 			{
 				if (c2->callback == App->playerUnit[0] && App->playerUnit[0]->this_state != actualState::LINKED)
