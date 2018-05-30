@@ -388,9 +388,11 @@ void ModuleEnemies::OnCollision(Collider* c1, Collider* c2)
 			if (enemies[i]->life <= 0)enemies[i]->life = 0; // protection
 			if (enemies[i]->life > c2->damage)
 			{
-				if (c2->callback == App->playerUnit[0] && App->playerUnit[0]->this_state != actualState::LINKED)
+				if (c2->callback == App->playerUnit[0] && App->playerUnit[0]->this_state != actualState::LINKED &&
+					App->playerUnit[0]->this_state != actualState::POSITIONING)
 					App->playerUnit[0]->this_state = actualState::RETURN;
-				if (c2->callback == App->playerUnit[1] && App->playerUnit[0]->this_state != actualState::LINKED)
+				if (c2->callback == App->playerUnit[1] && App->playerUnit[0]->this_state != actualState::LINKED &&
+					App->playerUnit[0]->this_state != actualState::POSITIONING)
 					App->playerUnit[1]->this_state = actualState::RETURN;
 			}
 
