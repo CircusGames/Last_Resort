@@ -90,7 +90,7 @@ private:
 		Uint32 now_missile_wave_time;
 		Uint32 start_launch_time;
 		Uint32 current_missile_time;
-		Uint32 time_between_waves = 1500; // time between cycle waves (2 waves of 4 missiles, aproximated)
+		Uint32 time_between_waves = 2500; // time between cycle waves (2 waves of 4 missiles, aproximated)
 		//Uint32 time_throwing_missiles = 5000;
 		uint missilesCount = 0; // each wave contains 4 missiles
 		uint missilesWaveCount = 0;

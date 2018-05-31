@@ -277,10 +277,18 @@ void EnemyColdMachine::missilesLogic()
 		coldMachine.legs.missilesCount++;
 		// instantiate the missile
 		LOG("Missile %d instantiated", coldMachine.legs.missilesCount);
+		// instantiate missile
 		App->enemies->AddEnemy(HOMINGMISSILE, position.x + coldMachine.legs.lowerLegPiece.position.x + 
 														   coldMachine.legs.missileCanyonsPos[coldMachine.legs.missilesCount - 1].x,	
 											  position.y + coldMachine.legs.lowerLegPiece.position.y +
 												           coldMachine.legs.missileCanyonsPos[coldMachine.legs.missilesCount - 1].y, NONE);
+		// instantiate missile flash
+		App->particles->AddParticle(App->enemies->coldMachineLegMissileFlash, position.x + coldMachine.legs.lowerLegPiece.position.x +
+			coldMachine.legs.missileCanyonsPos[coldMachine.legs.missilesCount - 1].x,
+			position.y - 3 + coldMachine.legs.lowerLegPiece.position.y +
+			coldMachine.legs.missileCanyonsPos[coldMachine.legs.missilesCount - 1].y,
+			COLLIDER_NONE, { scrollSpeed,0 }, 0);
+
 		// update the condition
 		coldMachine.legs.shootedMissile = true;
 		// update timer
@@ -317,15 +325,6 @@ void EnemyColdMachine::missilesLogic()
 		}
 
 	}
-	
-
-
-	// update launcher timer
-	/*coldMachine.legs.now_missile_wave_time = SDL_GetTicks() - coldMachine.legs.start_missiles_wave;
-	if (coldMachine.legs.now_missile_wave_time > coldMachine.legs.time_between_missiles)
-	{
-
-	}*/
 
 }
 
@@ -447,36 +446,49 @@ SDL_Rect& EnemyColdMachine::returnRect(Animation* anim)
 	// weapons cycle return fase1, legs
 	if (coldMachine.state == bossState::FASE1)
 	{
-		// missiles animation and activator logic
-		//if (!coldMachine.legs.throwMissiles) // while not throwing missiles
-		//{
-			if (coldMachine.legs.now_missiles_time > coldMachine.legs.missiles_cadence_time && anim == coldMachine.legs.missileLauncherAnim)
+		// missiles animation and activator logic -----------------------------------------------
+		
+		if (coldMachine.legs.now_missiles_time > coldMachine.legs.missiles_cadence_time && anim == coldMachine.legs.missileLauncherAnim)
+		{
+			if (anim->current_frame >= 3 && coldMachine.legs.missilesWaveCount < 2)
 			{
-				if (anim->current_frame >= 3)
+				if (!coldMachine.legs.throwMissiles) // activate the launch and assigns timer
 				{
-					if (!coldMachine.legs.throwMissiles) // activate the launch and assigns timer
-					{
-						coldMachine.legs.start_missiles_wave = SDL_GetTicks();
-						coldMachine.legs.throwMissiles = true;
-					}
-					// return opened missile launcher gate
-					return anim[coldMachine.current_sprite_type].frames[3];
-				} 
+					coldMachine.legs.start_missiles_wave = SDL_GetTicks();
+					coldMachine.legs.throwMissiles = true;
+				}
+				// return opened missile launcher gate
+				return anim[coldMachine.current_sprite_type].frames[3];
+			} 
+			else
+			{
+
+				if (anim->finish)
+				{
+					// resets missiles waves counter and prepare next missile launch
+					coldMachine.legs.missilesWaveCount = 0;
+					coldMachine.legs.missilesCount = 0;
+					coldMachine.legs.shootedMissile = false;
+					// shutdown missiles throwing
+					coldMachine.legs.throwMissiles = false;
+					// resets timers
+					coldMachine.legs.start_missiles_time = SDL_GetTicks();
+					coldMachine.legs.start_launch_time = SDL_GetTicks();
+					// resets and return correct frame animation
+					anim->current_frame = 0;
+					anim->finish = false;
+					//returns correct frame
+					return anim[coldMachine.current_sprite_type].frames[0];
+				}
 				else
 					return anim[coldMachine.current_sprite_type].GetCurrentFrame();
+					
 			}
-			else
-				return anim[coldMachine.current_sprite_type].frames[0];
-		//}
-		//else
-		//{
-			// update time between missile waves
+		}
+		else
+			return anim[coldMachine.current_sprite_type].frames[0];
 
-			// return max opened frames
-			//return anim[coldMachine.]
-
-
-		//}
+		// -------------------------------------------------------------------------------------
 
 
 	}

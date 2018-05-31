@@ -364,7 +364,7 @@ void EnemyHomingMissile::chaseThePlayer()
 	
 	if(missile.distance <= 5 && !missile.targetReached) // if the player are very close, round it
 	{
-		LOG("missile xSpeed VERY LOW: %f", missile.xSpeed);
+		//LOG("missile xSpeed VERY LOW: %f", missile.xSpeed);
 		missile.targetReached = true;
 
 		missile.ySpeed = 0;

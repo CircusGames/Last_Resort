@@ -101,6 +101,7 @@ public:
 	Particle coldMachineFootFire;
 	Particle coldMachineFootSmoke;
 	Particle coldMachinePiecesSmoke;
+	Particle coldMachineLegMissileFlash;
 
 private:
 

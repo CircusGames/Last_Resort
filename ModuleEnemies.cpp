@@ -116,7 +116,11 @@ ModuleEnemies::ModuleEnemies()
 	coldMachinePiecesSmoke.anim.PushBack({ 91,160,6,16 });
 	coldMachinePiecesSmoke.anim.speed = 0.125f;
 	coldMachinePiecesSmoke.anim.repeat = false;
-
+	// leg missiles flash
+	coldMachineLegMissileFlash.anim.PushBack({ 963,36,16,16});
+	coldMachineLegMissileFlash.anim.PushBack({ 946,36,16,16 });
+	coldMachineLegMissileFlash.anim.speed = 0.25f;
+	coldMachineLegMissileFlash.anim.repeat = false;
 
 }
 
@@ -163,6 +167,7 @@ bool ModuleEnemies::Start()
 	coldMachineFootFire.texture = enemyColdMachineTexture;
 	coldMachineFootSmoke.texture = enemyColdMachineTexture;
 	coldMachinePiecesSmoke.texture = enemyColdMachineTexture;
+	coldMachineLegMissileFlash.texture = enemyColdMachineTexture;
 	// -------------------------------------------------------------------------------------
 	// AUDIO FX ----------------------------------------------------------------------------
 	App->audio->LoadAudio("assets/Audio/SFX/enemies/Enemy_Explosion.wav", "EnemyDeath", SFX);
