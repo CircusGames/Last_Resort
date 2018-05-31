@@ -276,8 +276,13 @@ void EnemyColdMachine::kneeBeamLogic()
 	// instantiate laser beam
 	if (!coldMachine.legs.shootedLaserBeam)
 	{
+		// instantiate laser beam
 		App->particles->AddParticle(App->enemies->coldMachineKneeLaser, position.x + coldMachine.legs.kneePiece.position.x - 10,
 			position.y + 40 + coldMachine.legs.kneePiece.position.y, COLLIDER_ENEMY_SHOT, { -1,0 }, 0);
+		// instantiate shoot explosion effect
+		App->particles->AddParticle(App->enemies->coldMachineKneeLaserShotEffect, position.x + coldMachine.legs.kneePiece.position.x + 4,
+			position.y + 45 + coldMachine.legs.kneePiece.position.y, COLLIDER_NONE, { scrollSpeed,0 }, 0);
+
 		// update condition
 		coldMachine.legs.shootedLaserBeam = true;
 	}

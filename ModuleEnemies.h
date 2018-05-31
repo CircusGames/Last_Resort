@@ -103,7 +103,7 @@ public:
 	Particle coldMachinePiecesSmoke;
 	Particle coldMachineLegMissileFlash;
 	Particle coldMachineKneeLaser;
-	Particle coldMachineKneeLaserReflection;
+	Particle coldMachineKneeLaserShotEffect;
 
 private:
 

@@ -129,8 +129,12 @@ ModuleEnemies::ModuleEnemies()
 	coldMachineKneeLaser.anim.speed = 0.25f;
 	coldMachineKneeLaser.life = 2000;
 	coldMachineKneeLaser.damage = 1;
-	// knee laser reflection
-	coldMachineKneeLaserReflection.anim.PushBack({ });
+	// knee laser explosion "flash" effect
+	coldMachineKneeLaserShotEffect.anim.PushBack({ 963,36,16,16 });
+	coldMachineKneeLaserShotEffect.anim.PushBack({ 930,36,16,16 });
+	coldMachineKneeLaserShotEffect.anim.PushBack({ 912,36,16,16 });
+	coldMachineKneeLaserShotEffect.anim.speed = 0.25f;
+	coldMachineKneeLaserShotEffect.anim.repeat = false;
 
 }
 
@@ -179,6 +183,7 @@ bool ModuleEnemies::Start()
 	coldMachinePiecesSmoke.texture = enemyColdMachineTexture;
 	coldMachineLegMissileFlash.texture = enemyColdMachineTexture;
 	coldMachineKneeLaser.texture = enemyColdMachineTexture;
+	coldMachineKneeLaserShotEffect.texture = enemyColdMachineTexture;
 	// -------------------------------------------------------------------------------------
 	// AUDIO FX ----------------------------------------------------------------------------
 	App->audio->LoadAudio("assets/Audio/SFX/enemies/Enemy_Explosion.wav", "EnemyDeath", SFX);

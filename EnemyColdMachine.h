@@ -97,7 +97,7 @@ private:
 		// knee laser
 		Uint32 start_kneeBeam_time;
 		Uint32 now_kneeBeam_time;
-		Uint32 kneeBeam_cadence_time = 2000;
+		Uint32 kneeBeam_cadence_time = 4000;
 		//Uint32 kneBeam_reflection_time = 1000; // time since max open to close again and restart cycle
 		// arm shooting
 		Uint32 start_armShooting_time;
