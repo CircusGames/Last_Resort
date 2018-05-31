@@ -25,7 +25,7 @@ struct PowerUp
 	Collider* collider = nullptr;
 	Animation anim;
 	SDL_Texture* texture = nullptr;
-	char* fx;
+	char* fx = nullptr;
 	iPoint position;
 	iPoint speed;
 	powerUpTypes type;
@@ -53,10 +53,10 @@ public:
 
 public:
 
-	PowerUp* active_powerUps[MAX_ACTIVE_POWERUPS];
-	SDL_Texture * powerUpUnit;
+	PowerUp * active_powerUps[MAX_ACTIVE_POWERUPS] = {nullptr};
+	SDL_Texture * powerUpUnit = nullptr;
 
-	SDL_Texture* powerUpTextures;
+	SDL_Texture* powerUpTextures = nullptr;
 
 	void SpawnPowerUp(iPoint position, powerUpTypes type);
 	void OnCollision(Collider* c1, Collider* c2);

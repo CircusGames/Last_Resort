@@ -5,6 +5,7 @@
 
 #include "ModuleRender.h"
 #include "SDL\include\SDL_timer.h"
+#include "ModuleSceneLvl3.h" // for check if we are on boss zone, to instantiate the missiles always in horizontal left way
 
 EnemyHomingMissile::EnemyHomingMissile(int x, int y, powerUpTypes type, SDL_Texture* thisTexture) : Enemy(x, y)
 {
@@ -104,6 +105,7 @@ EnemyHomingMissile::EnemyHomingMissile(int x, int y, powerUpTypes type, SDL_Text
 		missile.current_animation = &missile.anim[4];
 	}
 	else
+	//if(App->scene_lvl3->currentLevelZone == boss_zone)
 	{
 		missile.ySpeed = 0.0f;
 		missile.xSpeed = 0.0f;

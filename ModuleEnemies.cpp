@@ -94,6 +94,30 @@ ModuleEnemies::ModuleEnemies()
 	diverBeamLeft.anim.speed = diverBeamRight.anim.speed = 0.2f;
 	diverBeamLeft.damage = diverBeamRight.damage = 1;
 	diverBeamLeft.damage = diverBeamRight.damage = 1500;
+
+	// COLD MACHINE, BOSS LEVEL 3 needed particles
+	// foot "explosion" when landing
+	coldMachineFootFire.anim.PushBack({ 223,314,32,18 });
+	coldMachineFootFire.life = 200;
+	// foot smoke after explosion
+	coldMachineFootSmoke.anim.PushBack({ 60,300,30,32 });
+	coldMachineFootSmoke.anim.PushBack({ 92,300,31,32 });
+	coldMachineFootSmoke.anim.PushBack({ 123,300,28,31 });
+	coldMachineFootSmoke.anim.PushBack({ 152,300,24,32 });
+	coldMachineFootSmoke.anim.PushBack({ 177,300,22,16 });
+	coldMachineFootSmoke.anim.speed = 0.125f;
+	coldMachineFootSmoke.anim.repeat = false;
+	// between pieces smoke
+	coldMachinePiecesSmoke.anim.PushBack({ 67,170,10,24 });
+	coldMachinePiecesSmoke.anim.PushBack({ 33,160,15,32 });
+	coldMachinePiecesSmoke.anim.PushBack({ 16,160,14,32 });
+	coldMachinePiecesSmoke.anim.PushBack({ 50,160,14,31 });
+	coldMachinePiecesSmoke.anim.PushBack({ 80,160,8,30 });
+	coldMachinePiecesSmoke.anim.PushBack({ 91,160,6,16 });
+	coldMachinePiecesSmoke.anim.speed = 0.125f;
+	coldMachinePiecesSmoke.anim.repeat = false;
+
+
 }
 
 // Destructor
@@ -135,6 +159,10 @@ bool ModuleEnemies::Start()
 	tankSmallShot.texture = enemyTankTexture;
 	// HOMING missile particle to texture link
 	homingExplosion.texture = enemyHomingMissileTexture;
+	// COLD MACHINE, BOSS LEVEL 3 particle to texture links
+	coldMachineFootFire.texture = enemyColdMachineTexture;
+	coldMachineFootSmoke.texture = enemyColdMachineTexture;
+	coldMachinePiecesSmoke.texture = enemyColdMachineTexture;
 	// -------------------------------------------------------------------------------------
 	// AUDIO FX ----------------------------------------------------------------------------
 	App->audio->LoadAudio("assets/Audio/SFX/enemies/Enemy_Explosion.wav", "EnemyDeath", SFX);
