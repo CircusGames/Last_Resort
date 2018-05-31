@@ -136,6 +136,7 @@ EnemyColdMachine::EnemyColdMachine(int x, int y, powerUpTypes type, SDL_Texture*
 	coldMachine.legs.kneeAnim[NORMAL_ANIM].PushBack({ 197,160,32,32 });
 	coldMachine.legs.kneeAnim[NORMAL_ANIM].PushBack({ 160,160,32,32 });
 	coldMachine.legs.kneeAnim[NORMAL_ANIM].speed = 0.125f;
+	coldMachine.legs.kneeAnim[NORMAL_ANIM].repeat = false;
 
 	coldMachine.legs.kneeAnim[DAMAGE_ANIM].PushBack({ 519,160,32,32 }); // max closed
 	coldMachine.legs.kneeAnim[DAMAGE_ANIM].PushBack({ 556,160,32,32 });
@@ -144,15 +145,16 @@ EnemyColdMachine::EnemyColdMachine(int x, int y, powerUpTypes type, SDL_Texture*
 	coldMachine.legs.kneeAnim[DAMAGE_ANIM].PushBack({ 593,160,32,32 });
 	coldMachine.legs.kneeAnim[DAMAGE_ANIM].PushBack({ 556,160,32,32 });
 	coldMachine.legs.kneeAnim[DAMAGE_ANIM].speed = 0.125f;
+	coldMachine.legs.kneeAnim[DAMAGE_ANIM].repeat = false;
 	// knee flash reflection when shoots
-	coldMachine.legs.kneeFlashReflectionAnim.PushBack({ 357,569,29,32 });
-	coldMachine.legs.kneeFlashReflectionAnim.PushBack({ 386,569,29,32 });
-	coldMachine.legs.kneeFlashReflectionAnim.PushBack({ 415,569,29,32 });
-	coldMachine.legs.kneeFlashReflectionAnim.PushBack({ 446,569,29,32 });
-	coldMachine.legs.kneeFlashReflectionAnim.PushBack({ 479,569,17,32 });
-	coldMachine.legs.kneeFlashReflectionAnim.PushBack({ 508,569,17,32 });
 	coldMachine.legs.kneeFlashReflectionAnim.PushBack({ 542,569,17,32 });
-	coldMachine.legs.kneeFlashReflectionAnim.speed = 0.50f;
+	coldMachine.legs.kneeFlashReflectionAnim.PushBack({ 508,569,17,32 });
+	coldMachine.legs.kneeFlashReflectionAnim.PushBack({ 479,569,17,32 });
+	coldMachine.legs.kneeFlashReflectionAnim.PushBack({ 446,569,29,32 });
+	coldMachine.legs.kneeFlashReflectionAnim.PushBack({ 415,569,29,32 });
+	coldMachine.legs.kneeFlashReflectionAnim.PushBack({ 386,569,29,32 });
+	coldMachine.legs.kneeFlashReflectionAnim.PushBack({ 357,569,29,32 });
+	coldMachine.legs.kneeFlashReflectionAnim.speed = 0.125f;
 	coldMachine.legs.kneeFlashReflectionAnim.repeat = false;
 
 	// arm shootgun
@@ -259,11 +261,28 @@ void EnemyColdMachine::Move()
 	case bossState::FASE1:
 		// checks if we are throwing missiles (activated on returned rects, animation frame dependent)
 		if (coldMachine.legs.throwMissiles) missilesLogic();
+		if (coldMachine.legs.throwKneeBeam) kneeBeamLogic();
 		break;
 	}
 
 	position.x += 1; // GENERAL POSITION
 	
+
+}
+
+void EnemyColdMachine::kneeBeamLogic()
+{
+
+	// instantiate laser beam
+	if (!coldMachine.legs.shootedLaserBeam)
+	{
+		App->particles->AddParticle(App->enemies->coldMachineKneeLaser, position.x + coldMachine.legs.kneePiece.position.x - 10,
+			position.y + 40 + coldMachine.legs.kneePiece.position.y, COLLIDER_ENEMY_SHOT, { -1,0 }, 0);
+		// update condition
+		coldMachine.legs.shootedLaserBeam = true;
+	}
+	// instantiate laser beam reflection
+
 
 }
 
@@ -417,10 +436,23 @@ void EnemyColdMachine::Draw()
 	App->render->Blit(enemyTex, position.x + coldMachine.legs.lowerLegPiece.position.x - 23,
 		position.y + coldMachine.legs.lowerLegPiece.position.y + 49, &returnRect(coldMachine.legs.missileLauncherAnim));
 
-	// knee open eye for beam ---
+	// knee open eye for beam --------------------------------------------------------------------------------------------
 
 	App->render->Blit(enemyTex, position.x + coldMachine.legs.kneePiece.position.x  ,
 		position.y + coldMachine.legs.kneePiece.position.y + 36, &returnRect(coldMachine.legs.kneeAnim));
+
+	// checks if we needs to play reflection
+	// play reflection animation
+	if (coldMachine.legs.playReflection)
+	{
+		App->render->Blit(enemyTex, position.x + coldMachine.legs.kneePiece.position.x,
+			position.y + coldMachine.legs.kneePiece.position.y + 36,
+			&coldMachine.legs.kneeFlashReflectionAnim.GetCurrentFrame());
+
+		if (coldMachine.legs.kneeFlashReflectionAnim.finish)
+			coldMachine.legs.playReflection = false;
+	}
+	// --------------------------------------------------------------------------------------------------------------------
 
 	// arm shooting //coldMachine.legs.armShootgunAnim[coldMachine.current_sprite_type].frames[0];//
 	coldMachine.legs.armShotgunRect = returnRect(coldMachine.legs.armShootgunAnim);
@@ -444,13 +476,14 @@ SDL_Rect& EnemyColdMachine::returnRect(Animation* anim)
 	}
 
 	// weapons cycle return fase1, legs
-	if (coldMachine.state == bossState::FASE1)
+	// missiles
+	if (coldMachine.state == bossState::FASE1 && anim == coldMachine.legs.missileLauncherAnim)
 	{
 		// missiles animation and activator logic -----------------------------------------------
-		
-		if (coldMachine.legs.now_missiles_time > coldMachine.legs.missiles_cadence_time && anim == coldMachine.legs.missileLauncherAnim)
+
+		if (coldMachine.legs.now_missiles_time > coldMachine.legs.missiles_cadence_time) //&& anim == coldMachine.legs.missileLauncherAnim)
 		{
-			if (anim->current_frame >= 3 && coldMachine.legs.missilesWaveCount < 2)
+			if (anim[coldMachine.current_sprite_type].current_frame >= 3 && coldMachine.legs.missilesWaveCount < 2)
 			{
 				if (!coldMachine.legs.throwMissiles) // activate the launch and assigns timer
 				{
@@ -459,11 +492,11 @@ SDL_Rect& EnemyColdMachine::returnRect(Animation* anim)
 				}
 				// return opened missile launcher gate
 				return anim[coldMachine.current_sprite_type].frames[3];
-			} 
+			}
 			else
 			{
 
-				if (anim->finish)
+				if (anim[coldMachine.current_sprite_type].finish)
 				{
 					// resets missiles waves counter and prepare next missile launch
 					coldMachine.legs.missilesWaveCount = 0;
@@ -482,15 +515,57 @@ SDL_Rect& EnemyColdMachine::returnRect(Animation* anim)
 				}
 				else
 					return anim[coldMachine.current_sprite_type].GetCurrentFrame();
-					
+
 			}
 		}
 		else
 			return anim[coldMachine.current_sprite_type].frames[0];
 
+	}
 		// -------------------------------------------------------------------------------------
 
+	// KNEE BEAM fase 1
+	if (coldMachine.state == bossState::FASE1 && anim == coldMachine.legs.kneeAnim)
+	{
+		if (coldMachine.legs.now_kneeBeam_time > coldMachine.legs.kneeBeam_cadence_time)
+		{
+			if (anim[coldMachine.current_sprite_type].current_frame >= 3 && !coldMachine.legs.kneeFlashReflectionAnim.finish)
+			{
+				coldMachine.legs.throwKneeBeam = true;
+				if(!coldMachine.legs.playReflection)
+					coldMachine.legs.playReflection = true;
+				// checks if reflection finish and finish max open situation to return to close and wait for next shot
 
+
+
+				return anim[coldMachine.current_sprite_type].frames[3];
+			}
+			else
+			{
+
+				if (anim[coldMachine.current_sprite_type].finish)
+				{
+					// reset timer
+					coldMachine.legs.start_kneeBeam_time = SDL_GetTicks();
+					// reset animation data
+					anim[coldMachine.current_sprite_type].finish = false;
+					anim[coldMachine.current_sprite_type].current_frame = 0;
+					// reset reflection animation data
+					coldMachine.legs.kneeFlashReflectionAnim.finish = false;
+					coldMachine.legs.kneeFlashReflectionAnim.current_frame = 0;
+					// resets needed laser shoot relatives
+					coldMachine.legs.throwKneeBeam = false;
+					coldMachine.legs.shootedLaserBeam = false;
+					// return last correct frame
+					return  anim[coldMachine.current_sprite_type].frames[0];
+				}
+
+				return anim[coldMachine.current_sprite_type].GetCurrentFrame();
+			}
+				
+		}
+		else
+			return anim[coldMachine.current_sprite_type].frames[0];
 	}
 	
 

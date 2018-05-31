@@ -98,6 +98,7 @@ private:
 		Uint32 start_kneeBeam_time;
 		Uint32 now_kneeBeam_time;
 		Uint32 kneeBeam_cadence_time = 2000;
+		//Uint32 kneBeam_reflection_time = 1000; // time since max open to close again and restart cycle
 		// arm shooting
 		Uint32 start_armShooting_time;
 		Uint32 now_armShooting_time;
@@ -105,7 +106,11 @@ private:
 		// timer relative bools
 		bool throwMissiles = false;
 		bool shootedMissile = false;
+
 		bool throwKneeBeam = false;
+		bool shootedLaserBeam = false;
+		bool playReflection = false;
+
 		bool throwArmShoot = false;
 		bool kneeFlashShoot = false;
 		// ---------------------------
@@ -195,6 +200,7 @@ public:
 
 	// FASE1 functions
 	void missilesLogic();
+	void kneeBeamLogic();
 
 	boss coldMachine;
 
