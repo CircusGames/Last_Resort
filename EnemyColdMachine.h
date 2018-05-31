@@ -58,6 +58,16 @@ private:
 
 	};
 
+	struct shipBombs
+	{
+		Collider* collider = nullptr;
+		Animation anim;
+		iPoint position;
+		bool throwBombs = false;
+		bool instantiate = false;
+
+	};
+
 	struct bottomPart // with arm, the arm is destroyed when the legs too
 	{
 		Collider* collider = nullptr;
@@ -114,8 +124,8 @@ private:
 		bool throwArmShoot = false;
 		bool kneeFlashShoot = false;
 		// ---------------------------
-		SDL_Rect armShotgunRect;
-		iPoint shotGunPivots[9] = { { 136,-15 },{ 116,0 },{ 91,0 },{ 91,0 },{ 91,0 },{ 91,0 },{ 116,0 },{ 136,-15 },{ 136,-15 } }; //{110,-24}, {90,0 }, {65,0}, {90,0} };
+		SDL_Rect armShotgunRect; // 0
+		iPoint shotGunPivots[9] = { { 136,-15 },{ 116,0 },{ 91,8 },{ 91,8 },{ 91,8 },{ 91,8 },{ 116,0 },{ 136,-15 },{ 136,-15 } }; //{110,-24}, {90,0 }, {65,0}, {90,0} };
 		iPoint missileCanyonsPos[4] = { { -22, 52},{ -12, 52 },{ -22, 60 },{ -12, 60 } };
 
 		bool destroyed = false;
@@ -167,6 +177,8 @@ private:
 
 		float ySpeed = 0.0f;
 		float xSpeed = 0.0f;
+		
+		shipBombs bombardier;
 		
 	};
 

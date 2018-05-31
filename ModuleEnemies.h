@@ -105,7 +105,9 @@ public:
 	Particle coldMachineLegMissileFlash;
 	Particle coldMachineKneeLaser;
 	Particle coldMachineKneeLaserShotEffect;
+	Particle coldMachineArmShootSmoke;
 	// bombardier relatives
+	Particle bombardierBomb;
 
 
 private:

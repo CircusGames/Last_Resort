@@ -1143,5 +1143,12 @@ void ModuleSceneLvl1::spawnEnemies(int x, int y)
 		positionY -= 7 / 2;
 		App->enemies->AddEnemy(ENEMY_TYPES::BIGFUCKINGROCKET, positionX, positionY, NONE);
 	}
+	if (App->input->keyboard[SDL_SCANCODE_B] == KEY_REPEAT)
+	{
+		//for now calculated center position manually, until fix it (access to animation frame)
+		positionX -= 14 / 2;
+		positionY -= 7 / 2;
+		App->enemies->AddEnemy(ENEMY_TYPES::COLDMACHINEBOMBARDIER, positionX, positionY, NONE);
+	}
 
 }

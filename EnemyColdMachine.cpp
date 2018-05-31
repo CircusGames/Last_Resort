@@ -187,6 +187,17 @@ EnemyColdMachine::EnemyColdMachine(int x, int y, powerUpTypes type, SDL_Texture*
 	coldMachine.legs.armShootgunAnim[DAMAGE_ANIM].PushBack({ 568,0,57,99 }); // idle, bad sprite
 	coldMachine.legs.armShootgunAnim[DAMAGE_ANIM].speed = 0.125f;
 	coldMachine.legs.armShootgunAnim[DAMAGE_ANIM].repeat = false;
+
+	// BOMBARDIER animation
+	coldMachine.bombardier.anim.PushBack({ 988,0,36,24 }); // start //drop bomb
+	coldMachine.bombardier.anim.PushBack({ 800,26,63,24 }); // more fire, still not really open the bombs gate
+	coldMachine.bombardier.anim.PushBack({ 924,0,63,22 });
+	coldMachine.bombardier.anim.PushBack({ 800,0,64,21 });
+	coldMachine.bombardier.anim.PushBack({ 865,0,58,22 });
+	coldMachine.bombardier.anim.PushBack({ 800,0,64,21 });
+	coldMachine.bombardier.anim.PushBack({ 924,0,63,22 }); // end, then drop another bomb/restart cycle
+	coldMachine.bombardier.anim.speed = 0.25f;
+	coldMachine.bombardier.anim.repeat = false;
 	// ------------------------------------------------------------------------------------
 
 
@@ -475,6 +486,48 @@ void EnemyColdMachine::Draw()
 	// --------------------------------------------------------------------------------------------------------------------
 
 	// arm shooting //coldMachine.legs.armShootgunAnim[coldMachine.current_sprite_type].frames[0];//
+	
+	// check bombardier spawn condition
+	if (coldMachine.legs.throwArmShoot)
+	{
+		/*// throw bombardier
+		App->enemies->AddEnemy(COLDMACHINEBOMBARDIER, position.x + coldMachine.legs.hipPiece.position.x - 10,
+			position.y + coldMachine.legs.hipPiece.position.y + 10, NONE);
+
+		// instantiate smoke shoot particle
+		App->particles->AddParticle(App->enemies->coldMachineArmShootSmoke, position.x + coldMachine.legs.hipPiece.position.x - 33,
+			position.y + coldMachine.legs.hipPiece.position.y + 6, COLLIDER_NONE, { scrollSpeed,0 }, 0);*/
+	}
+
+	if (coldMachine.bombardier.throwBombs)
+	{
+		// instantiate morter BOMB
+		App->particles->AddParticle(App->enemies->bombardierBomb, coldMachine.bombardier.position.x, 
+			coldMachine.bombardier.position.y + 14, COLLIDER_ENEMY_SHOT, { 0,2 }, 0);
+		
+		coldMachine.bombardier.throwBombs = false;
+	}
+
+	if (coldMachine.bombardier.instantiate)
+	{
+		
+		App->render->Blit(enemyTex, coldMachine.bombardier.position.x, coldMachine.bombardier.position.y,
+			&coldMachine.bombardier.anim.GetCurrentFrame());
+		// updates position
+		coldMachine.bombardier.position.x -= 1;
+
+		if (coldMachine.bombardier.anim.finish)
+		{
+			// restart animation data
+			// throw next bomb
+			coldMachine.bombardier.throwBombs = true;
+			// resets animation data
+			coldMachine.bombardier.anim.finish = false;
+			coldMachine.bombardier.anim.current_frame = 0;
+		}
+
+	}
+
 	coldMachine.legs.armShotgunRect = returnRect(coldMachine.legs.armShootgunAnim);
 	
 	App->render->Blit(enemyTex, position.x + coldMachine.legs.hipPiece.position.x + 
@@ -600,11 +653,37 @@ SDL_Rect& EnemyColdMachine::returnRect(Animation* anim)
 				// resets animation data
 				anim[coldMachine.current_sprite_type].finish = false;
 				anim[coldMachine.current_sprite_type].current_frame = 0;
+				// prepares next bombardier instantiation
+				coldMachine.legs.throwArmShoot = false;
 				// returns correct frame
 				return anim[coldMachine.current_sprite_type].frames[0];
 			}
 			else
+			{
+				if (anim[coldMachine.current_sprite_type].current_frame > 2 && !coldMachine.legs.throwArmShoot)
+				{
+					/*// throw bombardier
+					App->enemies->AddEnemy(COLDMACHINEBOMBARDIER, position.x + coldMachine.legs.hipPiece.position.x - 10, 
+						position.y + coldMachine.legs.hipPiece.position.y + 10, NONE);*/
+
+					// instantiate smoke shoot particle
+					App->particles->AddParticle(App->enemies->coldMachineArmShootSmoke, position.x + coldMachine.legs.hipPiece.position.x - 33,
+						position.y + coldMachine.legs.hipPiece.position.y + 14, COLLIDER_NONE, {scrollSpeed,0},0);
+
+					// updates condition
+					coldMachine.legs.throwArmShoot = true;
+					coldMachine.bombardier.throwBombs = true;
+					coldMachine.bombardier.instantiate = true;
+					// assigns correct internal position to bombardier position
+					coldMachine.bombardier.position.x = position.x + coldMachine.legs.hipPiece.position.x - 10;
+					coldMachine.bombardier.position.y = position.y + coldMachine.legs.hipPiece.position.y + 18;
+					// resets bombardier animation data
+					coldMachine.bombardier.anim.finish = false;
+					coldMachine.bombardier.anim.current_frame = 0;
+				}
+
 				return anim[coldMachine.current_sprite_type].GetCurrentFrame();
+			}
 		}
 		else
 			return anim[coldMachine.current_sprite_type].frames[0];

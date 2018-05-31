@@ -136,6 +136,24 @@ ModuleEnemies::ModuleEnemies()
 	coldMachineKneeLaserShotEffect.anim.PushBack({ 912,36,16,16 });
 	coldMachineKneeLaserShotEffect.anim.speed = 0.25f;
 	coldMachineKneeLaserShotEffect.anim.repeat = false;
+	// arm shoot smoke
+	coldMachineArmShootSmoke.anim.PushBack({ 800,63,32,32 });
+	coldMachineArmShootSmoke.anim.PushBack({ 840,63,32,32 });
+	coldMachineArmShootSmoke.anim.PushBack({ 873,63,32,32 });
+	coldMachineArmShootSmoke.anim.PushBack({ 907,63,32,32 });
+	coldMachineArmShootSmoke.anim.PushBack({ 937,63,32,32 });
+	coldMachineArmShootSmoke.anim.PushBack({ 968,63,32,32 });
+	coldMachineArmShootSmoke.anim.speed = 0.125f;
+	coldMachineArmShootSmoke.anim.repeat = false;
+
+	// BOMBARDIER RELATIVE PARTICLES
+	bombardierBomb.anim.PushBack({ 1003,30,14,6 });
+	bombardierBomb.anim.PushBack({ 1003,37,15,9 });
+	bombardierBomb.anim.PushBack({ 1003,47,14,11 });
+	for (uint i = 0; i < 24; i++) // lasts the life of particle
+		bombardierBomb.anim.PushBack({ 1003,59,13,13 });
+	bombardierBomb.anim.speed = 0.125f;
+	bombardierBomb.anim.repeat = false;
 
 }
 
@@ -185,6 +203,8 @@ bool ModuleEnemies::Start()
 	coldMachineLegMissileFlash.texture = enemyColdMachineTexture;
 	coldMachineKneeLaser.texture = enemyColdMachineTexture;
 	coldMachineKneeLaserShotEffect.texture = enemyColdMachineTexture;
+	bombardierBomb.texture = enemyColdMachineTexture;
+	coldMachineArmShootSmoke.texture = enemyColdMachineTexture;
 	// -------------------------------------------------------------------------------------
 	// AUDIO FX ----------------------------------------------------------------------------
 	App->audio->LoadAudio("assets/Audio/SFX/enemies/Enemy_Explosion.wav", "EnemyDeath", SFX);

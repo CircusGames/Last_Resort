@@ -9,12 +9,17 @@ class EnemyColdMachineBombardier : public Enemy
 {
 private:
 	
+	Animation fly;
+
+	bool throwBomb = false;
 
 public:
 
 	EnemyColdMachineBombardier(int x, int y, powerUpTypes type, SDL_Texture* thisTexture);
 
 	void Move();
+	void Draw();
+
 
 
 };
