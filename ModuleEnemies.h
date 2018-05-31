@@ -37,7 +37,8 @@ enum ENEMY_TYPES
 	HOMINGMISSILE,
 	BIGFUCKINGROCKET,
 	BIGDADDY,
-	COLDMACHINE
+	COLDMACHINE,
+	COLDMACHINEBOMBARDIER
 };
 
 //class Enemy;
@@ -104,6 +105,8 @@ public:
 	Particle coldMachineLegMissileFlash;
 	Particle coldMachineKneeLaser;
 	Particle coldMachineKneeLaserShotEffect;
+	// bombardier relatives
+
 
 private:
 

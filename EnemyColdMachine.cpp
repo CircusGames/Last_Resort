@@ -132,7 +132,10 @@ EnemyColdMachine::EnemyColdMachine(int x, int y, powerUpTypes type, SDL_Texture*
 	coldMachine.legs.kneeAnim[NORMAL_ANIM].PushBack({ 123,160,32,32 }); // max closed
 	coldMachine.legs.kneeAnim[NORMAL_ANIM].PushBack({ 160,160,32,32 });
 	coldMachine.legs.kneeAnim[NORMAL_ANIM].PushBack({ 197,160,32,32 });
-	coldMachine.legs.kneeAnim[NORMAL_ANIM].PushBack({ 235,160,32,32 }); // max opened
+	coldMachine.legs.kneeAnim[NORMAL_ANIM].PushBack({ 235,160,32,32 }); //1// max opened
+	coldMachine.legs.kneeAnim[NORMAL_ANIM].PushBack({ 235,160,32,32 }); //2// max opened
+	coldMachine.legs.kneeAnim[NORMAL_ANIM].PushBack({ 235,160,32,32 }); //3// max opened
+	coldMachine.legs.kneeAnim[NORMAL_ANIM].PushBack({ 235,160,32,32 }); //4// max opened
 	coldMachine.legs.kneeAnim[NORMAL_ANIM].PushBack({ 197,160,32,32 });
 	coldMachine.legs.kneeAnim[NORMAL_ANIM].PushBack({ 160,160,32,32 });
 	coldMachine.legs.kneeAnim[NORMAL_ANIM].speed = 0.125f;
@@ -141,7 +144,10 @@ EnemyColdMachine::EnemyColdMachine(int x, int y, powerUpTypes type, SDL_Texture*
 	coldMachine.legs.kneeAnim[DAMAGE_ANIM].PushBack({ 519,160,32,32 }); // max closed
 	coldMachine.legs.kneeAnim[DAMAGE_ANIM].PushBack({ 556,160,32,32 });
 	coldMachine.legs.kneeAnim[DAMAGE_ANIM].PushBack({ 593,160,32,32 }); 
-	coldMachine.legs.kneeAnim[DAMAGE_ANIM].PushBack({ 631,160,32,32 }); // max opened
+	coldMachine.legs.kneeAnim[DAMAGE_ANIM].PushBack({ 631,160,32,32 }); //1// max opened
+	coldMachine.legs.kneeAnim[DAMAGE_ANIM].PushBack({ 631,160,32,32 });	//2// and make the max opened lasts a little more
+	coldMachine.legs.kneeAnim[DAMAGE_ANIM].PushBack({ 631,160,32,32 }); //3
+	coldMachine.legs.kneeAnim[DAMAGE_ANIM].PushBack({ 631,160,32,32 }); //4
 	coldMachine.legs.kneeAnim[DAMAGE_ANIM].PushBack({ 593,160,32,32 });
 	coldMachine.legs.kneeAnim[DAMAGE_ANIM].PushBack({ 556,160,32,32 });
 	coldMachine.legs.kneeAnim[DAMAGE_ANIM].speed = 0.125f;
@@ -160,15 +166,27 @@ EnemyColdMachine::EnemyColdMachine(int x, int y, powerUpTypes type, SDL_Texture*
 	// arm shootgun
 	coldMachine.legs.armShootgunAnim[NORMAL_ANIM].PushBack({ 172,0,57,99 }); // idle, pointing down, off
 	coldMachine.legs.armShootgunAnim[NORMAL_ANIM].PushBack({ 91,0,81,63 });
-	coldMachine.legs.armShootgunAnim[NORMAL_ANIM].PushBack({ 0,0,91,45 }); // shooting pos
+	coldMachine.legs.armShootgunAnim[NORMAL_ANIM].PushBack({ 0,0,91,45 }); // shooting pos, lasts 24 frames
+	coldMachine.legs.armShootgunAnim[NORMAL_ANIM].PushBack({ 0,0,91,45 }); // shooting pos,
+	coldMachine.legs.armShootgunAnim[NORMAL_ANIM].PushBack({ 0,0,91,45 }); // shooting pos,
+	coldMachine.legs.armShootgunAnim[NORMAL_ANIM].PushBack({ 0,0,91,45 }); // shooting pos,
+
 	coldMachine.legs.armShootgunAnim[NORMAL_ANIM].PushBack({ 91,0,81,63 });
+	coldMachine.legs.armShootgunAnim[NORMAL_ANIM].PushBack({ 172,0,57,99 }); // idle, pointing down, off
 	coldMachine.legs.armShootgunAnim[NORMAL_ANIM].speed = 0.125f;
+	coldMachine.legs.armShootgunAnim[NORMAL_ANIM].repeat = false;
 
 	coldMachine.legs.armShootgunAnim[DAMAGE_ANIM].PushBack({ 568,0,57,99 }); // idle, bad sprite
 	coldMachine.legs.armShootgunAnim[DAMAGE_ANIM].PushBack({ 487,0,81,63 });
 	coldMachine.legs.armShootgunAnim[DAMAGE_ANIM].PushBack({ 396,0,91,45 }); // shooting pos
+	coldMachine.legs.armShootgunAnim[DAMAGE_ANIM].PushBack({ 396,0,91,45 }); // shooting pos
+	coldMachine.legs.armShootgunAnim[DAMAGE_ANIM].PushBack({ 396,0,91,45 }); // shooting pos
+	coldMachine.legs.armShootgunAnim[DAMAGE_ANIM].PushBack({ 396,0,91,45 }); // shooting pos
+
 	coldMachine.legs.armShootgunAnim[DAMAGE_ANIM].PushBack({ 487,0,81,63 });
+	coldMachine.legs.armShootgunAnim[DAMAGE_ANIM].PushBack({ 568,0,57,99 }); // idle, bad sprite
 	coldMachine.legs.armShootgunAnim[DAMAGE_ANIM].speed = 0.125f;
+	coldMachine.legs.armShootgunAnim[DAMAGE_ANIM].repeat = false;
 	// ------------------------------------------------------------------------------------
 
 
@@ -272,7 +290,6 @@ void EnemyColdMachine::Move()
 
 void EnemyColdMachine::kneeBeamLogic()
 {
-
 	// instantiate laser beam
 	if (!coldMachine.legs.shootedLaserBeam)
 	{
@@ -286,8 +303,6 @@ void EnemyColdMachine::kneeBeamLogic()
 		// update condition
 		coldMachine.legs.shootedLaserBeam = true;
 	}
-	// instantiate laser beam reflection
-
 
 }
 
@@ -568,6 +583,28 @@ SDL_Rect& EnemyColdMachine::returnRect(Animation* anim)
 				return anim[coldMachine.current_sprite_type].GetCurrentFrame();
 			}
 				
+		}
+		else
+			return anim[coldMachine.current_sprite_type].frames[0];
+	}
+
+	// ARM SHOOTING, fase1
+	if (coldMachine.state == bossState::FASE1 && anim == coldMachine.legs.armShootgunAnim)
+	{
+		if (coldMachine.legs.now_armShooting_time > coldMachine.legs.armShooting_cadence_time)
+		{
+			if (anim[coldMachine.current_sprite_type].finish)
+			{
+				// resets timer
+				coldMachine.legs.start_armShooting_time = SDL_GetTicks();
+				// resets animation data
+				anim[coldMachine.current_sprite_type].finish = false;
+				anim[coldMachine.current_sprite_type].current_frame = 0;
+				// returns correct frame
+				return anim[coldMachine.current_sprite_type].frames[0];
+			}
+			else
+				return anim[coldMachine.current_sprite_type].GetCurrentFrame();
 		}
 		else
 			return anim[coldMachine.current_sprite_type].frames[0];

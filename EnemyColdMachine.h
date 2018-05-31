@@ -115,7 +115,7 @@ private:
 		bool kneeFlashShoot = false;
 		// ---------------------------
 		SDL_Rect armShotgunRect;
-		iPoint shotGunPivots[4] = { { 136,-15 },{ 116,0 },{ 91,0 },{ 116,0 } }; //{110,-24}, {90,0 }, {65,0}, {90,0} };
+		iPoint shotGunPivots[9] = { { 136,-15 },{ 116,0 },{ 91,0 },{ 91,0 },{ 91,0 },{ 91,0 },{ 116,0 },{ 136,-15 },{ 136,-15 } }; //{110,-24}, {90,0 }, {65,0}, {90,0} };
 		iPoint missileCanyonsPos[4] = { { -22, 52},{ -12, 52 },{ -22, 60 },{ -12, 60 } };
 
 		bool destroyed = false;

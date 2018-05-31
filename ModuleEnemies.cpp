@@ -21,6 +21,7 @@
 #include "EnemyBigFuckingRocket.h"
 #include "EnemyBigDaddy.h"
 #include "EnemyColdMachine.h"
+#include "EnemyColdMachineBombardier.h"
 
 #include "ModulePowerUp.h"
 #include "ModuleAudio.h"
@@ -383,6 +384,9 @@ void ModuleEnemies::SpawnEnemy(EnemyInfo& info)
 			break;
 		case ENEMY_TYPES::COLDMACHINE:
 			enemies[i] = new EnemyColdMachine(info.x, info.y, info.powerUpType, enemyColdMachineTexture);
+			break;
+		case ENEMY_TYPES::COLDMACHINEBOMBARDIER:
+			enemies[i] = new EnemyColdMachineBombardier(info.x, info.y, info.powerUpType, enemyColdMachineTexture);
 			break;
 		}
 	}
