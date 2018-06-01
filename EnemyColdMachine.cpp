@@ -304,6 +304,7 @@ void EnemyColdMachine::Move()
 		break;
 	case bossState::F1TOF2:
 		F1ToF2Transition();
+		position.y = fposition.y;
 		break;
 	}
 
@@ -320,6 +321,8 @@ void EnemyColdMachine::Move()
 			coldMachine.state = bossState::F1TOF2;
 			// update original positions for path animation
 			updateOriginalPositions();
+			// instantiate particles
+			addBossParticles();
 		}
 	}
 	
@@ -348,6 +351,17 @@ void EnemyColdMachine::F1ToF2Transition()
 	coldMachine.legs.upperLegPiece.position = original.upperLeg + coldMachine.f1Tof2Path.upperLeg.GetCurrentSpeed();
 	coldMachine.legs.hipPiece.position = original.hip + coldMachine.f1Tof2Path.hip.GetCurrentSpeed();
 	coldMachine.chest.chestPiece.position = original.chest + coldMachine.f1Tof2Path.chest.GetCurrentSpeed();
+
+	// check chest position to switch to fase2
+	if (coldMachine.chest.chestPiece.position.y > 170)
+	{
+		coldMachine.state = bossState::FASE2;
+		// "destroy" bottom part
+		coldMachine.legs.destroyed = true;
+		// start new fase timer
+		coldMachine.start_cycle_time = SDL_GetTicks();
+
+	}
 
 	// check countdown timer to switch to fase1
 	/*coldMachine.now_cycle_time = SDL_GetTicks() - coldMachine.start_cycle_time;
@@ -487,11 +501,6 @@ void EnemyColdMachine::decelerationToFloor()
 		coldMachine.state = bossState::FIRSTCONTACT;
 		// and assign actual positions for path entry animation
 		updateOriginalPositions();
-		/*original.lowerLeg = coldMachine.legs.lowerLegPiece.position;
-		original.knee = coldMachine.legs.kneePiece.position;
-		original.upperLeg = coldMachine.legs.upperLegPiece.position;
-		original.hip = coldMachine.legs.hipPiece.position;
-		original.chest = coldMachine.chest.chestPiece.position;*/
 		// instantiate particles
 		addBossParticles();
 		// start countdown timer
@@ -515,96 +524,92 @@ void EnemyColdMachine::Draw()
 	// static upper part chest
 	App->render->Blit(enemyTex, position.x + coldMachine.chest.chestPiece.position.x, 
 		position.y + coldMachine.chest.chestPiece.position.y, &coldMachine.chest.chestPiece.rect[coldMachine.current_sprite_type]);
-	// static hip
-	App->render->Blit(enemyTex, position.x + coldMachine.legs.hipPiece.position.x, 
-		position.y + coldMachine.legs.hipPiece.position.y, &coldMachine.legs.hipPiece.rect[coldMachine.current_sprite_type]);
-	// static upper leg piece 
-	App->render->Blit(enemyTex, position.x + coldMachine.legs.upperLegPiece.position.x,
-		position.y + coldMachine.legs.upperLegPiece.position.y, &coldMachine.legs.upperLegPiece.rect[coldMachine.current_sprite_type]);
-	// static upper leg
-	App->render->Blit(enemyTex, position.x + coldMachine.legs.lowerLegPiece.position.x,
-		position.y + coldMachine.legs.lowerLegPiece.position.y, &coldMachine.legs.lowerLegPiece.rect[coldMachine.current_sprite_type]);
-	// static knee
-	App->render->Blit(enemyTex, position.x + coldMachine.legs.kneePiece.position.x,
-		position.y + coldMachine.legs.kneePiece.position.y, &coldMachine.legs.kneePiece.rect[coldMachine.current_sprite_type]);
-	// static foot
-	App->render->Blit(enemyTex, position.x + coldMachine.legs.footPiece.position.x,
-		position.y + coldMachine.legs.footPiece.position.y, &coldMachine.legs.footPiece.rect[coldMachine.current_sprite_type]);
-	
-	// DRAW ALL animations
-	// on landing fase, all animations are stopped
-	// lower leg missile launcher ---
-	
-	App->render->Blit(enemyTex, position.x + coldMachine.legs.lowerLegPiece.position.x - 23,
-		position.y + coldMachine.legs.lowerLegPiece.position.y + 49, &returnRect(coldMachine.legs.missileLauncherAnim));
 
-	// knee open eye for beam --------------------------------------------------------------------------------------------
-
-	App->render->Blit(enemyTex, position.x + coldMachine.legs.kneePiece.position.x  ,
-		position.y + coldMachine.legs.kneePiece.position.y + 36, &returnRect(coldMachine.legs.kneeAnim));
-
-	// checks if we needs to play reflection
-	// play reflection animation
-	if (coldMachine.legs.playReflection)
+	// parts down here pertain only to fase 1 legs -----------------------------------------------------------------------------------------
+	if (!coldMachine.legs.destroyed)
 	{
+		// static hip
+		App->render->Blit(enemyTex, position.x + coldMachine.legs.hipPiece.position.x,
+			position.y + coldMachine.legs.hipPiece.position.y, &coldMachine.legs.hipPiece.rect[coldMachine.current_sprite_type]);
+		// static upper leg piece 
+		App->render->Blit(enemyTex, position.x + coldMachine.legs.upperLegPiece.position.x,
+			position.y + coldMachine.legs.upperLegPiece.position.y, &coldMachine.legs.upperLegPiece.rect[coldMachine.current_sprite_type]);
+		// static upper leg
+		App->render->Blit(enemyTex, position.x + coldMachine.legs.lowerLegPiece.position.x,
+			position.y + coldMachine.legs.lowerLegPiece.position.y, &coldMachine.legs.lowerLegPiece.rect[coldMachine.current_sprite_type]);
+		// static knee
 		App->render->Blit(enemyTex, position.x + coldMachine.legs.kneePiece.position.x,
-			position.y + coldMachine.legs.kneePiece.position.y + 36,
-			&coldMachine.legs.kneeFlashReflectionAnim.GetCurrentFrame());
+			position.y + coldMachine.legs.kneePiece.position.y, &coldMachine.legs.kneePiece.rect[coldMachine.current_sprite_type]);
+		// static foot
+		App->render->Blit(enemyTex, position.x + coldMachine.legs.footPiece.position.x,
+			position.y + coldMachine.legs.footPiece.position.y, &coldMachine.legs.footPiece.rect[coldMachine.current_sprite_type]);
 
-		if (coldMachine.legs.kneeFlashReflectionAnim.finish)
-			coldMachine.legs.playReflection = false;
-	}
-	// --------------------------------------------------------------------------------------------------------------------
 
-	// arm shooting //coldMachine.legs.armShootgunAnim[coldMachine.current_sprite_type].frames[0];//
-	
-	// check bombardier spawn condition
-	if (coldMachine.legs.throwArmShoot)
-	{
-		/*// throw bombardier
-		App->enemies->AddEnemy(COLDMACHINEBOMBARDIER, position.x + coldMachine.legs.hipPiece.position.x - 10,
-			position.y + coldMachine.legs.hipPiece.position.y + 10, NONE);
+		// DRAW ALL animations
+		// on landing fase, all animations are stopped
+		// lower leg missile launcher ---
 
-		// instantiate smoke shoot particle
-		App->particles->AddParticle(App->enemies->coldMachineArmShootSmoke, position.x + coldMachine.legs.hipPiece.position.x - 33,
-			position.y + coldMachine.legs.hipPiece.position.y + 6, COLLIDER_NONE, { scrollSpeed,0 }, 0);*/
-	}
+		App->render->Blit(enemyTex, position.x + coldMachine.legs.lowerLegPiece.position.x - 23,
+			position.y + coldMachine.legs.lowerLegPiece.position.y + 49, &returnRect(coldMachine.legs.missileLauncherAnim));
 
-	if (coldMachine.bombardier.throwBombs)
-	{
-		// instantiate morter BOMB
-		App->particles->AddParticle(App->enemies->bombardierBomb, coldMachine.bombardier.position.x, 
-			coldMachine.bombardier.position.y + 14, COLLIDER_ENEMY_SHOT, { 0,2 }, 0);
-		
-		coldMachine.bombardier.throwBombs = false;
-	}
+		// knee open eye for beam --------------------------------------------------------------------------------------------
 
-	if (coldMachine.bombardier.instantiate)
-	{
-		
-		App->render->Blit(enemyTex, coldMachine.bombardier.position.x, coldMachine.bombardier.position.y,
-			&coldMachine.bombardier.anim.GetCurrentFrame());
-		// updates position
-		coldMachine.bombardier.position.x -= 1;
+		App->render->Blit(enemyTex, position.x + coldMachine.legs.kneePiece.position.x,
+			position.y + coldMachine.legs.kneePiece.position.y + 36, &returnRect(coldMachine.legs.kneeAnim));
 
-		if (coldMachine.bombardier.anim.finish)
+		// checks if we needs to play reflection
+		// play reflection animation
+		if (coldMachine.legs.playReflection)
 		{
-			// restart animation data
-			// throw next bomb
-			coldMachine.bombardier.throwBombs = true;
-			// resets animation data
-			coldMachine.bombardier.anim.finish = false;
-			coldMachine.bombardier.anim.current_frame = 0;
+			App->render->Blit(enemyTex, position.x + coldMachine.legs.kneePiece.position.x,
+				position.y + coldMachine.legs.kneePiece.position.y + 36,
+				&coldMachine.legs.kneeFlashReflectionAnim.GetCurrentFrame());
+
+			if (coldMachine.legs.kneeFlashReflectionAnim.finish)
+				coldMachine.legs.playReflection = false;
+		}
+		// --------------------------------------------------------------------------------------------------------------------
+
+		if (coldMachine.bombardier.throwBombs)
+		{
+			// instantiate morter BOMB
+			App->particles->AddParticle(App->enemies->bombardierBomb, coldMachine.bombardier.position.x,
+				coldMachine.bombardier.position.y + 14, COLLIDER_ENEMY_SHOT, { 0,2 }, 0);
+
+			coldMachine.bombardier.throwBombs = false;
 		}
 
-	}
+		if (coldMachine.bombardier.instantiate)
+		{
 
-	coldMachine.legs.armShotgunRect = returnRect(coldMachine.legs.armShootgunAnim);
-	
-	App->render->Blit(enemyTex, position.x + coldMachine.legs.hipPiece.position.x + 
-		coldMachine.legs.shotGunPivots[(int)coldMachine.legs.armShootgunAnim->current_frame].x - coldMachine.legs.armShotgunRect.w,
-		position.y + coldMachine.legs.hipPiece.position.y + coldMachine.legs.shotGunPivots[(int)coldMachine.legs.armShootgunAnim->current_frame].y, 
-		&coldMachine.legs.armShotgunRect);
+			App->render->Blit(enemyTex, coldMachine.bombardier.position.x, coldMachine.bombardier.position.y,
+				&coldMachine.bombardier.anim.GetCurrentFrame());
+			// updates position
+			coldMachine.bombardier.position.x -= 1;
+
+			if (coldMachine.bombardier.anim.finish)
+			{
+				// restart animation data
+				// throw next bomb
+				coldMachine.bombardier.throwBombs = true;
+				// resets animation data
+				coldMachine.bombardier.anim.finish = false;
+				coldMachine.bombardier.anim.current_frame = 0;
+			}
+
+		}
+
+		coldMachine.legs.armShotgunRect = returnRect(coldMachine.legs.armShootgunAnim);
+
+		App->render->Blit(enemyTex, position.x + coldMachine.legs.hipPiece.position.x +
+			coldMachine.legs.shotGunPivots[(int)coldMachine.legs.armShootgunAnim->current_frame].x - coldMachine.legs.armShotgunRect.w,
+			position.y + coldMachine.legs.hipPiece.position.y + coldMachine.legs.shotGunPivots[(int)coldMachine.legs.armShootgunAnim->current_frame].y,
+			&coldMachine.legs.armShotgunRect);
+
+	// ----------------------------------------------------------------------------------------------------------------------------------------
+	}
+	// UPPER FASE ANIMATIONS, chest
+
 
 }
 
@@ -771,34 +776,45 @@ SDL_Rect& EnemyColdMachine::returnRect(Animation* anim)
 
 void EnemyColdMachine::addBossParticles()
 {
-	// foot fire explosion 8 frames --------
-	App->particles->AddParticle(App->enemies->coldMachineFootFire, position.x + coldMachine.legs.footPiece.position.x + 22,
-		position.y + 19 + coldMachine.legs.footPiece.position.y, COLLIDER_NONE, { scrollSpeed,0 }, 0);
-	App->particles->AddParticle(App->enemies->coldMachineFootFire, position.x + coldMachine.legs.footPiece.position.x + 30,
-		position.y + 19 + coldMachine.legs.footPiece.position.y, COLLIDER_NONE, { scrollSpeed,0 }, 0);
-	App->particles->AddParticle(App->enemies->coldMachineFootFire, position.x + coldMachine.legs.footPiece.position.x + 62,
-		position.y + 19 + coldMachine.legs.footPiece.position.y, COLLIDER_NONE, { scrollSpeed,0 }, 0);
-	App->particles->AddParticle(App->enemies->coldMachineFootFire, position.x + coldMachine.legs.footPiece.position.x + 94,
-		position.y + 19 + coldMachine.legs.footPiece.position.y, COLLIDER_NONE, { scrollSpeed,0 }, 0);
-	// foot smoke -----
-	App->particles->AddParticle(App->enemies->coldMachineFootSmoke, position.x + coldMachine.legs.footPiece.position.x + 22,
-		position.y + 5 + coldMachine.legs.footPiece.position.y, COLLIDER_NONE, { scrollSpeed,0 }, 200);
-	App->particles->AddParticle(App->enemies->coldMachineFootSmoke, position.x + coldMachine.legs.footPiece.position.x + 31,
-		position.y + 5 + coldMachine.legs.footPiece.position.y, COLLIDER_NONE, { scrollSpeed,0 }, 200);
-	App->particles->AddParticle(App->enemies->coldMachineFootSmoke, position.x + coldMachine.legs.footPiece.position.x + 63,
-		position.y + 5 + coldMachine.legs.footPiece.position.y, COLLIDER_NONE, { scrollSpeed,0 }, 200);
-	App->particles->AddParticle(App->enemies->coldMachineFootSmoke, position.x + coldMachine.legs.footPiece.position.x + 95,
-		position.y + 5 + coldMachine.legs.footPiece.position.y, COLLIDER_NONE, { scrollSpeed,0 }, 200);
-	// between moving pieces smoke
-	App->particles->AddParticle(App->enemies->coldMachinePiecesSmoke, position.x + coldMachine.legs.hipPiece.position.x + 19,
-		position.y + 31 + coldMachine.legs.hipPiece.position.y, COLLIDER_NONE, { scrollSpeed,0 }, 0);
-	App->particles->AddParticle(App->enemies->coldMachinePiecesSmoke, position.x + coldMachine.legs.hipPiece.position.x + 75,
-		position.y + 47 + coldMachine.legs.hipPiece.position.y, COLLIDER_NONE, { scrollSpeed,0 }, 0);
-	App->particles->AddParticle(App->enemies->coldMachinePiecesSmoke, position.x + coldMachine.legs.hipPiece.position.x + 67,
-		position.y + 79 + coldMachine.legs.hipPiece.position.y, COLLIDER_NONE, { scrollSpeed,0 }, 0);
-	App->particles->AddParticle(App->enemies->coldMachinePiecesSmoke, position.x + coldMachine.legs.hipPiece.position.x + 107,
-		position.y + 47 + coldMachine.legs.hipPiece.position.y, COLLIDER_NONE, { scrollSpeed,0 }, 0);
-	App->particles->AddParticle(App->enemies->coldMachinePiecesSmoke, position.x + coldMachine.legs.hipPiece.position.x + 69,
-		position.y - 7 + coldMachine.legs.hipPiece.position.y, COLLIDER_NONE, { scrollSpeed,0 }, 0);
+	if (coldMachine.state == bossState::FIRSTCONTACT)
+	{
+		// foot fire explosion 8 frames --------
+		App->particles->AddParticle(App->enemies->coldMachineFootFire, position.x + coldMachine.legs.footPiece.position.x + 22,
+			position.y + 19 + coldMachine.legs.footPiece.position.y, COLLIDER_NONE, { scrollSpeed,0 }, 0);
+		App->particles->AddParticle(App->enemies->coldMachineFootFire, position.x + coldMachine.legs.footPiece.position.x + 30,
+			position.y + 19 + coldMachine.legs.footPiece.position.y, COLLIDER_NONE, { scrollSpeed,0 }, 0);
+		App->particles->AddParticle(App->enemies->coldMachineFootFire, position.x + coldMachine.legs.footPiece.position.x + 62,
+			position.y + 19 + coldMachine.legs.footPiece.position.y, COLLIDER_NONE, { scrollSpeed,0 }, 0);
+		App->particles->AddParticle(App->enemies->coldMachineFootFire, position.x + coldMachine.legs.footPiece.position.x + 94,
+			position.y + 19 + coldMachine.legs.footPiece.position.y, COLLIDER_NONE, { scrollSpeed,0 }, 0);
+		// foot smoke -----
+		App->particles->AddParticle(App->enemies->coldMachineFootSmoke, position.x + coldMachine.legs.footPiece.position.x + 22,
+			position.y + 5 + coldMachine.legs.footPiece.position.y, COLLIDER_NONE, { scrollSpeed,0 }, 200);
+		App->particles->AddParticle(App->enemies->coldMachineFootSmoke, position.x + coldMachine.legs.footPiece.position.x + 31,
+			position.y + 5 + coldMachine.legs.footPiece.position.y, COLLIDER_NONE, { scrollSpeed,0 }, 200);
+		App->particles->AddParticle(App->enemies->coldMachineFootSmoke, position.x + coldMachine.legs.footPiece.position.x + 63,
+			position.y + 5 + coldMachine.legs.footPiece.position.y, COLLIDER_NONE, { scrollSpeed,0 }, 200);
+		App->particles->AddParticle(App->enemies->coldMachineFootSmoke, position.x + coldMachine.legs.footPiece.position.x + 95,
+			position.y + 5 + coldMachine.legs.footPiece.position.y, COLLIDER_NONE, { scrollSpeed,0 }, 200);
+		// between moving pieces smoke
+		App->particles->AddParticle(App->enemies->coldMachinePiecesSmoke, position.x + coldMachine.legs.hipPiece.position.x + 19,
+			position.y + 31 + coldMachine.legs.hipPiece.position.y, COLLIDER_NONE, { scrollSpeed,0 }, 0);
+		App->particles->AddParticle(App->enemies->coldMachinePiecesSmoke, position.x + coldMachine.legs.hipPiece.position.x + 75,
+			position.y + 47 + coldMachine.legs.hipPiece.position.y, COLLIDER_NONE, { scrollSpeed,0 }, 0);
+		App->particles->AddParticle(App->enemies->coldMachinePiecesSmoke, position.x + coldMachine.legs.hipPiece.position.x + 67,
+			position.y + 79 + coldMachine.legs.hipPiece.position.y, COLLIDER_NONE, { scrollSpeed,0 }, 0);
+		App->particles->AddParticle(App->enemies->coldMachinePiecesSmoke, position.x + coldMachine.legs.hipPiece.position.x + 107,
+			position.y + 47 + coldMachine.legs.hipPiece.position.y, COLLIDER_NONE, { scrollSpeed,0 }, 0);
+		App->particles->AddParticle(App->enemies->coldMachinePiecesSmoke, position.x + coldMachine.legs.hipPiece.position.x + 69,
+			position.y - 7 + coldMachine.legs.hipPiece.position.y, COLLIDER_NONE, { scrollSpeed,0 }, 0);
+	}
+
+	if (coldMachine.state == bossState::F1TOF2) // explosion festival
+	{
+		
+		App->particles->AddParticle(App->particles->explosion, position.x, position.y, COLLIDER_NONE);
+
+
+	}
 
 }
