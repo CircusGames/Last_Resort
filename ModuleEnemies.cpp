@@ -97,6 +97,7 @@ ModuleEnemies::ModuleEnemies()
 	homingExplosion.anim.PushBack({ 112,66,29,27 });
 	homingExplosion.anim.speed = 0.25f;
 	homingExplosion.anim.repeat = false;
+	homingExplosion.fx = "rocketExplosion";
 
 	// -----------------------------------------------------
 
@@ -183,6 +184,7 @@ ModuleEnemies::ModuleEnemies()
 	bombardierBombWallImpact.anim.PushBack({ 236,569,16,38 });
 	bombardierBombWallImpact.anim.speed = 0.25f;
 	bombardierBombWallImpact.anim.repeat = false;
+	bombardierBombWallImpact.fx = "rocketExplosion";
 	//bombardierBombWallImpact.impactPosition = { 0,-80 };
 
 }
@@ -239,11 +241,14 @@ bool ModuleEnemies::Start()
 	coldMachineKneeLaserShotEffect.texture = enemyColdMachineTexture;
 	bombardierBomb.texture = enemyColdMachineTexture;
 	bombardierBomb.onCollisionWallParticle = &bombardierBombWallImpact;
+	bombardierBomb.onCollisionGeneralParticle = &homingExplosion;
 	bombardierBombWallImpact.texture = enemyColdMachineTexture;
 	coldMachineArmShootSmoke.texture = enemyColdMachineTexture;
 	// -------------------------------------------------------------------------------------
 	// AUDIO FX ----------------------------------------------------------------------------
 	App->audio->LoadAudio("assets/Audio/SFX/enemies/Enemy_Explosion.wav", "EnemyDeath", SFX);
+	// rockets explosion sfx
+	App->audio->LoadAudio("assets/Audio/SFX/enemies/minitank_rocket_explosion.wav", "rocketExplosion", SFX);	
 
 	return true;
 }
@@ -338,6 +343,7 @@ bool ModuleEnemies::CleanUp()
 	
 	//Unloading loaded audio's
 
+	App->audio->UnloadAudio("rocketExplosion", SFX);
 	App->audio->UnloadAudio("EnemyDeath",SFX);
 
 	//removing spawned enemies
@@ -485,7 +491,8 @@ void ModuleEnemies::OnCollision(Collider* c1, Collider* c2)
 					App->player[1]->playerScore += enemies[i]->enemyScore;
 				}
 
-				App->audio->ControlAudio("EnemyDeath", SFX, PLAY);
+				if (enemies[i]->enemyType != HOMINGMISSILE && enemies[i]->enemyType != BIGFUCKINGROCKET)
+					App->audio->ControlAudio("EnemyDeath", SFX, PLAY);
 
 				delete enemies[i];
 				enemies[i] = nullptr;
@@ -531,7 +538,9 @@ void ModuleEnemies::OnCollision(Collider* c1, Collider* c2)
 
 			if (enemies[i]->life <= 0)
 			{
-				App->audio->ControlAudio("EnemyDeath", SFX, PLAY);
+
+				if (enemies[i]->enemyType != HOMINGMISSILE && enemies[i]->enemyType != BIGFUCKINGROCKET)
+					App->audio->ControlAudio("EnemyDeath", SFX, PLAY);
 
 				// assigns correct player score
 				if (c2->type == COLLIDER_UNIT)
