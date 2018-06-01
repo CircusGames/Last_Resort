@@ -169,6 +169,21 @@ ModuleEnemies::ModuleEnemies()
 		bombardierBomb.anim.PushBack({ 1003,59,13,13 });
 	bombardierBomb.anim.speed = 0.125f;
 	bombardierBomb.anim.repeat = false;
+	bombardierBomb.impactPosition = { 0,-76 };
+	// bombardier bomb wall impact particle
+	bombardierBombWallImpact.anim.PushBack({ 0,569,16,80 });
+	bombardierBombWallImpact.anim.PushBack({ 17,569,24,80 });
+	bombardierBombWallImpact.anim.PushBack({ 42,569,30,80 });
+	bombardierBombWallImpact.anim.PushBack({ 73,569,28,80 });
+	bombardierBombWallImpact.anim.PushBack({ 104,569,26,70 });
+	bombardierBombWallImpact.anim.PushBack({ 131,569,30,69 });
+	bombardierBombWallImpact.anim.PushBack({ 162,569,28,69 });
+	bombardierBombWallImpact.anim.PushBack({ 191,569,25,68 });
+	bombardierBombWallImpact.anim.PushBack({ 217,569,18,52 });
+	bombardierBombWallImpact.anim.PushBack({ 236,569,16,38 });
+	bombardierBombWallImpact.anim.speed = 0.25f;
+	bombardierBombWallImpact.anim.repeat = false;
+	//bombardierBombWallImpact.impactPosition = { 0,-80 };
 
 }
 
@@ -223,6 +238,8 @@ bool ModuleEnemies::Start()
 	coldMachineKneeLaser.texture = enemyColdMachineTexture;
 	coldMachineKneeLaserShotEffect.texture = enemyColdMachineTexture;
 	bombardierBomb.texture = enemyColdMachineTexture;
+	bombardierBomb.onCollisionWallParticle = &bombardierBombWallImpact;
+	bombardierBombWallImpact.texture = enemyColdMachineTexture;
 	coldMachineArmShootSmoke.texture = enemyColdMachineTexture;
 	// -------------------------------------------------------------------------------------
 	// AUDIO FX ----------------------------------------------------------------------------
@@ -443,7 +460,7 @@ void ModuleEnemies::OnCollision(Collider* c1, Collider* c2)
 					enemies[i]->collisionColliderIndex = k;
 			}
 		}
-		if (enemies[i] != nullptr && enemies[i]->GetCollider() == c1 && c2->type != COLLIDER_UNIT)
+		if (enemies[i] != nullptr && enemies[i]->GetCollider() == c1 && (c2->type != COLLIDER_UNIT && c2->type != COLLIDER_UNIT2))
 		{
 			enemies[i]->OnCollision(c2, c1);
 
@@ -455,6 +472,19 @@ void ModuleEnemies::OnCollision(Collider* c1, Collider* c2)
 			
  			if (enemies[i]->life <= 0)
 			{
+
+				// assigns correct player score
+				if (c2->type == COLLIDER_PLAYER_SHOT)
+				{
+					LOG("player 1 killed me");
+					App->player[0]->playerScore += enemies[i]->enemyScore;
+				}
+				if (c2->type == COLLIDER_PLAYER2_SHOT)
+				{
+					LOG("player 2 killed me");
+					App->player[1]->playerScore += enemies[i]->enemyScore;
+				}
+
 				App->audio->ControlAudio("EnemyDeath", SFX, PLAY);
 
 				delete enemies[i];
@@ -464,7 +494,7 @@ void ModuleEnemies::OnCollision(Collider* c1, Collider* c2)
 			
 		}
 		// if collision pertains to unit
-		else if (enemies[i] != nullptr && enemies[i]->GetCollider() == c1 && c2->type == COLLIDER_UNIT)
+		else if (enemies[i] != nullptr && enemies[i]->GetCollider() == c1 && (c2->type == COLLIDER_UNIT || c2->type == COLLIDER_UNIT2))
 		{
 			if (enemies[i]->readyToRumble)
 			{
@@ -502,6 +532,19 @@ void ModuleEnemies::OnCollision(Collider* c1, Collider* c2)
 			if (enemies[i]->life <= 0)
 			{
 				App->audio->ControlAudio("EnemyDeath", SFX, PLAY);
+
+				// assigns correct player score
+				if (c2->type == COLLIDER_UNIT)
+				{
+					LOG("player 1 killed me");
+					App->player[0]->playerScore += enemies[i]->enemyScore;
+				}
+				if (c2->type == COLLIDER_UNIT2)
+				{
+					LOG("player 2 killed me");
+					App->player[1]->playerScore += enemies[i]->enemyScore;
+				}
+				//enemies[i]->playerThatKillMe
 
 				delete enemies[i];
 				enemies[i] = nullptr;

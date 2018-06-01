@@ -109,6 +109,8 @@ public:
 	Particle coldMachineArmShootSmoke;
 	// bombardier relatives
 	Particle bombardierBomb;
+	Particle bombardierBombGenImpact;
+	Particle bombardierBombWallImpact;
 
 
 private:

@@ -20,6 +20,8 @@ struct Particle
 	SDL_Texture* texture = nullptr;
 	char* fx = nullptr;
 	iPoint position;
+	iPoint impactPosition = { NULL,NULL };
+	//bool impactPositioning = false;
 	iPoint speed;
 	Uint32 born = 0;
 	Uint32 life = 0;

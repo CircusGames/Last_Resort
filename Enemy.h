@@ -85,6 +85,8 @@ public:
 
 	bool receiveDamage = false;
 
+	nearestPlayer playerThatKillMe;
+
 };
 
 #endif // __ENEMY_H__

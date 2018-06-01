@@ -246,7 +246,15 @@ void ModuleParticles::OnCollision(Collider* c1, Collider* c2)
 			if (c2->type == COLLIDER_WALL) // if collider wall...
 			{
 				if (active[i]->onCollisionWallParticle != nullptr)
-					AddParticle(*active[i]->onCollisionWallParticle, active[i]->position.x, active[i]->position.y, COLLIDER_NONE, {0,0},0);
+				{
+					if (active[i]->impactPosition.x != NULL || active[i]->impactPosition.y != NULL)
+					{
+						AddParticle(*active[i]->onCollisionWallParticle, active[i]->position.x + active[i]->impactPosition.x, 
+							active[i]->position.y + active[i]->impactPosition.y, COLLIDER_NONE, { 0,0 }, 0);
+					}
+					else
+						AddParticle(*active[i]->onCollisionWallParticle, active[i]->position.x, active[i]->position.y, COLLIDER_NONE, { 0,0 }, 0);
+				}
 			}
 			//if (c2->type != COLLIDER_WALL) // anything collider
 			//{
@@ -272,7 +280,8 @@ Particle::Particle()
 
 Particle::Particle(const Particle& p) :
 	anim(p.anim), position(p.position), speed(p.speed), fx(p.fx), born(p.born), life(p.life),texture(p.texture),
-	damage(p.damage), onCollisionGeneralParticle(p.onCollisionGeneralParticle), onCollisionWallParticle(p.onCollisionWallParticle)
+	damage(p.damage), onCollisionGeneralParticle(p.onCollisionGeneralParticle), onCollisionWallParticle(p.onCollisionWallParticle),
+	impactPosition(p.impactPosition)
 {}
 
 Particle::~Particle()
