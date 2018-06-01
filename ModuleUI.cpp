@@ -31,15 +31,10 @@ ModuleUI::~ModuleUI()
 bool ModuleUI::Start()
 {
 	//loading fonts typo's
-
 	lastResortBlueFont = App->moduleUI->Load("assets/Graphics/UI/blue_chars.png", "0123456789[]abcdefghijklmnopqrstuvwxyz _.,&#", 1);
 	redNumbers = App->moduleUI->Load("assets/Graphics/UI/red_numbers.png", "0123456789 ", 1);
 
-	
-
 	return true;
-
-
 }
 
 bool ModuleUI::CleanUp()
@@ -53,11 +48,15 @@ bool ModuleUI::CleanUp()
 
 update_status ModuleUI::Update()
 {
-
-	
 	//compute the score //provisional...
 	App->winScreen->saveScore(score);
+
+	lives1 = App->player[0]->lives;
 	score = App->player[0]->playerScore;
+
+	lives2 = App->player[1]->lives;
+	score2 = App->player[1]->playerScore;
+	
 
 	for (int i = 0; i < 10; ++i)
 	{
@@ -67,19 +66,34 @@ update_status ModuleUI::Update()
 	//prints scene UI
 	if (UI == gameplay_state::SCENE)
 	{
-		//draw lives
-		lives1 = App->player[0]->lives;
-		sprintf_s(score_text, 10, "%7d", lives1);
-		BlitText(32, 24, lastResortBlueFont, "x"); // 136
-		BlitText(0, 24, lastResortBlueFont, score_text); //original pos x 72,y 16
 
-		// Draw UI (score) -------------------------------------- //padding of 7 spaces !!!! 24? 40?
-		sprintf_s(score_text, 10, "%7d", score);
-		BlitText( 16 , 16, lastResortBlueFont, "1p"); //32
-		BlitText(112 , 16, lastResortBlueFont, "top"); // 136
-		BlitText(32,16, lastResortBlueFont, score_text); //original pos x 72,y 16
-		
+		if (App->player[0]->IsEnabled())
+		{
+			//draw lives
+			sprintf_s(score_text, 10, "%7d", lives1);
+			BlitText(32, 24, lastResortBlueFont, "x"); // 136
+			BlitText(0, 24, lastResortBlueFont, score_text); //original pos x 72,y 16
 
+			// Draw UI (score) -------------------------------------- //padding of 7 spaces !!!! 24? 40?
+			sprintf_s(score_text, 10, "%7d", score);
+			BlitText(16, 16, lastResortBlueFont, "1p"); //32
+			BlitText(112, 16, lastResortBlueFont, "top"); // 136
+			BlitText(32, 16, lastResortBlueFont, score_text); //original pos x 72,y 16
+		}
+
+		if (App->player[1]->IsEnabled())
+		{
+			//draw lives
+			sprintf_s(score_text, 10, "%7d", lives2);
+			BlitText(32+160, 24, lastResortBlueFont, "x"); 
+			BlitText(160, 24, lastResortBlueFont, score_text); 
+
+			// Draw UI (score) -------------------------------------- //padding of 7 spaces !!!! 24? 40?
+			sprintf_s(score_text, 10, "%7d", score2);
+			BlitText(16+160, 16, lastResortBlueFont, "1p"); //32
+			BlitText(112+160, 16, lastResortBlueFont, "top"); // 136
+			BlitText(32+160, 16, lastResortBlueFont, score_text); //original pos x 72,y 16
+		}
 	}
 	//prints WIN UI
 	if (UI == gameplay_state::WIN)
