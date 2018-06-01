@@ -16,6 +16,7 @@ private:
 		LANDING,
 		FIRSTCONTACT, // inmediately afet landing
 		FASE1,
+		F1TOF2,
 		FASE2
 	};
 	
@@ -135,6 +136,7 @@ private:
 
 	struct pathAnims
 	{
+		Path foot;
 		Path lowerLeg;
 		Path knee;
 		Path upperLeg;
@@ -154,6 +156,7 @@ private:
 		bottomPart legs;
 		// -----------------
 		pathAnims firstContact; // damp animation with particles
+		pathAnims f1Tof2Path;
 
 		bossState state;
 		// timers --------------------
@@ -161,7 +164,8 @@ private:
 		Uint32 start_cycle_time;
 		Uint32 now_cycle_time;
 		Uint32 total_enemy_time;
-		Uint32 total_firstContact_time = 2000;
+		Uint32 total_firstContact_time = 1500;
+		Uint32 fase1_total_time = 2000;//30000;
 		// general damage timers (all parts)
 		Uint32 start_damage_time;
 		Uint32 now_damage_time;
@@ -184,6 +188,7 @@ private:
 
 	struct originalPos
 	{
+		iPoint foot;
 		iPoint lowerLeg;
 		iPoint knee;
 		iPoint upperLeg;
@@ -209,6 +214,8 @@ public:
 	void decelerationToFloor();
 	void firstContactAnimation();
 	void addBossParticles();
+	void F1ToF2Transition();
+	void updateOriginalPositions();
 
 	// FASE1 functions
 	void missilesLogic();

@@ -269,6 +269,16 @@ EnemyColdMachine::EnemyColdMachine(int x, int y, powerUpTypes type, SDL_Texture*
 	coldMachine.firstContact.chest.loop = false;
 
 	// ---------------------------------------------------------
+
+	// Fase 1 to fase 2 path animations
+	coldMachine.f1Tof2Path.foot.PushBack({ -0.5, 1 }, 20);
+	coldMachine.f1Tof2Path.lowerLeg.PushBack( {-0.5, 1}, 20);
+	coldMachine.f1Tof2Path.knee.PushBack({ -0.5, 1 }, 20);
+	coldMachine.f1Tof2Path.upperLeg.PushBack({ -0.5, 1 }, 20);
+	coldMachine.f1Tof2Path.hip.PushBack({ -0.5, 1 }, 20);
+	coldMachine.f1Tof2Path.chest.PushBack({ 0, 1 }, 20);
+
+
 	
 	
 	//original.y = 60;
@@ -292,10 +302,67 @@ void EnemyColdMachine::Move()
 		if (coldMachine.legs.throwMissiles) missilesLogic();
 		if (coldMachine.legs.throwKneeBeam) kneeBeamLogic();
 		break;
+	case bossState::F1TOF2:
+		F1ToF2Transition();
+		break;
 	}
 
 	position.x += 1; // GENERAL POSITION
+
+	// update general fase timer
+	coldMachine.now_cycle_time = SDL_GetTicks() - coldMachine.start_cycle_time;
+
+	// check fase timer
+	if (coldMachine.state == bossState::FASE1)
+	{
+		if (coldMachine.now_cycle_time > coldMachine.fase1_total_time)
+		{
+			coldMachine.state = bossState::F1TOF2;
+			// update original positions for path animation
+			updateOriginalPositions();
+		}
+	}
 	
+
+}
+
+void EnemyColdMachine::updateOriginalPositions()
+{
+
+	original.foot = coldMachine.legs.footPiece.position;
+	original.lowerLeg = coldMachine.legs.lowerLegPiece.position;
+	original.knee = coldMachine.legs.kneePiece.position;
+	original.upperLeg = coldMachine.legs.upperLegPiece.position;
+	original.hip = coldMachine.legs.hipPiece.position;
+	original.chest = coldMachine.chest.chestPiece.position;
+	
+}
+
+void EnemyColdMachine::F1ToF2Transition()
+{
+
+	// update path animations
+	coldMachine.legs.footPiece.position = original.foot + coldMachine.f1Tof2Path.foot.GetCurrentSpeed();
+	coldMachine.legs.lowerLegPiece.position = original.lowerLeg + coldMachine.f1Tof2Path.lowerLeg.GetCurrentSpeed();
+	coldMachine.legs.kneePiece.position = original.knee + coldMachine.f1Tof2Path.knee.GetCurrentSpeed();
+	coldMachine.legs.upperLegPiece.position = original.upperLeg + coldMachine.f1Tof2Path.upperLeg.GetCurrentSpeed();
+	coldMachine.legs.hipPiece.position = original.hip + coldMachine.f1Tof2Path.hip.GetCurrentSpeed();
+	coldMachine.chest.chestPiece.position = original.chest + coldMachine.f1Tof2Path.chest.GetCurrentSpeed();
+
+	// check countdown timer to switch to fase1
+	/*coldMachine.now_cycle_time = SDL_GetTicks() - coldMachine.start_cycle_time;
+	if (coldMachine.now_cycle_time > coldMachine.total_firstContact_time)
+	{
+		// switch enemy state
+		coldMachine.state = bossState::FASE1;
+		// start attack timers
+		coldMachine.legs.start_missiles_time = SDL_GetTicks();
+		coldMachine.legs.start_kneeBeam_time = SDL_GetTicks();
+		coldMachine.legs.start_armShooting_time = SDL_GetTicks();
+		// start countdown timer Fase1
+		coldMachine.start_cycle_time = SDL_GetTicks();
+
+	}*/
 
 }
 
@@ -398,6 +465,9 @@ void EnemyColdMachine::firstContactAnimation()
 		coldMachine.legs.start_missiles_time = SDL_GetTicks();
 		coldMachine.legs.start_kneeBeam_time = SDL_GetTicks();
 		coldMachine.legs.start_armShooting_time = SDL_GetTicks();
+		// start countdown timer Fase1
+		coldMachine.start_cycle_time = SDL_GetTicks();
+
 	}
 	
 }
@@ -416,11 +486,12 @@ void EnemyColdMachine::decelerationToFloor()
 	{
 		coldMachine.state = bossState::FIRSTCONTACT;
 		// and assign actual positions for path entry animation
-		original.lowerLeg = coldMachine.legs.lowerLegPiece.position;
+		updateOriginalPositions();
+		/*original.lowerLeg = coldMachine.legs.lowerLegPiece.position;
 		original.knee = coldMachine.legs.kneePiece.position;
 		original.upperLeg = coldMachine.legs.upperLegPiece.position;
 		original.hip = coldMachine.legs.hipPiece.position;
-		original.chest = coldMachine.chest.chestPiece.position;
+		original.chest = coldMachine.chest.chestPiece.position;*/
 		// instantiate particles
 		addBossParticles();
 		// start countdown timer
@@ -543,7 +614,12 @@ SDL_Rect& EnemyColdMachine::returnRect(Animation* anim)
 	if (coldMachine.state != bossState::FASE1 && coldMachine.state != bossState::FASE2)
 	{
 		if (coldMachine.stopAnimations)
+		{
+			// set current frame to 0, protection
+			if((int)anim[coldMachine.current_sprite_type].current_frame > 0)
+				anim[coldMachine.current_sprite_type].current_frame = 0;
 			return anim[coldMachine.current_sprite_type].frames[0];
+		}
 		else
 			return anim[coldMachine.current_sprite_type].GetCurrentFrame();
 	}
