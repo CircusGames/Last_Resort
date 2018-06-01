@@ -39,6 +39,21 @@ ModuleEnemies::ModuleEnemies()
 		enemies[i] = nullptr;
 
 	//PARTICLES -------------------------------------------
+	// bee bullet last whisper
+	beeBulletGoodBye.anim.PushBack({ 1,6,8,8 }); // black
+	beeBulletGoodBye.anim.PushBack({ 10,6,8,8 }); // red
+	beeBulletGoodBye.anim.PushBack({ 1,6,8,8 }); // black
+	beeBulletGoodBye.anim.PushBack({ 10,6,8,8 }); // red
+	beeBulletGoodBye.anim.PushBack({ 1,6,8,8 }); // black
+	beeBulletGoodBye.anim.PushBack({ 19,6,8,8 }); // yellow
+	beeBulletGoodBye.anim.PushBack({ 1,6,8,8 }); // black
+	beeBulletGoodBye.anim.PushBack({ 19,6,8,8 }); // yellow
+	beeBulletGoodBye.anim.PushBack({ 28,5,9,9 }); // continue
+	beeBulletGoodBye.anim.PushBack({ 42,2,11,11 });
+	beeBulletGoodBye.anim.PushBack({ 54,1,13,13 });
+	beeBulletGoodBye.anim.PushBack({ 68,0,15,15 });
+	beeBulletGoodBye.anim.speed = 0.50f;
+	beeBulletGoodBye.anim.repeat = false;
 	//Enemy Bee  -----------------------------
 	beeBullet.anim.PushBack({1,0,5,5});
 	beeBullet.anim.PushBack({13,0,5,5});
@@ -187,6 +202,8 @@ bool ModuleEnemies::Start()
 	// textures ----------
 	beeBulletTexture = App->textures->Load("assets/Graphics/Enemies/Level_1/bee_bullet.png");
 	beeBullet.texture = beeBulletTexture; //link texture to particle
+	beeBullet.onCollisionGeneralParticle = &beeBulletGoodBye;
+	beeBulletGoodBye.texture = beeBulletTexture;
 
 	enemyDiverBeamTexture = App->textures->Load("assets/Graphics/Enemies/Level_3/diverShot.png");
 	diverBeamLeft.texture = diverBeamRight.texture = enemyDiverBeamTexture;

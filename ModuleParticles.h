@@ -30,6 +30,10 @@ struct Particle
 	Particle(const Particle& p);
 	~Particle();
 	bool Update();
+	// variables to instantiate collision particle
+	Particle* onCollisionWallParticle = nullptr;
+	Particle* onCollisionGeneralParticle = nullptr;
+
 };
 
 class ModuleParticles : public Module
@@ -72,6 +76,7 @@ public:
 	Particle unitBasicShot;
 	Particle explosion;
 	Particle laser;
+	// enemy goodbye particle
 	
 
 	

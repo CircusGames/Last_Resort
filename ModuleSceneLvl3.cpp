@@ -345,7 +345,7 @@ void ModuleSceneLvl3::addEnemiesToLvl3()
 	//App->enemies->AddEnemy(ENEMY_TYPES::SUBMARINE, 0, 60, NONE);
 
 	// BOSS
-	App->enemies->AddEnemy(ENEMY_TYPES::COLDMACHINE, 100, 100, NONE);
+	//App->enemies->AddEnemy(ENEMY_TYPES::COLDMACHINE, 100, 100, NONE);
 
 	//First Wave
 	/*App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 300, 35, NONE);

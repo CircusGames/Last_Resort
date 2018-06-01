@@ -92,6 +92,7 @@ public:
 	SDL_Texture* enemyColdMachineTexture = nullptr;
 	// ----------------------------
 	//ENEMY PARTICLES
+	Particle beeBulletGoodBye;
 	Particle beeBullet;
 	Particle tankBigShot;
 	Particle tankSmallShot;
