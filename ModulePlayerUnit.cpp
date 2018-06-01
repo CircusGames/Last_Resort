@@ -315,12 +315,22 @@ bool ModulePlayerUnit::Start()
 	//re assign needed values to position 0 when start/ re start
 
 	//add unit colliders
-
-	unitColliders[0] = upCollider = App->collision->AddCollider({0,0,1,1},COLLIDER_UNIT, this, unitDamage); // 0,0,6,8
-	unitColliders[1] = downCollider = App->collision->AddCollider({ 0,0,1,1 }, COLLIDER_UNIT, this, unitDamage);
-	unitColliders[2] = rightCollider = App->collision->AddCollider({ 0,0,1,1 }, COLLIDER_UNIT, this, unitDamage); // 0,0,5,6
-	unitColliders[3] = leftCollider = App->collision->AddCollider({ 0,0,1,1 }, COLLIDER_UNIT, this, unitDamage);
-	unitColliders[4] = centerCollider = App->collision->AddCollider({ 0,0,12,12}, COLLIDER_UNIT, this, unitDamage);
+	if (this == App->playerUnit[0])
+	{
+		unitColliders[0] = upCollider = App->collision->AddCollider({ 0,0,1,1 }, COLLIDER_UNIT, this, unitDamage); // 0,0,6,8
+		unitColliders[1] = downCollider = App->collision->AddCollider({ 0,0,1,1 }, COLLIDER_UNIT, this, unitDamage);
+		unitColliders[2] = rightCollider = App->collision->AddCollider({ 0,0,1,1 }, COLLIDER_UNIT, this, unitDamage); // 0,0,5,6
+		unitColliders[3] = leftCollider = App->collision->AddCollider({ 0,0,1,1 }, COLLIDER_UNIT, this, unitDamage);
+		unitColliders[4] = centerCollider = App->collision->AddCollider({ 0,0,12,12 }, COLLIDER_UNIT, this, unitDamage);
+	}
+	else if (this == App->playerUnit[1])
+	{
+		unitColliders[0] = upCollider = App->collision->AddCollider({ 0,0,1,1 }, COLLIDER_UNIT2, this, unitDamage); // 0,0,6,8
+		unitColliders[1] = downCollider = App->collision->AddCollider({ 0,0,1,1 }, COLLIDER_UNIT2, this, unitDamage);
+		unitColliders[2] = rightCollider = App->collision->AddCollider({ 0,0,1,1 }, COLLIDER_UNIT2, this, unitDamage); // 0,0,5,6
+		unitColliders[3] = leftCollider = App->collision->AddCollider({ 0,0,1,1 }, COLLIDER_UNIT2, this, unitDamage);
+		unitColliders[4] = centerCollider = App->collision->AddCollider({ 0,0,12,12 }, COLLIDER_UNIT2, this, unitDamage);
+	}
 
 	
 
