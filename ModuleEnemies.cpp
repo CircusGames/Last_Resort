@@ -202,8 +202,10 @@ bool ModuleEnemies::Start()
 	// textures ----------
 	beeBulletTexture = App->textures->Load("assets/Graphics/Enemies/Level_1/bee_bullet.png");
 	beeBullet.texture = beeBulletTexture; //link texture to particle
-	beeBullet.onCollisionGeneralParticle = &beeBulletGoodBye;
 	beeBulletGoodBye.texture = beeBulletTexture;
+	//ONcollisionParticles link
+	beeBullet.onCollisionGeneralParticle = &beeBulletGoodBye;
+	
 
 	enemyDiverBeamTexture = App->textures->Load("assets/Graphics/Enemies/Level_3/diverShot.png");
 	diverBeamLeft.texture = diverBeamRight.texture = enemyDiverBeamTexture;

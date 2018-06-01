@@ -59,6 +59,9 @@ private:
 	SDL_Texture* unitBasicShotTexture = nullptr;
 	SDL_Texture* laserTexture = nullptr;
 
+	SDL_Texture* beamImpactTexture = nullptr;
+	SDL_Texture* unitBasicShotImpactTexture = nullptr;
+
 	Particle* active[MAX_ACTIVE_PARTICLES];
 
 
@@ -71,9 +74,11 @@ public:
 	//Player particles --------------------
 	//basic shot -------------
 	Particle beam;
+	Particle beamImpactParticle;
 	//Particle beamSmoke;
 	//Unit basic shot ---------
 	Particle unitBasicShot;
+	Particle unitBasicShotImpact;
 	Particle explosion;
 	Particle laser;
 	// enemy goodbye particle
