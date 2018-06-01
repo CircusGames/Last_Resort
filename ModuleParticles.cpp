@@ -248,11 +248,11 @@ void ModuleParticles::OnCollision(Collider* c1, Collider* c2)
 				if (active[i]->onCollisionWallParticle != nullptr)
 					AddParticle(*active[i]->onCollisionWallParticle, active[i]->position.x, active[i]->position.y, COLLIDER_NONE, {0,0},0);
 			}
-			if (c2->type != COLLIDER_WALL) // anything collider
-			{
+			//if (c2->type != COLLIDER_WALL) // anything collider
+			//{
 				if (active[i]->onCollisionGeneralParticle != nullptr)
 					AddParticle(*active[i]->onCollisionGeneralParticle, active[i]->position.x, active[i]->position.y, COLLIDER_NONE, { 0,0 }, 0);
-			}
+			//}
 
 			//active[i]->texture = nullptr;
 			delete active[i];
