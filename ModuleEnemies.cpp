@@ -97,6 +97,7 @@ ModuleEnemies::ModuleEnemies()
 	homingExplosion.anim.PushBack({ 112,66,29,27 });
 	homingExplosion.anim.speed = 0.25f;
 	homingExplosion.anim.repeat = false;
+	homingExplosion.fx = "rocketExplosion";
 
 	// -----------------------------------------------------
 
@@ -169,6 +170,22 @@ ModuleEnemies::ModuleEnemies()
 		bombardierBomb.anim.PushBack({ 1003,59,13,13 });
 	bombardierBomb.anim.speed = 0.125f;
 	bombardierBomb.anim.repeat = false;
+	bombardierBomb.impactPosition = { 0,-76 };
+	// bombardier bomb wall impact particle
+	bombardierBombWallImpact.anim.PushBack({ 0,569,16,80 });
+	bombardierBombWallImpact.anim.PushBack({ 17,569,24,80 });
+	bombardierBombWallImpact.anim.PushBack({ 42,569,30,80 });
+	bombardierBombWallImpact.anim.PushBack({ 73,569,28,80 });
+	bombardierBombWallImpact.anim.PushBack({ 104,569,26,70 });
+	bombardierBombWallImpact.anim.PushBack({ 131,569,30,69 });
+	bombardierBombWallImpact.anim.PushBack({ 162,569,28,69 });
+	bombardierBombWallImpact.anim.PushBack({ 191,569,25,68 });
+	bombardierBombWallImpact.anim.PushBack({ 217,569,18,52 });
+	bombardierBombWallImpact.anim.PushBack({ 236,569,16,38 });
+	bombardierBombWallImpact.anim.speed = 0.25f;
+	bombardierBombWallImpact.anim.repeat = false;
+	bombardierBombWallImpact.fx = "rocketExplosion";
+	//bombardierBombWallImpact.impactPosition = { 0,-80 };
 
 }
 
@@ -202,8 +219,10 @@ bool ModuleEnemies::Start()
 	// textures ----------
 	beeBulletTexture = App->textures->Load("assets/Graphics/Enemies/Level_1/bee_bullet.png");
 	beeBullet.texture = beeBulletTexture; //link texture to particle
-	beeBullet.onCollisionGeneralParticle = &beeBulletGoodBye;
 	beeBulletGoodBye.texture = beeBulletTexture;
+	//ONcollisionParticles link
+	beeBullet.onCollisionGeneralParticle = &beeBulletGoodBye;
+	
 
 	enemyDiverBeamTexture = App->textures->Load("assets/Graphics/Enemies/Level_3/diverShot.png");
 	diverBeamLeft.texture = diverBeamRight.texture = enemyDiverBeamTexture;
@@ -221,10 +240,15 @@ bool ModuleEnemies::Start()
 	coldMachineKneeLaser.texture = enemyColdMachineTexture;
 	coldMachineKneeLaserShotEffect.texture = enemyColdMachineTexture;
 	bombardierBomb.texture = enemyColdMachineTexture;
+	bombardierBomb.onCollisionWallParticle = &bombardierBombWallImpact;
+	bombardierBomb.onCollisionGeneralParticle = &homingExplosion;
+	bombardierBombWallImpact.texture = enemyColdMachineTexture;
 	coldMachineArmShootSmoke.texture = enemyColdMachineTexture;
 	// -------------------------------------------------------------------------------------
 	// AUDIO FX ----------------------------------------------------------------------------
 	App->audio->LoadAudio("assets/Audio/SFX/enemies/Enemy_Explosion.wav", "EnemyDeath", SFX);
+	// rockets explosion sfx
+	App->audio->LoadAudio("assets/Audio/SFX/enemies/minitank_rocket_explosion.wav", "rocketExplosion", SFX);	
 
 	return true;
 }
@@ -319,6 +343,7 @@ bool ModuleEnemies::CleanUp()
 	
 	//Unloading loaded audio's
 
+	App->audio->UnloadAudio("rocketExplosion", SFX);
 	App->audio->UnloadAudio("EnemyDeath",SFX);
 
 	//removing spawned enemies
@@ -441,7 +466,7 @@ void ModuleEnemies::OnCollision(Collider* c1, Collider* c2)
 					enemies[i]->collisionColliderIndex = k;
 			}
 		}
-		if (enemies[i] != nullptr && enemies[i]->GetCollider() == c1 && c2->type != COLLIDER_UNIT)
+		if (enemies[i] != nullptr && enemies[i]->GetCollider() == c1 && (c2->type != COLLIDER_UNIT && c2->type != COLLIDER_UNIT2))
 		{
 			enemies[i]->OnCollision(c2, c1);
 
@@ -453,7 +478,21 @@ void ModuleEnemies::OnCollision(Collider* c1, Collider* c2)
 			
  			if (enemies[i]->life <= 0)
 			{
-				App->audio->ControlAudio("EnemyDeath", SFX, PLAY);
+
+				// assigns correct player score
+				if (c2->type == COLLIDER_PLAYER_SHOT)
+				{
+					LOG("player 1 killed me");
+					App->player[0]->playerScore += enemies[i]->enemyScore;
+				}
+				if (c2->type == COLLIDER_PLAYER2_SHOT)
+				{
+					LOG("player 2 killed me");
+					App->player[1]->playerScore += enemies[i]->enemyScore;
+				}
+
+				if (enemies[i]->enemyType != HOMINGMISSILE && enemies[i]->enemyType != BIGFUCKINGROCKET)
+					App->audio->ControlAudio("EnemyDeath", SFX, PLAY);
 
 				delete enemies[i];
 				enemies[i] = nullptr;
@@ -462,7 +501,7 @@ void ModuleEnemies::OnCollision(Collider* c1, Collider* c2)
 			
 		}
 		// if collision pertains to unit
-		else if (enemies[i] != nullptr && enemies[i]->GetCollider() == c1 && c2->type == COLLIDER_UNIT)
+		else if (enemies[i] != nullptr && enemies[i]->GetCollider() == c1 && (c2->type == COLLIDER_UNIT || c2->type == COLLIDER_UNIT2))
 		{
 			if (enemies[i]->readyToRumble)
 			{
@@ -499,7 +538,22 @@ void ModuleEnemies::OnCollision(Collider* c1, Collider* c2)
 
 			if (enemies[i]->life <= 0)
 			{
-				App->audio->ControlAudio("EnemyDeath", SFX, PLAY);
+
+				if (enemies[i]->enemyType != HOMINGMISSILE && enemies[i]->enemyType != BIGFUCKINGROCKET)
+					App->audio->ControlAudio("EnemyDeath", SFX, PLAY);
+
+				// assigns correct player score
+				if (c2->type == COLLIDER_UNIT)
+				{
+					LOG("player 1 killed me");
+					App->player[0]->playerScore += enemies[i]->enemyScore;
+				}
+				if (c2->type == COLLIDER_UNIT2)
+				{
+					LOG("player 2 killed me");
+					App->player[1]->playerScore += enemies[i]->enemyScore;
+				}
+				//enemies[i]->playerThatKillMe
 
 				delete enemies[i];
 				enemies[i] = nullptr;

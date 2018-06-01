@@ -26,6 +26,16 @@ ModuleParticles::ModuleParticles()
 	beam.life = 1000;
 	//beam.fx = "shot";
 	beam.damage = 1;
+	// basic shot "beam" on impact particle
+	beamImpactParticle.anim.PushBack({ 35,17,16,16 });
+	beamImpactParticle.anim.PushBack({ 18,17,16,16 });
+	beamImpactParticle.anim.PushBack({ 14,0,15,15 });
+	beamImpactParticle.anim.PushBack({ 0,17,16,16 });
+	beamImpactParticle.anim.PushBack({ 29,0,15,15 });
+	beamImpactParticle.anim.PushBack({ 45,0,15,15 });
+	beamImpactParticle.anim.PushBack({ 0,0,15,15 });
+	beamImpactParticle.anim.speed = 0.50f;
+	beamImpactParticle.anim.repeat = false;
 	// -----------------------------------------------------
 	//Unit basic shot particle-------------------
 	unitBasicShot.anim.PushBack({ 1,1,13,13 });
@@ -40,6 +50,16 @@ ModuleParticles::ModuleParticles()
 	unitBasicShot.life = 1500;
 	unitBasicShot.damage = 1;
 	// ------------------------------------------
+	// unit basic shot impact particle
+	unitBasicShotImpact.anim.PushBack({ 35,17,16,16 });
+	unitBasicShotImpact.anim.PushBack({ 18,17,16,16 });
+	unitBasicShotImpact.anim.PushBack({ 14,0,15,15 });
+	unitBasicShotImpact.anim.PushBack({ 0,17,16,16 });
+	unitBasicShotImpact.anim.PushBack({ 29,0,15,15 });
+	unitBasicShotImpact.anim.PushBack({ 45,0,15,15 });
+	unitBasicShotImpact.anim.PushBack({ 0,0,15,15 });
+	unitBasicShotImpact.anim.speed = 0.50f;
+	unitBasicShotImpact.anim.repeat = false;
 
 	//Explosion TEST --------------------
 	explosion.anim.PushBack({ 101, 16, 16, 16 });
@@ -86,12 +106,18 @@ bool ModuleParticles::Start()
 	//load textures and links pointers to -------------
 	graphics = App->textures->Load("assets/Graphics/Player/player1_incomplete.png");
 	unitBasicShotTexture = App->textures->Load("assets/Graphics/Player/unitBasicShot.png");
-	laserTexture = App->textures->Load("assets/Graphics/Player/laser.png");;
+	laserTexture = App->textures->Load("assets/Graphics/Player/laser.png");
+	beamImpactTexture = App->textures->Load("assets/Graphics/Player/playerShotImpact.png");
+	unitBasicShotImpactTexture = App->textures->Load("assets/Graphics/Player/unitBasicShotImpactFixed.png");
 	// ------------------------------------------------
 	
 	//load and links textures for particles -----------
 	beam.texture = graphics;
+	beam.onCollisionGeneralParticle = &beamImpactParticle;
+	beamImpactParticle.texture = beamImpactTexture;
 	unitBasicShot.texture = unitBasicShotTexture;
+	unitBasicShot.onCollisionGeneralParticle = &unitBasicShotImpact;
+	unitBasicShotImpact.texture = unitBasicShotImpactTexture;
 	laser.texture = laserTexture;
 	// ------------------------------------------------
 
@@ -116,6 +142,8 @@ bool ModuleParticles::CleanUp()
 	LOG("Unloading particles");
 
 	//unloading graphics
+	App->textures->Unload(beamImpactTexture);
+	App->textures->Unload(unitBasicShotImpactTexture);
 	App->textures->Unload(test); //remember erase this and its texture etc
 	App->textures->Unload(laserTexture);
 	App->textures->Unload(unitBasicShotTexture);
@@ -218,13 +246,21 @@ void ModuleParticles::OnCollision(Collider* c1, Collider* c2)
 			if (c2->type == COLLIDER_WALL) // if collider wall...
 			{
 				if (active[i]->onCollisionWallParticle != nullptr)
-					AddParticle(*active[i]->onCollisionWallParticle, active[i]->position.x, active[i]->position.y, COLLIDER_NONE, {0,0},0);
+				{
+					if (active[i]->impactPosition.x != NULL || active[i]->impactPosition.y != NULL)
+					{
+						AddParticle(*active[i]->onCollisionWallParticle, active[i]->position.x + active[i]->impactPosition.x, 
+							active[i]->position.y + active[i]->impactPosition.y, COLLIDER_NONE, { 0,0 }, 0);
+					}
+					else
+						AddParticle(*active[i]->onCollisionWallParticle, active[i]->position.x, active[i]->position.y, COLLIDER_NONE, { 0,0 }, 0);
+				}
 			}
-			if (c2->type != COLLIDER_WALL) // anything collider
-			{
+			//if (c2->type != COLLIDER_WALL) // anything collider
+			//{
 				if (active[i]->onCollisionGeneralParticle != nullptr)
 					AddParticle(*active[i]->onCollisionGeneralParticle, active[i]->position.x, active[i]->position.y, COLLIDER_NONE, { 0,0 }, 0);
-			}
+			//}
 
 			//active[i]->texture = nullptr;
 			delete active[i];
@@ -244,7 +280,8 @@ Particle::Particle()
 
 Particle::Particle(const Particle& p) :
 	anim(p.anim), position(p.position), speed(p.speed), fx(p.fx), born(p.born), life(p.life),texture(p.texture),
-	damage(p.damage), onCollisionGeneralParticle(p.onCollisionGeneralParticle), onCollisionWallParticle(p.onCollisionWallParticle)
+	damage(p.damage), onCollisionGeneralParticle(p.onCollisionGeneralParticle), onCollisionWallParticle(p.onCollisionWallParticle),
+	impactPosition(p.impactPosition)
 {}
 
 Particle::~Particle()

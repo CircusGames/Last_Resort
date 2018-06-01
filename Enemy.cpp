@@ -33,7 +33,7 @@ Enemy::~Enemy()
 		if (life <= 0 && enemyType != HOMINGMISSILE && enemyType != BIGFUCKINGROCKET) //only spawn powerup if the enemy is really death
 		{
 			App->modulePowerUp->SpawnPowerUp(position, powerUpType);
-			App->player[0]->playerScore += enemyScore;
+			//App->player[0]->playerScore += enemyScore;
 			App->particles->AddParticle(App->particles->explosion, position.x, position.y, COLLIDER_NONE);
 			App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPILOT, position.x, position.y, NONE);
 		}
@@ -71,7 +71,7 @@ void Enemy::Draw()
 void Enemy::OnCollision(Collider* collider, Collider* collider2) //receives the collider wich its colliding (player,shot etc)
 {
 	//App->particles->AddParticle(App->particles->explosion, position.x, position.y,COLLIDER_NONE);
-	
+
 }
 
 void Enemy::OnCollisionUnit(Collider* c2, Collider* c1) //receives the collider wich its colliding (player,shot etc)

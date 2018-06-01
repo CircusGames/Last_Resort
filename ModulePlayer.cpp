@@ -353,14 +353,19 @@ update_status ModulePlayer::Update()
 			if (activebuff.laser)
 			{
 				shootingLaser = true;
-				App->particles->AddParticle(App->particles->laser, position.x + 32, position.y - 2, COLLIDER_PLAYER_SHOT); //"shot");
+				if (this == App->player[1])
+					App->particles->AddParticle(App->particles->laser, position.x + 32, position.y - 2, COLLIDER_PLAYER2_SHOT);
+				else
+					App->particles->AddParticle(App->particles->laser, position.x + 32, position.y - 2, COLLIDER_PLAYER_SHOT); //"shot");
 			}
 
 
 			shooting = true;
 			
-			
-			App->particles->AddParticle(App->particles->beam, position.x + 32, position.y - 4, COLLIDER_PLAYER_SHOT); //, "shot");
+			if (this == App->player[1])
+				App->particles->AddParticle(App->particles->beam, position.x + 32, position.y - 4, COLLIDER_PLAYER2_SHOT);
+			else
+				App->particles->AddParticle(App->particles->beam, position.x + 32, position.y - 4, COLLIDER_PLAYER_SHOT); //, "shot");
 		
 		}
 		//checks animation cycle --------------------------------------------------------------------------------------------------
