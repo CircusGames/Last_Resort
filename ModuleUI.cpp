@@ -92,8 +92,8 @@ update_status ModuleUI::PostUpdate()//Update()
 			App->render->Blit(uiTexture, 17, 16, &p1Rect, 0);
 			App->render->Blit(uiTexture, 16, 24, &p1ShipRect, 0);
 
-			App->render->Blit(uiTexture, 24, 40, &powRect, 0);
-			App->render->Blit(uiTexture, 30, 50, &powBarRect, 0);
+			App->render->Blit(uiTexture, 24, 28, &powRect, 0); //24,208 POWER 
+			App->render->Blit(uiTexture, 48, 30, &powBarRect, 0); //48,210 POWER BAR
 			
 			BlitText(32, 16, lastResortBlueFont, score_text); //original pos x 72,y 16
 		}
