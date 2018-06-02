@@ -563,7 +563,7 @@ void ModuleEnemies::OnCollision(Collider* c1, Collider* c2)
 						App->playerUnit[1]->this_state = actualState::RETURN;
 				}*/
 
-				if(enemies[i]->enemyType != SUBMARINE && enemies[i]->enemyType != MINITANK)// && enemies[i]->enemyType != BIGDADDY)
+				if(enemies[i]->enemyType != SUBMARINE && enemies[i]->enemyType != MINITANK && enemies[i]->enemyType != COLDMACHINE)// && enemies[i]->enemyType != BIGDADDY)
 				enemies[i]->life -= c2->damage; //receive unit damage respect the actual unit damage (charged or not amount)
 			}
 			// second check if the readyToRumbe is false, and the unit needs to be returnted too
@@ -578,7 +578,7 @@ void ModuleEnemies::OnCollision(Collider* c1, Collider* c2)
 					App->playerUnit[1]->this_state = actualState::RETURN;
 			}
 
-			if (enemies[i]->enemyType == SUBMARINE || enemies[i]->enemyType == MINITANK)
+			if (enemies[i]->enemyType == SUBMARINE || enemies[i]->enemyType == MINITANK || enemies[i]->enemyType == COLDMACHINE)
 				enemies[i]->OnCollision(c2, c1);
 			
 			enemies[i]->OnCollisionUnit(c2, c1);

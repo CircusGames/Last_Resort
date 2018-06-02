@@ -460,17 +460,26 @@ void EnemyColdMachine::OnCollision(Collider* c1, Collider* c2)
 			if ((int)coldMachine.legs.kneeAnim[coldMachine.current_sprite_type].current_frame > 0)
 			{
 				LOG("Knee Collision");
-				if (coldMachine.legs.life >= 0)
+				if (readyToRumble && c1->type == COLLIDER_UNIT) // collisions logic for unit orbit
 				{
-					coldMachine.legs.life -= c1->damage;
-					receiveDamage = true;
 					coldMachine.start_damage_time = SDL_GetTicks();
+					coldMachine.legs.life -= c1->damage;
 					LOG("KNEE LIFE: %d", coldMachine.legs.life);
 				}
-				else
+				else if (c1->type != COLLIDER_UNIT)
+				{
+					coldMachine.start_damage_time = SDL_GetTicks();
+					coldMachine.legs.life -= c1->damage;
+				}
+				
+				if (coldMachine.legs.life <= 0)
+				{
+					
 					coldMachine.destroyedFase1 = true;
+					
+				}
+					
 			}
-
 
 		}
 		if (c2 == coldMachine.upEyeCollider)
@@ -478,14 +487,25 @@ void EnemyColdMachine::OnCollision(Collider* c1, Collider* c2)
 			if ((int)coldMachine.chest.eyeAnim[coldMachine.current_sprite_type].current_frame > 0)
 			{
 				LOG("Eye Collision");
-				if (coldMachine.chest.life >= 0)
+				if (readyToRumble && c1->type == COLLIDER_UNIT) // collisions logic for unit orbit
 				{
-					coldMachine.chest.life -= c1->damage;
-					receiveDamage = true;
 					coldMachine.start_damage_time = SDL_GetTicks();
+					coldMachine.chest.life -= c1->damage;
+					LOG("EYE LIFE: %d", coldMachine.chest.life);
 				}
-				else
-					coldMachine.destroyedFase2 = true;
+				else if (c1->type != COLLIDER_UNIT)
+				{
+					coldMachine.start_damage_time = SDL_GetTicks();
+					coldMachine.chest.life -= c1->damage;
+				}
+
+				if (coldMachine.chest.life <= 0)
+				{
+
+					coldMachine.destroyedFase1 = true;
+
+				}
+				
 			}
 
 		}
