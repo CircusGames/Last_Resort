@@ -15,6 +15,7 @@
 // ---------------------
 #include "ModuleInput.h"
 #include "ModuleFadeToBlack.h"
+#include "ModulePlayerUnit.h"
 
 //needed standard headers for strings functions
 #include<string.h>
@@ -33,6 +34,10 @@ bool ModuleUI::Start()
 	//loading fonts typo's
 	lastResortBlueFont = App->moduleUI->Load("assets/Graphics/UI/blue_chars.png", "0123456789[]abcdefghijklmnopqrstuvwxyz _.,&#", 1);
 	redNumbers = App->moduleUI->Load("assets/Graphics/UI/red_numbers.png", "0123456789 ", 1);
+	uiTexture = App->textures->Load("assets/Graphics/UI/UI.png");
+
+	
+	
 
 	return true;
 }
@@ -46,8 +51,15 @@ bool ModuleUI::CleanUp()
 	return true;
 }
 
-update_status ModuleUI::Update()
+update_status ModuleUI::PostUpdate()//Update()
 {
+	unit1Pow = 6*App->playerUnit[0]->charge;
+	
+	if (unit1Pow > 10)
+		powBarRect = { 96,16,64, 3 };
+	else
+		powBarRect = { 96,16,6 * unit1Pow, 3 };
+		
 	//compute the score //provisional...
 	App->winScreen->saveScore(score);
 
@@ -66,32 +78,38 @@ update_status ModuleUI::Update()
 	//prints scene UI
 	if (UI == gameplay_state::SCENE)
 	{
+		BlitText(112, 16, lastResortBlueFont, "top"); // 136
 
 		if (App->player[0]->IsEnabled())
 		{
 			//draw lives
-			sprintf_s(score_text, 10, "%7d", lives1);
-			BlitText(32, 24, lastResortBlueFont, "x"); // 136
+			sprintf_s(score_text, 10, "%6i%d", zero, lives1);
 			BlitText(0, 24, lastResortBlueFont, score_text); //original pos x 72,y 16
 
 			// Draw UI (score) -------------------------------------- //padding of 7 spaces !!!! 24? 40?
 			sprintf_s(score_text, 10, "%7d", score);
-			BlitText(16, 16, lastResortBlueFont, "1p"); //32
-			BlitText(112, 16, lastResortBlueFont, "top"); // 136
+			App->render->Blit(uiTexture, 17, 16, &p1Rect, 0);
+			App->render->Blit(uiTexture, 16, 24, &p1ShipRect, 0);
+
+			App->render->Blit(uiTexture, 24, 40, &powRect, 0);
+			App->render->Blit(uiTexture, 30, 50, &powBarRect, 0);
+			
 			BlitText(32, 16, lastResortBlueFont, score_text); //original pos x 72,y 16
 		}
 
 		if (App->player[1]->IsEnabled())
 		{
 			//draw lives
-			sprintf_s(score_text, 10, "%7d", lives2);
-			BlitText(32+160, 24, lastResortBlueFont, "x"); 
-			BlitText(160, 24, lastResortBlueFont, score_text); 
+			sprintf_s(score_text, 10, "%6i%d", zero, lives2);
+			BlitText(216, 24, lastResortBlueFont, score_text); 
 
 			// Draw UI (score) -------------------------------------- //padding of 7 spaces !!!! 24? 40?
+			App->render->Blit(uiTexture, 273, 16, &p2Rect, 0);
+			App->render->Blit(uiTexture, 272, 24, &p2ShipRect, 0);
+
+			App->render->Blit(uiTexture, 184, 20, &powRect, 0);
+
 			sprintf_s(score_text, 10, "%7d", score2);
-			BlitText(16+160, 16, lastResortBlueFont, "1p"); //32
-			BlitText(112+160, 16, lastResortBlueFont, "top"); // 136
 			BlitText(32+160, 16, lastResortBlueFont, score_text); //original pos x 72,y 16
 		}
 	}

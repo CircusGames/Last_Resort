@@ -31,7 +31,8 @@ public:
 	~ModuleUI();
 
 	bool Start();
-	update_status Update();
+	//update_status Update();
+	update_status PostUpdate();
 	bool CleanUp();
 	// Load Font
 	int Load(const char* texture_path, const char* characters, uint rows = 1);
@@ -47,12 +48,29 @@ private:
 public:
 	int lastResortBlueFont = -1;
 	int redNumbers = -1;
+
+	int unit1Pow = 0;
+
 	char score_text[10];
 	char redNumbers_text[10];
+
+	SDL_Texture* uiTexture = nullptr;
+
+	SDL_Rect p1Rect = { 1,0,22,8 };
+	SDL_Rect p1ShipRect = { 0,8,24,8 };
+
+	SDL_Rect  powRect = { 0,16,96,8 };
+	SDL_Rect powBarRect;
+
+	SDL_Rect p2Rect = { 161,16,23,8 };
+	SDL_Rect p2ShipRect = { 160,24,24,8 };
+
 	Uint32 score = 0;
 	Uint32 score2 = 0; //provisonal name to redNumbers call
 	uint lives1 = 0;
 	uint lives2 = 0;
+
+	uint zero = 0; //fast fix
 	
 	int scores[10] = { 0,0,0,0,0,0,0,0,0,0 };
 	Uint32 lastScore;
