@@ -549,6 +549,8 @@ void EnemyColdMachine::fase2AttackManager()
 				// instantiate next shuriken
 				coldMachine.chest.numShurikens++;
 				LOG("SHURIKEN %d", coldMachine.chest.numShurikens);
+				App->enemies->AddEnemy(SHURIKEN, position.x + coldMachine.chest.chestPiece.position.x + 100, 
+					position.y + coldMachine.chest.chestPiece.position.y - 6, NONE);
 
 				if (coldMachine.chest.numShurikens > 2) // max 3 shurikens per wave
 				{

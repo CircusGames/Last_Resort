@@ -11,7 +11,7 @@ private:
 
 	struct projectile
 	{
-		Animation anim[2]; // instantiation animation, rotation animation
+		Animation anim[3]; // instantiation animation, rotation animation, disappear animation
 		Animation* current_animation = nullptr;
 		SDL_Rect rect;
 		uint playerTargetIndex = 0;
@@ -40,6 +40,8 @@ private:
 
 	float decX = 0.10f;//0.05f;
 	float decY = 0.10f;//0.03f;
+
+	bool notSwaped = false;
 
 
 

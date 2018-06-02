@@ -36,11 +36,30 @@ EnemyShuriken::EnemyShuriken(int x, int y, powerUpTypes type, SDL_Texture* thisT
 	missile.anim[0].PushBack({ 720,529,40,40 });
 	missile.anim[0].PushBack({ 760,529,40,40 });
 	missile.anim[0].PushBack({ 800,529,40,40 });
+	missile.anim[0].speed = 0.50f;
+	missile.anim[0].repeat = false;
 
+	// looping animation
+	missile.anim[1].PushBack({ 614,598,40,40 });
+	missile.anim[1].PushBack({ 657,598,40,40 });
+	missile.anim[1].PushBack({ 700,598,40,40 });
+	missile.anim[1].PushBack({ 743,598,40,40 });
+	missile.anim[1].PushBack({ 786,598,40,40 });
+	missile.anim[1].PushBack({ 829,598,40,40 });
+	missile.anim[1].PushBack({ 872,598,40,40 });
+	missile.anim[1].speed = 0.25f;
 
-	animation = &missile.anim[4]; //links animation
+	// disappear anim
+	missile.anim[2].PushBack({ 840,529,40,40 });
+	missile.anim[2].PushBack({ 880,529,40,40 });
+	missile.anim[2].PushBack({ 920,529,40,40 });
+	missile.anim[2].PushBack({ 960,529,40,40 });
+	missile.anim[2].speed = 0.25f;
+	missile.anim[2].repeat = false;
 
-	missile.current_animation = &missile.anim[4];
+	//animation = &missile.anim[4]; //links animation
+
+	//missile.current_animation = &missile.anim[4];
 
 	//original_y = y;
 	//fposition.x = x;
@@ -78,7 +97,7 @@ EnemyShuriken::EnemyShuriken(int x, int y, powerUpTypes type, SDL_Texture* thisT
 
 
 	// add collider
-	collider = App->collision->AddCollider({ 0, 0, 4, 4 }, COLLIDER_TYPE::COLLIDER_ENEMY, (Module*)App->enemies);
+	collider = App->collision->AddCollider({ 0, 0, 20, 20 }, COLLIDER_TYPE::COLLIDER_ENEMY, (Module*)App->enemies);
 
 }
 
@@ -86,7 +105,7 @@ void EnemyShuriken::Move()
 {
 	// update collider position
 	if (collider != nullptr)
-		collider->SetPos(position.x, position.y);
+		collider->SetPos(position.x +10, position.y + 10 );
 
 	// updates fpositions
 	missile.fposition.x += missile.xSpeed + scrollSpeed; // plus update with the current player follow camera speed
@@ -120,11 +139,14 @@ void EnemyShuriken::Draw()
 	}
 
 	if (missile.now_alive_time >= missile.search_life_time)
+		missile.current_animation = &missile.anim[2];
+
+	if (missile.anim[2].finish)
 		killMe = true; // destroy missile
 
-					   // ---------------------------------------------------------------------------------------------------
+	// ---------------------------------------------------------------------------------------------------
 
-					   // movement logic call
+	 // movement logic call
 
 	if (missile.searching)
 	{
@@ -134,6 +156,13 @@ void EnemyShuriken::Draw()
 
 
 	// MISSILE animation draw -------------------------------------------------------
+
+	if (missile.anim[0].finish && !notSwaped)
+	{
+		missile.current_animation = &missile.anim[1];
+		
+		notSwaped = true;
+	}
 
 	missile.rect = missile.current_animation->GetCurrentFrame();
 
