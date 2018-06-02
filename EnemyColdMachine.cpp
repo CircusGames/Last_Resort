@@ -1072,9 +1072,14 @@ void EnemyColdMachine::Draw()
 
 SDL_Rect& EnemyColdMachine::returnRect(Animation* anim)
 {
+
+	// update current frame
+	anim[coldMachine.current_sprite_type].current_frame = anim->current_frame;
+
 	// general stop animations
 	if (coldMachine.state != bossState::FASE1 && coldMachine.state != bossState::FASE2)
 	{
+
 		if (coldMachine.stopAnimations)
 		{
 			// set current frame to 0, protection
