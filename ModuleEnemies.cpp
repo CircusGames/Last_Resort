@@ -514,8 +514,11 @@ void ModuleEnemies::OnCollision(Collider* c1, Collider* c2)
 		{
 			enemies[i]->OnCollision(c2, c1);
 
-			if(enemies[i]->enemyType != SUBMARINE && enemies[i]->enemyType != BIGDADDY)
- 				enemies[i]->life -= c2->damage; //particle damage
+			if (enemies[i]->enemyType != SUBMARINE && enemies[i]->enemyType != BIGDADDY && enemies[i]->enemyType != COLDMACHINE)
+			{
+				if (c2->type != COLLIDER_WALL)
+					enemies[i]->life -= c2->damage; //particle damage
+			}
 
 			if (c2->type == COLLIDER_PLAYER)
 				--enemies[i]->life; //by default, player collider substract 1 to enemy life

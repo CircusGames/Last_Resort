@@ -155,6 +155,8 @@ private:
 		bool destroyedHip = false; // for f1 to f2 transition
 		int life = 70;
 
+		
+
 	};
 
 	struct pathAnims
@@ -170,7 +172,10 @@ private:
 
 	struct boss
 	{
-		Collider* bodyCollider = nullptr;
+		Collider* chestCollider = nullptr;
+		Collider* legCollider = nullptr;
+		Collider* upEyeCollider = nullptr;
+		Collider* kneeCollider = nullptr;
 		iPoint position;
 		fPoint fposition;
 		Animation* current_animation = nullptr;
@@ -189,7 +194,7 @@ private:
 		Uint32 total_enemy_time;
 		Uint32 total_firstContact_time = 1500;
 		Uint32 fase1_total_time = 30000; //2000;//30000;
-		Uint32 fase2_total_time = 45000;
+		Uint32 fase2_total_time = 60000;
 		// fase 2 timers
 		Uint32 start_corner_time;
 		Uint32 now_corner_time;
@@ -223,6 +228,8 @@ private:
 		iPoint f1Tof1ParticlePoints[6] = { { 20,160 },{ 30,170 },{ 50,160 },{ 20,200 },{ 36,186 },{ 60,194 } }; // 10
 		int f1Tof1ParticlesDelay[6] = { 0,250,0,20,0,0};// 16
 		
+		bool destroyedFase1 = false;
+		bool destroyedFase2 = false;
 	};
 
 	struct originalPos
@@ -253,6 +260,9 @@ public:
 
 	void Move();
 	void Draw();
+	void OnCollision(Collider* collider, Collider* collider2);
+	const Collider* EnemyColdMachine::GetCollider() const;
+
 	SDL_Rect& returnRect(Animation* anim);
 	void decelerationToFloor();
 	void firstContactAnimation();
