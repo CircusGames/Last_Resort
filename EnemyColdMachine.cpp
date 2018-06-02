@@ -321,6 +321,7 @@ EnemyColdMachine::EnemyColdMachine(int x, int y, powerUpTypes type, SDL_Texture*
 
 void EnemyColdMachine::Move()
 {
+
 	switch (coldMachine.state)
 	{
 	case bossState::LANDING:
@@ -348,11 +349,15 @@ void EnemyColdMachine::Move()
 		{
 			if (coldMachine.legs.throwMissiles)
 			{
-				//coldMachine.legs.throwMissiles = false;
-				
+				coldMachine.legs.throwMissiles = false;
+				coldMachine.legs.missilesWaveCount = 0;
+				coldMachine.legs.missilesCount = 0;
 			}
 		}
 		//position.y = fposition.y;
+		break;
+	case bossState::TOEXPLODE:
+		toExplode();
 		break;
 	}
 
@@ -384,6 +389,22 @@ void EnemyColdMachine::Move()
 			coldMachine.legs.start_missiles_time = SDL_GetTicks();
 			coldMachine.legs.start_launch_time = SDL_GetTicks();
 			
+		}
+	}
+
+	// check fase2 timer
+	if (coldMachine.state == bossState::FASE2)
+	{
+		if (coldMachine.now_cycle_time > coldMachine.fase2_total_time)
+		{
+			coldMachine.state = bossState::TOEXPLODE;
+			// update original positions for path animation
+			updateOriginalPositions();
+			// instantiate particles
+			addBossParticles();
+			// update timer to auto destroy enemy
+			coldMachine.start_exploding_time = SDL_GetTicks();
+
 		}
 	}
 	
@@ -502,6 +523,33 @@ void EnemyColdMachine::fase2AttackManager()
 	
 
 
+
+}
+
+void EnemyColdMachine::toExplode()
+{
+	if (going_up)
+	{
+		if (wave > 1.0f)
+			going_up = false;
+		else
+			wave += 0.07f;
+	}
+	else
+	{
+		if (wave < -1.0f)
+			going_up = true;
+		else
+			wave -= 0.07f;
+	}
+
+	coldMachine.chest.chestPiece.position.y = original.chest.y + int(8.0f * sinf(wave));
+
+	coldMachine.now_exploding_time = SDL_GetTicks() - coldMachine.start_exploding_time;
+	if (coldMachine.now_exploding_time > coldMachine.time_exploding)
+	{
+		killMe = true;
+	}
 
 }
 
@@ -1315,5 +1363,101 @@ void EnemyColdMachine::addBossParticles()
 
 
 	}
+	// TO explode particles
+	if (coldMachine.state == bossState::TOEXPLODE) // festival of destruction
+	{
+		// first wave
+		for (uint i = 0; i < 6; ++i)
+		{
+			App->particles->AddParticle(App->particles->explosion, position.x + coldMachine.chest.chestPiece.position.x +
+				coldMachine.f1Tof1ParticlePoints[i].x + 16 ,//50,
+				position.y + coldMachine.chest.chestPiece.position.y + coldMachine.f1Tof1ParticlePoints[i].y - 160,
+				COLLIDER_NONE, { scrollSpeed ,0 }, coldMachine.f1Tof1ParticlesDelay[i]);
+		}
+		for (uint i = 0; i < 6; ++i)
+		{
+			App->particles->AddParticle(App->particles->explosion, position.x + coldMachine.chest.chestPiece.position.x +
+				coldMachine.f1Tof1ParticlePoints[i].x + 50,
+				position.y + coldMachine.chest.chestPiece.position.y + coldMachine.f1Tof1ParticlePoints[i].y - 140,
+				COLLIDER_NONE, { scrollSpeed ,0 }, coldMachine.f1Tof1ParticlesDelay[i]);
+		}
+		for (uint i = 0; i < 6; ++i)
+		{
+			App->particles->AddParticle(App->particles->explosion, position.x + coldMachine.chest.chestPiece.position.x +
+				coldMachine.f1Tof1ParticlePoints[i].x, //+ 16,//50,
+				position.y + coldMachine.chest.chestPiece.position.y + coldMachine.f1Tof1ParticlePoints[i].y - 110,
+				COLLIDER_NONE, { scrollSpeed ,0 }, coldMachine.f1Tof1ParticlesDelay[i]);
+		}
+		for (uint i = 0; i < 6; ++i)
+		{
+			App->particles->AddParticle(App->particles->explosion, position.x + coldMachine.chest.chestPiece.position.x +
+				coldMachine.f1Tof1ParticlePoints[i].x + 36,
+				position.y + coldMachine.chest.chestPiece.position.y + coldMachine.f1Tof1ParticlePoints[i].y - 70,
+				COLLIDER_NONE, { scrollSpeed ,0 }, coldMachine.f1Tof1ParticlesDelay[i]);
+		}
+		// second wave
+		for (uint i = 0; i < 6; ++i)
+		{
+			App->particles->AddParticle(App->particles->explosion, position.x + coldMachine.chest.chestPiece.position.x +
+				coldMachine.f1Tof1ParticlePoints[i].x + 71,//50,
+				position.y + coldMachine.chest.chestPiece.position.y + coldMachine.f1Tof1ParticlePoints[i].y - 120,
+				COLLIDER_NONE, { scrollSpeed ,0 }, coldMachine.f1Tof1ParticlesDelay[i] + 200);
+		}
+		for (uint i = 0; i < 6; ++i)
+		{
+			App->particles->AddParticle(App->particles->explosion, position.x + coldMachine.chest.chestPiece.position.x +
+				coldMachine.f1Tof1ParticlePoints[i].x + 50,
+				position.y + coldMachine.chest.chestPiece.position.y + coldMachine.f1Tof1ParticlePoints[i].y - 140,
+				COLLIDER_NONE, { scrollSpeed ,0 }, coldMachine.f1Tof1ParticlesDelay[i] + 280);
+		}
+		for (uint i = 0; i < 6; ++i)
+		{
+			App->particles->AddParticle(App->particles->explosion, position.x + coldMachine.chest.chestPiece.position.x +
+				coldMachine.f1Tof1ParticlePoints[i].x - 10, //+ 16,//50,
+				position.y + coldMachine.chest.chestPiece.position.y + coldMachine.f1Tof1ParticlePoints[i].y - 40,
+				COLLIDER_NONE, { scrollSpeed ,0 }, coldMachine.f1Tof1ParticlesDelay[i] + 340);
+		}
+		for (uint i = 0; i < 6; ++i)
+		{
+			App->particles->AddParticle(App->particles->explosion, position.x + coldMachine.chest.chestPiece.position.x +
+				coldMachine.f1Tof1ParticlePoints[i].x + 36,
+				position.y + coldMachine.chest.chestPiece.position.y + coldMachine.f1Tof1ParticlePoints[i].y - 20,
+				COLLIDER_NONE, { scrollSpeed ,0 }, coldMachine.f1Tof1ParticlesDelay[i] + 480);
+		}
+		// third and last wave
+		// second wave
+		for (uint i = 0; i < 6; ++i)
+		{
+			App->particles->AddParticle(App->particles->explosion, position.x + coldMachine.chest.chestPiece.position.x +
+				coldMachine.f1Tof1ParticlePoints[i].x + 20,//50,
+				position.y + coldMachine.chest.chestPiece.position.y + coldMachine.f1Tof1ParticlePoints[i].y - 50,
+				COLLIDER_NONE, { scrollSpeed ,0 }, coldMachine.f1Tof1ParticlesDelay[i] + 600);
+		}
+		for (uint i = 0; i < 6; ++i)
+		{
+			App->particles->AddParticle(App->particles->explosion, position.x + coldMachine.chest.chestPiece.position.x +
+				coldMachine.f1Tof1ParticlePoints[i].x + 80,
+				position.y + coldMachine.chest.chestPiece.position.y + coldMachine.f1Tof1ParticlePoints[i].y - 70,
+				COLLIDER_NONE, { scrollSpeed ,0 }, coldMachine.f1Tof1ParticlesDelay[i] + 700);
+		}
+		for (uint i = 0; i < 6; ++i)
+		{
+			App->particles->AddParticle(App->particles->explosion, position.x + coldMachine.chest.chestPiece.position.x +
+				coldMachine.f1Tof1ParticlePoints[i].x - 3, //+ 16,//50,
+				position.y + coldMachine.chest.chestPiece.position.y + coldMachine.f1Tof1ParticlePoints[i].y - 120,
+				COLLIDER_NONE, { scrollSpeed ,0 }, coldMachine.f1Tof1ParticlesDelay[i] + 900);
+		}
+		for (uint i = 0; i < 6; ++i)
+		{
+			App->particles->AddParticle(App->particles->explosion, position.x + coldMachine.chest.chestPiece.position.x +
+				coldMachine.f1Tof1ParticlePoints[i].x + 53,
+				position.y + coldMachine.chest.chestPiece.position.y + coldMachine.f1Tof1ParticlePoints[i].y - 90,
+				COLLIDER_NONE, { scrollSpeed ,0 }, coldMachine.f1Tof1ParticlesDelay[i] + 1000);
+		}
+
+
+
+	}
+
 
 }

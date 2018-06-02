@@ -188,7 +188,8 @@ private:
 		Uint32 now_cycle_time;
 		Uint32 total_enemy_time;
 		Uint32 total_firstContact_time = 1500;
-		Uint32 fase1_total_time = 5000; //2000;//30000;
+		Uint32 fase1_total_time = 30000; //2000;//30000;
+		Uint32 fase2_total_time = 45000;
 		// fase 2 timers
 		Uint32 start_corner_time;
 		Uint32 now_corner_time;
@@ -203,6 +204,9 @@ private:
 		Uint32 now_damage_time;
 		Uint32 total_damage_time = 50;
 		// ---------------------------
+		Uint32 start_exploding_time;
+		Uint32 now_exploding_time;
+		Uint32 time_exploding = 1000;
 
 		bool destroyed = false;
 		bool stopAnimations = false;
@@ -262,6 +266,8 @@ public:
 	// FASE2 functions
 	void fase2MovementLogic();
 	void fase2AttackManager();
+	// to explode
+	void toExplode();
 
 	boss coldMachine;
 
