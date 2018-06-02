@@ -53,12 +53,18 @@ bool ModuleUI::CleanUp()
 
 update_status ModuleUI::PostUpdate()//Update()
 {
-	unit1Pow = 6.4*App->playerUnit[0]->charge;
+	unit1Pow = 7 * App->playerUnit[0]->charge; //CHARGER
+	unit2Pow = 7 * App->playerUnit[1]->charge; //CHARGER 2
 
 	if(unit1Pow>64)
 		powBarRect = { 96,16,64, 3 };
 	else
 		powBarRect = { 96,16,unit1Pow, 3 };
+
+	if (unit2Pow>64)
+		powBar2Rect = { 96,16,64, 3 };
+	else
+		powBar2Rect = { 96,16,unit2Pow, 3 };
 	
 	
 	//compute the score //provisional...
@@ -92,8 +98,8 @@ update_status ModuleUI::PostUpdate()//Update()
 			App->render->Blit(uiTexture, 17, 16, &p1Rect, 0);
 			App->render->Blit(uiTexture, 16, 24, &p1ShipRect, 0);
 
-			App->render->Blit(uiTexture, 24, 28, &powRect, 0); //24,208 POWER 
-			App->render->Blit(uiTexture, 48, 30, &powBarRect, 0); //48,210 POWER BAR
+			App->render->Blit(uiTexture, 24, 48, &powRect, 0); //24,208 POWER 
+			App->render->Blit(uiTexture, 48, 50, &powBarRect, 0); //48,210 POWER BAR
 			
 			BlitText(32, 16, lastResortBlueFont, score_text); //original pos x 72,y 16
 		}
@@ -108,10 +114,28 @@ update_status ModuleUI::PostUpdate()//Update()
 			App->render->Blit(uiTexture, 273, 16, &p2Rect, 0);
 			App->render->Blit(uiTexture, 272, 24, &p2ShipRect, 0);
 
-			App->render->Blit(uiTexture, 184, 20, &powRect, 0);
+			App->render->Blit(uiTexture, 24, 48+40, &powRect, 0); //184,208 POWER  2
+			App->render->Blit(uiTexture, 48, 50+40, &powBar2Rect, 0); //208,210 POWER BAR  2
 
 			sprintf_s(score_text, 10, "%7d", score2);
 			BlitText(32+160, 16, lastResortBlueFont, score_text); //original pos x 72,y 16
+		}
+
+		else
+		{
+			if (pressToStart < 6000)
+			{
+				pressToStart = pressToStart + 100;
+				App->render->Blit(uiTexture, 192, 16, &pressRect, 0);
+			}
+
+			else if (pressToStart >= 6000)
+			{
+				if (pressToStart<12000)
+					pressToStart = pressToStart + 100;
+				else
+					pressToStart = 0;
+			}
 		}
 	}
 	//prints WIN UI

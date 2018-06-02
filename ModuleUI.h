@@ -50,6 +50,8 @@ public:
 	int redNumbers = -1;
 
 	int unit1Pow = 0;
+	int unit2Pow = 0;
+	int pressToStart = 0;
 
 	char score_text[10];
 	char redNumbers_text[10];
@@ -59,11 +61,14 @@ public:
 	SDL_Rect p1Rect = { 1,0,22,8 };
 	SDL_Rect p1ShipRect = { 0,8,24,8 };
 
-	SDL_Rect  powRect = { 0,16,96,8 };
+	SDL_Rect powRect = { 0,16,96,8 };
 	SDL_Rect powBarRect;
+	SDL_Rect powBar2Rect;//player2
 
 	SDL_Rect p2Rect = { 161,16,23,8 };
 	SDL_Rect p2ShipRect = { 160,24,24,8 };
+
+	SDL_Rect pressRect = { 159,8,101,8 };
 
 	Uint32 score = 0;
 	Uint32 score2 = 0; //provisonal name to redNumbers call
