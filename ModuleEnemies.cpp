@@ -219,7 +219,7 @@ ModuleEnemies::ModuleEnemies()
 	// glass upwards death particle
 	glassUpwardsShoot.anim.PushBack({ 954,570,5,9 });
 	glassUpwardsShoot.anim.PushBack({ 963,570,5,22 });
-	glassUpwardsShoot.anim.speed = 0.125f;
+	glassUpwardsShoot.anim.speed = 0.25f;
 	glassUpwardsShoot.speed = { 1,-2 };
 	glassUpwardsShoot.life = 2000;
 	

@@ -437,16 +437,19 @@ void EnemyColdMachine::fase2AttackManager()
 					position.y + coldMachine.chest.chestPiece.position.y + 114,
 					COLLIDER_NONE, { scrollSpeed,0 });
 				// glass rotary trails upwards static
-				App->particles->AddParticle(App->enemies->glassRotary, position.x + coldMachine.chest.chestPiece.position.x - 40,
+				App->particles->AddParticle(App->enemies->glassRotary, position.x + coldMachine.chest.chestPiece.position.x - 10,
+					position.y + coldMachine.chest.chestPiece.position.y + 120,
+					COLLIDER_NONE, { scrollSpeed,0 }, 50);
+				App->particles->AddParticle(App->enemies->glassRotary, position.x + coldMachine.chest.chestPiece.position.x - 45,
 					position.y + coldMachine.chest.chestPiece.position.y + 120,
 					COLLIDER_NONE, { scrollSpeed,0 }, 250);
-				App->particles->AddParticle(App->enemies->glassRotary, position.x + coldMachine.chest.chestPiece.position.x - 75,
+				App->particles->AddParticle(App->enemies->glassRotary, position.x + coldMachine.chest.chestPiece.position.x - 80,
 					position.y + coldMachine.chest.chestPiece.position.y + 120,
 					COLLIDER_NONE, { scrollSpeed,0 }, 450);
-				App->particles->AddParticle(App->enemies->glassRotary, position.x + coldMachine.chest.chestPiece.position.x - 110,
+				App->particles->AddParticle(App->enemies->glassRotary, position.x + coldMachine.chest.chestPiece.position.x - 115,
 					position.y + coldMachine.chest.chestPiece.position.y + 120,
 					COLLIDER_NONE, { scrollSpeed,0 }, 850);
-				App->particles->AddParticle(App->enemies->glassRotary, position.x + coldMachine.chest.chestPiece.position.x - 145,
+				App->particles->AddParticle(App->enemies->glassRotary, position.x + coldMachine.chest.chestPiece.position.x - 150,
 					position.y + coldMachine.chest.chestPiece.position.y + 120,
 					COLLIDER_NONE, { scrollSpeed,0 }, 1050);
 
