@@ -3,6 +3,7 @@
 
 #include "Module.h"
 #include "SDL\include\SDL_pixels.h"
+#include <iostream>
 
 #define MAX_FONTS 10
 #define MAX_FONT_CHARS 256
@@ -20,7 +21,7 @@ struct Font
 {
 	char table[MAX_FONT_CHARS];
 	SDL_Texture* graphic = nullptr;
-	uint rows, len, char_w, char_h, row_chars;
+	uint rows, len,len2,len3, char_w, char_h, row_chars;
 };
 
 class ModuleUI : public Module
@@ -77,9 +78,21 @@ public:
 
 	uint zero = 0; //fast fix
 	
-	int scores[10] = { 0,0,0,0,0,0,0,0,0,0 };
-	Uint32 lastScore;
-	int scorePosY[10] = { 48,68,88,108,128,148,168,188,208,228 };
+	int scores[10] = { 48000,43500,38200,33700,27000,23000,22900,21100,0,0 };
+	//Uint32 lastScore
+	//int scorePosY[10] = { 48,68,88,108,128,148,168,188,208,228 };
+
+	struct Players
+	{
+		char* name = nullptr;
+		int score = 0;
+	};
+
+	Players ships[10];
+
+	char* names[10] = { "momar","elmascapo","ice","fire","albanian","mako","pete","john","player 2","player 1" };
+
+	char* topPlayer = nullptr;
 
 	bool computed = false;
 	gameplay_state UI;

@@ -301,6 +301,15 @@ update_status ModuleSceneLvl3::PostUpdate()
 		App->render->Blit(fgTexture, 2150, 94, &fgRect, 0.50f);
 	}
 
+	//SCENE SWITCHING
+
+	if (App->input->keyboard[SDL_SCANCODE_RETURN] == KEY_DOWN)
+		App->fade->FadeToBlack(this, App->continueScreen);
+	if (App->input->keyboard[SDL_SCANCODE_U] == KEY_DOWN)
+		App->fade->FadeToBlack(this, (Module*)App->winScreen);
+	if (App->input->keyboard[SDL_SCANCODE_O] == KEY_DOWN)
+		App->fade->FadeToBlack(this, (Module*)App->gameOverScreen);
+
 	return UPDATE_CONTINUE;
 }
 

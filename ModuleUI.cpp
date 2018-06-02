@@ -2,6 +2,8 @@
 
 //still much work to do in this module , 00001 alpha -------------------------------------
 
+#define _CRT_SECURE_NO_WARNINGS
+
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleTextures.h"
@@ -36,9 +38,6 @@ bool ModuleUI::Start()
 	redNumbers = App->moduleUI->Load("assets/Graphics/UI/red_numbers.png", "0123456789 ", 1);
 	uiTexture = App->textures->Load("assets/Graphics/UI/UI.png");
 
-	
-	
-
 	return true;
 }
 
@@ -48,6 +47,9 @@ bool ModuleUI::CleanUp()
 	//unload font textures
 	UnLoad(lastResortBlueFont);
 	UnLoad(redNumbers);
+
+	App->textures->Unload(uiTexture);
+
 	return true;
 }
 
@@ -75,18 +77,10 @@ update_status ModuleUI::PostUpdate()//Update()
 
 	lives2 = App->player[1]->lives;
 	score2 = App->player[1]->playerScore;
-	
-
-	for (int i = 0; i < 10; ++i)
-	{
-		scores[i] = App->winScreen->allScores[i];
-	}
 
 	//prints scene UI
 	if (UI == gameplay_state::SCENE)
 	{
-		BlitText(112, 16, lastResortBlueFont, "top"); // 136
-
 		if (App->player[0]->IsEnabled())
 		{
 			//draw lives
@@ -102,6 +96,9 @@ update_status ModuleUI::PostUpdate()//Update()
 			App->render->Blit(uiTexture, 48, 50, &powBarRect, 0); //48,210 POWER BAR
 			
 			BlitText(32, 16, lastResortBlueFont, score_text); //original pos x 72,y 16
+
+			//score update
+			
 		}
 
 		if (App->player[1]->IsEnabled())
@@ -119,6 +116,9 @@ update_status ModuleUI::PostUpdate()//Update()
 
 			sprintf_s(score_text, 10, "%7d", score2);
 			BlitText(32+160, 16, lastResortBlueFont, score_text); //original pos x 72,y 16
+
+			//score update
+			ships[8].score = score2;
 		}
 
 		else
@@ -137,31 +137,39 @@ update_status ModuleUI::PostUpdate()//Update()
 					pressToStart = 0;
 			}
 		}
-	}
-	//prints WIN UI
-	if (UI == gameplay_state::WIN)
-	{
-		//score = App->player->playerScore;
-		//try to save player actual score
+
 		
 
 		if (!computed)
 		{
-			App->winScreen->saveScore(score);
+			for (int i = 0; i < 10; i++)
+			{
+				ships[i].name = names[i];
+				ships[i].score = scores[i];
+			}
 
-			for (int i = 0; i < 10; ++i)
-				scores[i] = App->winScreen->allScores[i];
-				
 			computed = true;
 		}
 
+		ships[8].score = score;
+		ships[9].score = score2;
+
+		topPlayer = "[";
+		//strcat(topPlayer, ships[0].name);
+		strcat(topPlayer, "]");
+		BlitText(112, 16, lastResortBlueFont,ships[0].name); // 133
+	}
+	//prints WIN UI
+	if (UI == gameplay_state::WIN)
+	{
 		for (int i = 0; i < 10; ++i)
 		{
 			// Draw UI (score) --------------------------------------
-			sprintf_s(score_text, 10, "%7d", scores[i]);
+			sprintf_s(score_text, 10, "%7d", ships[i].score);
 			BlitText(118, 48 + 16 * i, redNumbers, score_text); //original pos x 72,y 16 //118,48
-		}
 
+			BlitText(200, 48 + 16 * i, lastResortBlueFont, ships[i].name);
+		}
 	}
 
 
