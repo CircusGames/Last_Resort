@@ -306,6 +306,10 @@ void EnemyColdMachine::Move()
 		F1ToF2Transition();
 		position.y = fposition.y;
 		break;
+	case bossState::FASE2:
+		fase2MovementLogic();
+		//position.y = fposition.y;
+		break;
 	}
 
 	position.x += 1; // GENERAL POSITION
@@ -331,6 +335,91 @@ void EnemyColdMachine::Move()
 
 }
 
+void EnemyColdMachine::fase2MovementLogic()
+{
+	if (going_up)
+	{
+		if (wave > 1.0f)
+			going_up = false;
+		else
+			wave += 0.07f;
+	}
+	else
+	{
+		if (wave < -1.0f)
+			going_up = true;
+		else
+			wave -= 0.07f;
+	}
+
+	coldMachine.chest.chestPiece.position.y =  original.chest.y + int(8.0f * sinf(wave));
+	
+	if (coldMachine.move)
+	{
+		if (coldMachine.moveToLeft)
+		{
+			if (coldMachine.chest.chestPiece.position.x > -208)
+			{
+				coldMachine.fposition.x -= 0.5f;
+				coldMachine.chest.chestPiece.position.x = coldMachine.fposition.x;
+			}
+			else
+			{
+				// stop mov
+				coldMachine.move = false;
+				// arrives at corner functionality
+				coldMachine.leftCorner = true;
+			}
+		}
+		else
+		{
+			if (coldMachine.chest.chestPiece.position.x <= 0)
+			{
+				coldMachine.fposition.x += 0.5f;
+				coldMachine.chest.chestPiece.position.x = coldMachine.fposition.x;
+			}
+			else
+			{
+				coldMachine.move = false;
+				coldMachine.leftCorner = false;
+			}
+		}
+	
+		
+	}
+	else
+	{
+		if (coldMachine.moveToLeft && coldMachine.leftCorner)
+		{
+			// next move will be to right
+			coldMachine.moveToLeft = false;
+			// arrives at left corner attack logic
+			coldMachine.leftCorner = true;
+			// start left corner timer
+			coldMachine.start_corner_time = SDL_GetTicks();
+		}
+		if (!coldMachine.moveToLeft && !coldMachine.leftCorner)
+		{
+			// next move will be to right
+			coldMachine.moveToLeft = true;
+			// arrives at left corner attack logic
+			coldMachine.leftCorner = false;
+			// start left corner timer
+			coldMachine.start_corner_time = SDL_GetTicks();
+		}
+		
+		// update current left corner time
+		coldMachine.now_corner_time = SDL_GetTicks() - coldMachine.start_corner_time;
+		if (coldMachine.now_corner_time > coldMachine.total_corner_time)
+		{
+			if (!coldMachine.move)
+				coldMachine.move = true;
+
+		}
+	}
+	
+}
+
 void EnemyColdMachine::updateOriginalPositions()
 {
 
@@ -354,14 +443,26 @@ void EnemyColdMachine::F1ToF2Transition()
 	coldMachine.legs.hipPiece.position = original.hip + coldMachine.f1Tof2Path.hip.GetCurrentSpeed();
 	coldMachine.chest.chestPiece.position = original.chest + coldMachine.f1Tof2Path.chest.GetCurrentSpeed();
 
+	// updates general positions
+
 	// check chest position to switch to fase2
-	if (coldMachine.chest.chestPiece.position.y > 170)
+	if (coldMachine.chest.chestPiece.position.y > 180)
 	{
 		coldMachine.state = bossState::FASE2;
 		// "destroy" bottom part
 		coldMachine.legs.destroyed = true;
 		// start new fase timer
 		coldMachine.start_cycle_time = SDL_GetTicks();
+
+		// store chest position y to sinusoidal fixed y
+		//position.y = coldMachine.chest.chestPiece.position.y - 237;
+		original.chest.y = coldMachine.chest.chestPiece.position.y - 7;// + 20;//position.y;//coldMachine.chest.chestPiece.position.y;
+		//original.chest.x = position.x + coldMachine.chest.chestPiece.position.x;
+
+		coldMachine.fposition.x = original.chest.x;
+		coldMachine.fposition.y = original.chest.y;
+
+		//position.y = original.chest.y;
 
 	}
 

@@ -166,7 +166,16 @@ private:
 		Uint32 now_cycle_time;
 		Uint32 total_enemy_time;
 		Uint32 total_firstContact_time = 1500;
-		Uint32 fase1_total_time = 30000;//2000;//30000;
+		Uint32 fase1_total_time = 2000;//30000;
+		// fase 2 timers
+		Uint32 start_corner_time;
+		Uint32 now_corner_time;
+		Uint32 total_corner_time = 2000;
+		bool leftCorner = false;
+		bool rightCorner = false;
+		bool moveToLeft = true;
+		bool move = true; // cold machine falls and direct left move
+		//bool
 		// general damage timers (all parts)
 		Uint32 start_damage_time;
 		Uint32 now_damage_time;
@@ -206,6 +215,10 @@ private:
 
 	int scrollSpeed = 1;
 
+	// sinusoidal movement fase2
+	float wave = 1.0f;
+	bool going_up = false;
+
 	
 
 public:
@@ -220,6 +233,7 @@ public:
 	void addBossParticles();
 	void F1ToF2Transition();
 	void updateOriginalPositions();
+	void fase2MovementLogic();
 
 	// FASE1 functions
 	void missilesLogic();
