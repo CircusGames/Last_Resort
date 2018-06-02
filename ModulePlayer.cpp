@@ -377,7 +377,8 @@ update_status ModulePlayer::Update()
 				beamSmoke.finish = false;
 				shooting = false;
 			}
-			App->render->Blit(playerEffectsTexture, position.x + 32, position.y - 6, &beamSmoke.GetCurrentFrame());
+
+			App->render->Blit(App->player[0]->playerEffectsTexture, position.x + 32, position.y - 6, &beamSmoke.GetCurrentFrame());
 		}
 		if (shootingLaser)
 		{
