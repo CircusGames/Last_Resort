@@ -8,6 +8,7 @@
 
 EnemyColdMachine::EnemyColdMachine(int x, int y, powerUpTypes type, SDL_Texture* thisTexture) : Enemy(x, y)
 {
+	enemyType = COLDMACHINE;
 	//links the correct spritesheet texture ----
 	enemyTex = thisTexture;
 	// -----------------------------------------
@@ -317,6 +318,12 @@ EnemyColdMachine::EnemyColdMachine(int x, int y, powerUpTypes type, SDL_Texture*
 	//original.y = 60;
 	//original.x = position.x;
 
+	// add colliders
+	int k = 0;
+	collider = coldMachine.chestCollider = extraColliders[k++] = App->collision->AddCollider({ 0,0,110,130}, COLLIDER_ENEMY, (Module*)App->enemies);
+	coldMachine.legCollider = extraColliders[k++] = App->collision->AddCollider({ 0,0,60,180 }, COLLIDER_ENEMY, (Module*)App->enemies);
+	coldMachine.upEyeCollider = extraColliders[k++] = App->collision->AddCollider({ 0,0,20,32 }, COLLIDER_ENEMY, (Module*)App->enemies);
+	coldMachine.kneeCollider = extraColliders[k++] = App->collision->AddCollider({ 0,0,39,40 }, COLLIDER_ENEMY, (Module*)App->enemies);
 }
 
 void EnemyColdMachine::Move()
@@ -369,7 +376,7 @@ void EnemyColdMachine::Move()
 	// check fase timer
 	if (coldMachine.state == bossState::FASE1)
 	{
-		if (coldMachine.now_cycle_time > coldMachine.fase1_total_time)
+		if (coldMachine.now_cycle_time > coldMachine.fase1_total_time || coldMachine.destroyedFase1)
 		{
 			coldMachine.state = bossState::F1TOF2;
 			// update original positions for path animation
@@ -388,6 +395,18 @@ void EnemyColdMachine::Move()
 			// resets timers
 			coldMachine.legs.start_missiles_time = SDL_GetTicks();
 			coldMachine.legs.start_launch_time = SDL_GetTicks();
+
+			// delete leg relative colliders
+			if (coldMachine.legCollider != nullptr)
+			{
+				coldMachine.legCollider->to_delete = true;
+				coldMachine.legCollider = nullptr;
+			}
+			if (coldMachine.kneeCollider != nullptr)
+			{
+				coldMachine.kneeCollider->to_delete = true;
+				coldMachine.kneeCollider = nullptr;
+			}
 			
 		}
 	}
@@ -395,7 +414,7 @@ void EnemyColdMachine::Move()
 	// check fase2 timer
 	if (coldMachine.state == bossState::FASE2)
 	{
-		if (coldMachine.now_cycle_time > coldMachine.fase2_total_time)
+		if (coldMachine.now_cycle_time > coldMachine.fase2_total_time || coldMachine.destroyedFase2)
 		{
 			coldMachine.state = bossState::TOEXPLODE;
 			// update original positions for path animation
@@ -407,8 +426,98 @@ void EnemyColdMachine::Move()
 
 		}
 	}
+
+	// updates colliders position
+	if (coldMachine.chestCollider != nullptr)
+		coldMachine.chestCollider->SetPos(position.x + coldMachine.chest.chestPiece.position.x + 36, 
+			position.y + coldMachine.chest.chestPiece.position.y + 20);
+
+	if (coldMachine.legCollider != nullptr)
+		coldMachine.legCollider->SetPos(position.x + coldMachine.legs.upperLegPiece.position.x + 26, 
+			position.y + coldMachine.legs.upperLegPiece.position.y + 10);
+
+	if (coldMachine.kneeCollider != nullptr)
+		coldMachine.kneeCollider->SetPos(position.x + coldMachine.legs.kneePiece.position.x + 5,
+			position.y + coldMachine.legs.kneePiece.position.y + 30);
 	
 
+	if (coldMachine.upEyeCollider != nullptr)
+		coldMachine.upEyeCollider->SetPos(position.x + coldMachine.chest.chestPiece.position.x + 16,
+			position.y + coldMachine.chest.chestPiece.position.y + 10);
+	
+
+}
+
+void EnemyColdMachine::OnCollision(Collider* c1, Collider* c2)
+{
+	if (c1->type != COLLIDER_WALL)
+	{
+		//LOG("Collision");
+
+		//only up eye and knee eye can receive damage, but only when its frames are more than 1 (open or opening animation state)
+		if (c2 == coldMachine.kneeCollider)
+		{
+			if ((int)coldMachine.legs.kneeAnim[coldMachine.current_sprite_type].current_frame > 0)
+			{
+				LOG("Knee Collision");
+				if (readyToRumble && c1->type == COLLIDER_UNIT) // collisions logic for unit orbit
+				{
+					coldMachine.start_damage_time = SDL_GetTicks();
+					coldMachine.legs.life -= c1->damage;
+					LOG("KNEE LIFE: %d", coldMachine.legs.life);
+				}
+				else if (c1->type != COLLIDER_UNIT)
+				{
+					coldMachine.start_damage_time = SDL_GetTicks();
+					coldMachine.legs.life -= c1->damage;
+				}
+				
+				if (coldMachine.legs.life <= 0)
+				{
+					
+					coldMachine.destroyedFase1 = true;
+					
+				}
+					
+			}
+
+		}
+		if (c2 == coldMachine.upEyeCollider)
+		{
+			if ((int)coldMachine.chest.eyeAnim[coldMachine.current_sprite_type].current_frame > 0)
+			{
+				LOG("Eye Collision");
+				if (readyToRumble && c1->type == COLLIDER_UNIT) // collisions logic for unit orbit
+				{
+					coldMachine.start_damage_time = SDL_GetTicks();
+					coldMachine.chest.life -= c1->damage;
+					LOG("EYE LIFE: %d", coldMachine.chest.life);
+				}
+				else if (c1->type != COLLIDER_UNIT)
+				{
+					coldMachine.start_damage_time = SDL_GetTicks();
+					coldMachine.chest.life -= c1->damage;
+				}
+
+				if (coldMachine.chest.life <= 0)
+				{
+
+					coldMachine.destroyedFase1 = true;
+
+				}
+				
+			}
+
+		}
+
+	}
+		
+
+}
+
+const Collider* EnemyColdMachine::GetCollider() const
+{
+	return extraColliders[collisionColliderIndex];
 }
 
 void EnemyColdMachine::fase2AttackManager()
@@ -440,6 +549,8 @@ void EnemyColdMachine::fase2AttackManager()
 				// instantiate next shuriken
 				coldMachine.chest.numShurikens++;
 				LOG("SHURIKEN %d", coldMachine.chest.numShurikens);
+				App->enemies->AddEnemy(SHURIKEN, position.x + coldMachine.chest.chestPiece.position.x + 100, 
+					position.y + coldMachine.chest.chestPiece.position.y - 6, NONE);
 
 				if (coldMachine.chest.numShurikens > 2) // max 3 shurikens per wave
 				{
@@ -852,11 +963,23 @@ void EnemyColdMachine::Draw()
 	coldMachine.legs.now_kneeBeam_time = SDL_GetTicks() - coldMachine.legs.start_kneeBeam_time;
 	coldMachine.legs.now_armShooting_time = SDL_GetTicks() - coldMachine.legs.start_armShooting_time;
 
+	// damage timer
+	coldMachine.now_damage_time = SDL_GetTicks() - coldMachine.start_damage_time;
+	if (coldMachine.now_damage_time > coldMachine.total_damage_time)
+	{
+		receiveDamage = false;
+		coldMachine.current_sprite_type = swapAnimType::NORMAL_ANIM;
+	}
+	else
+	{
+		coldMachine.current_sprite_type = swapAnimType::DAMAGE_ANIM;
+	}
+
 	// fase 2 timers
 	coldMachine.chest.now_eye_time = SDL_GetTicks() - coldMachine.chest.start_eye_time;
 
 	// assign if we receive damage the desireds damage sprites
-	coldMachine.current_sprite_type = swapAnimType::NORMAL_ANIM; //DAMAGE_ANIM;
+	//coldMachine.current_sprite_type = swapAnimType::NORMAL_ANIM; //DAMAGE_ANIM;
 
 	// DRAW full chest static pieces --------
 	// static upper part chest
@@ -971,9 +1094,14 @@ void EnemyColdMachine::Draw()
 
 SDL_Rect& EnemyColdMachine::returnRect(Animation* anim)
 {
+
+	// update current frame
+	anim[coldMachine.current_sprite_type].current_frame = anim->current_frame;
+
 	// general stop animations
 	if (coldMachine.state != bossState::FASE1 && coldMachine.state != bossState::FASE2)
 	{
+
 		if (coldMachine.stopAnimations)
 		{
 			// set current frame to 0, protection
@@ -1078,7 +1206,10 @@ SDL_Rect& EnemyColdMachine::returnRect(Animation* anim)
 				
 		}
 		else
+		{
+			if (anim[coldMachine.current_sprite_type].current_frame != 0) anim[coldMachine.current_sprite_type].current_frame = 0;
 			return anim[coldMachine.current_sprite_type].frames[0];
+		}
 	}
 
 	// ARM SHOOTING, fase1
@@ -1167,7 +1298,10 @@ SDL_Rect& EnemyColdMachine::returnRect(Animation* anim)
 				}
 			}
 			else
+			{
+				if (anim[coldMachine.current_sprite_type].current_frame != 0) anim[coldMachine.current_sprite_type].current_frame = 0;
 				return anim[coldMachine.current_sprite_type].frames[0];
+			}
 		}
 
 		// blue shurikens

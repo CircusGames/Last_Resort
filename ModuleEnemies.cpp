@@ -22,6 +22,7 @@
 #include "EnemyBigDaddy.h"
 #include "EnemyColdMachine.h"
 #include "EnemyColdMachineBombardier.h"
+#include "EnemyShuriken.h"
 
 #include "ModulePowerUp.h"
 #include "ModuleAudio.h"
@@ -494,6 +495,9 @@ void ModuleEnemies::SpawnEnemy(EnemyInfo& info)
 		case ENEMY_TYPES::COLDMACHINEBOMBARDIER:
 			enemies[i] = new EnemyColdMachineBombardier(info.x, info.y, info.powerUpType, enemyColdMachineTexture);
 			break;
+		case ENEMY_TYPES::SHURIKEN:
+			enemies[i] = new EnemyShuriken(info.x, info.y, info.powerUpType, enemyColdMachineTexture);
+			break;
 		}
 	}
 }
@@ -514,8 +518,11 @@ void ModuleEnemies::OnCollision(Collider* c1, Collider* c2)
 		{
 			enemies[i]->OnCollision(c2, c1);
 
-			if(enemies[i]->enemyType != SUBMARINE && enemies[i]->enemyType != BIGDADDY)
- 				enemies[i]->life -= c2->damage; //particle damage
+			if (enemies[i]->enemyType != SUBMARINE && enemies[i]->enemyType != BIGDADDY && enemies[i]->enemyType != COLDMACHINE)
+			{
+				if (c2->type != COLLIDER_WALL)
+					enemies[i]->life -= c2->damage; //particle damage
+			}
 
 			if (c2->type == COLLIDER_PLAYER)
 				--enemies[i]->life; //by default, player collider substract 1 to enemy life
@@ -560,7 +567,7 @@ void ModuleEnemies::OnCollision(Collider* c1, Collider* c2)
 						App->playerUnit[1]->this_state = actualState::RETURN;
 				}*/
 
-				if(enemies[i]->enemyType != SUBMARINE && enemies[i]->enemyType != MINITANK)// && enemies[i]->enemyType != BIGDADDY)
+				if(enemies[i]->enemyType != SUBMARINE && enemies[i]->enemyType != MINITANK && enemies[i]->enemyType != COLDMACHINE)// && enemies[i]->enemyType != BIGDADDY)
 				enemies[i]->life -= c2->damage; //receive unit damage respect the actual unit damage (charged or not amount)
 			}
 			// second check if the readyToRumbe is false, and the unit needs to be returnted too
@@ -575,7 +582,7 @@ void ModuleEnemies::OnCollision(Collider* c1, Collider* c2)
 					App->playerUnit[1]->this_state = actualState::RETURN;
 			}
 
-			if (enemies[i]->enemyType == SUBMARINE || enemies[i]->enemyType == MINITANK)
+			if (enemies[i]->enemyType == SUBMARINE || enemies[i]->enemyType == MINITANK || enemies[i]->enemyType == COLDMACHINE)
 				enemies[i]->OnCollision(c2, c1);
 			
 			enemies[i]->OnCollisionUnit(c2, c1);

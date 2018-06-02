@@ -1148,7 +1148,7 @@ void ModuleSceneLvl1::spawnEnemies(int x, int y)
 		//for now calculated center position manually, until fix it (access to animation frame)
 		positionX -= 14 / 2;
 		positionY -= 7 / 2;
-		App->enemies->AddEnemy(ENEMY_TYPES::COLDMACHINEBOMBARDIER, positionX, positionY, NONE);
+		App->enemies->AddEnemy(ENEMY_TYPES::SHURIKEN, positionX, positionY, NONE);
 	}
 
 }
