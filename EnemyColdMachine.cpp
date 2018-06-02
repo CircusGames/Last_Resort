@@ -58,7 +58,7 @@ EnemyColdMachine::EnemyColdMachine(int x, int y, powerUpTypes type, SDL_Texture*
 	coldMachine.chest.chestCannonAnim[NORMAL_ANIM].PushBack({ 180,466,32,32 }); // max opened
 	coldMachine.chest.chestCannonAnim[NORMAL_ANIM].PushBack({ 147,466,32,32 });
 	coldMachine.chest.chestCannonAnim[NORMAL_ANIM].PushBack({ 114,466,32,32 });
-	coldMachine.chest.chestCannonAnim[NORMAL_ANIM].speed = 0.25f;
+	coldMachine.chest.chestCannonAnim[NORMAL_ANIM].speed = 0.125f;
 
 	coldMachine.chest.chestCannonAnim[DAMAGE_ANIM].PushBack({ 477,466,32,32 }); // max closed
 	coldMachine.chest.chestCannonAnim[DAMAGE_ANIM].PushBack({ 510,466,32,32 });
@@ -66,47 +66,63 @@ EnemyColdMachine::EnemyColdMachine(int x, int y, powerUpTypes type, SDL_Texture*
 	coldMachine.chest.chestCannonAnim[DAMAGE_ANIM].PushBack({ 576,466,32,32 }); // max opened
 	coldMachine.chest.chestCannonAnim[DAMAGE_ANIM].PushBack({ 543,466,32,32 });
 	coldMachine.chest.chestCannonAnim[DAMAGE_ANIM].PushBack({ 510,466,32,32 });
-	coldMachine.chest.chestCannonAnim[DAMAGE_ANIM].speed = 0.25f;
+	coldMachine.chest.chestCannonAnim[DAMAGE_ANIM].speed = 0.125f;
 	//  chest missile launcher
 	coldMachine.chest.shoulderLauncherAnim[NORMAL_ANIM].PushBack({ 114,418,32,32 }); // max closed
 	coldMachine.chest.shoulderLauncherAnim[NORMAL_ANIM].PushBack({ 147,418,32,32 });
 	coldMachine.chest.shoulderLauncherAnim[NORMAL_ANIM].PushBack({ 180,418,32,32 }); // max opened
 	coldMachine.chest.shoulderLauncherAnim[NORMAL_ANIM].PushBack({ 147,418,32,32 });
-	coldMachine.chest.shoulderLauncherAnim[NORMAL_ANIM].speed = 0.25f;
+	coldMachine.chest.shoulderLauncherAnim[NORMAL_ANIM].speed = 0.125f;
 
 	coldMachine.chest.shoulderLauncherAnim[DAMAGE_ANIM].PushBack({ 510,418,32,32 }); // max closed
 	coldMachine.chest.shoulderLauncherAnim[DAMAGE_ANIM].PushBack({ 543,418,32,32 });
 	coldMachine.chest.shoulderLauncherAnim[DAMAGE_ANIM].PushBack({ 576,418,32,32 }); // max opened
 	coldMachine.chest.shoulderLauncherAnim[DAMAGE_ANIM].PushBack({ 543,418,32,32 });
-	coldMachine.chest.shoulderLauncherAnim[DAMAGE_ANIM].speed = 0.25f;
+	coldMachine.chest.shoulderLauncherAnim[DAMAGE_ANIM].speed = 0.125f;
 	// dumb eye open and close cycle
 	coldMachine.chest.eyeAnim[NORMAL_ANIM].PushBack({ 81,370,32,32 }); // max closed
 	coldMachine.chest.eyeAnim[NORMAL_ANIM].PushBack({ 114,370,32,32 });
 	coldMachine.chest.eyeAnim[NORMAL_ANIM].PushBack({ 147,370,32,32 });
-	coldMachine.chest.eyeAnim[NORMAL_ANIM].PushBack({ 180,370,32,32 }); // max opened
+	for (uint i = 0; i < 4; ++i) // 32 frames opened
+	{
+		coldMachine.chest.eyeAnim[NORMAL_ANIM].PushBack({ 180,370,32,32 }); // max opened
+	}
 	coldMachine.chest.eyeAnim[NORMAL_ANIM].PushBack({ 147,370,32,32 });
 	coldMachine.chest.eyeAnim[NORMAL_ANIM].PushBack({ 114,370,32,32 });
-	coldMachine.chest.eyeAnim[NORMAL_ANIM].speed = 0.25f;
+	coldMachine.chest.eyeAnim[NORMAL_ANIM].speed = 0.125f;
+	coldMachine.chest.eyeAnim[NORMAL_ANIM].repeat = false;
 
 	coldMachine.chest.eyeAnim[DAMAGE_ANIM].PushBack({ 477,370,32,32 }); // max closed
 	coldMachine.chest.eyeAnim[DAMAGE_ANIM].PushBack({ 510,370,32,32 });
 	coldMachine.chest.eyeAnim[DAMAGE_ANIM].PushBack({ 543,370,32,32 });
-	coldMachine.chest.eyeAnim[DAMAGE_ANIM].PushBack({ 576,370,32,32 }); // max opened
+	for (uint i = 0; i < 4; i++)
+	{
+		coldMachine.chest.eyeAnim[DAMAGE_ANIM].PushBack({ 576,370,32,32 }); // max opened
+	}
 	coldMachine.chest.eyeAnim[DAMAGE_ANIM].PushBack({ 543,370,32,32 });
 	coldMachine.chest.eyeAnim[DAMAGE_ANIM].PushBack({ 510,370,32,32 });
-	coldMachine.chest.eyeAnim[DAMAGE_ANIM].speed = 0.25f;
+	coldMachine.chest.eyeAnim[DAMAGE_ANIM].speed = 0.125f;
+	coldMachine.chest.eyeAnim[DAMAGE_ANIM].repeat = false;
 	// back shuriken launcher
 	coldMachine.chest.shurikenLauncherAnim[NORMAL_ANIM].PushBack({ 303,333,48,28 }); // max closed
 	coldMachine.chest.shurikenLauncherAnim[NORMAL_ANIM].PushBack({ 358,333,48,28 });
-	coldMachine.chest.shurikenLauncherAnim[NORMAL_ANIM].PushBack({ 410,333,48,28 }); // max opened
+	for (uint i = 0; i < 10; i++)
+		coldMachine.chest.shurikenLauncherAnim[NORMAL_ANIM].PushBack({ 410,333,48,28 }); 
+	coldMachine.chest.shurikenLauncherAnim[NORMAL_ANIM].PushBack({ 462,333,48,28 });// max opened // 84 frames
+
 	coldMachine.chest.shurikenLauncherAnim[NORMAL_ANIM].PushBack({ 358,333,48,28 });
-	coldMachine.chest.shurikenLauncherAnim[NORMAL_ANIM].speed = 0.25f;
+	coldMachine.chest.shurikenLauncherAnim[NORMAL_ANIM].speed = 0.125f;
+	coldMachine.chest.shurikenLauncherAnim[NORMAL_ANIM].repeat = false;
 	
 	coldMachine.chest.shurikenLauncherAnim[DAMAGE_ANIM].PushBack({ 699,333,48,28 }); // max closed
 	coldMachine.chest.shurikenLauncherAnim[DAMAGE_ANIM].PushBack({ 754,333,48,28 });
-	coldMachine.chest.shurikenLauncherAnim[DAMAGE_ANIM].PushBack({ 806,333,48,28 }); // max opened
+	for (uint i = 0; i < 10; i++)
+		coldMachine.chest.shurikenLauncherAnim[DAMAGE_ANIM].PushBack({ 806,333,48,28 }); 
+	coldMachine.chest.shurikenLauncherAnim[DAMAGE_ANIM].PushBack({ 462,333,48,28 }); // max opened // 84 frames NORMAL SPRITE,DAMAGE NOT PRESENT
+
 	coldMachine.chest.shurikenLauncherAnim[DAMAGE_ANIM].PushBack({ 754,333,48,28 });
-	coldMachine.chest.shurikenLauncherAnim[DAMAGE_ANIM].speed = 0.25f;
+	coldMachine.chest.shurikenLauncherAnim[DAMAGE_ANIM].speed = 0.125f;
+	coldMachine.chest.shurikenLauncherAnim[DAMAGE_ANIM].repeat = false;
 
 	// ------------------------------------------------------------------------------------
 	// LEG animations
@@ -308,6 +324,7 @@ void EnemyColdMachine::Move()
 		break;
 	case bossState::FASE2:
 		fase2MovementLogic();
+		fase2AttackManager();
 		//position.y = fposition.y;
 		break;
 	}
@@ -332,6 +349,31 @@ void EnemyColdMachine::Move()
 		}
 	}
 	
+
+}
+
+void EnemyColdMachine::fase2AttackManager()
+{
+
+	// shurikens attack logic
+
+	// checks shuriken timer
+	if (coldMachine.leftCorner) //&& coldMachine.moveToLeft) //while on left corner
+	{
+		coldMachine.chest.now_shuriken_time = SDL_GetTicks() - coldMachine.chest.start_shuriken_time;
+		if (coldMachine.chest.now_shuriken_time > coldMachine.chest.shuriken_cadenece_time)
+		{
+			LOG("Left corner reached and countdown is over: THROWING shuriken");
+			// start shuriken timer and activate shuriken mode
+			coldMachine.chest.start_shuriken_time = SDL_GetTicks();
+			coldMachine.chest.throwShuriken = true;
+			// resets animation data
+			coldMachine.chest.shurikenLauncherAnim[coldMachine.current_sprite_type].current_frame = 0;
+			coldMachine.chest.shurikenLauncherAnim[coldMachine.current_sprite_type].finish = false;
+		}
+	}
+
+
 
 }
 
@@ -415,6 +457,8 @@ void EnemyColdMachine::fase2MovementLogic()
 			if (!coldMachine.move)
 				coldMachine.move = true;
 
+			if (coldMachine.leftCorner) coldMachine.leftCorner = false; // only shurikens fase
+			
 		}
 	}
 	
@@ -453,6 +497,8 @@ void EnemyColdMachine::F1ToF2Transition()
 		coldMachine.legs.destroyed = true;
 		// start new fase timer
 		coldMachine.start_cycle_time = SDL_GetTicks();
+		// start eye blink timer
+		coldMachine.chest.start_eye_time = SDL_GetTicks();
 
 		// store chest position y to sinusoidal fixed y
 		//position.y = coldMachine.chest.chestPiece.position.y - 237;
@@ -612,6 +658,9 @@ void EnemyColdMachine::Draw()
 	coldMachine.legs.now_kneeBeam_time = SDL_GetTicks() - coldMachine.legs.start_kneeBeam_time;
 	coldMachine.legs.now_armShooting_time = SDL_GetTicks() - coldMachine.legs.start_armShooting_time;
 
+	// fase 2 timers
+	coldMachine.chest.now_eye_time = SDL_GetTicks() - coldMachine.chest.start_eye_time;
+
 	// assign if we receive damage the desireds damage sprites
 	coldMachine.current_sprite_type = swapAnimType::NORMAL_ANIM; //DAMAGE_ANIM;
 
@@ -707,6 +756,21 @@ void EnemyColdMachine::Draw()
 	// ----------------------------------------------------------------------------------------------------------------------------------------
 	}
 	// UPPER FASE ANIMATIONS, chest
+	// chest cannon
+	App->render->Blit(enemyTex, position.x + coldMachine.chest.chestPiece.position.x - 5,
+		position.y + coldMachine.chest.chestPiece.position.y + 105 , &returnRect(coldMachine.chest.chestCannonAnim));
+	
+	// dumb eye
+	App->render->Blit(enemyTex, position.x + coldMachine.chest.chestPiece.position.x + 11,
+		position.y + coldMachine.chest.chestPiece.position.y + 9, &returnRect(coldMachine.chest.eyeAnim));
+
+	// shurikens launcher
+	App->render->Blit(enemyTex, position.x + coldMachine.chest.chestPiece.position.x + 91,
+		position.y + coldMachine.chest.chestPiece.position.y - 3, &returnRect(coldMachine.chest.shurikenLauncherAnim));
+
+
+
+
 
 
 }
@@ -867,7 +931,52 @@ SDL_Rect& EnemyColdMachine::returnRect(Animation* anim)
 		else
 			return anim[coldMachine.current_sprite_type].frames[0];
 	}
+
+	// fase 2 return animation logic
 	
+		// chest cannon
+		if (anim == coldMachine.chest.chestCannonAnim)
+		{
+			return anim[coldMachine.current_sprite_type].GetCurrentFrame();
+		}
+
+		// eye anim
+
+		if (coldMachine.state == bossState::FASE2 && anim == coldMachine.chest.eyeAnim)
+		{
+			if (coldMachine.chest.now_eye_time > coldMachine.chest.time_between_eye)
+			{
+				if (anim == coldMachine.chest.eyeAnim)
+				{
+
+					if (anim[coldMachine.current_sprite_type].finish)
+					{
+						// resets animation data
+						anim[coldMachine.current_sprite_type].current_frame = 0;
+						anim[coldMachine.current_sprite_type].finish = false;
+						// start timer for next animation loop
+						coldMachine.chest.start_eye_time = SDL_GetTicks();
+
+						return anim[coldMachine.current_sprite_type].frames[0];
+					}
+					return anim[coldMachine.current_sprite_type].GetCurrentFrame();
+				}
+			}
+			else
+				return anim[coldMachine.current_sprite_type].frames[0];
+		}
+
+		// blue shurikens
+
+		if (coldMachine.state == bossState::FASE2 && anim == coldMachine.chest.shurikenLauncherAnim)
+		{
+			if (coldMachine.chest.throwShuriken)
+			{
+				return anim[coldMachine.current_sprite_type].GetCurrentFrame();
+			}
+			else
+				return anim[coldMachine.current_sprite_type].frames[0];
+		}
 
 
 }

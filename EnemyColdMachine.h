@@ -17,7 +17,8 @@ private:
 		FIRSTCONTACT, // inmediately afet landing
 		FASE1,
 		F1TOF2,
-		FASE2
+		FASE2,
+		TOEXPLODE
 	};
 	
 	enum swapAnimType
@@ -52,10 +53,20 @@ private:
 		// timers
 		Uint32 upper_fase_time = 20000; // total time lasts the upper part boss fase
 		Uint32 now_upper_fase_time;
+		// eye timers
+		Uint32 start_eye_time;
+		Uint32 now_eye_time;
+		Uint32 time_between_eye = 2500;
 		// -----------------------
+		Uint32 start_shuriken_time;
+		Uint32 now_shuriken_time;
+		Uint32 shuriken_cadenece_time = 1000;
 
 		bool destroyed = false;
 		int life = 70;
+
+		//
+		bool throwShuriken = false;
 
 	};
 
@@ -170,7 +181,7 @@ private:
 		// fase 2 timers
 		Uint32 start_corner_time;
 		Uint32 now_corner_time;
-		Uint32 total_corner_time = 2000;
+		Uint32 total_corner_time = 5000;
 		bool leftCorner = false;
 		bool rightCorner = false;
 		bool moveToLeft = true;
@@ -233,11 +244,13 @@ public:
 	void addBossParticles();
 	void F1ToF2Transition();
 	void updateOriginalPositions();
-	void fase2MovementLogic();
 
 	// FASE1 functions
 	void missilesLogic();
 	void kneeBeamLogic();
+	// FASE2 functions
+	void fase2MovementLogic();
+	void fase2AttackManager();
 
 	boss coldMachine;
 
