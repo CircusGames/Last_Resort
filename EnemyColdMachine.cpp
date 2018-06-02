@@ -427,6 +427,30 @@ void EnemyColdMachine::fase2AttackManager()
 			{
 				LOG("INSTANTIATING GLASS");
 				coldMachine.chest.instantiatedGlass = true;
+				// instantiate particles
+				// glass shot particle
+				App->particles->AddParticle(App->enemies->glassShoot, position.x + coldMachine.chest.chestPiece.position.x,
+					                                                  position.y + coldMachine.chest.chestPiece.position.y + 120,
+					COLLIDER_ENEMY_SHOT, {-2,0});
+				// glass shot effect
+				App->particles->AddParticle(App->enemies->glassShootEffect, position.x + coldMachine.chest.chestPiece.position.x - 25,
+					position.y + coldMachine.chest.chestPiece.position.y + 114,
+					COLLIDER_NONE, { scrollSpeed,0 });
+				// glass rotary trails upwards static
+				App->particles->AddParticle(App->enemies->glassRotary, position.x + coldMachine.chest.chestPiece.position.x - 40,
+					position.y + coldMachine.chest.chestPiece.position.y + 120,
+					COLLIDER_NONE, { scrollSpeed,0 }, 250);
+				App->particles->AddParticle(App->enemies->glassRotary, position.x + coldMachine.chest.chestPiece.position.x - 75,
+					position.y + coldMachine.chest.chestPiece.position.y + 120,
+					COLLIDER_NONE, { scrollSpeed,0 }, 450);
+				App->particles->AddParticle(App->enemies->glassRotary, position.x + coldMachine.chest.chestPiece.position.x - 110,
+					position.y + coldMachine.chest.chestPiece.position.y + 120,
+					COLLIDER_NONE, { scrollSpeed,0 }, 850);
+				App->particles->AddParticle(App->enemies->glassRotary, position.x + coldMachine.chest.chestPiece.position.x - 144,
+					position.y + coldMachine.chest.chestPiece.position.y + 120,
+					COLLIDER_NONE, { scrollSpeed,0 }, 1050);
+
+
 			}
 		}
 	}

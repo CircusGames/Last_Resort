@@ -112,7 +112,7 @@ ModuleEnemies::ModuleEnemies()
 	diverBeamLeft.damage = diverBeamRight.damage = 1;
 	diverBeamLeft.damage = diverBeamRight.damage = 1500;
 
-	// COLD MACHINE, BOSS LEVEL 3 needed particles
+	// COLD MACHINE, BOSS LEVEL 3 needed particles -----------------------------------------------------------
 	// foot "explosion" when landing
 	coldMachineFootFire.anim.PushBack({ 223,314,32,18 });
 	coldMachineFootFire.life = 200;
@@ -185,8 +185,46 @@ ModuleEnemies::ModuleEnemies()
 	bombardierBombWallImpact.anim.speed = 0.25f;
 	bombardierBombWallImpact.anim.repeat = false;
 	bombardierBombWallImpact.fx = "rocketExplosion";
-	//bombardierBombWallImpact.impactPosition = { 0,-80 };
+	
+	// FASE2 particles
+	// glass shot bullet
+	glassShoot.anim.PushBack({ 634,570,48,11 });
+	glassShoot.anim.PushBack({ 686,570,24,11 });
+	glassShoot.anim.speed = 0.25f;
+	// glass shot effect
+	glassShootEffect.anim.PushBack({ 832,144,30,16 });
+	glassShootEffect.anim.PushBack({ 864,144,30,16 });
+	glassShootEffect.anim.PushBack({ 895,144,30,16 });
+	glassShootEffect.anim.PushBack({ 924,144,30,16 });
+	glassShootEffect.anim.speed = 0.25f;
+	glassShootEffect.anim.repeat = false;
+	// glass rotaty balls
+	glassRotary.anim.PushBack({ 718,570,16,16 });
+	glassRotary.anim.PushBack({ 731,570,16,16 });
+	glassRotary.anim.PushBack({ 746,570,16,16 });
+	glassRotary.anim.PushBack({ 764,570,16,16 });
+	glassRotary.anim.PushBack({ 784,570,16,16 });
+	glassRotary.anim.PushBack({ 804,570,16,16 });
+	glassRotary.anim.PushBack({ 824,570,16,16 });
+	glassRotary.anim.PushBack({ 843,570,16,16 });
+	glassRotary.anim.PushBack({ 860,570,16,16 });
+	glassRotary.anim.PushBack({ 875,570,16,16 });
+	glassRotary.anim.PushBack({ 888,570,16,16 });
+	glassRotary.anim.PushBack({ 900,570,16,16 });
+	glassRotary.anim.PushBack({ 912,570,16,16 });
+	glassRotary.anim.PushBack({ 926,570,16,16 });
+	glassRotary.anim.PushBack({ 945,570,5,23 });
+	glassRotary.anim.speed = 0.25f;
+	glassRotary.anim.repeat = false;
+	// glass upwards death particle
+	glassUpwardsShoot.anim.PushBack({ 954,570,5,9 });
+	glassUpwardsShoot.anim.PushBack({ 963,570,5,22 });
+	glassUpwardsShoot.anim.speed = 0.125f;
+	glassUpwardsShoot.speed = { 1,-2 };
+	glassUpwardsShoot.life = 2000;
+	
 
+	// --------------------------------------------------------------------------------------------------------
 }
 
 // Destructor
@@ -244,6 +282,12 @@ bool ModuleEnemies::Start()
 	bombardierBomb.onCollisionGeneralParticle = &homingExplosion;
 	bombardierBombWallImpact.texture = enemyColdMachineTexture;
 	coldMachineArmShootSmoke.texture = enemyColdMachineTexture;
+	// fase2 boss3
+	glassShoot.texture = enemyColdMachineTexture;
+	glassShootEffect.texture = enemyColdMachineTexture;
+	glassRotary.texture = enemyColdMachineTexture;
+	glassUpwardsShoot.texture = enemyColdMachineTexture;
+	glassRotary.deathParticle = &glassUpwardsShoot;
 	// -------------------------------------------------------------------------------------
 	// AUDIO FX ----------------------------------------------------------------------------
 	App->audio->LoadAudio("assets/Audio/SFX/enemies/Enemy_Explosion.wav", "EnemyDeath", SFX);

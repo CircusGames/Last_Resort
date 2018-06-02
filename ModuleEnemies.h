@@ -111,6 +111,12 @@ public:
 	Particle bombardierBomb;
 	Particle bombardierBombGenImpact;
 	Particle bombardierBombWallImpact;
+	// fase 2 particles ------------------
+	// glass canonn relatives
+	Particle glassShoot;
+	Particle glassRotary;
+	Particle glassUpwardsShoot;
+	Particle glassShootEffect;
 
 
 private:

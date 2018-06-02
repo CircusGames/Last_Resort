@@ -35,6 +35,7 @@ struct Particle
 	// variables to instantiate collision particle
 	Particle* onCollisionWallParticle = nullptr;
 	Particle* onCollisionGeneralParticle = nullptr;
+	Particle* deathParticle = nullptr;
 
 };
 

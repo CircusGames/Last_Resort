@@ -185,6 +185,10 @@ update_status ModuleParticles::Update()
 		if (p->Update() == false)
 		{
 			//p->texture = nullptr;
+			if (active[i]->deathParticle != nullptr)
+				AddParticle(*active[i]->deathParticle, active[i]->position.x, //+ active[i]->impactPosition.x,
+					active[i]->position.y , COLLIDER_ENEMY_SHOT);
+
 			delete p;
 			active[i] = nullptr;
 			
@@ -281,7 +285,7 @@ Particle::Particle()
 Particle::Particle(const Particle& p) :
 	anim(p.anim), position(p.position), speed(p.speed), fx(p.fx), born(p.born), life(p.life),texture(p.texture),
 	damage(p.damage), onCollisionGeneralParticle(p.onCollisionGeneralParticle), onCollisionWallParticle(p.onCollisionWallParticle),
-	impactPosition(p.impactPosition)
+	impactPosition(p.impactPosition), deathParticle(p.deathParticle)
 {}
 
 Particle::~Particle()
