@@ -111,6 +111,7 @@ EnemyColdMachine::EnemyColdMachine(int x, int y, powerUpTypes type, SDL_Texture*
 	coldMachine.chest.shurikenLauncherAnim[NORMAL_ANIM].PushBack({ 462,333,48,28 });// max opened // 84 frames
 
 	coldMachine.chest.shurikenLauncherAnim[NORMAL_ANIM].PushBack({ 358,333,48,28 });
+	coldMachine.chest.shurikenLauncherAnim[NORMAL_ANIM].PushBack({ 303,333,48,28 }); // max closed
 	coldMachine.chest.shurikenLauncherAnim[NORMAL_ANIM].speed = 0.125f;
 	coldMachine.chest.shurikenLauncherAnim[NORMAL_ANIM].repeat = false;
 	
@@ -121,6 +122,7 @@ EnemyColdMachine::EnemyColdMachine(int x, int y, powerUpTypes type, SDL_Texture*
 	coldMachine.chest.shurikenLauncherAnim[DAMAGE_ANIM].PushBack({ 462,333,48,28 }); // max opened // 84 frames NORMAL SPRITE,DAMAGE NOT PRESENT
 
 	coldMachine.chest.shurikenLauncherAnim[DAMAGE_ANIM].PushBack({ 754,333,48,28 });
+	coldMachine.chest.shurikenLauncherAnim[DAMAGE_ANIM].PushBack({ 699,333,48,28 }); // max closed
 	coldMachine.chest.shurikenLauncherAnim[DAMAGE_ANIM].speed = 0.125f;
 	coldMachine.chest.shurikenLauncherAnim[DAMAGE_ANIM].repeat = false;
 
