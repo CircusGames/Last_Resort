@@ -55,18 +55,24 @@ EnemyColdMachine::EnemyColdMachine(int x, int y, powerUpTypes type, SDL_Texture*
 	coldMachine.chest.chestCannonAnim[NORMAL_ANIM].PushBack({ 81,466,32,32 }); // max closed
 	coldMachine.chest.chestCannonAnim[NORMAL_ANIM].PushBack({ 114,466,32,32 });
 	coldMachine.chest.chestCannonAnim[NORMAL_ANIM].PushBack({ 147,466,32,32 });
-	coldMachine.chest.chestCannonAnim[NORMAL_ANIM].PushBack({ 180,466,32,32 }); // max opened
+	for (uint i = 0; i < 4; i++)
+		coldMachine.chest.chestCannonAnim[NORMAL_ANIM].PushBack({ 180,466,32,32 }); // max opened 24 frames
 	coldMachine.chest.chestCannonAnim[NORMAL_ANIM].PushBack({ 147,466,32,32 });
 	coldMachine.chest.chestCannonAnim[NORMAL_ANIM].PushBack({ 114,466,32,32 });
+	coldMachine.chest.chestCannonAnim[NORMAL_ANIM].PushBack({ 81,466,32,32 }); // max closed
 	coldMachine.chest.chestCannonAnim[NORMAL_ANIM].speed = 0.125f;
+	coldMachine.chest.chestCannonAnim[NORMAL_ANIM].repeat = false;
 
 	coldMachine.chest.chestCannonAnim[DAMAGE_ANIM].PushBack({ 477,466,32,32 }); // max closed
 	coldMachine.chest.chestCannonAnim[DAMAGE_ANIM].PushBack({ 510,466,32,32 });
 	coldMachine.chest.chestCannonAnim[DAMAGE_ANIM].PushBack({ 543,466,32,32 });
-	coldMachine.chest.chestCannonAnim[DAMAGE_ANIM].PushBack({ 576,466,32,32 }); // max opened
+	for (uint i = 0; i < 4; i++)
+		coldMachine.chest.chestCannonAnim[DAMAGE_ANIM].PushBack({ 576,466,32,32 }); // max opened
 	coldMachine.chest.chestCannonAnim[DAMAGE_ANIM].PushBack({ 543,466,32,32 });
 	coldMachine.chest.chestCannonAnim[DAMAGE_ANIM].PushBack({ 510,466,32,32 });
+	coldMachine.chest.chestCannonAnim[DAMAGE_ANIM].PushBack({ 477,466,32,32 }); // max closed
 	coldMachine.chest.chestCannonAnim[DAMAGE_ANIM].speed = 0.125f;
+	coldMachine.chest.chestCannonAnim[NORMAL_ANIM].repeat = false;
 	//  chest missile launcher
 	coldMachine.chest.shoulderLauncherAnim[NORMAL_ANIM].PushBack({ 114,418,32,32 }); // max closed
 	coldMachine.chest.shoulderLauncherAnim[NORMAL_ANIM].PushBack({ 147,418,32,32 });
@@ -361,7 +367,7 @@ void EnemyColdMachine::fase2AttackManager()
 
 	// shurikens attack logic
 
-	// checks shuriken timer
+	// checks shuriken timer, !SHURIKEN CONDITION HAPPENS when ColdEnemy its ONLY on left corner!
 	if (coldMachine.leftCorner) //&& coldMachine.moveToLeft) //while on left corner
 	{
 		coldMachine.chest.now_shuriken_time = SDL_GetTicks() - coldMachine.chest.start_shuriken_time;
@@ -386,7 +392,7 @@ void EnemyColdMachine::fase2AttackManager()
 				coldMachine.chest.numShurikens++;
 				LOG("SHURIKEN %d", coldMachine.chest.numShurikens);
 
-				if (coldMachine.chest.numShurikens > 3) // max 3 shurikens per wave
+				if (coldMachine.chest.numShurikens > 2) // max 3 shurikens per wave
 				{
 					coldMachine.chest.start_shuriken_time = SDL_GetTicks();
 					coldMachine.chest.throwShuriken = false;
@@ -395,6 +401,47 @@ void EnemyColdMachine::fase2AttackManager()
 			}
 		}
 
+	}
+
+	if (!coldMachine.leftCorner && !coldMachine.move)
+	{
+		if (!coldMachine.chest.throwGlassCannon)
+		{
+			// update start time for glass cannon
+			coldMachine.chest.start_glass_cannon_time = SDL_GetTicks();
+			// update condition
+			coldMachine.chest.throwGlassCannon = true;
+
+		}
+		else
+		{
+			coldMachine.chest.now_glass_cannon_time = SDL_GetTicks() - coldMachine.chest.start_glass_cannon_time;
+			if (coldMachine.chest.now_glass_cannon_time > coldMachine.chest.time_waiting_for_glass && !coldMachine.chest.shootedGlass)
+			{
+				LOG("Opening GLASS CANNON gate");
+				coldMachine.chest.shootedGlass = true;
+			}
+			// checks animation data to instantiate the shoot on correct frame
+			if ((int)coldMachine.chest.chestCannonAnim[coldMachine.current_sprite_type].current_frame == 3 && 
+				!coldMachine.chest.instantiatedGlass)
+			{
+				LOG("INSTANTIATING GLASS");
+				coldMachine.chest.instantiatedGlass = true;
+			}
+		}
+	}
+	else
+	{
+		// resets condition
+		if (coldMachine.chest.instantiatedGlass)
+		{
+			coldMachine.chest.throwGlassCannon = false;
+			coldMachine.chest.shootedGlass = false;
+			coldMachine.chest.instantiatedGlass = false;
+			// resets animation data
+			coldMachine.chest.chestCannonAnim[coldMachine.current_sprite_type].current_frame = 0;
+			coldMachine.chest.chestCannonAnim[coldMachine.current_sprite_type].finish = false;
+		}
 	}
 
 	
@@ -961,9 +1008,16 @@ SDL_Rect& EnemyColdMachine::returnRect(Animation* anim)
 	// fase 2 return animation logic
 	
 		// chest cannon
-		if (anim == coldMachine.chest.chestCannonAnim)
+		if (coldMachine.state == bossState::FASE2 && anim == coldMachine.chest.chestCannonAnim)
 		{
-			return anim[coldMachine.current_sprite_type].GetCurrentFrame();
+			if (coldMachine.chest.shootedGlass)
+			{
+				return anim[coldMachine.current_sprite_type].GetCurrentFrame();
+			}
+			else
+			{
+				return anim[coldMachine.current_sprite_type].frames[0];
+			}
 		}
 
 		// eye anim
@@ -1008,6 +1062,9 @@ SDL_Rect& EnemyColdMachine::returnRect(Animation* anim)
 					return anim[coldMachine.current_sprite_type].frames[0];
 			}
 		}
+
+
+
 
 
 }

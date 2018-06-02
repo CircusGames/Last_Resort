@@ -61,14 +61,21 @@ private:
 		Uint32 start_shuriken_time;
 		Uint32 now_shuriken_time;
 		Uint32 shuriken_cadenece_time = 500;
-		Uint32 shuriken_waves_time = 1000;
+		Uint32 shuriken_waves_time = 2000;
 		int numShurikens = 0;
+		// -----------------------
+		Uint32 start_glass_cannon_time;
+		Uint32 now_glass_cannon_time;
+		Uint32 time_waiting_for_glass = 2000;
 
 		bool destroyed = false;
 		int life = 70;
 
 		//
 		bool throwShuriken = false;
+		bool throwGlassCannon = false;
+		bool shootedGlass = false;
+		bool instantiatedGlass = false;
 
 	};
 
