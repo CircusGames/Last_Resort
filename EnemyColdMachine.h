@@ -130,6 +130,7 @@ private:
 		iPoint missileCanyonsPos[4] = { { -22, 52},{ -12, 52 },{ -22, 60 },{ -12, 60 } };
 
 		bool destroyed = false;
+		bool destroyedHip = false; // for f1 to f2 transition
 		int life = 70;
 
 	};
@@ -165,7 +166,7 @@ private:
 		Uint32 now_cycle_time;
 		Uint32 total_enemy_time;
 		Uint32 total_firstContact_time = 1500;
-		Uint32 fase1_total_time = 2000;//30000;
+		Uint32 fase1_total_time = 30000;//2000;//30000;
 		// general damage timers (all parts)
 		Uint32 start_damage_time;
 		Uint32 now_damage_time;
@@ -183,6 +184,9 @@ private:
 		float xSpeed = 0.0f;
 		
 		shipBombs bombardier;
+
+		iPoint f1Tof1ParticlePoints[6] = { { 20,160 },{ 30,170 },{ 50,160 },{ 20,200 },{ 36,186 },{ 60,194 } }; // 10
+		int f1Tof1ParticlesDelay[6] = { 0,250,0,20,0,0};// 16
 		
 	};
 
