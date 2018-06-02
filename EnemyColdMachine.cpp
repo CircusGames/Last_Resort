@@ -446,7 +446,7 @@ void EnemyColdMachine::fase2AttackManager()
 				App->particles->AddParticle(App->enemies->glassRotary, position.x + coldMachine.chest.chestPiece.position.x - 110,
 					position.y + coldMachine.chest.chestPiece.position.y + 120,
 					COLLIDER_NONE, { scrollSpeed,0 }, 850);
-				App->particles->AddParticle(App->enemies->glassRotary, position.x + coldMachine.chest.chestPiece.position.x - 144,
+				App->particles->AddParticle(App->enemies->glassRotary, position.x + coldMachine.chest.chestPiece.position.x - 145,
 					position.y + coldMachine.chest.chestPiece.position.y + 120,
 					COLLIDER_NONE, { scrollSpeed,0 }, 1050);
 
