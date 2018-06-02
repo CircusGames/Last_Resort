@@ -53,13 +53,14 @@ bool ModuleUI::CleanUp()
 
 update_status ModuleUI::Update()
 {
-	unit1Pow = 6*App->playerUnit[0]->charge;
-	
-	if (unit1Pow > 10)
+	unit1Pow = 6.4*App->playerUnit[0]->charge;
+
+	if(unit1Pow>64)
 		powBarRect = { 96,16,64, 3 };
 	else
-		powBarRect = { 96,16,6 * unit1Pow, 3 };
-		
+		powBarRect = { 96,16,unit1Pow, 3 };
+	
+	
 	//compute the score //provisional...
 	App->winScreen->saveScore(score);
 
