@@ -71,6 +71,8 @@ private:
 		bool destroyed = false;
 		int life = 70;
 
+		iPoint missileCanyonsPos[4] = { { 36, 78 },{ 36, 72},{ 42, 64 },{ 42, 56 } };
+
 		//
 		bool throwShuriken = false;
 		bool throwGlassCannon = false;
@@ -186,7 +188,7 @@ private:
 		Uint32 now_cycle_time;
 		Uint32 total_enemy_time;
 		Uint32 total_firstContact_time = 1500;
-		Uint32 fase1_total_time = 2000;//30000;
+		Uint32 fase1_total_time = 5000; //2000;//30000;
 		// fase 2 timers
 		Uint32 start_corner_time;
 		Uint32 now_corner_time;
@@ -194,7 +196,7 @@ private:
 		bool leftCorner = false;
 		bool rightCorner = false;
 		bool moveToLeft = true;
-		bool move = true; // cold machine falls and direct left move
+		bool move = false;// true; // cold machine falls and direct left move
 		//bool
 		// general damage timers (all parts)
 		Uint32 start_damage_time;

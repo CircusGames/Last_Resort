@@ -76,15 +76,22 @@ EnemyColdMachine::EnemyColdMachine(int x, int y, powerUpTypes type, SDL_Texture*
 	//  chest missile launcher
 	coldMachine.chest.shoulderLauncherAnim[NORMAL_ANIM].PushBack({ 114,418,32,32 }); // max closed
 	coldMachine.chest.shoulderLauncherAnim[NORMAL_ANIM].PushBack({ 147,418,32,32 });
+
+	coldMachine.chest.shoulderLauncherAnim[NORMAL_ANIM].PushBack({ 180,418,32,32 }); // max opened
 	coldMachine.chest.shoulderLauncherAnim[NORMAL_ANIM].PushBack({ 180,418,32,32 }); // max opened
 	coldMachine.chest.shoulderLauncherAnim[NORMAL_ANIM].PushBack({ 147,418,32,32 });
+	coldMachine.chest.shoulderLauncherAnim[NORMAL_ANIM].PushBack({ 114,418,32,32 }); // max closed
 	coldMachine.chest.shoulderLauncherAnim[NORMAL_ANIM].speed = 0.125f;
+	coldMachine.chest.shoulderLauncherAnim[NORMAL_ANIM].repeat = false;
 
 	coldMachine.chest.shoulderLauncherAnim[DAMAGE_ANIM].PushBack({ 510,418,32,32 }); // max closed
 	coldMachine.chest.shoulderLauncherAnim[DAMAGE_ANIM].PushBack({ 543,418,32,32 });
 	coldMachine.chest.shoulderLauncherAnim[DAMAGE_ANIM].PushBack({ 576,418,32,32 }); // max opened
+	coldMachine.chest.shoulderLauncherAnim[DAMAGE_ANIM].PushBack({ 576,418,32,32 }); // max opened
 	coldMachine.chest.shoulderLauncherAnim[DAMAGE_ANIM].PushBack({ 543,418,32,32 });
+	coldMachine.chest.shoulderLauncherAnim[DAMAGE_ANIM].PushBack({ 510,418,32,32 }); // max closed
 	coldMachine.chest.shoulderLauncherAnim[DAMAGE_ANIM].speed = 0.125f;
+	coldMachine.chest.shoulderLauncherAnim[DAMAGE_ANIM].repeat = false;
 	// dumb eye open and close cycle
 	coldMachine.chest.eyeAnim[NORMAL_ANIM].PushBack({ 81,370,32,32 }); // max closed
 	coldMachine.chest.eyeAnim[NORMAL_ANIM].PushBack({ 114,370,32,32 });
@@ -335,6 +342,16 @@ void EnemyColdMachine::Move()
 	case bossState::FASE2:
 		fase2MovementLogic();
 		fase2AttackManager();
+		if (coldMachine.legs.throwMissiles && !coldMachine.leftCorner && !coldMachine.move) 
+			missilesLogic(); // trick
+		else
+		{
+			if (coldMachine.legs.throwMissiles)
+			{
+				//coldMachine.legs.throwMissiles = false;
+				
+			}
+		}
 		//position.y = fposition.y;
 		break;
 	}
@@ -356,6 +373,17 @@ void EnemyColdMachine::Move()
 			addBossParticles();
 			// deactivate visible hip
 			coldMachine.legs.destroyedHip = true;
+			coldMachine.move = true;
+			// resets missile function data
+			coldMachine.legs.missilesWaveCount = 0;
+			coldMachine.legs.missilesCount = 0;
+			coldMachine.legs.shootedMissile = false;
+			// shutdown missiles throwing
+			coldMachine.legs.throwMissiles = false;
+			// resets timers
+			coldMachine.legs.start_missiles_time = SDL_GetTicks();
+			coldMachine.legs.start_launch_time = SDL_GetTicks();
+			
 		}
 	}
 	
@@ -650,16 +678,34 @@ void EnemyColdMachine::missilesLogic()
 		// instantiate the missile
 		LOG("Missile %d instantiated", coldMachine.legs.missilesCount);
 		// instantiate missile
-		App->enemies->AddEnemy(HOMINGMISSILE, position.x + coldMachine.legs.lowerLegPiece.position.x + 
-														   coldMachine.legs.missileCanyonsPos[coldMachine.legs.missilesCount - 1].x,	
-											  position.y + coldMachine.legs.lowerLegPiece.position.y +
-												           coldMachine.legs.missileCanyonsPos[coldMachine.legs.missilesCount - 1].y, NONE);
-		// instantiate missile flash
-		App->particles->AddParticle(App->enemies->coldMachineLegMissileFlash, position.x + coldMachine.legs.lowerLegPiece.position.x +
-			coldMachine.legs.missileCanyonsPos[coldMachine.legs.missilesCount - 1].x,
-			position.y - 3 + coldMachine.legs.lowerLegPiece.position.y +
-			coldMachine.legs.missileCanyonsPos[coldMachine.legs.missilesCount - 1].y,
-			COLLIDER_NONE, { scrollSpeed,0 }, 0);
+		// FASE 1 logic
+		if (coldMachine.state == bossState::FASE1)
+		{
+			App->enemies->AddEnemy(HOMINGMISSILE, position.x + coldMachine.legs.lowerLegPiece.position.x +
+				coldMachine.legs.missileCanyonsPos[coldMachine.legs.missilesCount - 1].x,
+				position.y + coldMachine.legs.lowerLegPiece.position.y +
+				coldMachine.legs.missileCanyonsPos[coldMachine.legs.missilesCount - 1].y, NONE);
+			// instantiate missile flash
+			App->particles->AddParticle(App->enemies->coldMachineLegMissileFlash, position.x + coldMachine.legs.lowerLegPiece.position.x +
+				coldMachine.legs.missileCanyonsPos[coldMachine.legs.missilesCount - 1].x,
+				position.y - 3 + coldMachine.legs.lowerLegPiece.position.y +
+				coldMachine.legs.missileCanyonsPos[coldMachine.legs.missilesCount - 1].y,
+				COLLIDER_NONE, { scrollSpeed,0 }, 0);
+		}
+		else
+		{
+			App->enemies->AddEnemy(HOMINGMISSILE, position.x + coldMachine.chest.chestPiece.position.x +
+				coldMachine.chest.missileCanyonsPos[coldMachine.legs.missilesCount - 1].x,
+				position.y + coldMachine.chest.chestPiece.position.y +
+				coldMachine.chest.missileCanyonsPos[coldMachine.legs.missilesCount - 1].y, NONE);
+			// instantiate missile flash
+			App->particles->AddParticle(App->enemies->coldMachineLegMissileFlash, position.x + coldMachine.chest.chestPiece.position.x +
+				coldMachine.chest.missileCanyonsPos[coldMachine.legs.missilesCount - 1].x,
+				position.y - 3 + coldMachine.chest.chestPiece.position.y +
+				coldMachine.chest.missileCanyonsPos[coldMachine.legs.missilesCount - 1].y,
+				COLLIDER_NONE, { scrollSpeed,0 }, 0);
+		}
+
 
 		// update the condition
 		coldMachine.legs.shootedMissile = true;
@@ -868,9 +914,9 @@ void EnemyColdMachine::Draw()
 	App->render->Blit(enemyTex, position.x + coldMachine.chest.chestPiece.position.x + 91,
 		position.y + coldMachine.chest.chestPiece.position.y - 3, &returnRect(coldMachine.chest.shurikenLauncherAnim));
 
-
-
-
+	// chest missile launcher
+	App->render->Blit(enemyTex, position.x + coldMachine.chest.chestPiece.position.x + 43,
+		position.y + coldMachine.chest.chestPiece.position.y + 57, &returnRect(coldMachine.chest.shoulderLauncherAnim));
 
 
 }
@@ -893,11 +939,12 @@ SDL_Rect& EnemyColdMachine::returnRect(Animation* anim)
 
 	// weapons cycle return fase1, legs
 	// missiles
-	if (coldMachine.state == bossState::FASE1 && anim == coldMachine.legs.missileLauncherAnim)
+	if (coldMachine.state == bossState::FASE1 && anim == coldMachine.legs.missileLauncherAnim || 
+		coldMachine.state == bossState::FASE2 && anim == coldMachine.chest.shoulderLauncherAnim)
 	{
 		// missiles animation and activator logic -----------------------------------------------
 
-		if (coldMachine.legs.now_missiles_time > coldMachine.legs.missiles_cadence_time) //&& anim == coldMachine.legs.missileLauncherAnim)
+		if (coldMachine.legs.now_missiles_time > coldMachine.legs.missiles_cadence_time && !coldMachine.move && !coldMachine.leftCorner) //&& anim == coldMachine.legs.missileLauncherAnim)
 		{
 			if (anim[coldMachine.current_sprite_type].current_frame >= 3 && coldMachine.legs.missilesWaveCount < 2)
 			{
@@ -935,7 +982,9 @@ SDL_Rect& EnemyColdMachine::returnRect(Animation* anim)
 			}
 		}
 		else
+		{
 			return anim[coldMachine.current_sprite_type].frames[0];
+		}
 
 	}
 		// -------------------------------------------------------------------------------------
@@ -1090,6 +1139,12 @@ SDL_Rect& EnemyColdMachine::returnRect(Animation* anim)
 			}
 		}
 
+		// shoulder missile launcher
+
+		/*if (coldMachine.state == bossState::FASE2 && anim == coldMachine.chest.shoulderLauncherAnim)
+		{
+			return anim[coldMachine.current_sprite_type].GetCurrentFrame();
+		}*/
 
 
 
