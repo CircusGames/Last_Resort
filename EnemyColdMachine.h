@@ -60,7 +60,9 @@ private:
 		// -----------------------
 		Uint32 start_shuriken_time;
 		Uint32 now_shuriken_time;
-		Uint32 shuriken_cadenece_time = 2000;
+		Uint32 shuriken_cadenece_time = 500;
+		Uint32 shuriken_waves_time = 1000;
+		int numShurikens = 0;
 
 		bool destroyed = false;
 		int life = 70;

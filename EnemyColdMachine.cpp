@@ -114,6 +114,7 @@ EnemyColdMachine::EnemyColdMachine(int x, int y, powerUpTypes type, SDL_Texture*
 	coldMachine.chest.shurikenLauncherAnim[NORMAL_ANIM].PushBack({ 303,333,48,28 }); // max closed
 	coldMachine.chest.shurikenLauncherAnim[NORMAL_ANIM].speed = 0.125f;
 	coldMachine.chest.shurikenLauncherAnim[NORMAL_ANIM].repeat = false;
+	coldMachine.chest.shurikenLauncherAnim[NORMAL_ANIM].finish = true; // fake condition
 	
 	coldMachine.chest.shurikenLauncherAnim[DAMAGE_ANIM].PushBack({ 699,333,48,28 }); // max closed
 	coldMachine.chest.shurikenLauncherAnim[DAMAGE_ANIM].PushBack({ 754,333,48,28 });
@@ -125,6 +126,7 @@ EnemyColdMachine::EnemyColdMachine(int x, int y, powerUpTypes type, SDL_Texture*
 	coldMachine.chest.shurikenLauncherAnim[DAMAGE_ANIM].PushBack({ 699,333,48,28 }); // max closed
 	coldMachine.chest.shurikenLauncherAnim[DAMAGE_ANIM].speed = 0.125f;
 	coldMachine.chest.shurikenLauncherAnim[DAMAGE_ANIM].repeat = false;
+	coldMachine.chest.shurikenLauncherAnim[DAMAGE_ANIM].finish = true; // fake condition
 
 	// ------------------------------------------------------------------------------------
 	// LEG animations
@@ -363,9 +365,9 @@ void EnemyColdMachine::fase2AttackManager()
 	if (coldMachine.leftCorner) //&& coldMachine.moveToLeft) //while on left corner
 	{
 		coldMachine.chest.now_shuriken_time = SDL_GetTicks() - coldMachine.chest.start_shuriken_time;
-		if (coldMachine.chest.now_shuriken_time > coldMachine.chest.shuriken_cadenece_time)
+		if (coldMachine.chest.now_shuriken_time > coldMachine.chest.shuriken_waves_time && !coldMachine.chest.throwShuriken)
 		{
-			LOG("Left corner reached and countdown is over: THROWING shuriken");
+			LOG("Left corner reached and countdown is over: WAVE of shuriken");
 			// start shuriken timer and activate shuriken mode
 			coldMachine.chest.start_shuriken_time = SDL_GetTicks();
 			coldMachine.chest.throwShuriken = true;
@@ -373,7 +375,29 @@ void EnemyColdMachine::fase2AttackManager()
 			coldMachine.chest.shurikenLauncherAnim[coldMachine.current_sprite_type].current_frame = 0;
 			coldMachine.chest.shurikenLauncherAnim[coldMachine.current_sprite_type].finish = false;
 		}
+		// check shuriken delay between shurikens
+		if (coldMachine.chest.throwShuriken)
+		{
+			if (coldMachine.chest.now_shuriken_time > coldMachine.chest.shuriken_cadenece_time)
+			{
+				// resets timer
+				coldMachine.chest.start_shuriken_time = SDL_GetTicks();
+				// instantiate next shuriken
+				coldMachine.chest.numShurikens++;
+				LOG("SHURIKEN %d", coldMachine.chest.numShurikens);
+
+				if (coldMachine.chest.numShurikens > 3) // max 3 shurikens per wave
+				{
+					coldMachine.chest.start_shuriken_time = SDL_GetTicks();
+					coldMachine.chest.throwShuriken = false;
+					coldMachine.chest.numShurikens = 0;
+				}
+			}
+		}
+
 	}
+
+	
 
 
 
@@ -972,12 +996,17 @@ SDL_Rect& EnemyColdMachine::returnRect(Animation* anim)
 
 		if (coldMachine.state == bossState::FASE2 && anim == coldMachine.chest.shurikenLauncherAnim)
 		{
-			if (coldMachine.chest.throwShuriken)
+			if (coldMachine.chest.throwShuriken) //|| coldMachine.leftCorner)
 			{
 				return anim[coldMachine.current_sprite_type].GetCurrentFrame();
 			}
 			else
-				return anim[coldMachine.current_sprite_type].frames[0];
+			{
+				if (!anim[coldMachine.current_sprite_type].finish) // if the animation still not finish, finish it
+					return anim[coldMachine.current_sprite_type].GetCurrentFrame();
+				else
+					return anim[coldMachine.current_sprite_type].frames[0];
+			}
 		}
 
 
