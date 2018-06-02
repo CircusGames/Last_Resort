@@ -51,7 +51,7 @@ bool ModuleUI::CleanUp()
 	return true;
 }
 
-update_status ModuleUI::Update()
+update_status ModuleUI::PostUpdate()//Update()
 {
 	unit1Pow = 6.4*App->playerUnit[0]->charge;
 

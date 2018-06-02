@@ -34,6 +34,9 @@ Application::Application()
 	modules[i++] = input = new ModuleInput();
 	modules[i++] = textures = new ModuleTextures();
 	modules[i++] = teamLogo = new ModuleTeamLogo();
+
+	modules[i++] = moduleUI = new ModuleUI();
+
 	modules[i++] = scene_lvl1 = new ModuleSceneLvl1();
 	modules[i++] = scene_lvl3 = new ModuleSceneLvl3();
 	modules[i++] = readyScreen = new ModuleReady();
@@ -57,7 +60,7 @@ Application::Application()
 
 	modules[i++] = render = new ModuleRender();
 	modules[i++] = audio = new ModuleAudio();
-	modules[i++] = moduleUI = new ModuleUI();
+	//modules[i++] = moduleUI = new ModuleUI();
 	modules[i++] = fade = new ModuleFadeToBlack();
 
 	modules[i++] = collision = new ModuleCollision();
