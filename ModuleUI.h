@@ -31,7 +31,8 @@ public:
 	~ModuleUI();
 
 	bool Start();
-	update_status Update();
+	//update_status Update();
+	update_status PostUpdate();
 	bool CleanUp();
 	// Load Font
 	int Load(const char* texture_path, const char* characters, uint rows = 1);
