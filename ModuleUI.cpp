@@ -250,14 +250,34 @@ update_status ModuleUI::PostUpdate()//Update()
 
 	if (UI == gameplay_state::PAUSE)
 	{
-		BlitText(136, 112, lastResortBlueFont, "pause");
+		if (!paused)
+		{
+			paused = true;
+			start_pause_time = SDL_GetTicks();
+		}
+
+		BlitText(134, 112, lastResortBlueFont, "pause");
 		SDL_Rect rect;
 		rect = { 0,0, SCREEN_WIDTH * SCREEN_SIZE, SCREEN_HEIGHT * SCREEN_SIZE };
 		//App->render->DrawQuad(rect, 255, 0, 255, 50);
+		
+		// timer
+		now_pause_time = SDL_GetTicks() - start_pause_time;
+		if (now_pause_time > total_time_pausing)
+			stopRendering = true;
 
-		SDL_SetRenderDrawBlendMode(App->render->renderer, SDL_BLENDMODE_BLEND);
-		SDL_SetRenderDrawColor(App->render->renderer, 255, 0, 255, 1);
-		SDL_RenderFillRect(App->render->renderer, NULL);
+		if (!stopRendering)
+		{
+			SDL_SetRenderDrawBlendMode(App->render->renderer, SDL_BLENDMODE_BLEND);
+			SDL_SetRenderDrawColor(App->render->renderer, 255, 0, 255, 1);
+			SDL_RenderFillRect(App->render->renderer, NULL);
+		}
+	}
+	else
+	{
+		// reset conditions
+		if (paused) paused = false;
+		if (stopRendering) stopRendering = false;
 	}
 
 	return UPDATE_CONTINUE;

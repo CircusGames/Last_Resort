@@ -111,6 +111,14 @@ public:
 
 	bool bothPlayers = false;
 
+	// pause timer
+	Uint32 start_pause_time;
+	Uint32 now_pause_time;
+	Uint32 total_time_pausing = 500;
+
+	bool paused = false;
+	bool stopRendering = false;
+
 };
 
 
