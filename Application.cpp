@@ -30,12 +30,9 @@ Application::Application()
 {
 	int i = 0;
 	modules[i++] = window = new ModuleWindow();
-	
 	modules[i++] = input = new ModuleInput();
 	modules[i++] = textures = new ModuleTextures();
 	modules[i++] = teamLogo = new ModuleTeamLogo();
-
-	modules[i++] = moduleUI = new ModuleUI();
 
 	modules[i++] = scene_lvl1 = new ModuleSceneLvl1();
 	modules[i++] = scene_lvl3 = new ModuleSceneLvl3();
@@ -44,7 +41,8 @@ Application::Application()
 	modules[i++] = gameTitle = new ModuleGameTitle();
 	modules[i++] = gameOverScreen = new ModuleGameOver();
 	modules[i++] = winScreen = new ModuleWin();
-
+	modules[i++] = moduleUI = new ModuleUI();
+	
 	modules[i++] = enemies = new ModuleEnemies();
 	
 	modules[i++] = modulePowerUp = new ModulePowerUp();
@@ -55,17 +53,10 @@ Application::Application()
 	modules[i++] = playerUnit[1] = new ModulePlayerUnit();
 
 	modules[i++] = particles = new ModuleParticles();
-	//modules[i++] = render = new ModuleRender();
-	//modules[i++] = collision = new ModuleCollision();
-
 	modules[i++] = render = new ModuleRender();
-	modules[i++] = audio = new ModuleAudio();
-	//modules[i++] = moduleUI = new ModuleUI();
-	modules[i++] = fade = new ModuleFadeToBlack();
-
 	modules[i++] = collision = new ModuleCollision();
-	
-	
+	modules[i++] = audio = new ModuleAudio();
+	modules[i++] = fade = new ModuleFadeToBlack();
 
 }	
 
