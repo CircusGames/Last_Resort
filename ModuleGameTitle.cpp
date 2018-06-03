@@ -8,6 +8,7 @@
 #include "ModuleInput.h"
 #include "ModuleFadeToBlack.h"
 #include "ModuleAudio.h"
+#include "ModuleUI.h"
 
 #include "SDL/include/SDL_timer.h"
 
@@ -803,6 +804,8 @@ bool ModuleGameTitle::Start()
 	App->audio->LoadAudio("assets/Audio/Music/titleScreenSong.ogg", "titleSong", MUSIC);
 	App->audio->ControlAudio("titleSong", MUSIC, FADEIN, 0, 1000.0f); //type, mode, loops, fadeIn, fadeout
 	// -----------------------
+
+	App->moduleUI->UI = gameplay_state::GAMETITTLE;
 
 	start_time = SDL_GetTicks(); //next letter counter
 	showMeNext = 1; //start with the first letter

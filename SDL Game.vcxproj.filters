@@ -136,6 +136,9 @@
     <ClCompile Include="EnemyShuriken.cpp">
       <Filter>Modules\Enemies</Filter>
     </ClCompile>
+    <ClCompile Include="EnemyRedLamella.cpp">
+      <Filter>Modules\Enemies</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h">
@@ -283,6 +286,9 @@
       <Filter>Modules\Enemies</Filter>
     </ClInclude>
     <ClInclude Include="EnemyShuriken.h">
+      <Filter>Modules\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyRedLamella.h">
       <Filter>Modules\Enemies</Filter>
     </ClInclude>
   </ItemGroup>

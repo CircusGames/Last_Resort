@@ -8,6 +8,7 @@
 #include "ModuleFadeToBlack.h"
 #include "ModuleAudio.h"
 //#include "Animation.h"
+#include "ModuleUI.h"
 
 #include "SDL/include/SDL_timer.h"
 
@@ -73,9 +74,7 @@ bool ModuleTeamLogo::Start()
 
 	circusCarp = App->textures->Load("assets/Graphics/Screens/intro/circus games/Logo/cut/spritesheet/logo.png");
 
-	//upload Logo Audio
-	//App->audio->LoadAudio("assets/Audio/Music/LogoMusic.ogg", "titleSong", MUSIC);
-	//App->audio->ControlAudio("titleSong", MUSIC, FADEIN, 0, 1000.0f);
+	App->moduleUI->UI = gameplay_state::LOGO;
 	return true;
 }
 

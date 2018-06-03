@@ -38,6 +38,8 @@ bool ModuleUI::Start()
 	redNumbers = App->moduleUI->Load("assets/Graphics/UI/red_numbers.png", "0123456789 ", 1);
 	uiTexture = App->textures->Load("assets/Graphics/UI/UI.png");
 
+	App->audio->LoadAudio("assets/Audio/SFX/Screens/001. Coin inserted.wav", "inserted", SFX);
+
 	return true;
 }
 
@@ -190,6 +192,26 @@ update_status ModuleUI::PostUpdate()//Update()
 		}
 	}
 
+	if (UI != gameplay_state::LOGO)
+	{
+		BlitText(208, 216, lastResortBlueFont, "credit");
+		
+		if(coins>=10)
+			sprintf_s(score_text, 10, "%d",coins);
+
+		else
+			sprintf_s(score_text, 10, "%i%d", zero, coins);
+		
+		BlitText(272, 216, lastResortBlueFont, score_text);
+
+		if (UI == gameplay_state::GAMETITTLE && coins < 99)
+			if (App->input->keyboard[SDL_SCANCODE_SPACE] == KEY_UP)
+			{
+				coins = coins + 2;
+				if (coins > 99)coins = 99;
+				App->audio->ControlAudio("inserted", SFX, PLAY);
+			}
+	}
 
 	return UPDATE_CONTINUE;
 }

@@ -11,6 +11,8 @@
 enum gameplay_state
 {
 	NO,
+	LOGO,
+	GAMETITTLE,
 	SCENE,
 	WIN
 };
@@ -81,6 +83,10 @@ public:
 	int scores[10] = { 74000,63500,58200,43700,47000,43000,32900,21100,0,0 };
 	//Uint32 lastScore
 	//int scorePosY[10] = { 48,68,88,108,128,148,168,188,208,228 };
+
+	SDL_Rect coinsRect;
+
+	int coins = 0;
 
 	struct Players
 	{

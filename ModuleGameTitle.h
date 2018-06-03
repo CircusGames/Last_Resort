@@ -21,6 +21,7 @@ public:
 public:
 	SDL_Texture* titleScreen = nullptr;
 	SDL_Texture* blackScreenTexture = nullptr;
+	SDL_Texture* insertCoinTexture = nullptr;
 	SDL_Texture* pushStartTexture = nullptr;
 	SDL_Texture* snkTexture = nullptr;
 	SDL_Texture* snkCorpTexture = nullptr;
