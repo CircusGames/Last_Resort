@@ -144,8 +144,9 @@ update_status Application::Update()
 		// check input
 		// update only basic modules
 		ret = input->PreUpdate();
+		moduleUI->PostUpdate();
 		//render->PreUpdate();
-		//render->PostUpdate();
+		render->PostUpdate();
 	}
 	
 

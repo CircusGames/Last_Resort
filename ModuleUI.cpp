@@ -248,6 +248,18 @@ update_status ModuleUI::PostUpdate()//Update()
 			}
 	}
 
+	if (UI == gameplay_state::PAUSE)
+	{
+		BlitText(136, 112, lastResortBlueFont, "pause");
+		SDL_Rect rect;
+		rect = { 0,0, SCREEN_WIDTH * SCREEN_SIZE, SCREEN_HEIGHT * SCREEN_SIZE };
+		//App->render->DrawQuad(rect, 255, 0, 255, 50);
+
+		SDL_SetRenderDrawBlendMode(App->render->renderer, SDL_BLENDMODE_BLEND);
+		SDL_SetRenderDrawColor(App->render->renderer, 255, 0, 255, 50);
+		SDL_RenderFillRect(App->render->renderer, NULL);
+	}
+
 	return UPDATE_CONTINUE;
 }
 
