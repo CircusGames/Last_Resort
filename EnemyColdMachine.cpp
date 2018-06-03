@@ -6,6 +6,7 @@
 #include "ModuleRender.h"
 #include "SDL\include\SDL_timer.h"
 #include "ModuleAudio.h"
+#include "ModuleFadeToBlack.h"
 
 EnemyColdMachine::EnemyColdMachine(int x, int y, powerUpTypes type, SDL_Texture* thisTexture) : Enemy(x, y)
 {
@@ -671,6 +672,8 @@ void EnemyColdMachine::toExplode()
 	if (coldMachine.now_exploding_time > coldMachine.time_exploding)
 	{
 		killMe = true;
+
+		App->fade->FadeToBlack((Module*)App->scene_lvl3, (Module*)App->winScreen, 3.0f);
 	}
 
 }
