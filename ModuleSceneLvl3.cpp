@@ -154,7 +154,7 @@ update_status ModuleSceneLvl3::PreUpdate()
 			App->player[1]->position.x += 1;
 	}
 
-	if ((GetCurrentCameraPixelPos() > 2000) & wave==1)
+	if ((GetCurrentCameraPixelPos() > 1950) & wave==1)
 	{
 		App->enemies->AddEnemy(ENEMY_TYPES::LAMELLA, GetCurrentCameraPixelPos() * 2 + 20, 20, NONE);
 		App->enemies->AddEnemy(ENEMY_TYPES::LAMELLA, GetCurrentCameraPixelPos() * 2 + 20, 60, NONE);
@@ -169,7 +169,7 @@ update_status ModuleSceneLvl3::PreUpdate()
 		wave++;
 	}
 
-	if ((GetCurrentCameraPixelPos() > 2300) & wave == 2)
+	if ((GetCurrentCameraPixelPos() > 2250) & wave == 2)
 	{
 		App->enemies->AddEnemy(ENEMY_TYPES::LAMELLA, GetCurrentCameraPixelPos() * 2 + 20, 20, NONE);
 		App->enemies->AddEnemy(ENEMY_TYPES::LAMELLA, GetCurrentCameraPixelPos() * 2 + 20, 60, NONE);
