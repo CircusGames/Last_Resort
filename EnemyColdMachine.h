@@ -257,6 +257,7 @@ private:
 public:
 
 	EnemyColdMachine(int x, int y, powerUpTypes type, SDL_Texture* thisTexture);
+	~EnemyColdMachine();
 
 	void Move();
 	void Draw();
