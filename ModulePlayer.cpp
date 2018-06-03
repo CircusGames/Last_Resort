@@ -10,6 +10,8 @@
 #include "ModuleAudio.h"
 #include "ModuleFadeToBlack.h"
 
+#include "ModuleSceneLvl3.h"
+
 #include "ModuleUI.h"
 
 //#include "Player.h"
@@ -81,7 +83,7 @@ bool ModulePlayer::Start()
 	position.x = 40;
 	position.y = 80;
 
-	if (App->player[1]->IsEnabled()) //
+	if (this == App->player[1] && App->player[1]->IsEnabled()) //
 	{
 		App->player[1]->player = App->textures->Load("assets/Graphics/Player/player2Ship.png");
 		App->player[1]->playerEffectsTexture = App->player[1]->player;
@@ -648,7 +650,9 @@ update_status ModulePlayer::Update()
 			destroyed = false;
 			//if (App->player[1]->IsEnabled() && App->player[1]->lives < 1 || App->player[0]->lives < 1)
 
-			if (lives < 1)
+			deathLogic();
+
+			/*if (lives < 1)
 			{
 				//resets lives counter for next gameLoop
 
@@ -662,12 +666,14 @@ update_status ModulePlayer::Update()
 					else
 						App->fade->FadeToBlack(sceneCallback, (Module*)App->gameOverScreen);
 				}
+
 				/*if (this == App->player[0] && App->player[1]->IsEnabled() && App->player[1]->lives <= 1)
 				{
 					App->fade->FadeToBlack(sceneCallback, (Module*)App->gameOverScreen);
 					lives = 3;
 				}*/
-				if (this == App->player[1] && App->player[0]->lives < 1)
+
+				/*if (this == App->player[1] && App->player[0]->lives < 1)
 				{
 					
 					//lives = 3;
@@ -691,12 +697,83 @@ update_status ModulePlayer::Update()
 
 				if (this == App->player[1] && App->player[0]->player_step == died)
 					App->fade->FadeToBlack(sceneCallback, (Module*)App->readyScreen, 1.0f);
-			}
+			}*/
 		}
 
 	}
 	
 	return UPDATE_CONTINUE;
+
+}
+
+void ModulePlayer::deathLogic()
+{
+	// PLAYER 1 checks
+	if (this == App->player[0])
+	{
+		if (!App->player[1]->IsEnabled())
+		{
+			App->fade->FadeToBlack(sceneCallback, (Module*)App->continueScreen);
+		}
+		else
+		{
+			// check if the player 2 is still alive
+			if (App->player[1]->player_step != died)
+			{
+				// if still player 1 has disponible lives
+				if (App->player[0]->lives > 0)
+				{
+					// respawn condition
+					//lives--;
+					// disable and re-enable module for variables cleanup
+					App->player[0]->Disable();
+					App->player[0]->Enable();
+					// sets new spawn position
+					App->player[0]->position.x = App->scene_lvl3->GetCurrentCameraPixelPos() * 2 + 40;
+					App->player[0]->position.y = 80;
+				}
+			}
+			else
+			{
+				// module UI data
+			}
+		}
+	}
+	// player 2 checks
+	if (this == App->player[1])
+	{
+		if (App->player[1]->IsEnabled())
+		{
+			// check if player 1 is still alive
+			if (App->player[0]->player_step != died)
+			{
+				// if still player 2 has disponible lives
+				if (App->player[1]->lives > 0)
+				{
+					// respawn condition
+					//lives--;
+					// disable and re-enable module for variables cleanup
+					App->player[1]->Disable();
+					App->player[1]->Enable();
+					// sets new spawn position
+					App->player[1]->position.x = App->scene_lvl3->GetCurrentCameraPixelPos() * 2 + 40;
+					App->player[1]->position.y = 160;
+				}
+			}
+			else
+			{
+				// module UI data
+			}
+
+		}
+	}
+	// if both death, lose condition
+	//if (App->player[0]->lives <= 0 && App->player[1]->lives <= 0)
+	if (App->player[0]->player_step == died && App->player[1]->player_step == died)
+	{
+		// go to continue screen
+		App->fade->FadeToBlack(sceneCallback, (Module*)App->continueScreen);
+	}
 
 }
 

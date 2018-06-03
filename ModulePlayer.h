@@ -56,6 +56,8 @@ public:
 	bool CleanUp(); 
 	void OnCollision(Collider* collider1, Collider* collider2);
 
+	void deathLogic();
+
 	virtual void checkInput() {};
 
 public:
