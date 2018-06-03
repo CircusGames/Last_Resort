@@ -24,9 +24,9 @@ Last Resort is one of the greatest arcade shoot 'em up videogames because of his
 | Name	        | Main Function  | Github account|
 | ------------- |:-------------:|:-------------:|
 | Kevin      | Management |[DustHandler](https://github.com/dusthandler)|
-| José Antonio      | Code      |[PeterMcP](https://github.com/peterMcP)|
+| JosÃ© Antonio      | Code      |[PeterMcP](https://github.com/peterMcP)|
 | Rafa | Art/Design      |[RafaKanex](https://github.com/RafaKanex)|
-| Víctor | QA      |[VictorSegura99](https://github.com/VictorSegura99)|
+| VÃ­ctor | QA      |[VictorSegura99](https://github.com/VictorSegura99)|
 
 
 ## Team photo
@@ -72,3 +72,5 @@ Last Resort is one of the greatest arcade shoot 'em up videogames because of his
 
 
 ***
+
+Download the Lastest version of the Game [here!](https://github.com/CircusGames/Last_Resort/releases)
