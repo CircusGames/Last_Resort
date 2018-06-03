@@ -96,8 +96,6 @@ update_status ModuleUI::PostUpdate()//Update()
 			App->render->Blit(uiTexture, 48, 50, &powBarRect, 0); //48,210 POWER BAR
 			
 			BlitText(32, 16, lastResortBlueFont, score_text); //original pos x 72,y 16
-
-			//score update
 			
 		}
 
@@ -117,21 +115,19 @@ update_status ModuleUI::PostUpdate()//Update()
 			sprintf_s(score_text, 10, "%7d", score2);
 			BlitText(32+160, 16, lastResortBlueFont, score_text); //original pos x 72,y 16
 
-			//score update
-			ships[8].score = score2;
 		}
 
 		else
 		{
-			if (pressToStart < 6000)
+			if (pressToStart < 5000)
 			{
 				pressToStart = pressToStart + 100;
 				App->render->Blit(uiTexture, 192, 16, &pressRect, 0);
 			}
 
-			else if (pressToStart >= 6000)
+			else if (pressToStart >= 5000)
 			{
-				if (pressToStart<12000)
+				if (pressToStart<10000)
 					pressToStart = pressToStart + 100;
 				else
 					pressToStart = 0;
@@ -146,18 +142,40 @@ update_status ModuleUI::PostUpdate()//Update()
 			{
 				ships[i].name = names[i];
 				ships[i].score = scores[i];
+				ships[i].topName = topNames[i];
 			}
-
 			computed = true;
 		}
 
-		ships[8].score = score;
-		ships[9].score = score2;
+		for (int i = 0; i < 10; i++)
+		{
+			if (ships[i].name == "player 1")
+				ships[i].score = score;
+			if (App->player[1]->IsEnabled())
+			{
+				if (ships[i].name == "player 2")
+					ships[i].score = score2;
+			}
+		}
 
-		topPlayer = "[";
-		//strcat(topPlayer, ships[0].name);
-		strcat(topPlayer, "]");
-		BlitText(112, 16, lastResortBlueFont,ships[0].name); // 133
+		for (int j = 0; j < 9; j++)
+		{
+			for (int i = 0; i < 9-j; i++)
+			{
+				if (ships[i].score < ships[i + 1].score)
+				{
+					aux = ships[i];
+					ships[i] = ships[i + 1];
+					ships[i + 1] = aux;
+				}
+			}
+		}
+
+		sprintf_s(score_text, 10, "%6d",ships[0].score);
+		BlitText(144, 16, lastResortBlueFont, score_text); 
+
+		BlitText(112, 16, lastResortBlueFont, "top");
+		BlitText(112, 24, lastResortBlueFont,ships[0].topName); // 133
 	}
 	//prints WIN UI
 	if (UI == gameplay_state::WIN)

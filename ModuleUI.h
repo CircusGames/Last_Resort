@@ -69,7 +69,7 @@ public:
 	SDL_Rect p2Rect = { 161,16,23,8 };
 	SDL_Rect p2ShipRect = { 160,24,24,8 };
 
-	SDL_Rect pressRect = { 159,8,101,8 };
+	SDL_Rect pressRect = { 159,0,96,16 };
 
 	Uint32 score = 0;
 	Uint32 score2 = 0; //provisonal name to redNumbers call
@@ -85,14 +85,17 @@ public:
 	struct Players
 	{
 		char* name = nullptr;
+		char* topName = nullptr;
 		int score = 0;
 	};
 
 	Players ships[10];
 
-	char* names[10] = { "momar","elmascapo","ice","fire","albanian","mako","pete","john","player 2","player 1" };
+	char* names[10] = { "momar","elmascapo","ice","fire","albanian","mako","pete","john","player 1","player 2" };
+	char* topNames[10] = { "[momar]","[elmascapo]","[ice]","[fire]","[albanian]","[mako]","[pete]","[john]","[player 1]","[player 2]" };
 
 	char* topPlayer = nullptr;
+	Players aux;
 
 	bool computed = false;
 	gameplay_state UI;
