@@ -17,6 +17,12 @@
 
 EnemySubmarine::EnemySubmarine(int x, int y, powerUpTypes type, SDL_Texture* thisTexture) : Enemy(x, y)
 {
+	// load only relative to submarine SFX
+	App->audio->LoadAudio("assets/Audio/SFX/Enemies/launch.wav", "missile", SFX);
+	App->audio->LoadAudio("assets/Audio/SFX/Enemies/emerge.wav", "emerge", SFX);
+	
+	
+
 	int k = 0; // for extracolliders assignements
 	// load submarine waves texture
 	submarineWavesTexture = App->textures->Load("assets/Graphics/Enemies/Level_3/submarineWaves.png");
@@ -364,31 +370,31 @@ EnemySubmarine::EnemySubmarine(int x, int y, powerUpTypes type, SDL_Texture* thi
 	{
 		submarineWaves[i].up.PushBack({ 1, 0 }, 272); // first wait
 		//
-		submarineWaves[i].up.PushBack({ 1, -0.5 }, 44); // up
+		submarineWaves[i].up.PushBack({ 1, -0.5 }, 44);//, nullptr, "emerge"); // up
 		submarineWaves[i].up.PushBack({ 1, 0 }, 179);// wait
-		submarineWaves[i].up.PushBack({ 1, 0.5 }, 44);// down
+		submarineWaves[i].up.PushBack({ 1, 0.5 }, 44);//, nullptr, "emerge");// down
 		submarineWaves[i].up.PushBack({ 1, 0 }, 210);// wait
-		submarineWaves[i].up.PushBack({ 1, -0.5 }, 44); // up
+		submarineWaves[i].up.PushBack({ 1, -0.5 }, 44);// , nullptr, "emerge"); // up
 		submarineWaves[i].up.PushBack({ 1, 0 }, 179);// wait
-		submarineWaves[i].up.PushBack({ 1, 0.5 }, 44);// down
+		submarineWaves[i].up.PushBack({ 1, 0.5 }, 44);//, nullptr, "emerge");// down
 		submarineWaves[i].up.PushBack({ 1, 0 }, 240);// wait
-		submarineWaves[i].up.PushBack({ 1, -0.5 }, 44); // up
+		submarineWaves[i].up.PushBack({ 1, -0.5 }, 44);//, nullptr, "emerge"); // up
 		submarineWaves[i].up.PushBack({ 1, 0 }, 179);// wait
-		submarineWaves[i].up.PushBack({ 1, 0.5 }, 44);// down
+		submarineWaves[i].up.PushBack({ 1, 0.5 }, 44);//, nullptr, "emerge");// down
 		submarineWaves[i].up.PushBack({ 1, 0 }, 221);// wait
-		submarineWaves[i].up.PushBack({ 1, -0.5 }, 44); // up
+		submarineWaves[i].up.PushBack({ 1, -0.5 }, 44); //, nullptr, "emerge"); // up
 		submarineWaves[i].up.PushBack({ 1, 0 }, 179);// wait
-		submarineWaves[i].up.PushBack({ 1, 0.5 }, 44);// down
+		submarineWaves[i].up.PushBack({ 1, 0.5 }, 44); //, nullptr, "emerge");// down
 		submarineWaves[i].up.PushBack({ 1, 0 }, 240);// wait
-		submarineWaves[i].up.PushBack({ 1, -0.5 }, 44); // up
+		submarineWaves[i].up.PushBack({ 1, -0.5 }, 44);// , nullptr, "emerge"); // up
 		submarineWaves[i].up.PushBack({ 1, 0 }, 179);// wait
-		submarineWaves[i].up.PushBack({ 1, 0.5 }, 44);// down
+		submarineWaves[i].up.PushBack({ 1, 0.5 }, 44);// , nullptr, "emerge");// down
 		submarineWaves[i].up.PushBack({ 1, 0 }, 221);// wait
-		submarineWaves[i].up.PushBack({ 1, -0.5 }, 44); // up
+		submarineWaves[i].up.PushBack({ 1, -0.5 }, 44);// , nullptr, "emerge"); // up
 		submarineWaves[i].up.PushBack({ 1, 0 }, 179);// wait
-		submarineWaves[i].up.PushBack({ 1, 0.5 }, 44);// down
+		submarineWaves[i].up.PushBack({ 1, 0.5 }, 44);// , nullptr, "emerge");// down
 		submarineWaves[i].up.PushBack({ 1, 0 }, 240);// wait
-		submarineWaves[i].up.PushBack({ 1, -0.5 }, 44); // up
+		submarineWaves[i].up.PushBack({ 1, -0.5 }, 44);// , nullptr, "emerge"); // up
 		//
 		submarineWaves[i].up.PushBack({ 1, 0 }, 179);// wait last submarine up
 		submarineWaves[i].up.PushBack({ 1, 0.5 }, 44);// down
@@ -414,6 +420,12 @@ void EnemySubmarine::Move()
 		submarineWaves[i].position = submarineWaves[i].originalPos + submarineWaves[i].up.GetCurrentSpeed();//.x += 1;
 		//submarineWaves[0].position.x += 1;
 	}
+	//play emerge sfx
+	if (submarineWaves[0].up.steps->frames == 1)
+	{
+
+	}
+	
 
 	// movement calculations before colliders update positions --
 	//position.x += 1;
@@ -729,6 +741,8 @@ void EnemySubmarine::Draw()
 		if ((int)ejectionHatch.current_frame == 3 && launchDiver)
 		{
 			App->enemies->AddEnemy(DIVER, position.x + ejectionHatch.position.x + 20, position.y - 12 + ejectionHatch.position.y, NONE);
+			//PLAY FX
+			App->audio->ControlAudio("ejectRobot",SFX,PLAY);
 			launchDiver = false;
 		}
 	}
@@ -835,6 +849,9 @@ void EnemySubmarine::Draw()
 				//App->enemies->AddEnemy(HOMINGMISSILE, position.x + 24 + missileLauncher[i].position.x, position.y + missileLauncher[i].position.y, NONE);
 				//App->enemies->AddEnemy(HOMINGMISSILE, position.x + 40 + missileLauncher[i].position.x, position.y + missileLauncher[i].position.y, NONE);
 				//App->enemies->AddEnemy(HOMINGMISSILE, position.x + 56 + missileLauncher[i].position.x, position.y + missileLauncher[i].position.y, NONE);
+				
+				// PLAY SFX
+				App->audio->ControlAudio("missile", SFX, PLAY);
 				missileLauncher[i].launchMissiles = false;
 			}
 
@@ -1040,5 +1057,11 @@ EnemySubmarine::~EnemySubmarine()
 		App->textures->Unload(submarineWavesTexture);
 		submarineWavesTexture = nullptr;
 	}
+
+	// unload sfx
+	App->audio->UnloadAudio("missile",SFX);
+	App->audio->UnloadAudio("emerge", SFX);
+	
+	
 
 }

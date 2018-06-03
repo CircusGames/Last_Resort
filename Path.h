@@ -2,6 +2,8 @@
 #define __PATH_H__
 
 #include "p2Point.h"
+#include "ModuleAudio.h"
+
 #define MAX_STEPS 36
 
 class Animation;
@@ -11,6 +13,8 @@ struct Step
 	uint frames = 1;
 	fPoint speed;
 	Animation* animation = nullptr;
+	char* fx = nullptr;
+	bool played_fx = false;
 };
 
 class Path
@@ -26,20 +30,24 @@ private:
 
 public:
 
-	void PushBack(fPoint speed, uint frames, Animation* animation = nullptr)
+	void PushBack(fPoint speed, uint frames, Animation* animation = nullptr, char* fx = nullptr)
 	{
 		steps[last_step].animation = animation;
 		steps[last_step].frames = frames;
+		steps[last_step].fx = fx;
 		steps[last_step++].speed = speed;
 	}
 
 	iPoint GetCurrentSpeed(Animation** current_animation = nullptr)
 	{
+
 		current_frame += 1;
 
 		uint count = 0;
 		uint i = 0;
 		bool need_loop = true;
+		bool played = false;
+
 		for (; i < last_step; ++i)
 		{
 			count += steps[i].frames;
@@ -52,6 +60,15 @@ public:
 				break;
 			}
 		}
+
+		if (!steps[i].played_fx && steps[i].fx != nullptr)
+		{
+			App->audio->ControlAudio(steps[i].fx, SFX, PLAY);
+			steps[i].played_fx = true;
+
+		}
+
+
 
 		if (need_loop & loop)
 			current_frame = 0;

@@ -245,7 +245,7 @@ EnemyColdMachine::EnemyColdMachine(int x, int y, powerUpTypes type, SDL_Texture*
 	coldMachine.state = bossState::LANDING;
 
 	position.y = -329;//-137; // spawn position y
-	position.x = 157; // spawn position x
+	position.x = x;//157; // spawn position x
 
 	fposition.y = position.y;
 

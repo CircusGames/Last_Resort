@@ -11,6 +11,10 @@ EnemyBigDaddy::EnemyBigDaddy(int x, int y, powerUpTypes type, SDL_Texture* thisT
 	enemyType = BIGDADDY;
 	// Loads laser texture, only we have 1 big daddy on scene, loads here is ok
 	laserTexture = App->textures->Load("assets/Graphics/Enemies/Level_3/laserMidBoss.png");
+	// loads specific midboss sfx
+	App->audio->LoadAudio("assets/Audio/SFX/Enemies/mid_boss_appear.wav", "entryScene", SFX);
+	App->audio->LoadAudio("assets/Audio/SFX/Enemies/Mid_Boss_Close.wav", "close", SFX);
+	App->audio->LoadAudio("assets/Audio/SFX/Enemies/Mid_Boss_OpenandLaser.wav", "openAndLaser", SFX);
 	//links the correct spritesheet texture ----
 	enemyTex = thisTexture;
 	// -----------------------------------------
@@ -696,6 +700,8 @@ void EnemyBigDaddy::Move()
 		{
 			bigDaddy.current_enemy_step = ONSTAGE;
 			original_pos = position;
+			// PLAY SFX
+			App->audio->ControlAudio("entryScene",SFX,PLAY);
 		}
 		position.x += 1;
 	}
@@ -1057,7 +1063,8 @@ void EnemyBigDaddy::Draw()
 		youDecide();
 		bigDaddy.attack = true;
 		readyForNextShot = false;
-		
+		// PLAY SFX
+		App->audio->ControlAudio("openAndLaser", SFX, PLAY);
 	}
 	// checks if we can receive damage
 	if (animation == bigDaddy.onStageAnim)
@@ -1074,6 +1081,8 @@ void EnemyBigDaddy::Draw()
 		bigDaddy.onStageAnim->current_frame = 0;
 		readyForNextShot = true;
 		numAttacks++;
+		// PLAY SFX
+		App->audio->ControlAudio("close", SFX,PLAY);
 	}
 
 	// instantiate laser beams
@@ -1273,5 +1282,10 @@ EnemyBigDaddy::~EnemyBigDaddy()
 			laser[i].laserCollider = nullptr;
 		}
 	}
+
+	// unloads SFX
+	App->audio->UnloadAudio("entryScene",SFX);
+	App->audio->UnloadAudio("close", SFX);
+	App->audio->UnloadAudio("openAndLaser", SFX);
 
 }

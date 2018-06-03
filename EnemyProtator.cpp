@@ -332,6 +332,8 @@ void EnemyProtator::Draw()
 					//targetPos = checkValidPlayerY();
 					start_shot_time = SDL_GetTicks();
 					//start_time = SDL_GetTicks();//checkValidPlayerY();
+					// PLAY SFX
+					App->audio->ControlAudio("ejectRobot", SFX, PLAY);
 					
 				}
 

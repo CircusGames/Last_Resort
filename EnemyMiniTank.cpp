@@ -9,6 +9,8 @@
 
 Enemy_MiniTank::Enemy_MiniTank(int x, int y, powerUpTypes type, SDL_Texture* thisTexture) : Enemy(x, y)
 {
+	//LOADS SFX
+	App->audio->LoadAudio("assets/Audio/SFX/Enemies/minitank_shooting.wav", "miniShoot", SFX);
 
 	// -----------------------------------------------------------------
 	enemyTex = thisTexture; // links enemy to correct texture
@@ -268,12 +270,16 @@ void Enemy_MiniTank::Draw()
 		cartePillar.pipeSmoke[0].playPipeSmoke = true;
 		App->enemies->AddEnemy(BIGFUCKINGROCKET, position.x + cartePillar.pipeSmoke[0].position.x, 
 			position.y + cartePillar.pipeSmoke[0].position.y - 2, NONE);
+		// PLAY SFX
+		App->audio->ControlAudio("miniShoot", SFX,PLAY);
 	}
 	if (cartePillar.shootAnim->current_frame > 4 && !cartePillar.pipeSmoke[1].playPipeSmoke) // first shot
 	{
 		cartePillar.pipeSmoke[1].playPipeSmoke = true;
 		App->enemies->AddEnemy(BIGFUCKINGROCKET, position.x + cartePillar.pipeSmoke[1].position.x,
 			position.y + cartePillar.pipeSmoke[1].position.y - 10, NONE);
+		// PLAY SFX
+		App->audio->ControlAudio("miniShoot", SFX, PLAY);
 	}
 	// ----
 	for (uint i = 0; i < NUM_ROCKETS; ++i)
@@ -369,5 +375,7 @@ Enemy_MiniTank::~Enemy_MiniTank()
 	App->particles->AddParticle(App->particles->explosion, position.x + 30, position.y - 34, COLLIDER_NONE);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPILOT, position.x + 30, position.y - 34, NONE);
 
+	// unloads sfx
+	App->audio->UnloadAudio("miniShoot",SFX);
 
 }

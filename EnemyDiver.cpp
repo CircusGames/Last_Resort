@@ -224,6 +224,8 @@ void EnemyDiver::Draw()
 		if (!left)
 			App->particles->AddParticle(App->enemies->diverBeamRight, position.x + 13, position.y + 23, COLLIDER_ENEMY_SHOT, { 2, 0 });
 
+		//PLAY SFX
+		App->audio->ControlAudio("glassLaser", SFX, PLAY);
 		shootParticle = false;
 	}
 

@@ -296,11 +296,14 @@ bool ModuleEnemies::Start()
 	App->audio->LoadAudio("assets/Audio/SFX/enemies/Enemy_Explosion2.wav", "EnemyDeath2", SFX);
 	// coldmachine and diver laser
 	App->audio->LoadAudio("assets/Audio/SFX/enemies/robot_shoot.wav", "glassLaser", SFX);
+	// LAunching robot and protator
+	App->audio->LoadAudio("assets/Audio/SFX/Enemies/launching_robot.wav", "ejectRobot", SFX);
 	// rockets explosion sfx
 	App->audio->LoadAudio("assets/Audio/SFX/enemies/minitank_rocket_explosion.wav", "rocketExplosion", SFX);	
 	// COLD MACHINE RELATIVE SFX PARTICLES
 	App->audio->LoadAudio("assets/Audio/SFX/Enemies/Boss_bomb_falling.wav", "droppedBomb", SFX);
 	App->audio->LoadAudio("assets/Audio/SFX/Enemies/Boss_bomb_falling_explosion.wav", "bombExplosion", SFX);
+	
 
 	return true;
 }
@@ -394,6 +397,7 @@ bool ModuleEnemies::CleanUp()
 	//App->textures->Unload(sprites);
 	
 	//Unloading loaded audio's
+	App->audio->UnloadAudio("ejectRobot", SFX);
 	App->audio->UnloadAudio("glassLaser", SFX); 
 	App->audio->UnloadAudio("bombExplosion", SFX);
 	App->audio->UnloadAudio("droppedBomb", SFX);
@@ -553,7 +557,7 @@ void ModuleEnemies::OnCollision(Collider* c1, Collider* c2)
 				}
 
 				if (enemies[i]->enemyType != HOMINGMISSILE && enemies[i]->enemyType != BIGFUCKINGROCKET)
-					App->audio->ControlAudio("EnemyDeath", SFX, PLAY);
+ 					App->audio->ControlAudio("EnemyDeath", SFX, PLAY);
 
 				delete enemies[i];
 				enemies[i] = nullptr;
