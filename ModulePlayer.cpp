@@ -713,7 +713,10 @@ void ModulePlayer::deathLogic()
 	{
 		if (!App->player[1]->IsEnabled())
 		{
-			App->fade->FadeToBlack(sceneCallback, (Module*)App->readyScreen);
+			if (App->player[1]->lives > 0)
+				App->fade->FadeToBlack(sceneCallback, (Module*)App->readyScreen);
+			else
+				App->fade->FadeToBlack(sceneCallback, (Module*)App->continueScreen);
 		}
 		else
 		{
