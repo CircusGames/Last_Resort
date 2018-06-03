@@ -73,11 +73,11 @@ bool Application::Init()
 	//desactivate Modules ----------------
 	//disable modulePlayer at init -------
 	//scenes ------------
-	teamLogo->Disable();
+	//teamLogo->Disable();
 	gameTitle->Disable();
 	readyScreen->Disable();
 	scene_lvl1->Disable();
-	//scene_lvl3->Disable();
+	scene_lvl3->Disable();
 	continueScreen->Disable();
 	gameOverScreen->Disable();
 	//other modules -----
@@ -129,7 +129,7 @@ bool Application::CleanUp()
 	for(int i = NUM_MODULES - 1; i >= 0 && ret == true; --i)
 		ret = modules[i]->CleanUp();
 
-	//App->collision->CleanUp(); // individual cleanup when all modules are cleanedUp when exits gameLoop
+	App->collision->CleanUp(); // individual cleanup when all modules are cleanedUp when exits gameLoop
 	//App->render->CleanUp();
 
 	return ret;
