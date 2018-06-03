@@ -20,6 +20,7 @@
 #include "ModulePowerUp.h"
 #include "ModuleEnemies.h"
 #include "ModuleUI.h"
+#include "ModuleReady.h"
 
 ModuleSceneLvl3::ModuleSceneLvl3()
 {
@@ -316,6 +317,11 @@ update_status ModuleSceneLvl3::PostUpdate()
 		App->fade->FadeToBlack(this, (Module*)App->winScreen);
 	if (App->input->keyboard[SDL_SCANCODE_O] == KEY_DOWN)
 		App->fade->FadeToBlack(this, (Module*)App->gameOverScreen);
+	if (App->input->keyboard[SDL_SCANCODE_TAB] == KEY_DOWN)
+	{
+		App->player[0]->sceneCallback = App->scene_lvl1;
+		App->fade->FadeToBlack(this, App->readyScreen);
+	}
 
 	return UPDATE_CONTINUE;
 }
