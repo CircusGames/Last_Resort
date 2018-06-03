@@ -108,6 +108,7 @@ public:
 		bool boost = false;
 		bool boostAnim = false;
 		bool bombs = false;
+		bool missiles = false;
 		bool brake = false;
 		bool laser = false;
 
@@ -140,6 +141,12 @@ public:
 	SDL_Texture* playerTexture = nullptr;
 
 	int playerIndex;
+
+	Uint32 start_missile_time;
+	Uint32 now_missile_time;
+	Uint32 cadence_missile = 500;
+
+	bool shootedMissile = false;
 };
 
 #endif

@@ -65,6 +65,8 @@ private:
 	SDL_Texture* beamImpactTexture = nullptr;
 	SDL_Texture* unitBasicShotImpactTexture = nullptr;
 
+	SDL_Texture* powerUpVFXTexture = nullptr;
+
 	Particle* active[MAX_ACTIVE_PARTICLES];
 
 
@@ -84,6 +86,7 @@ public:
 	Particle unitBasicShotImpact;
 	Particle explosion;
 	Particle laser;
+	Particle homingMissile;
 	// enemy goodbye particle
 	
 

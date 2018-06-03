@@ -214,6 +214,8 @@ void ModulePowerUp::OnCollision(Collider* c1, Collider* c2)
 			case powerUpTypes::MISSILES:
 
 				//call the functionality of the missiles powerup
+				App->player[playerIndex]->powerUpActive = powerUpTypes::MISSILES;
+
 				break;
 			case powerUpTypes::NONE:
 					//for some functionality, if we need

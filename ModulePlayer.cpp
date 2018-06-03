@@ -175,6 +175,12 @@ update_status ModulePlayer::PreUpdate()
 			activebuff.laser = true;
 			powerUpActive = powerUpTypes::NONE;
 		}
+
+		if (powerUpActive == powerUpTypes::MISSILES)
+		{
+			activebuff.missiles = true;
+			powerUpActive = powerUpTypes::NONE;
+		}
 		// --------------------------------------------------------------------
 		
 	}
@@ -346,10 +352,18 @@ update_status ModulePlayer::Update()
 
 		//if player press keys of particles emitters
 
+		// timer for missiles
+		now_missile_time = SDL_GetTicks() - start_missile_time;
+		if (now_missile_time > cadence_missile)
+		{
+			shootedMissile = false;
+		}
+
 		if (playerInput.shot)//App->input->keyboard[SDL_SCANCODE_SPACE] == KEY_STATE::KEY_DOWN)
 		{
 			LOG("Beam!");
 
+			// check laser powerup
 			if (activebuff.laser)
 			{
 				shootingLaser = true;
@@ -357,6 +371,35 @@ update_status ModulePlayer::Update()
 					App->particles->AddParticle(App->particles->laser, position.x + 32, position.y - 2, COLLIDER_PLAYER2_SHOT);
 				else
 					App->particles->AddParticle(App->particles->laser, position.x + 32, position.y - 2, COLLIDER_PLAYER_SHOT); //"shot");
+			}
+			// check homing missiles powerup
+			if (activebuff.missiles)
+			{
+				if (!shootedMissile) 
+				{
+					shootedMissile = true;
+					start_missile_time = SDL_GetTicks();
+
+					if (this == App->player[1])
+					{
+						App->particles->AddParticle(App->particles->homingMissile, position.x - 80, position.y - 24, COLLIDER_PLAYER2_SHOT, { 1,0 });
+						App->particles->AddParticle(App->particles->homingMissile, position.x - 120, position.y - 38, COLLIDER_PLAYER2_SHOT, { 1,0 }, 150);
+						App->particles->AddParticle(App->particles->homingMissile, position.x - 160, position.y - 52, COLLIDER_PLAYER2_SHOT, { 1,0 }, 350);
+						App->particles->AddParticle(App->particles->homingMissile, position.x - 80, position.y + 24, COLLIDER_PLAYER2_SHOT, { 1,0 }, 0);
+						App->particles->AddParticle(App->particles->homingMissile, position.x - 120, position.y + 38, COLLIDER_PLAYER2_SHOT, { 1,0 }, 150);
+						App->particles->AddParticle(App->particles->homingMissile, position.x - 160, position.y + 52, COLLIDER_PLAYER2_SHOT, { 1,0 }, 350);
+					}
+					else
+					{
+						App->particles->AddParticle(App->particles->homingMissile, position.x - 80, position.y - 24, COLLIDER_PLAYER_SHOT, { 4,0 }, 0);
+						App->particles->AddParticle(App->particles->homingMissile, position.x - 120, position.y - 38, COLLIDER_PLAYER_SHOT, { 4,0 }, 150);
+						App->particles->AddParticle(App->particles->homingMissile, position.x - 160, position.y - 52, COLLIDER_PLAYER_SHOT, { 4,0 }, 350);
+						App->particles->AddParticle(App->particles->homingMissile, position.x - 80, position.y + 24, COLLIDER_PLAYER_SHOT, { 4,0 }, 0);
+						App->particles->AddParticle(App->particles->homingMissile, position.x - 120, position.y + 38, COLLIDER_PLAYER_SHOT, { 4,0 }, 150);
+						App->particles->AddParticle(App->particles->homingMissile, position.x - 160, position.y + 52, COLLIDER_PLAYER_SHOT, { 4,0 }, 350);
+					}
+				}
+
 			}
 
 

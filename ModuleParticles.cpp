@@ -94,6 +94,24 @@ ModuleParticles::ModuleParticles()
 	laser.life = 1500;
 	//laser.fx = "laser";
 
+	// homing missiles
+	homingMissile.anim.PushBack({ 2,137,74,18 });
+	homingMissile.anim.PushBack({ 76,137,74,14 });
+	homingMissile.anim.PushBack({ 150,137,74,18 });
+	homingMissile.anim.PushBack({ 2,152,74,18 });
+	for (uint i = 0; i < 24; i++)
+	{
+		homingMissile.anim.PushBack({ 76,152,74,18 });
+		homingMissile.anim.PushBack({ 150,152,74,18 });
+		homingMissile.anim.PushBack({ 2,170,74,18 });
+		homingMissile.anim.PushBack({ 76,170,74,18 });
+	}
+	homingMissile.anim.speed = 0.25f;
+	//homingMissile.anim.repeat = false;
+	//homingMissile.life = 3000;
+	homingMissile.damage = 2;
+
+
 }
 
 ModuleParticles::~ModuleParticles()
@@ -110,6 +128,7 @@ bool ModuleParticles::Start()
 	laserTexture = App->textures->Load("assets/Graphics/Player/laser.png");
 	beamImpactTexture = App->textures->Load("assets/Graphics/Player/playerShotImpact.png");
 	unitBasicShotImpactTexture = App->textures->Load("assets/Graphics/Player/unitBasicShotImpactFixed.png");
+	powerUpVFXTexture = App->textures->Load("assets/Graphics/Player/powerUpEffects2.png");
 	// ------------------------------------------------
 	
 	//load and links textures for particles -----------
@@ -120,6 +139,7 @@ bool ModuleParticles::Start()
 	unitBasicShot.onCollisionGeneralParticle = &unitBasicShotImpact;
 	unitBasicShotImpact.texture = unitBasicShotImpactTexture;
 	laser.texture = laserTexture;
+	homingMissile.texture = powerUpVFXTexture;
 	// ------------------------------------------------
 
 	//load specific Wavs effects for particles --------
@@ -143,6 +163,7 @@ bool ModuleParticles::CleanUp()
 	LOG("Unloading particles");
 
 	//unloading graphics
+	App->textures->Unload(powerUpVFXTexture);
 	App->textures->Unload(beamImpactTexture);
 	App->textures->Unload(unitBasicShotImpactTexture);
 	App->textures->Unload(test); //remember erase this and its texture etc
@@ -310,7 +331,7 @@ bool Particle::Update()
 	//destroy particles respect camera position margins
 	if (position.x > (abs(App->render->camera.x) / SCREEN_SIZE) + SCREEN_WIDTH - MARGIN)
 		ret = false;
-	else if (position.x < (abs(App->render->camera.x) / SCREEN_SIZE) - MARGIN)
+	else if (position.x < (abs(App->render->camera.x) / SCREEN_SIZE) - MARGIN - 150)
 		ret = false;
 
 	position.x += speed.x;
