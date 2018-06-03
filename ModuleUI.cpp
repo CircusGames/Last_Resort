@@ -242,8 +242,8 @@ update_status ModuleUI::PostUpdate()//Update()
 
 		BlitText(272, 216, lastResortBlueFont, score_text);
 
-		if (UI == gameplay_state::GAMETITTLE && coins < 99)
-			if (App->input->keyboard[SDL_SCANCODE_SPACE] == KEY_UP)
+		if (coins < 99)
+			if (App->input->keyboard[SDL_SCANCODE_C] == KEY_UP)
 			{
 				coins = coins + 2;
 				if (coins > 99)coins = 99;
