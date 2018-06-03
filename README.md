@@ -43,10 +43,14 @@ Last Resort is one of the greatest arcade shoot 'em up videogames because of his
 
 ## Gameplay video of the original title
 
+OFFICIAL GAME
+
 <a href="http://www.youtube.com/watch?feature=player_embedded&v=y1xUT7QJ-mA" target="_blank"><img src="http://img.youtube.com/vi/y1xUT7QJ-mA/0.jpg" 
 alt="OFFICIAL GAME" width="480" height="360" border="10" /></a>
 
 ## Gameplay of our version
+
+OUR VERSION OF THE GAME
 
 <a href="http://www.youtube.com/watch?feature=player_embedded&v=EA91D_EpZY0" target="_blank"><img src="http://img.youtube.com/vi/EA91D_EpZY0/0.jpg" 
 alt="OUR VERSION OF THE GAME" width="480" height="360" border="10" /></a>
@@ -175,7 +179,7 @@ alt="OUR VERSION OF THE GAME" width="480" height="360" border="10" /></a>
 	  * Added ALL background logic and animations.
    * Modified ModuleRender with funcionality:
       * To flip textures.
-      *	Optional parameter of parallax speed y.
+      * Optional parameter of parallax speed y.
    * Modified class animation: 
       * To accept parameter repeat, wich optional prevent cycling animations.
 	  * Adapted the method pushback to reserve new rects with dynamic memory.
