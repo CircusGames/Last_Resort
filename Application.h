@@ -81,6 +81,8 @@ public:
 	update_status Update();
 	bool CleanUp();
 
+	bool gamePause = false;
+
 };
 
 // Global var made extern for Application ---
