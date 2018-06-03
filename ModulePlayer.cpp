@@ -108,6 +108,7 @@ bool ModulePlayer::Start()
 	App->audio->LoadAudio("assets/Audio/SFX/Player/speedDowngrade.wav", "speedDN", SFX);
 	App->audio->LoadAudio("assets/Audio/SFX/Player/spawn.wav", "spawn", SFX);
 	App->audio->LoadAudio("assets/Audio/SFX/Player/death.wav", "death", SFX);
+	//App->audio->LoadAudio("assets/Audio/SFX/Player/death.wav", "death", SFX);
 	
 	
 	// ---------------------
@@ -386,9 +387,17 @@ update_status ModulePlayer::Update()
 			{
 				shootingLaser = true;
 				if (this == App->player[1])
+				{
 					App->particles->AddParticle(App->particles->laser, position.x + 32, position.y - 2, COLLIDER_PLAYER2_SHOT);
+					App->particles->AddParticle(App->particles->laserRing, position.x, position.y, COLLIDER_PLAYER2_SHOT);
+				}
 				else
+				{
 					App->particles->AddParticle(App->particles->laser, position.x + 32, position.y - 2, COLLIDER_PLAYER_SHOT); //"shot");
+					App->particles->AddParticle(App->particles->laserRing, position.x - 20 , position.y - 24, COLLIDER_PLAYER_SHOT, {6,0}, 100);
+					App->particles->AddParticle(App->particles->laserRing, position.x - 50, position.y - 24, COLLIDER_PLAYER_SHOT, { 6,0 }, 150);
+					App->particles->AddParticle(App->particles->laserRing, position.x - 80, position.y - 24, COLLIDER_PLAYER_SHOT, { 6,0 }, 200);
+				}
 			}
 			// check homing missiles powerup
 			if (activebuff.missiles)
@@ -397,6 +406,9 @@ update_status ModulePlayer::Update()
 				{
 					shootedMissile = true;
 					start_missile_time = SDL_GetTicks();
+
+					// PLAY SFX
+					//App->audio->ControlAudio("homingMissile", SFX, PLAY);
 
 					if (this == App->player[1])
 					{

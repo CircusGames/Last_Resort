@@ -112,6 +112,7 @@ ModuleParticles::ModuleParticles()
 	//homingMissile.life = 3000;
 	homingMissile.damage = 2;
 	homingMissile.impactPosition = { 80,0 };
+	homingMissile.fx = "homingMissile";
 
 	// bombs powerup particle
 	bombsUp.anim.PushBack({ 3,40,16,6 });
@@ -152,10 +153,30 @@ ModuleParticles::ModuleParticles()
 	bombGoodBye.anim.PushBack({ 42,190,32,32 });
 	bombGoodBye.anim.speed = 0.5f;
 	bombGoodBye.anim.repeat = false;
-	//bombGoodBye.life = 2000;
 	bombGoodBye.damage = 2;
+	bombGoodBye.fx = "rocketExplosion";
 
+	// laser ring
+	laserRing.anim.PushBack({ 71,88,16,47 });
+	laserRing.anim.PushBack({ 83,88,16,47 });
+	laserRing.anim.PushBack({ 97,88,16,47 });
+	for (uint i = 0; i < 24;++i)
+		laserRing.anim.PushBack({ 116,88,16,47 });
+	laserRing.anim.speed = 0.25f;
+	laserRing.anim.repeat = false;
+	laserRing.damage = 2;
 
+	// laser ring destruction
+	laserRingImpact.anim.PushBack({ 28,40,17,47 });
+	laserRingImpact.anim.PushBack({ 65,40,17,47 });
+	laserRingImpact.anim.PushBack({ 49,89,17,47 });
+	laserRingImpact.anim.PushBack({ 28,89,18,47 });
+	laserRingImpact.anim.PushBack({ 46,40,17,47 });
+	laserRingImpact.anim.speed = 0.125f;
+	laserRingImpact.anim.repeat = false;
+
+	
+	
 }
 
 ModuleParticles::~ModuleParticles()
@@ -191,12 +212,17 @@ bool ModuleParticles::Start()
 	bombGoodBye.texture = powerUpVFXTexture;
 	bombsDown.onCollisionGeneralParticle = &bombGoodBye;
 	bombsUp.onCollisionGeneralParticle = &bombGoodBye;
+	laserRing.texture = powerUpVFXTexture;
+	laserRingImpact.texture = powerUpVFXTexture;
+	laserRing.onCollisionGeneralParticle = &laserRingImpact;
 	//bombGoodBye.deathParticle = &bombGoodBye;
 	// ------------------------------------------------
 
 	//load specific Wavs effects for particles --------
 	App->audio->LoadAudio("assets/Audio/SFX/Player/shot04.wav", "shot", SFX);
 	App->audio->LoadAudio("assets/Audio/SFX/Player/laser.wav", "laser", SFX);
+	App->audio->LoadAudio("assets/Audio/SFX/Player/homingMissile.wav", "homingMissile", SFX);
+	App->audio->LoadAudio("assets/Audio/SFX/Player/homingExploding.wav", "homingExploding", SFX);
 	// ------------------------------------------------
 	laser.fx = "laser";
 	beam.fx = "shot";
@@ -241,6 +267,9 @@ bool ModuleParticles::CleanUp()
 	//removing particles FX audio
 	App->audio->UnloadAudio("shot", SFX);
 	App->audio->UnloadAudio("laser", SFX);
+	App->audio->UnloadAudio("homingMissile", SFX);
+	App->audio->UnloadAudio("homingExploding", SFX);
+
 
 
 	return true;

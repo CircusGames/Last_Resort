@@ -90,6 +90,8 @@ public:
 	Particle bombsUp;
 	Particle bombsDown;
 	Particle bombGoodBye;
+	Particle laserRing;
+	Particle laserRingImpact;
 	// enemy goodbye particle
 	
 

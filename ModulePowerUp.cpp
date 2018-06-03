@@ -61,6 +61,8 @@ bool ModulePowerUp::Start()
 
 	//Audio
 	App->audio->LoadAudio("assets/Audio/SFX/Player/taking_Unit.wav", "Taking_Unit", SFX);
+	App->audio->LoadAudio("assets/Audio/SFX/Player/pickPowerUp.wav", "pickPowerUp", SFX);
+
 
 	return true;
 }
@@ -114,6 +116,7 @@ bool ModulePowerUp::CleanUp()
 	App->textures->Unload(powerUpTextures);
 	//unload audio
 	App->audio->UnloadAudio("Taking_Unit", SFX);
+	App->audio->UnloadAudio("pickPowerUp", SFX);
 
 	return true;
 }
@@ -191,6 +194,7 @@ void ModulePowerUp::OnCollision(Collider* c1, Collider* c2)
 			case powerUpTypes::BOMBS:
 					//call the functionality of the bombs powerup
 				App->player[playerIndex]->powerUpActive = powerUpTypes::BOMBS;
+				App->audio->ControlAudio("pickPowerUp", SFX, PLAY);
 				break;
 			case powerUpTypes::BOOST:
 					//call the functionality of the bombs powerup
@@ -211,11 +215,13 @@ void ModulePowerUp::OnCollision(Collider* c1, Collider* c2)
 			case powerUpTypes::LASER:
 				//call the functionality of the laser powerup
 				App->player[playerIndex]->powerUpActive = powerUpTypes::LASER;
+				App->audio->ControlAudio("pickPowerUp", SFX, PLAY);
 				break;
 			case powerUpTypes::MISSILES:
 
 				//call the functionality of the missiles powerup
 				App->player[playerIndex]->powerUpActive = powerUpTypes::MISSILES;
+				App->audio->ControlAudio("pickPowerUp", SFX, PLAY);
 
 				break;
 			case powerUpTypes::NONE:
