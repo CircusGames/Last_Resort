@@ -428,12 +428,12 @@ update_status ModulePlayer::Update()
 
 					if (this == App->player[1])
 					{
-						App->particles->AddParticle(App->particles->homingMissile, position.x - 80, position.y - 24, COLLIDER_PLAYER2_SHOT, { 1,0 });
-						App->particles->AddParticle(App->particles->homingMissile, position.x - 120, position.y - 38, COLLIDER_PLAYER2_SHOT, { 1,0 }, 150);
-						App->particles->AddParticle(App->particles->homingMissile, position.x - 160, position.y - 52, COLLIDER_PLAYER2_SHOT, { 1,0 }, 350);
-						App->particles->AddParticle(App->particles->homingMissile, position.x - 80, position.y + 24, COLLIDER_PLAYER2_SHOT, { 1,0 }, 0);
-						App->particles->AddParticle(App->particles->homingMissile, position.x - 120, position.y + 38, COLLIDER_PLAYER2_SHOT, { 1,0 }, 150);
-						App->particles->AddParticle(App->particles->homingMissile, position.x - 160, position.y + 52, COLLIDER_PLAYER2_SHOT, { 1,0 }, 350);
+						App->particles->AddParticle(App->particles->homingMissile, position.x - 80, position.y - 24, COLLIDER_PLAYER2_SHOT, { 4,0 });
+						App->particles->AddParticle(App->particles->homingMissile, position.x - 120, position.y - 38, COLLIDER_PLAYER2_SHOT, { 4,0 }, 150);
+						App->particles->AddParticle(App->particles->homingMissile, position.x - 160, position.y - 52, COLLIDER_PLAYER2_SHOT, { 4,0 }, 350);
+						App->particles->AddParticle(App->particles->homingMissile, position.x - 80, position.y + 24, COLLIDER_PLAYER2_SHOT, { 4,0 }, 0);
+						App->particles->AddParticle(App->particles->homingMissile, position.x - 120, position.y + 38, COLLIDER_PLAYER2_SHOT, { 4,0 }, 150);
+						App->particles->AddParticle(App->particles->homingMissile, position.x - 160, position.y + 52, COLLIDER_PLAYER2_SHOT, { 4,0 }, 350);
 					}
 					else
 					{
@@ -458,8 +458,8 @@ update_status ModulePlayer::Update()
 
 					if (this == App->player[1])
 					{
-						App->particles->AddParticle(App->particles->bombsUp, position.x, position.y - 6, COLLIDER_PLAYER2_SHOT, { 2,-2 });
-						App->particles->AddParticle(App->particles->bombsDown, position.x, position.y + 6, COLLIDER_PLAYER2_SHOT, { 2,2 });
+						App->particles->AddParticle(App->particles->bombsUp, position.x, position.y - 3, COLLIDER_PLAYER2_SHOT, { 2,-2 });
+						App->particles->AddParticle(App->particles->bombsDown, position.x, position.y + 3, COLLIDER_PLAYER2_SHOT, { 2,2 });
 					}
 					else
 					{
