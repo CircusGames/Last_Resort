@@ -24,9 +24,9 @@ Last Resort is one of the greatest arcade shoot 'em up videogames because of his
 | Name	        | Main Function  | Github account|
 | ------------- |:-------------:|:-------------:|
 | Kevin      | Management |[DustHandler](https://github.com/dusthandler)|
-| José Antonio      | Code      |[PeterMcP](https://github.com/peterMcP)|
+| JosÃ© Antonio      | Code      |[PeterMcP](https://github.com/peterMcP)|
 | Rafa | Art/Design      |[RafaKanex](https://github.com/RafaKanex)|
-| Víctor | QA      |[VictorSegura99](https://github.com/VictorSegura99)|
+| VÃ­ctor | QA      |[VictorSegura99](https://github.com/VictorSegura99)|
 
 
 ## Team photo
@@ -41,14 +41,14 @@ Last Resort is one of the greatest arcade shoot 'em up videogames because of his
 
 [![Watch the video](https://www.youtube.com/watch?v=y1xUT7QJ-mA)](https://www.youtube.com/watch?v=y1xUT7QJ-mA)
 
-<iframe width="854" height="480" src="https://
+<iframe width="854" height="480" src="https://www.youtube.com/embed/y1xUT7QJ-mA" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
 
 ## Gameplay of our version
 
 [![Watch the video](https://www.youtube.com/watch?v=ROs_Zj6Vj4U&feature=youtu.be)](https://www.youtube.com/watch?v=ROs_Zj6Vj4U&feature=youtu.be)
 
-<iframe width="854" height="480" src="https://
-
+<iframe width="854" height="480" src="https://www.youtube.com/embed/ROs_Zj6Vj4U&feature=youtu.be" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 ***
 
 ***
@@ -77,19 +77,19 @@ Last Resort is one of the greatest arcade shoot 'em up videogames because of his
 
 ### changelog v1.0
 
-    * Added Enemy Submarine
-    * Added Enemy MiniTank
-        * Added All Enemies spawned by Submarine
-    * Added MidBoss Enemy
-    * Added Boss Enemy
-        * Added All Enemies spawned by the Boss
-    * Added Enemy Lamella
-    * UI polished
-    * More Power Ups Added and Fixed
-    * Win Module Fixed
-        * Win/Lose Points Recorded
-    * Player 2 Full Funcionality
-    * Coins System Added
+    * Added Enemy Submarine.
+    * Added Enemy MiniTank.
+        * Added All Enemies spawned by Submarine.
+    * Added MidBoss Enemy.
+    * Added Boss Enemy.
+        * Added All Enemies spawned by the Boss.
+    * Added Enemy Lamella.
+    * UI polished.
+    * More Power Ups Added and Fixed.
+    * Win Module Fixed.
+        * Win/Lose Points Recorded.
+    * Player 2 Full Funcionality.
+    * Coins System Added.
 
 ***
 
@@ -107,25 +107,25 @@ Last Resort is one of the greatest arcade shoot 'em up videogames because of his
 
 ### changelog v0.6.5
 
-    * Added full backgrounds/animations and logic of Level 3 scene
-    * Added gamePad functionality for two players (with hot plug)
-    * Added fullScreen mode
-    * Added Protator enemy
-    * Added metal red bird enemy
-    * Added bee dropper
-    * Updated metal bee to scene 3
-    * Several fixes
+    * Added full backgrounds/animations and logic of Level 3 scene.
+    * Added gamePad functionality for two players (with hot plug).
+    * Added fullScreen mode.
+    * Added Protator enemy.
+    * Added metal red bird enemy.
+    * Added bee dropper.
+    * Updated metal bee to scene 3.
+    * Several fixes.
 
 ***
 
 ### changelog v0.5
 
-    * Added player 2, still WIP
-    * Added multiple enemies
-    * Added god mode
-    * Added a lot of debuging tools
-    * Added laser and speed powerups
-    * Added continue, gameover and socoreboard screens
+    * Added player 2, still WIP.
+    * Added multiple enemies.
+    * Added god mode.
+    * Added a lot of debuging tools.
+    * Added laser and speed powerups.
+    * Added continue, gameover and socoreboard screens.
 
 ***
 
