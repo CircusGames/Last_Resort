@@ -360,13 +360,13 @@ bool ModuleSceneLvl3::CleanUp()
 void ModuleSceneLvl3::addEnemiesToLvl3()
 {
 	// first ADD submarine ( for draw circunstances )
-	//App->enemies->AddEnemy(ENEMY_TYPES::SUBMARINE, 0, 60, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::SUBMARINE, 0, 60, NONE);
 
 	// BOSS
-	//App->enemies->AddEnemy(ENEMY_TYPES::COLDMACHINE, 100, 100, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::COLDMACHINE, 100, 100, NONE);
 
 	//First Wave
-	/*App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 300, 35, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 300, 35, NONE);
 	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 300, 90, NONE);
 	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 342, 35, NONE);
 	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 342, 90, NONE);
@@ -384,7 +384,7 @@ void ModuleSceneLvl3::addEnemiesToLvl3()
 	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 710, 35, NONE);
 	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 740, 35, NONE);
 	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 770, 35, NONE);
-	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 800, 35, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 800, 35, MISSILES);
 	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 830, 35, NONE);
 
 	//Third Wave
@@ -408,19 +408,19 @@ void ModuleSceneLvl3::addEnemiesToLvl3()
 	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 9210, 45, NONE);
 	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 9240, 45, NONE);
 	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 9270, 45, NONE);
-	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 9300, 45, NONE);*/
+	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 9300, 45, LASER); // NONE
 	//-----------------------------------------------------------
 
 	// Enemy POWERUP BEE
-	App->enemies->AddEnemy(ENEMY_TYPES::POWERUP_BEE, 3200, 75, BOOST); //GPOWER
+	App->enemies->AddEnemy(ENEMY_TYPES::POWERUP_BEE, 3200, 75, BOMBS);//BOOST); //GPOWER
 	App->enemies->AddEnemy(ENEMY_TYPES::POWERUP_BEE, 4900, 75, BOOST); //BOOST
 	App->enemies->AddEnemy(ENEMY_TYPES::POWERUP_BEE, 5700, 75, BOOST); //BOOST
-	App->enemies->AddEnemy(ENEMY_TYPES::POWERUP_BEE, 6100, 75, BOOST); //HPOWER*/
+	App->enemies->AddEnemy(ENEMY_TYPES::POWERUP_BEE, 6100, 75, MISSILES); //HPOWER*/
 
 	// ----------------------------------------------------------
 	// Enemy PROTATORS
 
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 4658, 139, NONE); //20
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 4658, 139, BOMBS); //20 // NONE
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 4754, 139, NONE);
 
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 4818, 155, NONE);
@@ -446,7 +446,7 @@ void ModuleSceneLvl3::addEnemiesToLvl3()
 
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 5618, 127, NONE);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 5650, 127, NONE);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 5682, 127, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 5682, 127, LASER);
 
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 5714, 144, NONE);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 5746, 144, NONE);
@@ -466,7 +466,7 @@ void ModuleSceneLvl3::addEnemiesToLvl3()
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 6226, 128, NONE);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 6258, 128, NONE);
 
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 6290, 189, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 6290, 189, BOMBS);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 6322, 189, NONE);
 
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 6354, 185, NONE);
@@ -493,7 +493,7 @@ void ModuleSceneLvl3::addEnemiesToLvl3()
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 7186, 189, NONE);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 7250, 189, NONE);
 
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 7342, 189, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 7342, 189, BOMBS);
 
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 7466, 189, NONE);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 7546, 189, NONE);
@@ -511,7 +511,7 @@ void ModuleSceneLvl3::addEnemiesToLvl3()
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 8506, 189, NONE);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 8586, 189, NONE);
 
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 8652, 189, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 8652, 189, MISSILES);
 
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 8734, 189, NONE);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYPROTATOR, 8814, 189, NONE);
@@ -539,7 +539,7 @@ void ModuleSceneLvl3::addEnemiesToLvl3()
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYBEE, 3300, 80, NONE);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYBEE, 3800, 80, NONE);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYBEE, 4000, 80, NONE);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYBEE, 7200, 80, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYBEE, 7200, 80, LASER);
 
 	//--------------------------------------------------------------------
 
