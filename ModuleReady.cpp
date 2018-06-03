@@ -6,6 +6,8 @@
 #include "ModuleGameTitle.h"
 #include "ModuleSceneLvl1.h"
 #include "ModuleSceneLvl3.h"
+#include "ModuleContinue.h"
+#include "ModuleUI.h"
 
 #include "SDL/include/SDL_timer.h"
 
@@ -36,9 +38,8 @@ bool ModuleReady::Start()
 
 update_status ModuleReady::Update()
 {
+
 	App->render->Blit(readyTexture, 112, 104, &readyRect);
-
-
 
 	now = SDL_GetTicks() - startTime;
 

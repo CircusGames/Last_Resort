@@ -6,6 +6,7 @@
 #include "ModuleContinue.h"
 #include "ModuleFadeToBlack.h"
 #include "ModuleAudio.h"
+#include "ModuleUI.h"
 
 #include "ModulePlayer.h"
 #include "ModulePlayer2.h"
@@ -241,6 +242,7 @@ update_status ModuleContinue::Update()
 		App->player[0]->lives = 3;
 		App->player[1]->lives = 3;
 		App->fade->FadeToBlack(this, (Module*)App->readyScreen, 0.8f);
+		App->moduleUI->coins--;
 	}
 
 	return UPDATE_CONTINUE;

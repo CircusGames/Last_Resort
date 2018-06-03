@@ -45,8 +45,6 @@ private:
 	int firePositions[8] = {21,53,85,117,149,181,213,253};
 	int row;
 	int nextNumber;
-	
-	
 
 };
 #endif // !_MODULECONTINUE_H__

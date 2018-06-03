@@ -10,6 +10,8 @@
 #include "ModuleAudio.h"
 #include "ModuleFadeToBlack.h"
 
+#include "ModuleContinue.h"
+
 #include "ModuleSceneLvl3.h"
 
 #include "ModuleUI.h"
@@ -106,6 +108,7 @@ bool ModulePlayer::Start()
 	if(scoreReset)
 		playerScore = 0;
 
+	
 	destroyed = false;
 
 	//load necessary fx wavs
@@ -716,7 +719,17 @@ void ModulePlayer::deathLogic()
 			if (App->player[0]->lives > 0)
 				App->fade->FadeToBlack(sceneCallback, (Module*)App->readyScreen);
 			else
-				App->fade->FadeToBlack(sceneCallback, (Module*)App->continueScreen);
+			{
+				if (App->moduleUI->coins > 0)
+				{
+					App->fade->FadeToBlack(sceneCallback, (Module*)App->continueScreen);
+
+				}
+
+				else
+					App->fade->FadeToBlack(sceneCallback, (Module*)App->gameOverScreen);
+			}
+
 		}
 		else
 		{

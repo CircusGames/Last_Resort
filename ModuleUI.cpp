@@ -98,11 +98,29 @@ update_status ModuleUI::PostUpdate()//Update()
 			App->render->Blit(uiTexture, 48, 210, &powBarRect, 0); //48,210 POWER BAR
 			
 			BlitText(32, 16, lastResortBlueFont, score_text); //original pos x 72,y 16
+
+			if (App->player[0]->godMode)
+			{
+				if (godModeBlink[0] < 4000)
+				{
+					godModeBlink[0] = godModeBlink[0] + 100;
+					BlitText(16, 33, lastResortBlueFont, "[god mode]");
+				}
+
+				else if (godModeBlink[0] >= 4000)
+				{
+					if (godModeBlink[0]<8000)
+						godModeBlink[0] = godModeBlink[0] + 100;
+					else
+						godModeBlink[0] = 0;
+				}
+			}				
 			
 		}
 
 		if (App->player[1]->IsEnabled())
 		{
+			bothPlayers = true;
 			//draw lives
 			sprintf_s(score_text, 10, "%6i%d", zero, lives2);
 			BlitText(216, 24, lastResortBlueFont, score_text); 
@@ -117,6 +135,23 @@ update_status ModuleUI::PostUpdate()//Update()
 			sprintf_s(score_text, 10, "%7d", score2);
 			BlitText(32+160, 16, lastResortBlueFont, score_text); //original pos x 72,y 16
 
+
+			if (App->player[1]->godMode)
+			{
+				if (godModeBlink[1] < 4000)
+				{
+					godModeBlink[1] = godModeBlink[1] + 100;
+					BlitText(218, 33, lastResortBlueFont, "[god mode]");
+				}
+
+				else if (godModeBlink[1] >= 4000)
+				{
+					if (godModeBlink[1]<8000)
+						godModeBlink[1] = godModeBlink[1] + 100;
+					else
+						godModeBlink[1] = 0;
+				}
+			}
 		}
 
 		else

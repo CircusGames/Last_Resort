@@ -54,7 +54,9 @@ public:
 
 	int unit1Pow = 0;
 	int unit2Pow = 0;
+
 	int pressToStart = 0;
+	int godModeBlink[2] = { 0 };
 
 	char score_text[10];
 	char redNumbers_text[10];
@@ -105,6 +107,8 @@ public:
 
 	bool computed = false;
 	gameplay_state UI;
+
+	bool bothPlayers = false;
 
 };
 
