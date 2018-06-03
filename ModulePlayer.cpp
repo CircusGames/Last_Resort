@@ -401,7 +401,9 @@ update_status ModulePlayer::Update()
 					if (this == App->player[1])
 					{
 						App->particles->AddParticle(App->particles->laser, position.x + 32, position.y - 2, COLLIDER_PLAYER2_SHOT);
-						App->particles->AddParticle(App->particles->laserRing, position.x, position.y, COLLIDER_PLAYER2_SHOT);
+						App->particles->AddParticle(App->particles->laserRing, position.x - 20, position.y - 24, COLLIDER_PLAYER2_SHOT, { 6,0 }, 100);
+						App->particles->AddParticle(App->particles->laserRing, position.x - 50, position.y - 24, COLLIDER_PLAYER2_SHOT, { 6,0 }, 150);
+						App->particles->AddParticle(App->particles->laserRing, position.x - 80, position.y - 24, COLLIDER_PLAYER2_SHOT, { 6,0 }, 200);
 					}
 					else
 					{
@@ -456,8 +458,8 @@ update_status ModulePlayer::Update()
 
 					if (this == App->player[1])
 					{
-						App->particles->AddParticle(App->particles->bombsUp, position.x, position.y - 24, COLLIDER_PLAYER2_SHOT, { 1,0 });
-						App->particles->AddParticle(App->particles->bombsDown, position.x, position.y - 24, COLLIDER_PLAYER2_SHOT, { 1,0 });
+						App->particles->AddParticle(App->particles->bombsUp, position.x, position.y - 6, COLLIDER_PLAYER2_SHOT, { 2,-2 });
+						App->particles->AddParticle(App->particles->bombsDown, position.x, position.y + 6, COLLIDER_PLAYER2_SHOT, { 2,2 });
 					}
 					else
 					{
