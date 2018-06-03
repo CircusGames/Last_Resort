@@ -32,7 +32,7 @@ Last Resort is one of the greatest arcade shoot 'em up videogames because of his
 ## Team photo
 
 <p align="center">
-<img src="https://github.com/dusthandler/CITM_Proyecto_1/blob/master/docs/Team_Photo.jpg" width="480">
+<img src="https://github.com/CircusGames/Last_Resort/blob/master/docs/Team_Photo.jpg" width="480">
 </p>
 
 ***
