@@ -27,6 +27,6 @@ private:
 
 	Uint32 now;
 	float startTime;
-	float totalTime;
+	float totalTime;	
 };
 #endif // !_MODULEREADY_H__

@@ -819,7 +819,6 @@ update_status ModuleGameTitle::Update()
 	Animation* current_animation;
 	SDL_Rect r;
 
-
 	if (current_step == intro_step::firstSecuence ||
 		current_step == intro_step::fade_to_white)
 	{
@@ -938,7 +937,11 @@ update_status ModuleGameTitle::Update()
 		App->render->Blit(snkCorpTexture, 64, 200, &snkCorp);
 
 		if (App->input->keyboard[SDL_SCANCODE_RETURN] == 1)
+		{
 			App->fade->FadeToBlack(App->gameTitle, App->readyScreen, 1.0f);
+			App->moduleUI->coins--;
+		}
+			
 	}
 
 

@@ -235,9 +235,11 @@ update_status ModuleContinue::Update()
 		App->fade->FadeToBlack(App->continueScreen, App->gameOverScreen, 0.8f);
 
 
-	if (App->input->keyboard[SDL_SCANCODE_RETURN] == 1 && App->player[0]->lives > 0)
+	if (App->input->keyboard[SDL_SCANCODE_RETURN] == 1)
 	{
 		//App->player[0]->lives--;
+		App->player[0]->lives = 3;
+		App->player[1]->lives = 3;
 		App->fade->FadeToBlack(this, (Module*)App->readyScreen, 0.8f);
 	}
 

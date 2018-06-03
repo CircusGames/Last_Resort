@@ -13,6 +13,7 @@
 #include "ModuleGameOver.h"
 #include "ModuleAudio.h"
 #include "ModulePlayerUnit.h"
+
 //#include "ModulePlayer2Unit.h"
 #include "ModuleParticles.h"
 #include "ModuleCollision.h"
@@ -232,6 +233,7 @@ update_status ModuleSceneLvl3::PreUpdate()
 	{
 		
 		App->player[1]->Enable();
+		App->moduleUI->coins--;
 		App->player[1]->sceneCallback = this;
 		App->player[1]->position.x = (int)GetCurrentCameraPixelPos() * 2 + 40;
 		

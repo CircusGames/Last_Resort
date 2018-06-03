@@ -10,6 +10,8 @@
 #include "ModuleAudio.h"
 #include "ModuleFadeToBlack.h"
 
+#include "ModuleUI.h"
+
 //#include "Player.h"
 
 
@@ -651,8 +653,12 @@ update_status ModulePlayer::Update()
 				if (this == App->player[0] && !App->player[1]->IsEnabled() || 
 					this == App->player[0] && App->player[1]->IsEnabled() && App->player[1]->lives < 1)
 				{
-					App->fade->FadeToBlack(sceneCallback, (Module*)App->gameOverScreen);
-					lives = 3;
+					App->fade->FadeToBlack(sceneCallback, (Module*)App->continueScreen);
+					//lives = 3;
+					if (App->moduleUI->coins > 0)
+						App->moduleUI->coins--;
+					else
+						App->fade->FadeToBlack(sceneCallback, (Module*)App->gameOverScreen);
 				}
 				/*if (this == App->player[0] && App->player[1]->IsEnabled() && App->player[1]->lives <= 1)
 				{
@@ -661,8 +667,16 @@ update_status ModulePlayer::Update()
 				}*/
 				if (this == App->player[1] && App->player[0]->lives < 1)
 				{
-					App->fade->FadeToBlack(sceneCallback, (Module*)App->gameOverScreen);
-					lives = 3;
+					
+					//lives = 3;
+					if (App->moduleUI->coins > 0)
+					{
+						App->fade->FadeToBlack(sceneCallback, (Module*)App->continueScreen);
+						App->moduleUI->coins--;
+					}
+						
+					else
+						App->fade->FadeToBlack(sceneCallback, (Module*)App->gameOverScreen);
 				}
 
 			}
@@ -671,10 +685,10 @@ update_status ModulePlayer::Update()
 				//--lives;
 				if (this == App->player[0] && !App->player[1]->IsEnabled() ||
 					this == App->player[0] && App->player[1]->IsEnabled() && App->player[1]->player_step == died)
-					App->fade->FadeToBlack(sceneCallback, (Module*)App->continueScreen, 1.0f);
+					App->fade->FadeToBlack(sceneCallback, (Module*)App->readyScreen, 1.0f);
 
 				if (this == App->player[1] && App->player[0]->player_step == died)
-					App->fade->FadeToBlack(sceneCallback, (Module*)App->continueScreen, 1.0f);
+					App->fade->FadeToBlack(sceneCallback, (Module*)App->readyScreen, 1.0f);
 			}
 		}
 
