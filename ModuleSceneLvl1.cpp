@@ -541,6 +541,8 @@ update_status ModuleSceneLvl1::PreUpdate()
 	{
 		//move player position to follow the camera movement
 		App->player[0]->position.x += 1;
+		if (App->player[1]->IsEnabled())
+			App->player[1]->position.x += 1;
 		//App->player2->position.x += 1;
 		//camera speed relative to its size
 		App->render->camera.x -= 1 * SCREEN_SIZE;
@@ -678,6 +680,18 @@ update_status ModuleSceneLvl1::PreUpdate()
 		{
 		bgMovY.mgRendezvous = true;
 		}*/
+
+	}
+
+	//activate player 2
+
+	if (App->input->keyboard[SDL_SCANCODE_BACKSPACE] == KEY_DOWN && !App->player[1]->IsEnabled())
+	{
+
+		App->player[1]->Enable();
+		App->moduleUI->coins--;
+		App->player[1]->sceneCallback = this;
+		App->player[1]->position.x = App->scene_lvl3->GetCurrentCameraPixelPos() * 2 + 40;
 
 	}
 
