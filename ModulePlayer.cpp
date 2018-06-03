@@ -766,6 +766,7 @@ bool ModulePlayer::CleanUp()
 	activebuff.boost = false;
 	activebuff.brake = false;
 	activebuff.laser = false;
+	activebuff.missiles = false;
 	// ----------------------------------- -
 	return true;
 }
