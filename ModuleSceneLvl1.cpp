@@ -1043,7 +1043,7 @@ void ModuleSceneLvl1::addEnemiesToLvl1()
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYOSCILATORY, 6497, 65, NONE);
 
 	//Tank
-	App->enemies->AddEnemy(ENEMY_TYPES::TANK, 100, 150, NONE);
+	//App->enemies->AddEnemy(ENEMY_TYPES::TANK, 100, 150, NONE);
 	App->enemies->AddEnemy(ENEMY_TYPES::TANK, 6100, 150, NONE);
 
 	//BEE's, very alpha
@@ -1055,7 +1055,7 @@ void ModuleSceneLvl1::addEnemiesToLvl1()
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMYBEE, 4798, 90, NONE);
 
 	//Redbird Level 3 Tests
-	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 400, 50, NONE);
+	//App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 400, 50, NONE);
 
 }
 
