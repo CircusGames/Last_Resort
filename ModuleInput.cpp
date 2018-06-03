@@ -7,6 +7,9 @@
 #include "ModuleCollision.h"
 #include "ModuleRender.h"
 
+#include "ModuleUI.h"
+#include "Player.h"
+
 ModuleInput::ModuleInput() : Module()
 {
 	for (uint i = 0; i < MAX_KEYS; ++i)
@@ -188,7 +191,17 @@ update_status ModuleInput::PreUpdate()
 				if (Event.cbutton.button == SDL_CONTROLLER_BUTTON_RIGHTSHOULDER)
 					App->input->keyboard[SDL_SCANCODE_LSHIFT] = KEY_DOWN;
 				if (Event.cbutton.button == SDL_CONTROLLER_BUTTON_START)
-					App->input->keyboard[SDL_SCANCODE_RETURN] = KEY_DOWN;
+				{
+					if (App->moduleUI->UI == SCENE || App->moduleUI->UI == PAUSE)
+					{
+						App->input->keyboard[SDL_SCANCODE_P] = KEY_DOWN;
+						
+					}
+					else
+					{
+						App->input->keyboard[SDL_SCANCODE_RETURN] = KEY_DOWN;
+					}
+				}
 			
 				/*gamePadControllers[0].up = SDL_GameControllerGetButton(gamePadControllers[0].gamePadController, SDL_CONTROLLER_BUTTON_DPAD_UP);
 				gamePadControllers[0].down = SDL_GameControllerGetButton(gamePadControllers[0].gamePadController, SDL_CONTROLLER_BUTTON_DPAD_DOWN);
@@ -203,8 +216,20 @@ update_status ModuleInput::PreUpdate()
 					App->input->keyboard[SDL_SCANCODE_RSHIFT] = KEY_DOWN;
 				if (Event.cbutton.button == SDL_CONTROLLER_BUTTON_START)
 				{
-					App->input->keyboard[SDL_SCANCODE_RETURN] = KEY_DOWN;
-					App->input->keyboard[SDL_SCANCODE_P] = KEY_DOWN; //activates second player
+					if (!App->player[1]->IsEnabled() && (App->moduleUI->UI == SCENE || App->moduleUI->UI == PAUSE))
+					{
+						App->input->keyboard[SDL_SCANCODE_BACKSPACE] = KEY_DOWN; //activates second player
+					}
+					if (App->player[1]->IsEnabled() && (App->moduleUI->UI == SCENE || App->moduleUI->UI == PAUSE))
+					{ 
+						App->input->keyboard[SDL_SCANCODE_P] = KEY_DOWN;
+					}
+
+					if (App->player[1]->IsEnabled() && App->moduleUI->UI != SCENE && App->moduleUI->UI != PAUSE)
+					{
+						App->input->keyboard[SDL_SCANCODE_RETURN] = KEY_DOWN;
+					}
+					
 
 				}
 

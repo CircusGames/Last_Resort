@@ -73,11 +73,11 @@ bool Application::Init()
 	//desactivate Modules ----------------
 	//disable modulePlayer at init -------
 	//scenes ------------
-	//teamLogo->Disable();
+	teamLogo->Disable();
 	gameTitle->Disable();
 	readyScreen->Disable();
 	scene_lvl1->Disable();
-	scene_lvl3->Disable();
+	//scene_lvl3->Disable();
 	continueScreen->Disable();
 	gameOverScreen->Disable();
 	//other modules -----
@@ -110,7 +110,7 @@ update_status Application::Update()
 {
 	update_status ret = UPDATE_CONTINUE;
 
-	if (App->input->keyboard[SDL_SCANCODE_L] == KEY_DOWN && (moduleUI->UI == SCENE || moduleUI->UI == PAUSE))
+	if (App->input->keyboard[SDL_SCANCODE_P] == KEY_DOWN && (moduleUI->UI == SCENE || moduleUI->UI == PAUSE))
 	{
 		if (gamePause)
 		{

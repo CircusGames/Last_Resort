@@ -230,7 +230,7 @@ update_status ModuleSceneLvl3::PreUpdate()
 
 	//activate player 2
 
-	if (App->input->keyboard[SDL_SCANCODE_P] == KEY_DOWN && !App->player[1]->IsEnabled())
+	if (App->input->keyboard[SDL_SCANCODE_BACKSPACE] == KEY_DOWN && !App->player[1]->IsEnabled())
 	{
 		
 		App->player[1]->Enable();
