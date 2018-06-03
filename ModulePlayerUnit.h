@@ -202,5 +202,7 @@ public:
 
 	int scrollSpeed = 1; //var to update the actual scrolling speed of scene, and compensation
 
+	bool charge_fx_played = false;
+
 };
 #endif // !__MODULEPLAYERUNIT_H__

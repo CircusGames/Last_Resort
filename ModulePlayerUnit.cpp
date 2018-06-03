@@ -299,7 +299,9 @@ bool ModulePlayerUnit::Start()
 	//Audio
 	App->audio->LoadAudio("assets/Audio/SFX/player/Fix_Unit.wav", "UnitLocked", SFX);
 	App->audio->LoadAudio("assets/audio/SFX/player/Unfix_Unit.wav", "UnitUnlocked", SFX);
-	
+	App->audio->LoadAudio("assets/audio/SFX/player/chargingUnit.wav", "charging", SFX);
+	App->audio->LoadAudio("assets/audio/SFX/player/releasingUnit.wav", "released", SFX);
+	App->audio->LoadAudio("assets/audio/SFX/player/unit_collider.wav", "unitCollider", SFX);
 
 	//delta calculations
 	orbitSpeed = 1.0f;
@@ -903,6 +905,13 @@ update_status ModulePlayerUnit::Update()
 				playerPos.x + 7 - chargePivotsX[(int)chargingAnim.current_frame],
 				playerPos.y + 7 - chargePivotsY[(int)chargingAnim.current_frame],
 				&chargeRect);
+				if (!charge_fx_played)
+				{
+					// PLAY SFX
+					App->audio->ControlAudio("charging", SFX, PLAY);
+					charge_fx_played = true;
+				}
+
 			}
 		}
 		else
@@ -912,6 +921,7 @@ update_status ModulePlayerUnit::Update()
 				if (charge >= 10.0f) charge = 10;
 				LOG("throwing unit");
 				boomerangShot(charge);
+				charge_fx_played = false;
 				
 			}
 			charge = 0;
@@ -989,7 +999,9 @@ update_status ModulePlayerUnit::Update()
 void ModulePlayerUnit::boomerangShot(float charge)
 {
 	LOG("Throwing the unit charge: %f", charge);
-	
+	// PLAY SFX
+	App->audio->ControlAudio("released", SFX,PLAY);
+
 	this_state = actualState::FREE;
 
 	vx = unitBoomerangSpeed * cos(angle);
@@ -1053,6 +1065,9 @@ bool ModulePlayerUnit::CleanUp()
 	//unload audio
 	App->audio->UnloadAudio("UnitLocked", SFX);
 	App->audio->UnloadAudio("UnitUnlocked", SFX);
+	App->audio->UnloadAudio("charging", SFX);
+	App->audio->UnloadAudio("released", SFX);
+	App->audio->UnloadAudio("unitCollider", SFX);
 
 	//returning values to unit throwing and trails
 
@@ -1123,6 +1138,8 @@ void ModulePlayerUnit::OnCollision(Collider* c1, Collider* c2)
 	
 	if(actualUnitColor != powerUpColor::ORANGE )
 	{ 
+		// PLAY SFX
+		App->audio->ControlAudio("unitCollider", SFX, PLAY);
 
 		if (this_state == actualState::FREE && c2->type == COLLIDER_WALL && !collisioned &&
 			now_collision_time >= delay_collision_timer && c1 != centerCollider)
@@ -1202,6 +1219,7 @@ void ModulePlayerUnit::OnCollision(Collider* c1, Collider* c2)
 	{
 		if (this_state == actualState::FREE)
 			this_state = actualState::GRINDING;
+
 
 		// updates unit position incrementer
 
