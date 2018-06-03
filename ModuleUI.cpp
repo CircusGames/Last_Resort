@@ -50,8 +50,10 @@ bool ModuleUI::CleanUp()
 	UnLoad(lastResortBlueFont);
 	UnLoad(redNumbers);
 
-	App->audio->UnloadAudio("inserted", SFX);
 	App->textures->Unload(uiTexture);
+
+	// unload sfx
+	App->audio->UnloadAudio("inserted", SFX);
 
 	return true;
 }
@@ -61,7 +63,7 @@ update_status ModuleUI::PostUpdate()//Update()
 	unit1Pow = 7 * App->playerUnit[0]->charge; //CHARGER
 	unit2Pow = 7 * App->playerUnit[1]->charge; //CHARGER 2
 
-	if(unit1Pow>64)
+	if (unit1Pow>64)
 		powBarRect = { 96,16,64, 3 };
 	else
 		powBarRect = { 96,16,unit1Pow, 3 };
@@ -70,8 +72,8 @@ update_status ModuleUI::PostUpdate()//Update()
 		powBar2Rect = { 96,16,64, 3 };
 	else
 		powBar2Rect = { 96,16,unit2Pow, 3 };
-	
-	
+
+
 	//compute the score //provisional...
 	App->winScreen->saveScore(score);
 
@@ -84,7 +86,7 @@ update_status ModuleUI::PostUpdate()//Update()
 	//prints scene UI
 	if (UI == gameplay_state::SCENE)
 	{
-		if (App->player[0]->IsEnabled() && !continueText[0])
+		if (App->player[0]->IsEnabled())
 		{
 			//draw lives
 			sprintf_s(score_text, 10, "%6i%d", zero, lives1);
@@ -119,12 +121,12 @@ update_status ModuleUI::PostUpdate()//Update()
 
 		}
 
-		if (App->player[1]->IsEnabled() && !continueText[1])
+		if (App->player[1]->IsEnabled())
 		{
 			bothPlayers = true;
 			//draw lives
 			sprintf_s(score_text, 10, "%6i%d", zero, lives2);
-			BlitText(216, 24, lastResortBlueFont, score_text); 
+			BlitText(216, 24, lastResortBlueFont, score_text);
 
 			// Draw UI (score) -------------------------------------- //padding of 7 spaces !!!! 24? 40?
 			App->render->Blit(uiTexture, 273, 16, &p2Rect, 0);
@@ -134,9 +136,8 @@ update_status ModuleUI::PostUpdate()//Update()
 			App->render->Blit(uiTexture, 208, 210, &powBar2Rect, 0); //208,210 POWER BAR  2
 
 			sprintf_s(score_text, 10, "%7d", score2);
-			BlitText(32+160, 16, lastResortBlueFont, score_text); //original pos x 72,y 16
+			BlitText(32 + 160, 16, lastResortBlueFont, score_text); //original pos x 72,y 16
 
-			
 
 			if (App->player[1]->godMode)
 			{
@@ -155,7 +156,7 @@ update_status ModuleUI::PostUpdate()//Update()
 				}
 			}
 		}
-		
+
 		else
 		{
 			if (pressToStart < 5000)
@@ -172,116 +173,9 @@ update_status ModuleUI::PostUpdate()//Update()
 					pressToStart = 0;
 			}
 		}
-		if (!App->player[0]->IsEnabled())
-		{
-			if (pressToStart < 5000)
-			{
-				pressToStart = pressToStart + 100;
-				App->render->Blit(uiTexture, 16, 16, &pressRect, 0);
-			}
-
-			else if (pressToStart >= 5000)
-			{
-				if (pressToStart<10000)
-					pressToStart = pressToStart + 100;
-				else
-					pressToStart = 0;
-			}
-		}
-		if (bothPlayers)
-		{
-			if (lives1 < 1) continueText[0] = true;
-			if (lives2 < 1) continueText[1] = true;
-
-			if (continueText[0])
-			{
 
 
-				if (continueTimer[0] < 1000)
-					continueTimer[0] = continueTimer[0] + 20;
-				else
-				{
-					if (continueCounter[0] != 0)
-						continueCounter[0]--;
-					continueTimer[0] = 0;
-				}
 
-				if (continueCounter[0] != 0)
-				{
-					BlitText(16, 16, lastResortBlueFont, "continue");
-					sprintf_s(score_text, 10, "%i%d", zero, continueCounter[0]);
-					BlitText(88, 16, lastResortBlueFont, score_text);
-				}
-				else
-				{
-					if (gameOverBlink[0] < 5000 && gameOverTimer[0] < 5000)
-					{
-						gameOverBlink[0] = gameOverBlink[0] + 100;
-						BlitText(16, 16, lastResortBlueFont, "game over");
-					}
-
-					else
-					{
-						if (gameOverBlink[0] < 10000)
-							gameOverBlink[0] = gameOverBlink[0] + 100;
-
-						else
-							gameOverBlink[0] = 0;
-					}
-
-					if (gameOverTimer[0] < 5000)
-						gameOverTimer[0] = gameOverTimer[0] + 10;
-					else
-					{
-						App->player[0]->Disable();
-					}
-				}
-			}
-
-			if (continueText[1])
-			{
-				if (continueTimer[1] < 1000)
-					continueTimer[1] = continueTimer[1] + 20;
-				else
-				{
-					if (continueCounter[1] != 0)
-						continueCounter[1]--;
-					continueTimer[1] = 0;
-				}
-
-				if (continueCounter[1] != 0)
-				{
-					BlitText(16+160, 16, lastResortBlueFont, "continue");
-					sprintf_s(score_text, 10, "%i%d", zero, continueCounter[0]);
-					BlitText(88+16, 16, lastResortBlueFont, score_text);
-				}
-				else
-				{
-					if (gameOverBlink[1] < 5000 && gameOverTimer[1] < 5000)
-					{
-						gameOverBlink[1] = gameOverBlink[1] + 100;
-						BlitText(16+160, 16, lastResortBlueFont, "game over");
-					}
-
-					else
-					{
-						if (gameOverBlink[1] < 10000)
-							gameOverBlink[1] = gameOverBlink[1] + 100;
-
-						else
-							gameOverBlink[1] = 0;
-					}
-
-					if (gameOverTimer[1] < 5000)
-						gameOverTimer[1] = gameOverTimer[1] + 10;
-					else
-					{
-						App->player[1]->Disable();
-					}
-				}
-			}
-		}
-		
 		if (!computed)
 		{
 			for (int i = 0; i < 10; i++)
@@ -306,7 +200,7 @@ update_status ModuleUI::PostUpdate()//Update()
 
 		for (int j = 0; j < 9; j++)
 		{
-			for (int i = 0; i < 9-j; i++)
+			for (int i = 0; i < 9 - j; i++)
 			{
 				if (ships[i].score < ships[i + 1].score)
 				{
@@ -317,11 +211,11 @@ update_status ModuleUI::PostUpdate()//Update()
 			}
 		}
 
-		sprintf_s(score_text, 10, "%6d",ships[0].score);
-		BlitText(144, 16, lastResortBlueFont, score_text); 
+		sprintf_s(score_text, 10, "%6d", ships[0].score);
+		BlitText(144, 16, lastResortBlueFont, score_text);
 
 		BlitText(112, 16, lastResortBlueFont, "top");
-		BlitText(112, 24, lastResortBlueFont,ships[0].topName); // 133
+		BlitText(112, 24, lastResortBlueFont, ships[0].topName); // 133
 	}
 	//prints WIN UI
 	if (UI == gameplay_state::WIN)
@@ -339,13 +233,13 @@ update_status ModuleUI::PostUpdate()//Update()
 	if (UI != gameplay_state::LOGO)
 	{
 		BlitText(208, 216, lastResortBlueFont, "credit");
-		
-		if(coins>=10)
-			sprintf_s(score_text, 10, "%d",coins);
+
+		if (coins >= 10)
+			sprintf_s(score_text, 10, "%d", coins);
 
 		else
 			sprintf_s(score_text, 10, "%i%d", zero, coins);
-		
+
 		BlitText(272, 216, lastResortBlueFont, score_text);
 
 		if (UI == gameplay_state::GAMETITTLE && coins < 99)
@@ -365,11 +259,11 @@ update_status ModuleUI::PostUpdate()//Update()
 			start_pause_time = SDL_GetTicks();
 		}
 
-		BlitText(128, 110, lastResortBlueFont, "pause");
+		BlitText(134, 112, lastResortBlueFont, "pause");
 		SDL_Rect rect;
 		rect = { 0,0, SCREEN_WIDTH * SCREEN_SIZE, SCREEN_HEIGHT * SCREEN_SIZE };
 		//App->render->DrawQuad(rect, 255, 0, 255, 50);
-		
+
 		// timer
 		now_pause_time = SDL_GetTicks() - start_pause_time;
 		if (now_pause_time > total_time_pausing)
@@ -432,7 +326,7 @@ int ModuleUI::Load(const char* texture_path, const char* characters, uint rows)
 	App->textures->GetSize(tex, fonts[id].char_w, fonts[id].char_h);
 	fonts[id].char_w = fonts[id].char_w / fonts[id].row_chars;
 	fonts[id].char_h = fonts[id].char_h / fonts[id].rows;
-	
+
 	// table: array of chars to have the list of characters
 	// row_chars: amount of chars per row of the texture
 	// char_w: width of each character

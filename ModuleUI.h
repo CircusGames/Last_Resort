@@ -24,7 +24,7 @@ struct Font
 {
 	char table[MAX_FONT_CHARS];
 	SDL_Texture* graphic = nullptr;
-	uint rows, len,len2,len3, char_w, char_h, row_chars;
+	uint rows, len, len2, len3, char_w, char_h, row_chars;
 };
 
 class ModuleUI : public Module
@@ -57,7 +57,7 @@ public:
 	int unit2Pow = 0;
 
 	int pressToStart = 0;
-	int godModeBlink[2] = { 0,0 };
+	int godModeBlink[2] = { 0 };
 
 	char score_text[10];
 	char redNumbers_text[10];
@@ -82,7 +82,7 @@ public:
 	uint lives2 = 0;
 
 	uint zero = 0; //fast fix
-	
+
 	int scores[10] = { 74000,63500,58200,43700,47000,43000,32900,21100,0,0 };
 	//Uint32 lastScore
 	//int scorePosY[10] = { 48,68,88,108,128,148,168,188,208,228 };
@@ -110,13 +110,6 @@ public:
 	gameplay_state UI;
 
 	bool bothPlayers = false;
-	bool continueText[2] = { false,false };
-
-	int continueTimer[2] = { 0,0 };
-	int continueCounter[2] = { 9,9 };
-
-	int gameOverBlink[2] = { 0,0 };
-	int gameOverTimer[2] = { 0,0 };
 
 	// pause timer
 	Uint32 start_pause_time;
