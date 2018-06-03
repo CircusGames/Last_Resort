@@ -136,6 +136,7 @@ public:
 		bool moveDown = false;
 		bool shot = false;
 		bool lockUnit = false;
+		bool coins = false;
 		bool chargedShot = false;
 		bool chargedShotGamepad = false;
 	}playerInput;

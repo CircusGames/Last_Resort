@@ -190,6 +190,8 @@ update_status ModuleInput::PreUpdate()
 					App->input->keyboard[SDL_SCANCODE_SPACE] = KEY_DOWN;
 				if (Event.cbutton.button == SDL_CONTROLLER_BUTTON_RIGHTSHOULDER)
 					App->input->keyboard[SDL_SCANCODE_LSHIFT] = KEY_DOWN;
+				if (Event.cbutton.button == SDL_CONTROLLER_BUTTON_Y)
+					App->input->keyboard[SDL_SCANCODE_C] = KEY_DOWN;
 				if (Event.cbutton.button == SDL_CONTROLLER_BUTTON_START)
 				{
 					if (App->moduleUI->UI == SCENE || App->moduleUI->UI == PAUSE)
@@ -214,6 +216,8 @@ update_status ModuleInput::PreUpdate()
 					App->input->keyboard[SDL_SCANCODE_RALT] = KEY_DOWN;
 				if (Event.cbutton.button == SDL_CONTROLLER_BUTTON_RIGHTSHOULDER)
 					App->input->keyboard[SDL_SCANCODE_RSHIFT] = KEY_DOWN;
+				if (Event.cbutton.button == SDL_CONTROLLER_BUTTON_Y)
+					App->input->keyboard[SDL_SCANCODE_C] = KEY_DOWN;
 				if (Event.cbutton.button == SDL_CONTROLLER_BUTTON_START)
 				{
 					if (!App->player[1]->IsEnabled() && (App->moduleUI->UI == SCENE || App->moduleUI->UI == PAUSE))
