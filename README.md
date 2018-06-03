@@ -1,43 +1,111 @@
 # Circus Games
 
-### new Project GitHub: https://github.com/CircusGames/Last_Resort
+# LAST RESORT 
 
-### v0.4 GitHub https://github.com/CircusGames/Last_Resort
-   
-   * Build: https://github.com/CircusGames/Last_Resort/releases 
+<p align="center">
+  <b>Tribute From Circus Games</b><br>
+</p>
 
-### v0.3 GitHub https://github.com/CircusGames/Last_Resort
+<p align="center">
+<img src="https://upload.wikimedia.org/wikipedia/en/thumb/1/14/Last_Resort_Neo_Geo_cover.jpg/250px-Last_Resort_Neo_Geo_cover.jpg" width="400">
+</p>
 
-   * Build:  https://github.com/CircusGames/Last_Resort/releases
 
-### v0.2.1 GitHub: https://github.com/CircusGames/Last_Resort
-  
-   * Build: https://github.com/CircusGames/Last_Resort/releases
-   
-***   
-
-### old Project GitHub: https://github.com/dusthandler/CITM_Proyecto_1
-
-### v0.2 GitHub: https://github.com/dusthandler/CITM_Proyecto_1
-
-   * Build: https://github.com/dusthandler/CITM_Proyecto_1/releases
-   
 ***
 
-### v0.1 GitHub: https://github.com/peterMcP/SDL3_Handout
 
-   * Build: https://github.com/peterMcP/SDL3_Handout/releases
-   
+## Index
+
+[Landing Page](https://github.com/CircusGames/Last_Resort/wiki)
+
+[General analysis](https://github.com/CircusGames/Last_Resort/wiki/Analysis)
+
+[Design](https://github.com/CircusGames/Last_Resort/wiki/Design)
+
+[User interface](https://github.com/CircusGames/Last_Resort/wiki/UI)
+
+[Audio](https://github.com/CircusGames/Last_Resort/wiki/Audio)
+
+[Art](https://github.com/CircusGames/Last_Resort/wiki/Art)
+
+[How to extract sprites](https://github.com/CircusGames/Last_Resortwiki/HowTo)
+
+
 ***
-   
-Instructions:
 
-   * Use keyboard keys:
-      * W,a,s,d to move player ship up,left,down and right.
-	  * Left Shift to lock/unlock Unit.
-	  * Space to shot simple beam.
-	  * Return to switch game scenes.
-	  * F1 to activate/deactivate visible colliders.
+Last Resort is one of the greatest arcade shoot 'em up videogames because of his great technical quality for the times of his release and it's very well-known for his challenging and brutally difficulty. The original version of the game was released in 1992 for NeoGeo Arcade Systems by SNK. Later was released for NeoGeo CD. Since then, was remastered in SNK Arcade Classics Vol.1 for the PS2, PSP and Wii in 2007 and later on, in 2017, for PS4, Xbox One and Nintendo Switch. This game is an spiritual sequel of R-Type, because of the similarity of their mechanics. Also, his art was very inspired on the manga Akira.
+
+<p align="center">
+<img src="http://www.mobygames.com/images/shots/l/101879-last-resort-neo-geo-screenshot-boss.gif" width="480">
+</p>
+
+***
+
+## Responsabilities
+
+
+| Name	        | Main Function  | Github account|
+| ------------- |:-------------:|:-------------:|
+| Kevin      | Management |[DustHandler](https://github.com/dusthandler)|
+| José Antonio      | Code      |[PeterMcP](https://github.com/peterMcP)|
+| Rafa | Art/Design      |[RafaKanex](https://github.com/RafaKanex)|
+| Víctor | QA      |[VictorSegura99](https://github.com/VictorSegura99)|
+
+
+## Team photo
+
+<p align="center">
+<img src="https://github.com/dusthandler/CITM_Proyecto_1/blob/master/docs/Team_Photo.jpg" width="480">
+</p>
+
+***
+
+## Gameplay video of the original title
+
+[![Watch the video](https://www.youtube.com/watch?v=y1xUT7QJ-mA)](https://www.youtube.com/watch?v=y1xUT7QJ-mA)
+
+<iframe width="854" height="480" src="https://
+
+***
+## Changelogs
+
+### changelog v1.0
+
+***
+
+### changelog v0.7.5
+
+    * Enemies now are capable to follow the nearest valid player.
+    * Unit is now completed
+    ** you can maintain pressed shot button to charge.
+    ** blue functionality, bouncing.
+    ** orange functionality, follow colliders in correct direction.
+    ** when the unit is throwed you can damage the enemies the respected charged amount.
+    *** if the amount is minor to enemy actual life, returns unit, if not, continue.
+
+***
+
+### changelog v0.6.5
+
+    * Added full backgrounds/animations and logic of Level 3 scene
+    * Added gamePad functionality for two players (with hot plug)
+    * Added fullScreen mode
+    * Added Protator enemy
+    * Added metal red bird enemy
+    * Added bee dropper
+    * Updated metal bee to scene 3
+    * Several fixes
+
+***
+
+### changelog v0.5
+
+    * Added player 2, still WIP
+    * Added multiple enemies
+    * Added god mode
+    * Added a lot of debuging tools
+    * Added laser and speed powerups
+    * Added continue, gameover and socoreboard screens
 
 ***
 
