@@ -110,14 +110,44 @@ update_status Application::Update()
 {
 	update_status ret = UPDATE_CONTINUE;
 
-	for(int i = 0; i < NUM_MODULES && ret == UPDATE_CONTINUE; ++i)
-		ret = modules[i]->IsEnabled() ? modules[i]->PreUpdate() : UPDATE_CONTINUE;
+	if (App->input->keyboard[SDL_SCANCODE_L] == KEY_DOWN && (moduleUI->UI == SCENE || moduleUI->UI == PAUSE))
+	{
+		if (gamePause)
+		{
+			gamePause = false;
+			Mix_ResumeMusic();
+			Mix_Resume(-1);
+			moduleUI->UI = SCENE;
+		}
+		else
+		{
+			gamePause = true;
+			Mix_PauseMusic();
+			Mix_Pause(-1);
+			moduleUI->UI = PAUSE;
+		}
 
-	for(int i = 0; i < NUM_MODULES && ret == UPDATE_CONTINUE; ++i)
-		ret = modules[i]->IsEnabled() ? modules[i]->Update() : UPDATE_CONTINUE;
+	}
+	if (!gamePause)
+	{
+		for (int i = 0; i < NUM_MODULES && ret == UPDATE_CONTINUE; ++i)
+			ret = modules[i]->IsEnabled() ? modules[i]->PreUpdate() : UPDATE_CONTINUE;
 
-	for(int i = 0; i < NUM_MODULES && ret == UPDATE_CONTINUE; ++i)
-		ret = modules[i]->IsEnabled() ? modules[i]->PostUpdate() : UPDATE_CONTINUE;
+		for (int i = 0; i < NUM_MODULES && ret == UPDATE_CONTINUE; ++i)
+			ret = modules[i]->IsEnabled() ? modules[i]->Update() : UPDATE_CONTINUE;
+
+		for (int i = 0; i < NUM_MODULES && ret == UPDATE_CONTINUE; ++i)
+			ret = modules[i]->IsEnabled() ? modules[i]->PostUpdate() : UPDATE_CONTINUE;
+	}
+	else
+	{
+		// check input
+		// update only basic modules
+		ret = input->PreUpdate();
+		//render->PreUpdate();
+		//render->PostUpdate();
+	}
+	
 
 	return ret;
 }

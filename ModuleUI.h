@@ -14,7 +14,8 @@ enum gameplay_state
 	LOGO,
 	GAMETITTLE,
 	SCENE,
-	WIN
+	WIN,
+	PAUSE
 };
 
 struct SDL_Texture;
