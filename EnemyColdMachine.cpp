@@ -389,6 +389,8 @@ void EnemyColdMachine::Move()
 			// deactivate visible hip
 			coldMachine.legs.destroyedHip = true;
 			coldMachine.move = true;
+			//PLAY SFX
+			App->audio->ControlAudio("bossMove", SFX, PLAY, 3);
 			// resets missile function data
 			coldMachine.legs.missilesWaveCount = 0;
 			coldMachine.legs.missilesCount = 0;
@@ -722,8 +724,7 @@ void EnemyColdMachine::fase2MovementLogic()
 			}
 		}
 
-		//PLAY SFX
-		App->audio->ControlAudio("bossMove", SFX, PLAY);
+		
 	
 		
 	}
@@ -753,7 +754,11 @@ void EnemyColdMachine::fase2MovementLogic()
 		if (coldMachine.now_corner_time > coldMachine.total_corner_time)
 		{
 			if (!coldMachine.move)
+			{
 				coldMachine.move = true;
+				//PLAY SFX
+				App->audio->ControlAudio("bossMove", SFX, PLAY, 3);
+			}
 
 			if (coldMachine.leftCorner) coldMachine.leftCorner = false; // only shurikens fase
 			
@@ -1623,8 +1628,6 @@ EnemyColdMachine::~EnemyColdMachine()
 	// unload sfx 8 in total
 	App->audio->UnloadAudio("armShoot", SFX);
 	App->audio->UnloadAudio("shuriken", SFX);
-	
-	
 	App->audio->UnloadAudio("kneeLaser", SFX);
 	App->audio->UnloadAudio("bossLanding", SFX);
 	App->audio->UnloadAudio("bossMove", SFX);
