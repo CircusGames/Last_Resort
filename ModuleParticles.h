@@ -87,6 +87,9 @@ public:
 	Particle explosion;
 	Particle laser;
 	Particle homingMissile;
+	Particle bombsUp;
+	Particle bombsDown;
+	Particle bombGoodBye;
 	// enemy goodbye particle
 	
 

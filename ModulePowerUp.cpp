@@ -190,6 +190,7 @@ void ModulePowerUp::OnCollision(Collider* c1, Collider* c2)
 			{
 			case powerUpTypes::BOMBS:
 					//call the functionality of the bombs powerup
+				App->player[playerIndex]->powerUpActive = powerUpTypes::BOMBS;
 				break;
 			case powerUpTypes::BOOST:
 					//call the functionality of the bombs powerup

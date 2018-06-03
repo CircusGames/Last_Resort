@@ -147,6 +147,12 @@ public:
 	Uint32 cadence_missile = 500;
 
 	bool shootedMissile = false;
+
+	Uint32 start_bombs_time;
+	Uint32 now_bombs_time;
+	Uint32 cadence_bombs = 500;
+
+	bool shootedBombs = false;
 };
 
 #endif

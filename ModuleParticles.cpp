@@ -8,6 +8,7 @@
 
 #include "ModulePlayer.h"
 #include "ModuleCollision.h"
+#include "ModuleEnemies.h"
 
 #include "SDL/include/SDL_timer.h"
 
@@ -110,6 +111,49 @@ ModuleParticles::ModuleParticles()
 	//homingMissile.anim.repeat = false;
 	//homingMissile.life = 3000;
 	homingMissile.damage = 2;
+	homingMissile.impactPosition = { 80,0 };
+
+	// bombs powerup particle
+	bombsUp.anim.PushBack({ 3,40,16,6 });
+	bombsUp.anim.PushBack({ 151,100,15,10 });
+	bombsUp.anim.PushBack({ 168,100,13,13 });
+	bombsUp.anim.PushBack({ 168,100,13,13 });
+	bombsUp.anim.PushBack({ 151,115,10,15 });
+	for (uint i = 0; i < 24; ++i)
+		bombsUp.anim.PushBack({ 163,115,6,16 });
+	bombsUp.anim.speed = 0.25f;
+	bombsUp.life = 2000;
+	bombsUp.damage = 2;
+
+	bombsDown.anim.PushBack({ 3,40,16,6 });
+	bombsDown.anim.PushBack({ 3,54,15,10 });
+	bombsDown.anim.PushBack({ 4,68,13,13 });
+	bombsDown.anim.PushBack({ 6,83,10,15 });
+	for (uint i = 0; i < 24; ++i)
+		bombsDown.anim.PushBack({ 8,99,6,16 });
+	bombsDown.anim.speed = 0.25f;
+	bombsDown.life = 2000;
+	bombsDown.damage = 2;
+
+	// power up bombs explosion particle
+	bombGoodBye.anim.PushBack({ 223,222,32,32 });
+	bombGoodBye.anim.PushBack({ 190,222,32,32 });
+	bombGoodBye.anim.PushBack({ 0,192,19,21 });
+	bombGoodBye.anim.PushBack({ 19,192,19,21 });
+	bombGoodBye.anim.PushBack({ 73,192,19,21 });
+	bombGoodBye.anim.PushBack({ 157,222,32,32 });
+	bombGoodBye.anim.PushBack({ 124,222,32,32 });
+	bombGoodBye.anim.PushBack({ 91,222,32,32 });
+	bombGoodBye.anim.PushBack({ 58,222,32,32 });
+	bombGoodBye.anim.PushBack({ 25,222,32,32 });
+	bombGoodBye.anim.PushBack({ 178,190,32,32 });
+	bombGoodBye.anim.PushBack({ 145,190,32,32 });
+	bombGoodBye.anim.PushBack({ 111,190,32,32 });
+	bombGoodBye.anim.PushBack({ 42,190,32,32 });
+	bombGoodBye.anim.speed = 0.5f;
+	bombGoodBye.anim.repeat = false;
+	//bombGoodBye.life = 2000;
+	bombGoodBye.damage = 2;
 
 
 }
@@ -140,6 +184,14 @@ bool ModuleParticles::Start()
 	unitBasicShotImpact.texture = unitBasicShotImpactTexture;
 	laser.texture = laserTexture;
 	homingMissile.texture = powerUpVFXTexture;
+	bombsDown.texture = powerUpVFXTexture;
+	bombsUp.texture = powerUpVFXTexture;
+	homingMissile.deathParticle = &App->enemies->homingExplosion;
+	homingMissile.onCollisionGeneralParticle = &App->enemies->homingExplosion;
+	bombGoodBye.texture = powerUpVFXTexture;
+	bombsDown.onCollisionGeneralParticle = &bombGoodBye;
+	bombsUp.onCollisionGeneralParticle = &bombGoodBye;
+	//bombGoodBye.deathParticle = &bombGoodBye;
 	// ------------------------------------------------
 
 	//load specific Wavs effects for particles --------
@@ -285,7 +337,8 @@ void ModuleParticles::OnCollision(Collider* c1, Collider* c2)
 			//if (c2->type != COLLIDER_WALL) // anything collider
 			//{
 				if (active[i]->onCollisionGeneralParticle != nullptr)
-					AddParticle(*active[i]->onCollisionGeneralParticle, active[i]->position.x, active[i]->position.y, COLLIDER_NONE, { 0,0 }, 0);
+					AddParticle(*active[i]->onCollisionGeneralParticle, active[i]->position.x + active[i]->impactPosition.x,
+						active[i]->position.y + active[i]->impactPosition.y, COLLIDER_NONE, { 0,0 }, 0);
 			//}
 
 			//active[i]->texture = nullptr;

@@ -173,12 +173,24 @@ update_status ModulePlayer::PreUpdate()
 		if (powerUpActive == powerUpTypes::LASER)
 		{
 			activebuff.laser = true;
+			activebuff.bombs = false;
+			activebuff.missiles = false;
 			powerUpActive = powerUpTypes::NONE;
 		}
 
 		if (powerUpActive == powerUpTypes::MISSILES)
 		{
 			activebuff.missiles = true;
+			activebuff.bombs = false;
+			activebuff.laser = false;
+			powerUpActive = powerUpTypes::NONE;
+		}
+
+		if (powerUpActive == powerUpTypes::BOMBS)
+		{
+			activebuff.bombs = true;
+			activebuff.laser = false;
+			activebuff.missiles = false;
 			powerUpActive = powerUpTypes::NONE;
 		}
 		// --------------------------------------------------------------------
@@ -352,11 +364,17 @@ update_status ModulePlayer::Update()
 
 		//if player press keys of particles emitters
 
-		// timer for missiles
+		// timers -----
 		now_missile_time = SDL_GetTicks() - start_missile_time;
 		if (now_missile_time > cadence_missile)
 		{
 			shootedMissile = false;
+		}
+		
+		now_bombs_time = SDL_GetTicks() - start_bombs_time;
+		if (now_bombs_time > cadence_bombs)
+		{
+			shootedBombs = false;
 		}
 
 		if (playerInput.shot)//App->input->keyboard[SDL_SCANCODE_SPACE] == KEY_STATE::KEY_DOWN)
@@ -400,6 +418,27 @@ update_status ModulePlayer::Update()
 					}
 				}
 
+			}
+
+			// bombs powerup
+			if (activebuff.bombs)
+			{
+				if (!shootedBombs)
+				{
+					shootedBombs = true;
+					start_bombs_time = SDL_GetTicks();
+
+					if (this == App->player[1])
+					{
+						App->particles->AddParticle(App->particles->bombsUp, position.x, position.y - 24, COLLIDER_PLAYER2_SHOT, { 1,0 });
+						App->particles->AddParticle(App->particles->bombsDown, position.x, position.y - 24, COLLIDER_PLAYER2_SHOT, { 1,0 });
+					}
+					else
+					{
+						App->particles->AddParticle(App->particles->bombsUp, position.x, position.y - 6, COLLIDER_PLAYER_SHOT, { 2,-2 });
+						App->particles->AddParticle(App->particles->bombsDown, position.x, position.y + 6, COLLIDER_PLAYER_SHOT, { 2,2 });
+					}
+				}
 			}
 
 
