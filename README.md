@@ -44,7 +44,7 @@ Last Resort is one of the greatest arcade shoot 'em up videogames because of his
 ## Gameplay video of the original title
 
 OFFICIAL GAME
-<iframe width="854" height="480" src="http://www.youtube.com/watch?feature=player_embedded&v=y1xUT7QJ-mA" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+<iframe width="854" height="480" src="https://www.youtube.com/embed/y1xUT7QJ-mA" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
 ## Gameplay of our version
 
