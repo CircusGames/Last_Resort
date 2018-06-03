@@ -160,7 +160,7 @@ public:
 
 	bool laserShoot = false;
 
-	bool playerSpawned = false;
+	bool scoreReset = true;
 };
 
 #endif
