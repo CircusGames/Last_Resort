@@ -50,6 +50,7 @@ bool ModuleUI::CleanUp()
 	UnLoad(lastResortBlueFont);
 	UnLoad(redNumbers);
 
+	App->audio->UnloadAudio("inserted", SFX);
 	App->textures->Unload(uiTexture);
 
 	return true;
@@ -83,20 +84,20 @@ update_status ModuleUI::PostUpdate()//Update()
 	//prints scene UI
 	if (UI == gameplay_state::SCENE)
 	{
-		if (App->player[0]->IsEnabled())
+		if (App->player[0]->IsEnabled() && !continueText[0])
 		{
 			//draw lives
 			sprintf_s(score_text, 10, "%6i%d", zero, lives1);
 			BlitText(0, 24, lastResortBlueFont, score_text); //original pos x 72,y 16
 
-			// Draw UI (score) -------------------------------------- //padding of 7 spaces !!!! 24? 40?
+															 // Draw UI (score) -------------------------------------- //padding of 7 spaces !!!! 24? 40?
 			sprintf_s(score_text, 10, "%7d", score);
 			App->render->Blit(uiTexture, 17, 16, &p1Rect, 0);
 			App->render->Blit(uiTexture, 16, 24, &p1ShipRect, 0);
 
 			App->render->Blit(uiTexture, 24, 208, &powRect, 0); //24,208 POWER 
 			App->render->Blit(uiTexture, 48, 210, &powBarRect, 0); //48,210 POWER BAR
-			
+
 			BlitText(32, 16, lastResortBlueFont, score_text); //original pos x 72,y 16
 
 			if (App->player[0]->godMode)
@@ -114,11 +115,11 @@ update_status ModuleUI::PostUpdate()//Update()
 					else
 						godModeBlink[0] = 0;
 				}
-			}				
-			
+			}
+
 		}
 
-		if (App->player[1]->IsEnabled())
+		if (App->player[1]->IsEnabled() && !continueText[1])
 		{
 			bothPlayers = true;
 			//draw lives
@@ -135,6 +136,7 @@ update_status ModuleUI::PostUpdate()//Update()
 			sprintf_s(score_text, 10, "%7d", score2);
 			BlitText(32+160, 16, lastResortBlueFont, score_text); //original pos x 72,y 16
 
+			
 
 			if (App->player[1]->godMode)
 			{
@@ -153,7 +155,7 @@ update_status ModuleUI::PostUpdate()//Update()
 				}
 			}
 		}
-
+		
 		else
 		{
 			if (pressToStart < 5000)
@@ -170,9 +172,116 @@ update_status ModuleUI::PostUpdate()//Update()
 					pressToStart = 0;
 			}
 		}
+		if (!App->player[0]->IsEnabled())
+		{
+			if (pressToStart < 5000)
+			{
+				pressToStart = pressToStart + 100;
+				App->render->Blit(uiTexture, 16, 16, &pressRect, 0);
+			}
 
+			else if (pressToStart >= 5000)
+			{
+				if (pressToStart<10000)
+					pressToStart = pressToStart + 100;
+				else
+					pressToStart = 0;
+			}
+		}
+		if (bothPlayers)
+		{
+			if (lives1 < 1) continueText[0] = true;
+			if (lives2 < 1) continueText[1] = true;
+
+			if (continueText[0])
+			{
+
+
+				if (continueTimer[0] < 1000)
+					continueTimer[0] = continueTimer[0] + 20;
+				else
+				{
+					if (continueCounter[0] != 0)
+						continueCounter[0]--;
+					continueTimer[0] = 0;
+				}
+
+				if (continueCounter[0] != 0)
+				{
+					BlitText(16, 16, lastResortBlueFont, "continue");
+					sprintf_s(score_text, 10, "%i%d", zero, continueCounter[0]);
+					BlitText(88, 16, lastResortBlueFont, score_text);
+				}
+				else
+				{
+					if (gameOverBlink[0] < 5000 && gameOverTimer[0] < 5000)
+					{
+						gameOverBlink[0] = gameOverBlink[0] + 100;
+						BlitText(16, 16, lastResortBlueFont, "game over");
+					}
+
+					else
+					{
+						if (gameOverBlink[0] < 10000)
+							gameOverBlink[0] = gameOverBlink[0] + 100;
+
+						else
+							gameOverBlink[0] = 0;
+					}
+
+					if (gameOverTimer[0] < 5000)
+						gameOverTimer[0] = gameOverTimer[0] + 10;
+					else
+					{
+						App->player[0]->Disable();
+					}
+				}
+			}
+
+			if (continueText[1])
+			{
+				if (continueTimer[1] < 1000)
+					continueTimer[1] = continueTimer[1] + 20;
+				else
+				{
+					if (continueCounter[1] != 0)
+						continueCounter[1]--;
+					continueTimer[1] = 0;
+				}
+
+				if (continueCounter[1] != 0)
+				{
+					BlitText(16+160, 16, lastResortBlueFont, "continue");
+					sprintf_s(score_text, 10, "%i%d", zero, continueCounter[0]);
+					BlitText(88+16, 16, lastResortBlueFont, score_text);
+				}
+				else
+				{
+					if (gameOverBlink[1] < 5000 && gameOverTimer[1] < 5000)
+					{
+						gameOverBlink[1] = gameOverBlink[1] + 100;
+						BlitText(16+160, 16, lastResortBlueFont, "game over");
+					}
+
+					else
+					{
+						if (gameOverBlink[1] < 10000)
+							gameOverBlink[1] = gameOverBlink[1] + 100;
+
+						else
+							gameOverBlink[1] = 0;
+					}
+
+					if (gameOverTimer[1] < 5000)
+						gameOverTimer[1] = gameOverTimer[1] + 10;
+					else
+					{
+						App->player[1]->Disable();
+					}
+				}
+			}
+		}
 		
-
 		if (!computed)
 		{
 			for (int i = 0; i < 10; i++)
@@ -256,7 +365,7 @@ update_status ModuleUI::PostUpdate()//Update()
 			start_pause_time = SDL_GetTicks();
 		}
 
-		BlitText(134, 112, lastResortBlueFont, "pause");
+		BlitText(128, 110, lastResortBlueFont, "pause");
 		SDL_Rect rect;
 		rect = { 0,0, SCREEN_WIDTH * SCREEN_SIZE, SCREEN_HEIGHT * SCREEN_SIZE };
 		//App->render->DrawQuad(rect, 255, 0, 255, 50);

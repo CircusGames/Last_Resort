@@ -57,7 +57,7 @@ public:
 	int unit2Pow = 0;
 
 	int pressToStart = 0;
-	int godModeBlink[2] = { 0 };
+	int godModeBlink[2] = { 0,0 };
 
 	char score_text[10];
 	char redNumbers_text[10];
@@ -110,6 +110,13 @@ public:
 	gameplay_state UI;
 
 	bool bothPlayers = false;
+	bool continueText[2] = { false,false };
+
+	int continueTimer[2] = { 0,0 };
+	int continueCounter[2] = { 9,9 };
+
+	int gameOverBlink[2] = { 0,0 };
+	int gameOverTimer[2] = { 0,0 };
 
 	// pause timer
 	Uint32 start_pause_time;
