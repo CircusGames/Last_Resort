@@ -713,7 +713,7 @@ void ModulePlayer::deathLogic()
 	{
 		if (!App->player[1]->IsEnabled())
 		{
-			if (App->player[1]->lives > 0)
+			if (App->player[0]->lives > 0)
 				App->fade->FadeToBlack(sceneCallback, (Module*)App->readyScreen);
 			else
 				App->fade->FadeToBlack(sceneCallback, (Module*)App->continueScreen);
@@ -801,8 +801,8 @@ void ModulePlayer::OnCollision(Collider* collider1, Collider* collider2)
 		}
 
 	//decrement lifes
-	if (this == App->player[0]) lives--;
-	if (this == App->player[1]) lives--;
+	if (this == App->player[0] && App->player[0]->lives > 0) lives--;
+	if (this == App->player[1] && App->player[1]->lives > 0) lives--;
 
 
 }
