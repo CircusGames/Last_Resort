@@ -5,6 +5,7 @@
 
 #include "ModuleRender.h"
 #include "SDL\include\SDL_timer.h"
+#include "ModuleAudio.h"
 
 EnemyColdMachine::EnemyColdMachine(int x, int y, powerUpTypes type, SDL_Texture* thisTexture) : Enemy(x, y)
 {
@@ -16,11 +17,13 @@ EnemyColdMachine::EnemyColdMachine(int x, int y, powerUpTypes type, SDL_Texture*
 	life = 140;
 	enemyScore = 100;
 	// -----------------------------------------
-	
-	//animation = &blabla; //links animation
-
-	//original_y = y;
-	//fposition.x = x;
+	// Load specific boss sfx
+	App->audio->LoadAudio("assets/Audio/SFX/Enemies/Boss_arm_shoot.wav", "armShoot", SFX);
+	App->audio->LoadAudio("assets/Audio/SFX/Enemies/Boss_Blue_Balls.wav", "shuriken", SFX);
+	App->audio->LoadAudio("assets/Audio/SFX/Enemies/Boss_knee_laser.wav", "kneeLaser", SFX);
+	App->audio->LoadAudio("assets/Audio/SFX/Enemies/Boss_landing.wav", "bossLanding", SFX);
+	App->audio->LoadAudio("assets/Audio/SFX/Enemies/Boss_Move.wav", "bossMove", SFX);
+	App->audio->LoadAudio("assets/Audio/SFX/Enemies/Boss_rocket.wav", "bossRocket", SFX); 
 
 	// STATIC PIECES RECTS -----------------------------------------------
 	// chest statics ---
@@ -552,6 +555,9 @@ void EnemyColdMachine::fase2AttackManager()
 				App->enemies->AddEnemy(SHURIKEN, position.x + coldMachine.chest.chestPiece.position.x + 100, 
 					position.y + coldMachine.chest.chestPiece.position.y - 6, NONE);
 
+				//PLAY SFX
+				App->audio->ControlAudio("shuriken", SFX, PLAY);
+
 				if (coldMachine.chest.numShurikens > 2) // max 3 shurikens per wave
 				{
 					coldMachine.chest.start_shuriken_time = SDL_GetTicks();
@@ -580,6 +586,8 @@ void EnemyColdMachine::fase2AttackManager()
 			{
 				LOG("Opening GLASS CANNON gate");
 				coldMachine.chest.shootedGlass = true;
+				//PLAY SFX
+				App->audio->ControlAudio("glassLaser", SFX, PLAY);
 			}
 			// checks animation data to instantiate the shoot on correct frame
 			if ((int)coldMachine.chest.chestCannonAnim[coldMachine.current_sprite_type].current_frame == 3 && 
@@ -713,6 +721,9 @@ void EnemyColdMachine::fase2MovementLogic()
 				coldMachine.leftCorner = false;
 			}
 		}
+
+		//PLAY SFX
+		App->audio->ControlAudio("bossMove", SFX, PLAY);
 	
 		
 	}
@@ -822,6 +833,9 @@ void EnemyColdMachine::kneeBeamLogic()
 
 		// update condition
 		coldMachine.legs.shootedLaserBeam = true;
+
+		//PLAY SFX
+		App->audio->ControlAudio("kneeLaser", SFX, PLAY);
 	}
 
 }
@@ -836,6 +850,8 @@ void EnemyColdMachine::missilesLogic()
 		coldMachine.legs.missilesCount++;
 		// instantiate the missile
 		LOG("Missile %d instantiated", coldMachine.legs.missilesCount);
+		//PLAY SFX
+		App->audio->ControlAudio("bossRocket", SFX, PLAY);
 		// instantiate missile
 		// FASE 1 logic
 		if (coldMachine.state == bossState::FASE1)
@@ -951,6 +967,9 @@ void EnemyColdMachine::decelerationToFloor()
 		addBossParticles();
 		// start countdown timer
 		coldMachine.start_cycle_time = SDL_GetTicks();
+
+		//PLAY SFX
+		App->audio->ControlAudio("bossLanding", SFX, PLAY);
 	}
 
 }
@@ -1039,6 +1058,7 @@ void EnemyColdMachine::Draw()
 			// instantiate morter BOMB
 			App->particles->AddParticle(App->enemies->bombardierBomb, coldMachine.bombardier.position.x,
 				coldMachine.bombardier.position.y + 14, COLLIDER_ENEMY_SHOT, { 0,2 }, 0);
+			
 
 			coldMachine.bombardier.throwBombs = false;
 		}
@@ -1251,6 +1271,8 @@ SDL_Rect& EnemyColdMachine::returnRect(Animation* anim)
 					// resets bombardier animation data
 					coldMachine.bombardier.anim.finish = false;
 					coldMachine.bombardier.anim.current_frame = 0;
+					//PLAY SFX
+					App->audio->ControlAudio("armShoot", SFX, PLAY);
 				}
 
 				return anim[coldMachine.current_sprite_type].GetCurrentFrame();
@@ -1593,5 +1615,19 @@ void EnemyColdMachine::addBossParticles()
 
 	}
 
+
+}
+
+EnemyColdMachine::~EnemyColdMachine()
+{
+	// unload sfx 8 in total
+	App->audio->UnloadAudio("armShoot", SFX);
+	App->audio->UnloadAudio("shuriken", SFX);
+	
+	
+	App->audio->UnloadAudio("kneeLaser", SFX);
+	App->audio->UnloadAudio("bossLanding", SFX);
+	App->audio->UnloadAudio("bossMove", SFX);
+	App->audio->UnloadAudio("bossRocket", SFX);
 
 }

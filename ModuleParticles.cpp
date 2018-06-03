@@ -77,6 +77,7 @@ ModuleParticles::ModuleParticles()
 	explosion.anim.PushBack({ 485, 5, 30, 26 });
 	explosion.anim.repeat = false;
 	explosion.anim.speed = 0.3f;
+	explosion.fx = "EnemyDeath2";
 
 	//laser
 	laser.anim.PushBack({ 27,11,16,3 });

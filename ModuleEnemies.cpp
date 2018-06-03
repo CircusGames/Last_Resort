@@ -172,6 +172,7 @@ ModuleEnemies::ModuleEnemies()
 	bombardierBomb.anim.speed = 0.125f;
 	bombardierBomb.anim.repeat = false;
 	bombardierBomb.impactPosition = { 0,-76 };
+	bombardierBomb.fx = "droppedBomb";
 	// bombardier bomb wall impact particle
 	bombardierBombWallImpact.anim.PushBack({ 0,569,16,80 });
 	bombardierBombWallImpact.anim.PushBack({ 17,569,24,80 });
@@ -185,7 +186,7 @@ ModuleEnemies::ModuleEnemies()
 	bombardierBombWallImpact.anim.PushBack({ 236,569,16,38 });
 	bombardierBombWallImpact.anim.speed = 0.25f;
 	bombardierBombWallImpact.anim.repeat = false;
-	bombardierBombWallImpact.fx = "rocketExplosion";
+	bombardierBombWallImpact.fx = "bombExplosion";
 	
 	// FASE2 particles
 	// glass shot bullet
@@ -292,8 +293,14 @@ bool ModuleEnemies::Start()
 	// -------------------------------------------------------------------------------------
 	// AUDIO FX ----------------------------------------------------------------------------
 	App->audio->LoadAudio("assets/Audio/SFX/enemies/Enemy_Explosion.wav", "EnemyDeath", SFX);
+	App->audio->LoadAudio("assets/Audio/SFX/enemies/Enemy_Explosion2.wav", "EnemyDeath2", SFX);
+	// coldmachine and diver laser
+	App->audio->LoadAudio("assets/Audio/SFX/enemies/robot_shoot.wav", "glassLaser", SFX);
 	// rockets explosion sfx
 	App->audio->LoadAudio("assets/Audio/SFX/enemies/minitank_rocket_explosion.wav", "rocketExplosion", SFX);	
+	// COLD MACHINE RELATIVE SFX PARTICLES
+	App->audio->LoadAudio("assets/Audio/SFX/Enemies/Boss_bomb_falling.wav", "droppedBomb", SFX);
+	App->audio->LoadAudio("assets/Audio/SFX/Enemies/Boss_bomb_falling_explosion.wav", "bombExplosion", SFX);
 
 	return true;
 }
@@ -387,8 +394,11 @@ bool ModuleEnemies::CleanUp()
 	//App->textures->Unload(sprites);
 	
 	//Unloading loaded audio's
-
+	App->audio->UnloadAudio("glassLaser", SFX); 
+	App->audio->UnloadAudio("bombExplosion", SFX);
+	App->audio->UnloadAudio("droppedBomb", SFX);
 	App->audio->UnloadAudio("rocketExplosion", SFX);
+	App->audio->UnloadAudio("EnemyDeath2", SFX);
 	App->audio->UnloadAudio("EnemyDeath",SFX);
 
 	//removing spawned enemies
