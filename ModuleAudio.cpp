@@ -37,7 +37,9 @@ bool ModuleAudio::Init()
 		ret = false;
 	};
 
-	Mix_AllocateChannels(48);
+	Mix_AllocateChannels(64);
+	// set channel 1 to half volume
+	Mix_Volume(-1, MIX_MAX_VOLUME / 2);
 
 	return ret;
 }
