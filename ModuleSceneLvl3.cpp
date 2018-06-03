@@ -1,4 +1,4 @@
-#include "Globals.h"
+ #include "Globals.h"
 #include "Application.h"
 #include "ModuleTextures.h"
 #include "ModuleRender.h"
@@ -238,6 +238,7 @@ update_status ModuleSceneLvl3::PreUpdate()
 		App->player[1]->position.x = (int)GetCurrentCameraPixelPos() * 2 + 40;
 		
 	}
+		
 
 	return UPDATE_CONTINUE;
 }

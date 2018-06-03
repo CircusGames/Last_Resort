@@ -159,6 +159,8 @@ public:
 	Uint32 cadence_laser = 300;
 
 	bool laserShoot = false;
+
+	bool playerSpawned = false;
 };
 
 #endif
