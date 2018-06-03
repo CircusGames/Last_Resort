@@ -16,6 +16,10 @@ Last Resort is one of the greatest arcade shoot 'em up videogames because of his
 <img src="http://www.mobygames.com/images/shots/l/101879-last-resort-neo-geo-screenshot-boss.gif" width="480">
 </p>
 
+
+DOWNLOAD THE LAST VERSION OF OUR LAST RESORT [HERE!](https://github.com/CircusGames/Last_Resort/releases)
+
+
 ***
 
 ## Responsabilities
@@ -46,9 +50,9 @@ Last Resort is one of the greatest arcade shoot 'em up videogames because of his
 
 ## Gameplay of our version
 
-[![Watch the video](https://www.youtube.com/watch?v=ROs_Zj6Vj4U&feature=youtu.be)](https://www.youtube.com/watch?v=ROs_Zj6Vj4U&feature=youtu.be)
+[![Watch the video](https://www.youtube.com/watch?v=EA91D_EpZY0&feature=youtu.be&ab_channel=circusgames)](https://www.youtube.com/watch?v=EA91D_EpZY0&feature=youtu.be&ab_channel=circusgames)
 
-<iframe width="854" height="480" src="https://www.youtube.com/embed/ROs_Zj6Vj4U&feature=youtu.be" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+<iframe width="854" height="480" src="https://www.youtube.com/watch?v=EA91D_EpZY0&feature=youtu.be&ab_channel=circusgames" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 ***
 
 ***
