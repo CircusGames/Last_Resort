@@ -43,7 +43,7 @@ typedef unsigned int uint;
 #define SCREEN_WIDTH 304
 #define SCREEN_HEIGHT 224
 #define WIN_FULLSCREEN 0 //full screen mode wich resizes screen to fit to resolution of the desktop
-#define WIN_FULLSCREEN_DESKTOP 0 //fullscreen mode wich preserves screen ratio
+#define WIN_FULLSCREEN_DESKTOP 1 //fullscreen mode wich preserves screen ratio
 #define WIN_BORDERLESS 0
 #define WIN_RESIZABLE 0
 #define REN_VSYNC 1
