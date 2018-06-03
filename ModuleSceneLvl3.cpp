@@ -116,7 +116,7 @@ bool ModuleSceneLvl3::Start()
 	//load needed audios
 	App->audio->LoadAudio("assets/Audio/Music/Sonar_Stage3_theme.ogg", "song_lvl3", MUSIC);
 	App->audio->LoadAudio("assets/Audio/Music/Cold_Machine_Boss3_theme.ogg", "bosslvl3", MUSIC);
-	//App->audio->ControlAudio("song_lvl3", MUSIC, FADEIN, -1, 1500.0f);
+	App->audio->ControlAudio("song_lvl3", MUSIC, FADEIN, -1, 1500.0f);
 
 	//boss background fade values
 	faded = false;
@@ -196,6 +196,10 @@ update_status ModuleSceneLvl3::PreUpdate()
 		scroll = false;
 		App->audio->ControlAudio("bosslvl3", MUSIC, FADEIN, -1, 1000.0f);
 		//App->fade->FadeToBlack(this, (Module*)App->winScreen);
+
+		// ADD BOSS
+		App->enemies->AddEnemy(COLDMACHINE, (GetCurrentCameraPixelPos() *2), 0, NONE);
+
 	}
 
 	if (currentLevelZone == stage_zone::level) // if we entry on boss zone and still not faded the boss background
@@ -356,13 +360,13 @@ bool ModuleSceneLvl3::CleanUp()
 void ModuleSceneLvl3::addEnemiesToLvl3()
 {
 	// first ADD submarine ( for draw circunstances )
-	//App->enemies->AddEnemy(ENEMY_TYPES::SUBMARINE, 0, 60, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::SUBMARINE, 0, 60, NONE);
 
 	// BOSS
 	//App->enemies->AddEnemy(ENEMY_TYPES::COLDMACHINE, 100, 100, NONE);
 
 	//First Wave
-	/*App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 300, 35, NONE);
+	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 300, 35, NONE);
 	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 300, 90, NONE);
 	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 342, 35, NONE);
 	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 342, 90, NONE);
@@ -404,7 +408,7 @@ void ModuleSceneLvl3::addEnemiesToLvl3()
 	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 9210, 45, NONE);
 	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 9240, 45, NONE);
 	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 9270, 45, NONE);
-	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 9300, 45, NONE);*/
+	App->enemies->AddEnemy(ENEMY_TYPES::REDBIRD, 9300, 45, NONE);
 	//-----------------------------------------------------------
 
 	// Enemy POWERUP BEE

@@ -15,7 +15,7 @@ EnemyColdMachine::EnemyColdMachine(int x, int y, powerUpTypes type, SDL_Texture*
 	// -----------------------------------------
 	powerUpType = type;
 	life = 140;
-	enemyScore = 100;
+	enemyScore = 10000;
 	// -----------------------------------------
 	// Load specific boss sfx
 	App->audio->LoadAudio("assets/Audio/SFX/Enemies/Boss_arm_shoot.wav", "armShoot", SFX);
@@ -245,7 +245,7 @@ EnemyColdMachine::EnemyColdMachine(int x, int y, powerUpTypes type, SDL_Texture*
 	coldMachine.state = bossState::LANDING;
 
 	position.y = -329;//-137; // spawn position y
-	position.x = x;//157; // spawn position x
+	position.x = x + 157; // spawn position x
 
 	fposition.y = position.y;
 
@@ -371,7 +371,7 @@ void EnemyColdMachine::Move()
 		break;
 	}
 
-	position.x += 1; // GENERAL POSITION
+	//position.x += 1; // GENERAL POSITION
 
 	// update general fase timer
 	coldMachine.now_cycle_time = SDL_GetTicks() - coldMachine.start_cycle_time;
@@ -389,6 +389,7 @@ void EnemyColdMachine::Move()
 			// deactivate visible hip
 			coldMachine.legs.destroyedHip = true;
 			coldMachine.move = true;
+			coldMachine.bombardier.instantiate = false;
 			//PLAY SFX
 			App->audio->ControlAudio("bossMove", SFX, PLAY, 3);
 			// resets missile function data
@@ -831,7 +832,7 @@ void EnemyColdMachine::kneeBeamLogic()
 	{
 		// instantiate laser beam
 		App->particles->AddParticle(App->enemies->coldMachineKneeLaser, position.x + coldMachine.legs.kneePiece.position.x - 10,
-			position.y + 40 + coldMachine.legs.kneePiece.position.y, COLLIDER_ENEMY_SHOT, { -1,0 }, 0);
+			position.y + 40 + coldMachine.legs.kneePiece.position.y, COLLIDER_ENEMY_SHOT, { -2,0 }, 0);
 		// instantiate shoot explosion effect
 		App->particles->AddParticle(App->enemies->coldMachineKneeLaserShotEffect, position.x + coldMachine.legs.kneePiece.position.x + 4,
 			position.y + 45 + coldMachine.legs.kneePiece.position.y, COLLIDER_NONE, { scrollSpeed,0 }, 0);
@@ -1062,7 +1063,7 @@ void EnemyColdMachine::Draw()
 		{
 			// instantiate morter BOMB
 			App->particles->AddParticle(App->enemies->bombardierBomb, coldMachine.bombardier.position.x,
-				coldMachine.bombardier.position.y + 14, COLLIDER_ENEMY_SHOT, { 0,2 }, 0);
+				coldMachine.bombardier.position.y + 14, COLLIDER_ENEMY, { -1,2 }, 0);
 			
 
 			coldMachine.bombardier.throwBombs = false;

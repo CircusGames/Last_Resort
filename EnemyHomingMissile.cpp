@@ -103,13 +103,15 @@ EnemyHomingMissile::EnemyHomingMissile(int x, int y, powerUpTypes type, SDL_Text
 		missile.xSpeed = 1.0f;
 		// initial animation
 		missile.current_animation = &missile.anim[4];
+		//scrollSpeed = 1;
 	}
-	else
-	//if(App->scene_lvl3->currentLevelZone == boss_zone)
+	//else
+	if(App->scene_lvl3->currentLevelZone == boss_zone)
 	{
 		missile.ySpeed = 0.0f;
-		missile.xSpeed = 0.0f;
+		missile.xSpeed = -1.0f;
 		missile.current_animation = &missile.anim[0];
+		scrollSpeed = 0;
 	}
 	/*if (App->player[index]->position.x < position.x) // boss lvl3 initial speed circunstance
 	{
@@ -174,7 +176,12 @@ void EnemyHomingMissile::Draw()
 	{
 		missile.searching = true;
 		missile.start_cycle_time = SDL_GetTicks();
-		scrollSpeed = 1; // for the moment assigns scroll speed here
+		if (App->scene_lvl3->currentLevelZone == boss_zone)
+		{
+			scrollSpeed = 0;
+		}
+		else
+		 scrollSpeed = 1; // for the moment assigns scroll speed here
 	}
 
 	if (missile.now_alive_time >= missile.search_life_time)

@@ -108,6 +108,7 @@ public:
 	Particle coldMachineKneeLaser;
 	Particle coldMachineKneeLaserShotEffect;
 	Particle coldMachineArmShootSmoke;
+	Particle shurikenDeath;
 	// bombardier relatives
 	Particle bombardierBomb;
 	Particle bombardierBombGenImpact;

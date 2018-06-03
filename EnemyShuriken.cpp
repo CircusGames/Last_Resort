@@ -50,12 +50,12 @@ EnemyShuriken::EnemyShuriken(int x, int y, powerUpTypes type, SDL_Texture* thisT
 	missile.anim[1].speed = 0.25f;
 
 	// disappear anim
-	missile.anim[2].PushBack({ 840,529,40,40 });
+	/*missile.anim[2].PushBack({ 840,529,40,40 });
 	missile.anim[2].PushBack({ 880,529,40,40 });
 	missile.anim[2].PushBack({ 920,529,40,40 });
 	missile.anim[2].PushBack({ 960,529,40,40 });
 	missile.anim[2].speed = 0.25f;
-	missile.anim[2].repeat = false;
+	missile.anim[2].repeat = false;*/
 
 	//animation = &missile.anim[4]; //links animation
 
@@ -135,14 +135,15 @@ void EnemyShuriken::Draw()
 	{
 		missile.searching = true;
 		missile.start_cycle_time = SDL_GetTicks();
-		scrollSpeed = 1; // for the moment assigns scroll speed here
+		//scrollSpeed = 1; // for the moment assigns scroll speed here
 	}
 
 	if (missile.now_alive_time >= missile.search_life_time)
-		missile.current_animation = &missile.anim[2];
+		killMe = true;
+		//missile.current_animation = &missile.anim[2];
 
-	if (missile.anim[2].finish)
-		killMe = true; // destroy missile
+	//if (missile.anim[2].finish)
+		//killMe = true; // destroy missile
 
 	// ---------------------------------------------------------------------------------------------------
 

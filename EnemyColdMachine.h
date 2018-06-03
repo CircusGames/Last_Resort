@@ -246,7 +246,7 @@ private:
 
 	originalPos original;
 
-	int scrollSpeed = 1;
+	int scrollSpeed = 0;
 
 	// sinusoidal movement fase2
 	float wave = 1.0f;

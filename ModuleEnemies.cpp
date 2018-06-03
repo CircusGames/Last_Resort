@@ -173,6 +173,7 @@ ModuleEnemies::ModuleEnemies()
 	bombardierBomb.anim.repeat = false;
 	bombardierBomb.impactPosition = { 0,-76 };
 	bombardierBomb.fx = "droppedBomb";
+	bombardierBomb.life = 2000;
 	// bombardier bomb wall impact particle
 	bombardierBombWallImpact.anim.PushBack({ 0,569,16,80 });
 	bombardierBombWallImpact.anim.PushBack({ 17,569,24,80 });
@@ -222,8 +223,15 @@ ModuleEnemies::ModuleEnemies()
 	glassUpwardsShoot.anim.PushBack({ 954,570,5,9 });
 	glassUpwardsShoot.anim.PushBack({ 963,570,5,22 });
 	glassUpwardsShoot.anim.speed = 0.25f;
-	glassUpwardsShoot.speed = { 1,-2 };
+	glassUpwardsShoot.speed = { 0,-2 };
 	glassUpwardsShoot.life = 2000;
+	// SHURIKEN disappear particle
+	shurikenDeath.anim.PushBack({ 840,529,40,40 });
+	shurikenDeath.anim.PushBack({ 880,529,40,40 });
+	shurikenDeath.anim.PushBack({ 920,529,40,40 });
+	shurikenDeath.anim.PushBack({ 960,529,40,40 });
+	shurikenDeath.anim.speed = 0.25f;
+	shurikenDeath.anim.repeat = false;
 	
 
 	// --------------------------------------------------------------------------------------------------------
@@ -260,6 +268,7 @@ bool ModuleEnemies::Start()
 	beeBulletTexture = App->textures->Load("assets/Graphics/Enemies/Level_1/bee_bullet.png");
 	beeBullet.texture = beeBulletTexture; //link texture to particle
 	beeBulletGoodBye.texture = beeBulletTexture;
+	beeBullet.deathParticle = &beeBulletGoodBye;
 	//ONcollisionParticles link
 	beeBullet.onCollisionGeneralParticle = &beeBulletGoodBye;
 	
@@ -290,6 +299,7 @@ bool ModuleEnemies::Start()
 	glassRotary.texture = enemyColdMachineTexture;
 	glassUpwardsShoot.texture = enemyColdMachineTexture;
 	glassRotary.deathParticle = &glassUpwardsShoot;
+	shurikenDeath.texture = enemyColdMachineTexture;
 	// -------------------------------------------------------------------------------------
 	// AUDIO FX ----------------------------------------------------------------------------
 	App->audio->LoadAudio("assets/Audio/SFX/enemies/Enemy_Explosion.wav", "EnemyDeath", SFX);

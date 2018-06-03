@@ -316,6 +316,8 @@ bool ModulePlayerUnit::Start()
 
 	//re assign needed values to position 0 when start/ re start
 
+	this_state = actualState::LINKED;
+
 	//add unit colliders
 	if (this == App->playerUnit[0])
 	{
@@ -1081,6 +1083,10 @@ bool ModulePlayerUnit::CleanUp()
 	
 	// re assign unit damage, to avoid some circunstances
 	unitDamage = 1;
+	charge = 0;
+	//re assign needed values to position 0 when start/ re start
+
+	this_state = actualState::LINKED;
 
 	// deleting colliders
 	
@@ -1138,12 +1144,12 @@ void ModulePlayerUnit::OnCollision(Collider* c1, Collider* c2)
 	
 	if(actualUnitColor != powerUpColor::ORANGE )
 	{ 
-		// PLAY SFX
-		App->audio->ControlAudio("unitCollider", SFX, PLAY);
-
+		
 		if (this_state == actualState::FREE && c2->type == COLLIDER_WALL && !collisioned &&
 			now_collision_time >= delay_collision_timer && c1 != centerCollider)
 		{
+			// PLAY SFX
+			App->audio->ControlAudio("unitCollider", SFX, PLAY);
 			//collisioned = true;
 			start_collision_time = SDL_GetTicks();
 
