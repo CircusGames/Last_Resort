@@ -41,7 +41,7 @@ Here we are!
 <img src="https://github.com/CircusGames/Last_Resort/blob/master/docs/teamphoto2.png" width="480">
 </p>
 
-***
+
 
 ## Gameplay video of the original title
 
