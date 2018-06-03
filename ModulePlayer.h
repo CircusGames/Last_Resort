@@ -153,6 +153,12 @@ public:
 	Uint32 cadence_bombs = 500;
 
 	bool shootedBombs = false;
+
+	Uint32 start_laser_time;
+	Uint32 now_laser_time;
+	Uint32 cadence_laser = 300;
+
+	bool laserShoot = false;
 };
 
 #endif

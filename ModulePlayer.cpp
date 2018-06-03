@@ -365,7 +365,7 @@ update_status ModulePlayer::Update()
 
 		//if player press keys of particles emitters
 
-		// timers -----
+		// timers --------------------------------------
 		now_missile_time = SDL_GetTicks() - start_missile_time;
 		if (now_missile_time > cadence_missile)
 		{
@@ -378,6 +378,12 @@ update_status ModulePlayer::Update()
 			shootedBombs = false;
 		}
 
+		now_laser_time = SDL_GetTicks() - start_laser_time;
+		if (now_laser_time > cadence_laser)
+			laserShoot = false;
+
+		// ----------------------------------------------
+
 		if (playerInput.shot)//App->input->keyboard[SDL_SCANCODE_SPACE] == KEY_STATE::KEY_DOWN)
 		{
 			LOG("Beam!");
@@ -385,18 +391,25 @@ update_status ModulePlayer::Update()
 			// check laser powerup
 			if (activebuff.laser)
 			{
-				shootingLaser = true;
-				if (this == App->player[1])
+				if (!laserShoot)
 				{
-					App->particles->AddParticle(App->particles->laser, position.x + 32, position.y - 2, COLLIDER_PLAYER2_SHOT);
-					App->particles->AddParticle(App->particles->laserRing, position.x, position.y, COLLIDER_PLAYER2_SHOT);
-				}
-				else
-				{
-					App->particles->AddParticle(App->particles->laser, position.x + 32, position.y - 2, COLLIDER_PLAYER_SHOT); //"shot");
-					App->particles->AddParticle(App->particles->laserRing, position.x - 20 , position.y - 24, COLLIDER_PLAYER_SHOT, {6,0}, 100);
-					App->particles->AddParticle(App->particles->laserRing, position.x - 50, position.y - 24, COLLIDER_PLAYER_SHOT, { 6,0 }, 150);
-					App->particles->AddParticle(App->particles->laserRing, position.x - 80, position.y - 24, COLLIDER_PLAYER_SHOT, { 6,0 }, 200);
+					shootingLaser = true;
+
+					laserShoot = true;
+					start_laser_time = SDL_GetTicks();
+
+					if (this == App->player[1])
+					{
+						App->particles->AddParticle(App->particles->laser, position.x + 32, position.y - 2, COLLIDER_PLAYER2_SHOT);
+						App->particles->AddParticle(App->particles->laserRing, position.x, position.y, COLLIDER_PLAYER2_SHOT);
+					}
+					else
+					{
+						App->particles->AddParticle(App->particles->laser, position.x + 32, position.y - 2, COLLIDER_PLAYER_SHOT); //"shot");
+						App->particles->AddParticle(App->particles->laserRing, position.x - 20, position.y - 24, COLLIDER_PLAYER_SHOT, { 6,0 }, 100);
+						App->particles->AddParticle(App->particles->laserRing, position.x - 50, position.y - 24, COLLIDER_PLAYER_SHOT, { 6,0 }, 150);
+						App->particles->AddParticle(App->particles->laserRing, position.x - 80, position.y - 24, COLLIDER_PLAYER_SHOT, { 6,0 }, 200);
+					}
 				}
 			}
 			// check homing missiles powerup
@@ -405,6 +418,7 @@ update_status ModulePlayer::Update()
 				if (!shootedMissile) 
 				{
 					shootedMissile = true;
+
 					start_missile_time = SDL_GetTicks();
 
 					// PLAY SFX
