@@ -256,7 +256,7 @@ update_status ModuleUI::PostUpdate()//Update()
 		//App->render->DrawQuad(rect, 255, 0, 255, 50);
 
 		SDL_SetRenderDrawBlendMode(App->render->renderer, SDL_BLENDMODE_BLEND);
-		SDL_SetRenderDrawColor(App->render->renderer, 255, 0, 255, 50);
+		SDL_SetRenderDrawColor(App->render->renderer, 255, 0, 255, 1);
 		SDL_RenderFillRect(App->render->renderer, NULL);
 	}
 
