@@ -239,6 +239,7 @@ update_status ModuleContinue::Update()
 	{
 		//App->player[0]->lives--;
 		App->player[0]->lives = 3;
+		App->player[1]->lives = 3;
 		App->fade->FadeToBlack(this, (Module*)App->readyScreen, 0.8f);
 	}
 
