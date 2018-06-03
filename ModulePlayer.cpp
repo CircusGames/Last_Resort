@@ -101,7 +101,8 @@ bool ModulePlayer::Start()
 	releaseSpeed = 0.1f; //speed when releases direction keys to return to idle
 
 	//resets player score on every start
-	playerScore = 0;
+	if(scoreReset)
+		playerScore = 0;
 
 	destroyed = false;
 
@@ -136,6 +137,7 @@ bool ModulePlayer::Start()
 
 update_status ModulePlayer::PreUpdate()
 {
+	scoreReset = false;
 	//Assing respective players Inputs
 	checkInput();
 

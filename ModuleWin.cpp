@@ -41,7 +41,11 @@ update_status ModuleWin::Update()
 	App->render->Blit(winInterface, 48, 16, &winInterfaceRect,0.0f); //
 
 	if (App->input->keyboard[SDL_SCANCODE_RETURN] == KEY_DOWN)
+	{
 		App->fade->FadeToBlack(this, (Module*)App->gameTitle);
+		App->player[0]->scoreReset = true;
+		App->player[1]->scoreReset = true;
+	}
 
 
 	return UPDATE_CONTINUE;
